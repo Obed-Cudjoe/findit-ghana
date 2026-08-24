@@ -2,6 +2,12 @@
 
 **A complete, ready-to-sell website that compares live prices in cedis from named vendors across Ghana.**
 
+## 🌐 Live site
+
+**[https://findit-ghana.vercel.app](https://findit-ghana.vercel.app)**
+
+Everything below explains what the site is and how to run or deploy it — but the site itself is already live at the link above, works on any device, and auto-updates on every push to this repository.
+
 ---
 
 ## What this website is (for buyers and non-technical readers)
@@ -41,7 +47,9 @@ cp .env.example .env.local
 npm run dev
 ```
 
-Open **http://localhost:3000** — the site is live, seeded with 16 demo products, 6 vendors and 4 guides.
+Then open **http://localhost:3000** **on that same computer** — the site loads locally, seeded with 16 demo products, 6 vendors and 4 guides.
+
+> ⚠️ `localhost:3000` only works on the machine running the command (it's your own computer's address, not a public link). If you want to see the public site instead, open **https://findit-ghana.vercel.app**.
 
 ### Admin dashboard
 
