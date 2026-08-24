@@ -1,0 +1,77 @@
+@import "tailwindcss";
+
+/* ============================================================
+   FindIt Ghana — design tokens
+   navy #0F2A43 · gold #F2B705 (brand system from the logo pack)
+   ============================================================ */
+@theme {
+  --color-navy-50: #f2f6fa;
+  --color-navy-100: #dbe6f0;
+  --color-navy-200: #b7cddd;
+  --color-navy-300: #8aa9c0;
+  --color-navy-400: #5d829f;
+  --color-navy-500: #3c6283;
+  --color-navy-600: #2a4b68;
+  --color-navy-700: #1e3a54;
+  --color-navy-800: #152c42;
+  --color-navy-900: #0f2a43;
+  --color-navy-950: #0a1d30;
+
+  --color-gold-300: #f9d36b;
+  --color-gold-400: #f5c242;
+  --color-gold-500: #f2b705;
+  --color-gold-600: #d19d04;
+  --color-gold-700: #a87e03;
+
+  --color-ink: #14202c;
+  --color-slate-soft: #5a646e;
+
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  color: var(--color-ink);
+  background: #ffffff;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: #f2b705;
+  color: #0f2a43;
+}
+
+/* focus ring shared by every interactive element */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid #f2b705;
+  outline-offset: 2px;
+}
+
+/* subtle card hover lift */
+.hover-lift {
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+.hover-lift:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px -12px rgba(15, 42, 67, 0.35);
+}
+
+/* skeletons for loading states */
+.skeleton {
+  background: linear-gradient(90deg, #eef2f6 25%, #e2e9ef 50%, #eef2f6 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s infinite;
+}
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}

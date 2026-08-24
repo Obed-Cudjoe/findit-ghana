@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 150 150">
+  <!-- FindIt Ghana favicon — rounded navy tile with the magnifier + black star mark -->
+  <rect x="0" y="0" width="150" height="150" rx="30" fill="#0F2A43"/>
+  <circle cx="66" cy="66" r="38" fill="none" stroke="#FFFFFF" stroke-width="11"/>
+  <line x1="93.5" y1="93.5" x2="121.5" y2="121.5" stroke="#FFFFFF" stroke-width="17" stroke-linecap="round"/>
+  <path d="M66,43 L71.17,58.89 L87.87,58.89 L74.36,68.72 L79.52,84.61 L66,74.79 L52.48,84.61 L57.64,68.72 L44.13,58.89 L60.83,58.89 Z" fill="#F2B705"/>
+</svg>
