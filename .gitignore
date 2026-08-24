@@ -37,3 +37,7 @@ data/submissions/*.json
 # supabase local dev
 /supabase/.branches
 /supabase/.temp
+
+# GitHub Actions workflows are skipped on deploy (fine-grained tokens without
+# workflow scope cannot create them). Add later with a full-scope token if needed.
+.github/
