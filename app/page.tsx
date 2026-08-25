@@ -40,7 +40,7 @@ export default async function HomePage() {
                   id="hero-q"
                   name="q"
                   type="search"
-                  placeholder="Try “iphone 13” or “gas cooker”…"
+                  placeholder="Try “tecno spark” or “smart tv”…"
                   className="min-w-0 flex-1 px-3 py-4 text-base text-ink placeholder:text-slate-400 focus:outline-none"
                 />
               </div>
@@ -51,7 +51,7 @@ export default async function HomePage() {
           </form>
           <div className="mt-4 flex flex-wrap items-center justify-center gap-2 text-xs text-navy-100">
             <span className="text-navy-300">Popular:</span>
-            {["iphone 13", "gas cooker", "ps5", "airpods", "laptops"].map((s) => (
+            {["tecno", "smart tv", "ps5", "fridge", "laptops"].map((s) => (
               <Link key={s} href={`/search?q=${encodeURIComponent(s)}`} className="rounded-full border border-navy-600 px-3 py-1 hover:border-gold-500 hover:text-gold-400 transition-colors">
                 {s}
               </Link>
