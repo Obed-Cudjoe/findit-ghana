@@ -1,0 +1,743 @@
+{
+  "source": "jumia.com.gh",
+  "description": "Real Jumia Ghana catalogue snapshot. Prices are live GH₵ listing prices captured from jumia.com.gh category pages on the fetchedAt date. discountPct is the marketplace's own displayed discount badge. Run scripts/fetch-jumia.mjs to refresh.",
+  "fetchedAt": "2026-08-25T12:00:00Z",
+  "currency": "GHS",
+  "deliveryModel": "Jumia shows the final delivery fee per address at checkout; marketplace items commonly ship free or for a small location-based fee. Modelled as fee 0 with 'Jumia delivery' 2-5 days.",
+  "products": [
+    {
+      "name": "TECNO Pop 20 – 6.75'' – 128GB ROM – 4GB RAM – Android 15 – 13MP/8MP – 5000mAh – Black",
+      "brand": "TECNO",
+      "category": "phones",
+      "url": "https://www.jumia.com.gh/pop-20-6.75-128gb-rom-4gb-ram-android-15-smart-13mp-rear8mp-front-5000mah-black-tecno-mpg13388770.html",
+      "priceGhs": 1585,
+      "discountPct": 47
+    },
+    {
+      "name": "TECNO Camon 50 Ultra – 6.78\" – 512GB ROM – 8GB RAM – 50MP/50MP – 5200mAh – Moon Shadow Black",
+      "brand": "TECNO",
+      "category": "phones",
+      "url": "https://www.jumia.com.gh/tecno-camon-50-ultra-nano-sim-6.78-512gb-rom-8gb-ram-50mp-rear50mp-front-5200mah-moon-shadow-black-300824680.html",
+      "priceGhs": 6480,
+      "discountPct": 19
+    },
+    {
+      "name": "TECNO Spark 50 – 120Hz 6.78\" HD – 128GB – 4GB RAM – 50MP/8MP – 6400mAh – Black",
+      "brand": "TECNO",
+      "category": "phones",
+      "url": "https://www.jumia.com.gh/tecno-spark-50-120hz-6.78-hd-display-128gb-hdd-4gb-ram-50mp-8mp-6400mah-black-300720377.html",
+      "priceGhs": 2059,
+      "discountPct": 27
+    },
+    {
+      "name": "TECNO Pop 20 – 6.75'' – 128GB – 4GB RAM – 13MP/8MP – 5000mAh – Black",
+      "brand": "TECNO",
+      "category": "phones",
+      "url": "https://www.jumia.com.gh/tecno-pop-20-6.75-display-128gb-hdd-4gb-ram-13mp-8mp-5000mah-black-300666373.html",
+      "priceGhs": 1645,
+      "discountPct": 29
+    },
+    {
+      "name": "TECNO Pop 20 – 6.75'' – 128GB – 4GB RAM – 13MP/8MP – 5000mAh – Grey",
+      "brand": "TECNO",
+      "category": "phones",
+      "url": "https://www.jumia.com.gh/tecno-pop-20-6.75-display-128gb-hdd-4gb-ram-13mp-8mp-5000mah-grey-300666375.html",
+      "priceGhs": 1645,
+      "discountPct": 29
+    },
+    {
+      "name": "TECNO Pop 20 – 6.75'' – 64GB – 4GB RAM – 13MP/8MP – 5000mAh – Black",
+      "brand": "TECNO",
+      "category": "phones",
+      "url": "https://www.jumia.com.gh/tecno-pop-20-6.75-display-64gb-hdd-4gb-ram-13mp-8mp-5000mah-black-300666376.html",
+      "priceGhs": 1499,
+      "discountPct": 9
+    },
+    {
+      "name": "TECNO Pop 20 – 6.75'' – 64GB – 4GB RAM – 13MP/8MP – 5000mAh – Grey",
+      "brand": "TECNO",
+      "category": "phones",
+      "url": "https://www.jumia.com.gh/tecno-pop-20-6.75-display-64gb-hdd-4gb-ram-13mp-8mp-5000mah-grey-300666377.html",
+      "priceGhs": 1499,
+      "discountPct": 9
+    },
+    {
+      "name": "TECNO Camon 50 – 6.78\" – 256GB ROM – 8GB RAM – 50MP/50MP – 5200mAh – Malachite Green",
+      "brand": "TECNO",
+      "category": "phones",
+      "url": "https://www.jumia.com.gh/tecno-camon-50-nano-sim-6.78-256gb-rom-8gb-ram-50mp-rear50mp-front-5200mah-malachite-green-300811546.html",
+      "priceGhs": 3739,
+      "discountPct": 7
+    },
+    {
+      "name": "TECNO Spark 50 Pro – 128GB ROM – 6GB RAM – Ink Black",
+      "brand": "TECNO",
+      "category": "phones",
+      "url": "https://www.jumia.com.gh/spark-50-pro-128gb-rom-6gb-ram-ink-black-tecno-mpg13390732.html",
+      "priceGhs": 2799,
+      "discountPct": 7
+    },
+    {
+      "name": "Infinix Smart 20 – 6.67\" – 64GB – 4GB RAM – Shadow Black",
+      "brand": "Infinix",
+      "category": "phones",
+      "url": "https://www.jumia.com.gh/infinix-smart-20-6.67-64gb-4gb-ram-shadow-black-300795278.html",
+      "priceGhs": 1352,
+      "discountPct": 32
+    },
+    {
+      "name": "Infinix Smart 20 – 6.67\" – 128GB – 4GB RAM – Shadow Black",
+      "brand": "Infinix",
+      "category": "phones",
+      "url": "https://www.jumia.com.gh/infinix-smart-20-6.67-128gb-4gb-ram-shadow-black-300824857.html",
+      "priceGhs": 1611,
+      "discountPct": 20
+    },
+    {
+      "name": "Infinix Smart 20 – 6.67\" – 64GB – 4GB RAM – Cloudline Blue",
+      "brand": "Infinix",
+      "category": "phones",
+      "url": "https://www.jumia.com.gh/infinix-smart-20-6.67-64gb-4gb-ram-cloudline-blue-300796483.html",
+      "priceGhs": 1352,
+      "discountPct": 32
+    },
+    {
+      "name": "Infinix Smart 20 – 120Hz 6.78\" Punch-Hole – 64GB – 4GB RAM – 13MP/8MP – 5200mAh – Grey",
+      "brand": "Infinix",
+      "category": "phones",
+      "url": "https://www.jumia.com.gh/infinix-smart-20-120hz-smooth-display-6.78-punch-hole-screen-64gb-hdd-4gb-ram-13mp-8mp-5200mah-grey-300709679.html",
+      "priceGhs": 1420,
+      "discountPct": 23
+    },
+    {
+      "name": "Infinix Hot 70 – 128GB – 4GB RAM – Silver Dancer",
+      "brand": "Infinix",
+      "category": "phones",
+      "url": "https://www.jumia.com.gh/infinix-hot-70-128gb-4gb-silver-dancer-300827177.html",
+      "priceGhs": 1802,
+      "discountPct": 18
+    },
+    {
+      "name": "Infinix Hot 70 – 256GB – 6GB RAM – Green Texture",
+      "brand": "Infinix",
+      "category": "phones",
+      "url": "https://www.jumia.com.gh/infinix-hot-70-256gb-6gb-green-texture-300827185.html",
+      "priceGhs": 2728,
+      "discountPct": 9
+    },
+    {
+      "name": "WSD E142N – 14\" Laptop – Intel N3450 – 6GB RAM + 256GB SSD – Win10",
+      "brand": "WSD",
+      "category": "laptops",
+      "url": "https://www.jumia.com.gh/wsd-brand-new-e142n-14laptop-intel-n3450-6gb256-gb-ssd-win10-portable-computer-290747683.html",
+      "priceGhs": 3185,
+      "oldPriceGhs": 3770,
+      "discountPct": 16,
+      "rating": 3.4,
+      "reviews": 5
+    },
+    {
+      "name": "HP EliteBook 840 G6 – Core i5 8th Gen – 8GB RAM – 256GB SSD – Touch Screen – Silver",
+      "brand": "HP",
+      "category": "laptops",
+      "url": "https://www.jumia.com.gh/hp-840-g6-i5-8th-8gb-256ssd-touch-screen-silver-300639128.html",
+      "priceGhs": 4999,
+      "oldPriceGhs": 7999,
+      "discountPct": 38,
+      "rating": 4.0,
+      "reviews": 2
+    },
+    {
+      "name": "HP ProBook 640 G5 – 14\" Core i5 – 8GB RAM – 256GB SSD – Windows 11 – Silver",
+      "brand": "HP",
+      "category": "laptops",
+      "url": "https://www.jumia.com.gh/hp-probook-640-g5-14-core-i5-8-gb-ram-256-gb-ssd-windows-11-silver-300641004.html",
+      "priceGhs": 3999,
+      "oldPriceGhs": 5499,
+      "discountPct": 27,
+      "rating": 4.2,
+      "reviews": 10
+    },
+    {
+      "name": "Fangzheng 14\" Ultra-thin Laptop – Celeron – 8GB LPDDR4 – 512GB – Grey",
+      "brand": "Fangzheng",
+      "category": "laptops",
+      "url": "https://www.jumia.com.gh/fangzheng-14-inch-ultra-thin-lightweight-laptop-celeron-processor-uhd-graphics-card-basic-frequency-of-200-mhz-privacy-camera-8gb-lpddr4-512gb-sata-affordable-laptop-pc-suitable-for-daily-life-games-office-students-creativity-grey-300562306.html",
+      "priceGhs": 3500,
+      "oldPriceGhs": 4500,
+      "discountPct": 22
+    },
+    {
+      "name": "Hikers 43\" Frameless Android Smart FHD LED TV – HDMI – Black",
+      "brand": "Hikers",
+      "category": "tv-audio",
+      "url": "https://www.jumia.com.gh/43-inch-frameless-android-smart-fhd-led-tv-hdmi-black-hikers-mpg13348358.html",
+      "priceGhs": 1780,
+      "discountPct": 47
+    },
+    {
+      "name": "LP Smart TV 32\" – Android 14 – 1GB+8GB – Frameless HD – WiFi – 2 HDMI/2 USB + 1yr warranty",
+      "brand": "LP",
+      "category": "tv-audio",
+      "url": "https://www.jumia.com.gh/lp-smart-tv-32-android-14.0-18g-frameless-hd-wifi-2-hdmi-2-usb-ports-1-year-warranty-300588559.html",
+      "priceGhs": 1150,
+      "discountPct": 53
+    },
+    {
+      "name": "Hikers 32\" Digital Frameless HD LED TV – HDMI – USB – Black",
+      "brand": "Hikers",
+      "category": "tv-audio",
+      "url": "https://www.jumia.com.gh/32-digital-frameless-hd-led-tv-hdmi-usb-black-hikers-mpg13348359.html",
+      "priceGhs": 855,
+      "discountPct": 54
+    },
+    {
+      "name": "Hikers Android TV 32\" GH-32GY-HDS – Frameless Smart HD LED TV – 1yr warranty",
+      "brand": "Hikers",
+      "category": "tv-audio",
+      "url": "https://www.jumia.com.gh/gh-32gy-hds-32-frameless-android-smart-hd-led-tv-hdmi-usb-black-hikers-mpg12008971.html",
+      "priceGhs": 1095,
+      "discountPct": 50
+    },
+    {
+      "name": "Hikers Smart TV 55\" 4K UHD – Frameless – 1.5G+8G – Vidaa TV – Black",
+      "brand": "Hikers",
+      "category": "tv-audio",
+      "url": "https://www.jumia.com.gh/hikers-smart-tv-55-4k-uhd-frameless-1.5g8g-ir-remotevidaa-tv-black-hikers-mpg13348361.html",
+      "priceGhs": 3732,
+      "discountPct": 41
+    },
+    {
+      "name": "Hikers 50\" Smart TV – Frameless Smart Android FHD – Black",
+      "brand": "Hikers",
+      "category": "tv-audio",
+      "url": "https://www.jumia.com.gh/hikers-50-smart-tv-frameless-smart-android-tv-fhd-black-300518093.html",
+      "priceGhs": 2717,
+      "discountPct": 54
+    },
+    {
+      "name": "AMVO LES4305W 43\" 2K FHD Frameless Digital TV – HDMI – 1yr warranty",
+      "brand": "AMVO",
+      "category": "tv-audio",
+      "url": "https://www.jumia.com.gh/amvo-les4305w-43-2k-fhd-frameless-digital-tv-with-hdmi-black-1yr-wrty-300494113.html",
+      "priceGhs": 1630,
+      "discountPct": 26
+    },
+    {
+      "name": "AMVO LSS4301W 43\" Frameless Android Smart FHD LED TV – 1yr warranty",
+      "brand": "AMVO",
+      "category": "tv-audio",
+      "url": "https://www.jumia.com.gh/amvo-lss4301w-43-frameless-android-smart-fhd-led-tv-black-1yr-wrty-266143969.html",
+      "priceGhs": 1830,
+      "discountPct": 30
+    },
+    {
+      "name": "Hikers 43\" Android Smart TV – Frameless FHD LED – HDMI – Black",
+      "brand": "Hikers",
+      "category": "tv-audio",
+      "url": "https://www.jumia.com.gh/hikers-43-android-tv-smart-tv-frameless-android-smart-fhd-led-tv-hdmi-black-300593365.html",
+      "priceGhs": 1997,
+      "discountPct": 49
+    },
+    {
+      "name": "SMECO 32\" Frameless Digital Satellite TV – USB – HDMI + 12 months warranty",
+      "brand": "SMECO",
+      "category": "tv-audio",
+      "url": "https://www.jumia.com.gh/smeco-32-frameless-digital-satellite-tv-usb-hdmi-black12-months-warranty-146631770.html",
+      "priceGhs": 896,
+      "discountPct": 38
+    },
+    {
+      "name": "Nasco NAS-B32FBFL Digital Satellite TV – 32\" – Black",
+      "brand": "Nasco",
+      "category": "tv-audio",
+      "url": "https://www.jumia.com.gh/nas-j32fbfl-led-digital-satelite-tv-32-inch-black-nasco-mpg7628920.html",
+      "priceGhs": 955,
+      "discountPct": 27
+    },
+    {
+      "name": "TCL 50S5K – QLED 2K UHD Android TV – 50 inch – Black",
+      "brand": "TCL",
+      "category": "tv-audio",
+      "url": "https://www.jumia.com.gh/tcl-50s5k-qled-2k-uhd-android-tv-50-inch-black-300648323.html",
+      "priceGhs": 3708,
+      "discountPct": 27
+    },
+    {
+      "name": "Hikers Smart TV 43\" – Frameless Android Smart FHD LED TV – Black",
+      "brand": "Hikers",
+      "category": "tv-audio",
+      "url": "https://www.jumia.com.gh/hikers-smart-tv-43-frameless-android-smart-fhd-led-tv-hdmi-black-300499465.html",
+      "priceGhs": 1996,
+      "discountPct": 47
+    },
+    {
+      "name": "AMVO LES3205W 32\" Digital Frameless HD LED TV – HDMI – USB – Black",
+      "brand": "AMVO",
+      "category": "tv-audio",
+      "url": "https://www.jumia.com.gh/amvo-les3205w-32-digital-satellite-frameless-hd-led-tv-hdmi-usb-black-218278829.html",
+      "priceGhs": 890,
+      "discountPct": 26
+    },
+    {
+      "name": "HiFi Digital Bluetooth Amplifier – 300W+300W 2.0 Stereo – Home Theater/Car",
+      "brand": "Generic",
+      "category": "tv-audio",
+      "url": "https://www.jumia.com.gh/generic-hifi-digital-amplifier-bluetooth-amplifiers-300w300w-channel-2.0-stereo-power-sound-amp-for-car-home-theater-287138769.html",
+      "priceGhs": 267,
+      "discountPct": 63
+    },
+    {
+      "name": "Home Portable Wireless Bluetooth Microphone Smart Speaker",
+      "brand": "Generic",
+      "category": "tv-audio",
+      "url": "https://www.jumia.com.gh/generic-home-portable-wireless-bluetooth-microphone-smart-speaker-276497631.html",
+      "priceGhs": 88,
+      "discountPct": 79
+    },
+    {
+      "name": "AK35 800W Home Bluetooth Woofer – 100–240V/12V – Black",
+      "brand": "Generic",
+      "category": "tv-audio",
+      "url": "https://www.jumia.com.gh/generic-ak35-800w-home-100-240v-12v-basse-audio-bluetooth-woofer-black-116159836.html",
+      "priceGhs": 245,
+      "discountPct": 46
+    },
+    {
+      "name": "AK270 Mini Digital Stereo Power Amplifier – 2-Channel – Black",
+      "brand": "Generic",
+      "category": "tv-audio",
+      "url": "https://www.jumia.com.gh/generic-ak270-mini-digital-power-audio-car-amplifier-blue-light-stereo-audio-amplifier-stereo-power-amplifier-black-mini-audio-2-channel-stereo-amplifier-portable-sound-300610741.html",
+      "priceGhs": 69,
+      "discountPct": 54
+    },
+    {
+      "name": "Bluetooth 5.0 Wireless Audio Transceiver – TF card – 3.5mm AUX",
+      "brand": "Generic",
+      "category": "tv-audio",
+      "url": "https://www.jumia.com.gh/generic-bluetooth-5.0-wireless-audio-trans-ceiver-tf-card-3.5mm-aux-jack-290664728.html",
+      "priceGhs": 97,
+      "discountPct": 43
+    },
+    {
+      "name": "Delron Single Door Chest Freezer – 197L – DCF-200NV",
+      "brand": "Delron",
+      "category": "appliances",
+      "url": "https://www.jumia.com.gh/delron-single-door-chest-freezer-197litres-model-dcf-200nv-212443978.html",
+      "priceGhs": 2739,
+      "discountPct": 32
+    },
+    {
+      "name": "Westpool 112L Double Door Refrigerator – 167A – Silver + free fridge guard",
+      "brand": "Westpool",
+      "category": "appliances",
+      "url": "https://www.jumia.com.gh/wp-167-double-door-refrigerator-118-liters-silver-free-fridge-guard-westpool-mpg1646883.html",
+      "priceGhs": 2211,
+      "discountPct": 37
+    },
+    {
+      "name": "Roch RFR-140T-B – 117L Double Door Refrigerator – Silver",
+      "brand": "Roch",
+      "category": "appliances",
+      "url": "https://www.jumia.com.gh/roch-rfr-140t-b-117liters-double-door-refrigerator-silver-286294858.html",
+      "priceGhs": 2176,
+      "discountPct": 27
+    },
+    {
+      "name": "Garvio GHBX-170A Double Door Refrigerator – 140L – Silver",
+      "brand": "Garvio",
+      "category": "appliances",
+      "url": "https://www.jumia.com.gh/garvio-fridge-ghbx-170a-double-door-140-liters-refrigerator-silver-300593318.html",
+      "priceGhs": 2250,
+      "discountPct": 47
+    },
+    {
+      "name": "Delron DRF-119C Double Door Combi (Bottom Freezer) Refrigerator – 119L – Grey",
+      "brand": "Delron",
+      "category": "appliances",
+      "url": "https://www.jumia.com.gh/delron-drf-119c-double-door-combi-bottom-freezer-refrigerator-119-litres-grey-10259423.html",
+      "priceGhs": 2535,
+      "discountPct": 37
+    },
+    {
+      "name": "Delron DRF-119C Combi Double Door Refrigerator – 119L – Grey",
+      "brand": "Delron",
+      "category": "appliances",
+      "url": "https://www.jumia.com.gh/delron-drf-119c-combi-bottom-freezer-double-door-refrigerator-119-litres-grey-300586572.html",
+      "priceGhs": 2428,
+      "discountPct": 39
+    },
+    {
+      "name": "SAYA BD-300 Chest Freezer – 295L – Silver",
+      "brand": "SAYA",
+      "category": "appliances",
+      "url": "https://www.jumia.com.gh/saya-bd-300-chest-freezer-295l-silver-300647166.html",
+      "priceGhs": 4940,
+      "discountPct": 23
+    },
+    {
+      "name": "SAYA BD-400 Chest Freezer – 397L – Silver",
+      "brand": "SAYA",
+      "category": "appliances",
+      "url": "https://www.jumia.com.gh/saya-bd-400-chest-freezer-397l-silver-300647179.html",
+      "priceGhs": 8450
+    },
+    {
+      "name": "Nexus 117L Double Door Refrigerator – NX-RF-140 – Silver",
+      "brand": "Nexus",
+      "category": "appliances",
+      "url": "https://www.jumia.com.gh/nexus-117-litres-double-door-refrigerator-nx-rf-140-silver-286207535.html",
+      "priceGhs": 2200,
+      "discountPct": 31
+    },
+    {
+      "name": "Nexus 95L Chest Freezer – Smart Cooling – Grey",
+      "brand": "Nexus",
+      "category": "appliances",
+      "url": "https://www.jumia.com.gh/nexus-95liters-chest-freezer-95l-net-capacity-smart-cooling-for-every-home-gray-300652081.html",
+      "priceGhs": 2400,
+      "discountPct": 20
+    },
+    {
+      "name": "Delron DDCF-190 Display/Showcase Freezer – 190L",
+      "brand": "Delron",
+      "category": "appliances",
+      "url": "https://www.jumia.com.gh/delron-ddcf-190-displayshowcase-freezer-190litres-300419556.html",
+      "priceGhs": 3829,
+      "discountPct": 39
+    },
+    {
+      "name": "Nexus 142L Double Door Combi Refrigerator – NX-RF-142 – Silver",
+      "brand": "Nexus",
+      "category": "appliances",
+      "url": "https://www.jumia.com.gh/nexus-142-liters-double-door-combi-refrigerator-nx-rf-142-silver-229446064.html",
+      "priceGhs": 2824,
+      "discountPct": 18
+    },
+    {
+      "name": "Roch 7kg Twin Tub Semi-Automatic Washing Machine – RWM 910TT-J(W) – White/Blue",
+      "brand": "Roch",
+      "category": "appliances",
+      "url": "https://www.jumia.com.gh/roch-7kg-twin-tub-semi-automatic-washing-machine-rwm-910tt-jw-whiteblue-121498799.html",
+      "priceGhs": 1503,
+      "oldPriceGhs": 1999,
+      "discountPct": 25,
+      "rating": 4.1,
+      "reviews": 862
+    },
+    {
+      "name": "Delron DWM-008VP Twin Tub Washing Machine – 7kg – White",
+      "brand": "Delron",
+      "category": "appliances",
+      "url": "https://www.jumia.com.gh/delron-dwm-008vp-twin-tub-washing-machine-7kg-white-300809560.html",
+      "priceGhs": 1553,
+      "oldPriceGhs": 1870,
+      "discountPct": 17,
+      "rating": 4.1,
+      "reviews": 39
+    },
+    {
+      "name": "Roch 10kg Twin Tub Semi-Automatic Washing Machine – RWM-120TT-J(W) – White/Blue",
+      "brand": "Roch",
+      "category": "appliances",
+      "url": "https://www.jumia.com.gh/roch-10kg-twin-tub-semi-automatic-washing-machine-rwm-120tt-jw-whiteblue-300793553.html",
+      "priceGhs": 2268,
+      "oldPriceGhs": 3000,
+      "discountPct": 24,
+      "rating": 4.8,
+      "reviews": 8
+    },
+    {
+      "name": "Delron DWM-12 Twin Tub Semi-Automatic Washing Machine – 12kg – White",
+      "brand": "Delron",
+      "category": "appliances",
+      "url": "https://www.jumia.com.gh/delron-dwm-12-twin-tub-semi-automatic-washing-machine-12kg-white-300832440.html",
+      "priceGhs": 2410,
+      "oldPriceGhs": 3200,
+      "discountPct": 25
+    },
+    {
+      "name": "Westpool WP1008A Twin Tub Top Load Washing Machine – 10kg – White",
+      "brand": "Westpool",
+      "category": "appliances",
+      "url": "https://www.jumia.com.gh/westpool-wp1008a-twin-tub-top-load-washing-machine-10kg-white-300794891.html",
+      "priceGhs": 2211,
+      "oldPriceGhs": 3000,
+      "discountPct": 26,
+      "rating": 3.7,
+      "reviews": 6
+    },
+    {
+      "name": "Nasco NAS-07-TW 7kg Semi-Automatic Twin Tub Washing Machine – Black",
+      "brand": "Nasco",
+      "category": "appliances",
+      "url": "https://www.jumia.com.gh/nas-07-tw-7kg-semi-automatic-twin-tub-washing-machine-white-nasco-mpg7627580.html",
+      "priceGhs": 1588,
+      "oldPriceGhs": 2300,
+      "discountPct": 31,
+      "rating": 4.2,
+      "reviews": 851
+    },
+    {
+      "name": "Westpool WP1208A Twin Tub Semi-Automatic Washing Machine – 12kg – White",
+      "brand": "Westpool",
+      "category": "appliances",
+      "url": "https://www.jumia.com.gh/westpool-wp1208a-twin-tub-semi-automatic-washing-machine-12kg-white-300794893.html",
+      "priceGhs": 2552,
+      "oldPriceGhs": 3200,
+      "discountPct": 20,
+      "rating": 3.8,
+      "reviews": 4
+    },
+    {
+      "name": "Portable Single Tub Semi-Automatic Washing Machine – 2-in-1 Clothes & Shoes",
+      "brand": "Generic",
+      "category": "appliances",
+      "url": "https://www.jumia.com.gh/generic-portable-single-tub-semi-automatic-washing-machine-2-in-1-clothes-shoes-washer-energy-saving-saves-water-electricity-anti-rust-286856619.html",
+      "priceGhs": 1219,
+      "oldPriceGhs": 1658,
+      "discountPct": 27,
+      "rating": 3.7,
+      "reviews": 40
+    },
+    {
+      "name": "PlayStation DualSense Wireless Controller for PS5 – Black",
+      "brand": "Sony",
+      "category": "gaming",
+      "url": "https://www.jumia.com.gh/playstation-dualsense-wireless-controller-for-ps5-black-300766853.html",
+      "priceGhs": 999,
+      "oldPriceGhs": 1500,
+      "discountPct": 33,
+      "rating": 5.0,
+      "reviews": 1
+    },
+    {
+      "name": "PlayStation DualSense Wireless Controller for PS5 + Free HP Gaming Headset – Black",
+      "brand": "Sony",
+      "category": "gaming",
+      "url": "https://www.jumia.com.gh/playstation-dualsense-wireless-controller-for-ps5-free-hp-gaming-headset-black-300766887.html",
+      "priceGhs": 1299,
+      "oldPriceGhs": 1500,
+      "discountPct": 13
+    },
+    {
+      "name": "Microsoft Xbox Wireless Controller – Robot White",
+      "brand": "Microsoft",
+      "category": "gaming",
+      "url": "https://www.jumia.com.gh/microsoft-xbox-wireless-controller-robot-white-291049645.html",
+      "priceGhs": 1199,
+      "oldPriceGhs": 1300,
+      "discountPct": 8
+    },
+    {
+      "name": "PlayStation DualSense Edge Wireless Controller",
+      "brand": "Sony",
+      "category": "gaming",
+      "url": "https://www.jumia.com.gh/licensed-playstation-playstation-dualsense-edge-wireless-controller-291048662.html",
+      "priceGhs": 4499,
+      "oldPriceGhs": 5000,
+      "discountPct": 10
+    },
+    {
+      "name": "Dobe PS5 Slim Console Cooling Fan",
+      "brand": "Dobe",
+      "category": "gaming",
+      "url": "https://www.jumia.com.gh/dobe-ps5-slim-console-cooling-fan-300644334.html",
+      "priceGhs": 449,
+      "oldPriceGhs": 700,
+      "discountPct": 36
+    },
+    {
+      "name": "Retro Gaming Console – Wireless Game Stick 4K – 20000+ Retro Games – TV-Connectable",
+      "brand": "Generic",
+      "category": "gaming",
+      "url": "https://www.jumia.com.gh/generic-retro-gaming-console-retro-game-stick-wireless-game-stick-game-stick-4k20000-retro-games-tv-connectable-game-console-300836722.html",
+      "priceGhs": 200
+    },
+    {
+      "name": "Portable Video Game Console – 3.5\" HD Retro Screen – 500 Games",
+      "brand": "Generic",
+      "category": "gaming",
+      "url": "https://www.jumia.com.gh/generic-portable-video-game-console-3.5-inch-high-definition-large-retro-screen-with-500-games-158972067.html",
+      "priceGhs": 168,
+      "discountPct": 54
+    },
+    {
+      "name": "Insomniac Games Spider-Man 2 – PS5 Game",
+      "brand": "Insomniac Games",
+      "category": "gaming",
+      "url": "https://www.jumia.com.gh/insomniac-games-spider-man-2-ps5-game-148163885.html",
+      "priceGhs": 899,
+      "oldPriceGhs": 1000,
+      "discountPct": 10
+    },
+    {
+      "name": "God of War Ragnarök – PS5 Game",
+      "brand": "Santa Monica Studio",
+      "category": "gaming",
+      "url": "https://www.jumia.com.gh/santa-monica-god-of-war-ragnarok-ps5-game-147734967.html",
+      "priceGhs": 799,
+      "oldPriceGhs": 1000,
+      "discountPct": 20
+    },
+    {
+      "name": "Rockstar Games GTA 5 – PS5",
+      "brand": "Rockstar Games",
+      "category": "gaming",
+      "url": "https://www.jumia.com.gh/rockstar-games-gta-5-ps5-300649649.html",
+      "priceGhs": 749,
+      "oldPriceGhs": 850,
+      "discountPct": 12,
+      "rating": 5.0,
+      "reviews": 1
+    },
+    {
+      "name": "WWE 2K26 – PlayStation 5 Game Disc",
+      "brand": "2K Games",
+      "category": "gaming",
+      "url": "https://www.jumia.com.gh/2k-games-wwe-2k26-playstation-5-game-disc-300758980.html",
+      "priceGhs": 1099,
+      "oldPriceGhs": 1200,
+      "discountPct": 8
+    },
+    {
+      "name": "Mortal Kombat 1 – PS5 Game",
+      "brand": "Warner Bros. Games",
+      "category": "gaming",
+      "url": "https://www.jumia.com.gh/warner-bros.-interactive-mortal-kombat-1-ps5-game-148163889.html",
+      "priceGhs": 799,
+      "oldPriceGhs": 1000,
+      "discountPct": 20
+    },
+    {
+      "name": "Sega Sonic Superstars – PS5 Game",
+      "brand": "Sega",
+      "category": "gaming",
+      "url": "https://www.jumia.com.gh/sega-sonic-superstars-ps5-game-148163891.html",
+      "priceGhs": 849,
+      "oldPriceGhs": 900,
+      "discountPct": 6
+    },
+    {
+      "name": "Smart Watch Ultra – 7-in-1 Straps – Bluetooth Call – Heart Rate – Wireless Charging – Black",
+      "brand": "Generic",
+      "category": "fashion",
+      "url": "https://www.jumia.com.gh/generic-smart-watch-ultra-7-in1-straps-bluetooth-call-heart-rate-wireless-charging-black-166014748.html",
+      "priceGhs": 86,
+      "oldPriceGhs": 259,
+      "discountPct": 67,
+      "rating": 3.6,
+      "reviews": 3078
+    },
+    {
+      "name": "Oraimo Watch 5 Lite Smart Watch – 2.01\" HD – IP68 – Wireless HD Calling – Black",
+      "brand": "Oraimo",
+      "category": "fashion",
+      "url": "https://www.jumia.com.gh/oraimo-watch-5-lite-smart-watch-2.01-hd-ip68-wireless-hd-calling-black-290664843.html",
+      "priceGhs": 150,
+      "oldPriceGhs": 253,
+      "discountPct": 41,
+      "rating": 4.2,
+      "reviews": 399
+    },
+    {
+      "name": "Oraimo Watch 5 Lite Multifunctional Fitness Smart Watch – Health & Sport Tracking",
+      "brand": "Oraimo",
+      "category": "fashion",
+      "url": "https://www.jumia.com.gh/oraimo-watch-5-lite-multifunctional-fitness-smart-watch-with-health-sport-tracking-287504436.html",
+      "priceGhs": 143,
+      "oldPriceGhs": 398,
+      "discountPct": 64,
+      "rating": 4.3,
+      "reviews": 95
+    },
+    {
+      "name": "TiLECC T900 Pro Max – 49mm 2.09-inch Smart Watch – Black",
+      "brand": "TiLECC",
+      "category": "fashion",
+      "url": "https://www.jumia.com.gh/tilecc-2023-new-t900-pro-max-49mm-2.09-inch-smart-watch-black-145352214.html",
+      "priceGhs": 75,
+      "oldPriceGhs": 184,
+      "discountPct": 59,
+      "rating": 3.6,
+      "reviews": 1841
+    },
+    {
+      "name": "I20 Ultra Max Smart Watch – 10-in-1 Waterproof – 7 Straps + Case + Earphones – Gold",
+      "brand": "Generic",
+      "category": "fashion",
+      "url": "https://www.jumia.com.gh/generic-i20-ultra-max-smart-watch-ultra-10-in1-waterproof-7-straps-protective-case-earphones-gold-233230696.html",
+      "priceGhs": 119,
+      "oldPriceGhs": 313,
+      "discountPct": 62,
+      "rating": 3.6,
+      "reviews": 689
+    },
+    {
+      "name": "SUNDASELF IP68 Waterproof 2.09\" Smartwatch Ultra T900U – Metal – Bluetooth V5.3",
+      "brand": "SUNDASELF",
+      "category": "fashion",
+      "url": "https://www.jumia.com.gh/sundaself-ip68-waterproof-2.09-smartwatch-ultra-t900u-black-metal-bluetooth-v5.3-300314999.html",
+      "priceGhs": 40,
+      "oldPriceGhs": 135,
+      "discountPct": 71,
+      "rating": 3.6,
+      "reviews": 74
+    },
+    {
+      "name": "Two-in-one T55 Smart Watch + Bluetooth Headset – Black",
+      "brand": "Generic",
+      "category": "fashion",
+      "url": "https://www.jumia.com.gh/generic-two-in-one-t55-smart-watch-bluetooth-headset-black-146876074.html",
+      "priceGhs": 89,
+      "oldPriceGhs": 207,
+      "discountPct": 57,
+      "rating": 3.3,
+      "reviews": 985
+    },
+    {
+      "name": "Oraimo Watch Nova N – 2.5D Curved Glass Smart Watch",
+      "brand": "Oraimo",
+      "category": "fashion",
+      "url": "https://www.jumia.com.gh/oraimo-watch-nova-n-2.5d-curved-glass-smart-watch-286851521.html",
+      "priceGhs": 331,
+      "oldPriceGhs": 704,
+      "discountPct": 53,
+      "rating": 4.0,
+      "reviews": 43
+    },
+    {
+      "name": "TiLECC T800 Smart Watch Ultra Series 8 – Door Access",
+      "brand": "TiLECC",
+      "category": "fashion",
+      "url": "https://www.jumia.com.gh/tilecc-tilecc-t800-smart-watch-ultra-8-door-access-smartwatch-series-8-113242966.html",
+      "priceGhs": 60,
+      "oldPriceGhs": 243,
+      "discountPct": 75,
+      "rating": 3.6,
+      "reviews": 2026
+    },
+    {
+      "name": "EAGEAT T800 Smart Watch Ultra Series 8 – Door Access",
+      "brand": "EAGEAT",
+      "category": "fashion",
+      "url": "https://www.jumia.com.gh/eageat-t800-smart-watch-ultra-8-door-access-smartwatch-series-8-253417822.html",
+      "priceGhs": 63,
+      "oldPriceGhs": 89,
+      "discountPct": 29,
+      "rating": 3.7,
+      "reviews": 451
+    },
+    {
+      "name": "Kingnote 2.09\" T900U Smart Watch – Dual Band 2-in-1 with Bluetooth Headset",
+      "brand": "Kingnote",
+      "category": "fashion",
+      "url": "https://www.jumia.com.gh/kingnote-2.09inch-t900u-smart-watch-dual-band-2-in-1-with-bluetooth-headset-300542891.html",
+      "priceGhs": 66,
+      "oldPriceGhs": 238,
+      "discountPct": 72,
+      "rating": 3.7,
+      "reviews": 40
+    }
+  ]
+}

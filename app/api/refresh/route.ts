@@ -1,8 +1,9 @@
 // GET /api/refresh — daily price-refresh cron (Vercel Cron calls this at 06:00 UTC).
-// In Supabase mode this upserts fresh vendor data; in demo mode it re-stamps
-// freshness markers so the "prices checked daily" promise stays verifiable.
+// In Supabase mode this upserts fresh vendor data; in demo mode it reports the
+// real Jumia Ghana catalogue snapshot the site is serving (lib/feeds/jumia.ts).
 import { NextResponse, type NextRequest } from "next/server";
 import { isSupabaseMode } from "@/lib/store";
+import { jumiaProducts, jumiaOffers, jumiaCatalogMeta } from "@/lib/feeds/jumia";
 
 export async function GET(request: NextRequest) {
   // Cron protection: Vercel sends CRON_SECRET as a Bearer token.
@@ -25,14 +26,18 @@ export async function GET(request: NextRequest) {
     });
   }
 
-  // Demo mode: report the simulated refresh counts.
+  // Demo mode: the real Jumia Ghana catalogue snapshot currently being served.
+  const meta = jumiaCatalogMeta();
   return NextResponse.json({
     ok: true,
     mode: "demo",
-    products: 16,
-    offers: 36,
-    snapshots: 17,
+    source: meta.source,
+    catalogFetchedAt: meta.fetchedAt,
+    products: jumiaProducts().length,
+    offers: jumiaOffers().length,
+    snapshots: 0,
     staleDeactivated: 0,
+    note: "Refresh prices by running scripts/fetch-jumia.mjs and committing the updated data/jumia-catalog.json.",
     at: new Date().toISOString(),
   });
 }
