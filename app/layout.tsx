@@ -40,7 +40,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {/* Site header — shared across every public page */}
         <header className="sticky top-0 z-40 bg-navy-900 text-white shadow-lg">
           <div className="mx-auto max-w-6xl px-4">
-            <div className="flex h-16 items-center gap-3">
+            <div className="flex h-16 min-w-0 items-center gap-3">
               <Link href="/" className="flex items-center gap-2.5 shrink-0" aria-label="FindIt Ghana home">
                 <svg width="30" height="30" viewBox="0 0 150 150" aria-hidden="true" className="shrink-0">
                   <circle cx="66" cy="66" r="38" fill="none" stroke="#FFFFFF" strokeWidth="11" />
@@ -154,7 +154,7 @@ function HeaderSearch() {
           name="q"
           type="search"
           placeholder="Search prices in Ghana…"
-          className="w-full bg-transparent px-4 py-2 text-sm text-white placeholder:text-navy-300 focus:outline-none"
+          className="min-w-0 flex-1 bg-transparent px-4 py-2 text-sm text-white placeholder:text-navy-300 focus:outline-none"
         />
         <button type="submit" aria-label="Search" className="shrink-0 bg-gold-500 px-4 py-2 text-navy-950 hover:bg-gold-400 transition-colors">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" aria-hidden="true"><circle cx="11" cy="11" r="7" /><path d="M21 21l-4.3-4.3" /></svg>
@@ -172,18 +172,18 @@ function MobileMenu() {
       <label
         htmlFor="mobile-menu-toggle"
         className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-lg hover:bg-navy-800 transition-colors"
-        aria-hidden="true"
+        aria-label="Open menu"
       >
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="pointer-events-none">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="pointer-events-none" aria-hidden="true">
           <path d="M4 7h16M4 12h16M4 17h16" />
         </svg>
       </label>
       {/* dropdown panel — toggled by the peer checkbox */}
-      <div className="pointer-events-none absolute inset-x-0 top-16 hidden flex-col border-t border-navy-800 bg-navy-900 peer-checked:pointer-events-auto peer-checked:flex">
-        <nav className="mx-auto w-full max-w-6xl px-4 py-4 flex flex-col gap-1" aria-label="Mobile navigation">
+      <div className="pointer-events-none fixed inset-x-0 top-16 z-50 hidden max-h-[calc(100dvh-4rem)] flex-col overflow-y-auto border-t border-navy-800 bg-navy-900 shadow-2xl peer-checked:pointer-events-auto peer-checked:flex">
+        <nav className="mx-auto flex w-full max-w-6xl flex-col gap-1 px-4 py-4 pb-[calc(1rem+env(safe-area-inset-bottom))]" aria-label="Mobile navigation">
           <form action="/search" method="get" className="mb-2">
-            <div className="flex rounded-lg bg-navy-800 overflow-hidden">
-              <input name="q" type="search" placeholder="Search prices…" className="w-full bg-transparent px-4 py-2.5 text-sm text-white placeholder:text-navy-300 focus:outline-none" aria-label="Search prices" />
+            <div className="flex overflow-hidden rounded-lg bg-navy-800">
+              <input name="q" type="search" placeholder="Search prices…" className="min-w-0 flex-1 bg-transparent px-4 py-2.5 text-base text-white placeholder:text-navy-300 focus:outline-none" aria-label="Search prices" />
               <button type="submit" className="bg-gold-500 px-4 text-navy-950 hover:bg-gold-400 transition-colors" aria-label="Search">Go</button>
             </div>
           </form>

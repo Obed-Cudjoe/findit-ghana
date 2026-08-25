@@ -41,7 +41,7 @@ export function LoginForm() {
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className="w-full rounded-lg border border-navy-200 px-3 py-2.5 text-sm focus:border-gold-500 focus:outline-none focus:ring-2 focus:ring-gold-500/30"
+          className="w-full rounded-lg border border-navy-200 px-3 py-2.5 text-base focus:border-gold-500 focus:outline-none focus:ring-2 focus:ring-gold-500/30"
           placeholder="••••••••"
           autoComplete="current-password"
         />

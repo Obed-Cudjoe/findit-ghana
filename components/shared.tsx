@@ -37,14 +37,14 @@ export function ProductCard({ product, cheapest }: { product: Product; cheapest?
   return (
     <Link
       href={`/product/${product.slug}`}
-      className="hover-lift group flex flex-col overflow-hidden rounded-xl border border-navy-100 bg-white"
+      className="hover-lift group flex min-w-0 flex-col overflow-hidden rounded-xl border border-navy-100 bg-white"
     >
       <ProductVisual product={product} className="aspect-[4/3] w-full" />
       <div className="flex flex-1 flex-col p-4">
         <p className="text-xs font-semibold uppercase tracking-wide text-slate-soft">
           {product.isVendorListing ? "New vendor · self-listed" : product.brand}
         </p>
-        <h3 className="mt-0.5 font-bold text-navy-900 group-hover:text-navy-600 transition-colors">{product.name}</h3>
+        <h3 className="mt-0.5 break-words font-bold text-navy-900 group-hover:text-navy-600 transition-colors">{product.name}</h3>
         {cheapest ? (
           <>
             <p className="mt-2 text-xl font-extrabold text-navy-900">{formatGHS(cheapest.priceGhs)}</p>
@@ -57,7 +57,7 @@ export function ProductCard({ product, cheapest }: { product: Product; cheapest?
                 <span className="text-amber-700">Check stock with vendor</span>
               )}
             </p>
-            <p className="mt-1 flex items-center gap-1 text-xs text-slate-soft">
+            <p className="mt-1 flex min-w-0 items-center gap-1 text-xs text-slate-soft">
               <Truck className="h-3.5 w-3.5" /> {deliveryLabel(cheapest)}
             </p>
           </>

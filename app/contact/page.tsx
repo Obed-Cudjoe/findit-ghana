@@ -20,7 +20,7 @@ export default function ContactPage() {
       </header>
 
       <div className="mt-8 grid gap-8 lg:grid-cols-[1fr_320px]">
-        <div className="rounded-2xl border border-navy-100 bg-white p-6 shadow-sm">
+        <div className="rounded-2xl border border-navy-100 bg-white p-4 shadow-sm sm:p-6">
           <ContactForm />
         </div>
 

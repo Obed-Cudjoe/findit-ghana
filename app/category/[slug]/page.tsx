@@ -40,7 +40,7 @@ export default async function CategoryPage({ params }: Props) {
       </nav>
 
       <header className="mt-4">
-        <h1 className="text-2xl font-extrabold text-navy-900 md:text-3xl">{category.name} in Ghana — live prices</h1>
+        <h1 className="break-words text-2xl font-extrabold text-navy-900 md:text-3xl">{category.name} in Ghana — live prices</h1>
         <p className="mt-2 max-w-2xl text-sm text-slate-soft">{category.blurb}</p>
         <p className="mt-2 inline-flex items-center gap-1.5 text-xs text-slate-soft">
           <Clock className="h-3.5 w-3.5 text-gold-600" /> Prices checked within the last 24 hours · delivery fees shown per vendor
@@ -68,7 +68,7 @@ export default async function CategoryPage({ params }: Props) {
         )}
       </div>
 
-      <Link href="/guides" className="mt-10 flex items-center justify-between rounded-xl bg-navy-900 px-6 py-4 text-white hover:bg-navy-800 transition-colors">
+      <Link href="/guides" className="mt-10 flex items-center justify-between gap-4 rounded-xl bg-navy-900 px-4 py-4 text-white hover:bg-navy-800 transition-colors sm:px-6">
         <span>
           <span className="block font-bold">Not sure what to buy?</span>
           <span className="block text-sm text-navy-100">Read our price guides — written around real vendor prices.</span>

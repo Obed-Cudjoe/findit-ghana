@@ -12,7 +12,7 @@ export default async function ReportPricePage({ searchParams }: { searchParams: 
   return (
     <div className="mx-auto max-w-2xl px-4 py-10">
       <header>
-        <h1 className="text-3xl font-extrabold text-navy-900">Report a price or stock error</h1>
+        <h1 className="text-2xl font-extrabold text-navy-900 sm:text-3xl">Report a price or stock error</h1>
         <p className="mt-2 text-sm text-slate-soft">
           Saw a wrong price, stock level or delivery detail? Tell us — we fix or remove it within 1 business day.
         </p>
@@ -21,8 +21,8 @@ export default async function ReportPricePage({ searchParams }: { searchParams: 
         </p>
       </header>
 
-      <div className="mt-6 rounded-2xl border border-navy-100 bg-white p-6 shadow-sm">
-        <ReportForm kind="price" />
+      <div className="mt-6 rounded-2xl border border-navy-100 bg-white p-4 shadow-sm sm:p-6">
+        <ReportForm kind="price" defaultListingUrl={listing} />
       </div>
 
       {listing && (
