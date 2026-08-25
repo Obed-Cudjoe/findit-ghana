@@ -13,7 +13,7 @@ export default function ForVendorsPage() {
     <div className="mx-auto max-w-6xl px-4 py-10">
       <header className="max-w-2xl">
         <p className="text-xs font-bold uppercase tracking-widest text-gold-700">For vendors</p>
-        <h1 className="mt-2 text-3xl font-extrabold text-navy-900">Put your product in front of Ghanaian shoppers</h1>
+        <h1 className="mt-2 text-2xl font-extrabold text-navy-900 sm:text-3xl">Put your product in front of Ghanaian shoppers</h1>
         <p className="mt-3 text-sm leading-relaxed text-slate-soft">
           When someone searches &quot;price of iPhone 13 in Ghana&quot;, they should find <strong className="text-navy-900">you</strong>.
           List your product free — shoppers see your price in cedis, your stock level, and a WhatsApp button that goes straight to you.
@@ -35,7 +35,7 @@ export default function ForVendorsPage() {
       </div>
 
       <div className="mt-10 grid gap-8 lg:grid-cols-[1fr_320px]">
-        <div className="rounded-2xl border border-navy-100 bg-white p-6 shadow-sm">
+        <div className="rounded-2xl border border-navy-100 bg-white p-4 shadow-sm sm:p-6">
           <h2 className="flex items-center gap-2 text-lg font-extrabold text-navy-900">
             <Store className="h-5 w-5 text-gold-600" /> List your product
           </h2>

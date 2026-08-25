@@ -75,11 +75,11 @@ export function Editor({ guides }: { guides: GuideInput[] }) {
           <p className="mb-1 text-sm font-semibold text-navy-900">Editing: {selected?.title}</p>
           <label className="block">
             <span className="mb-1 block text-xs font-semibold uppercase tracking-wide text-slate-soft">Excerpt</span>
-            <textarea value={excerpt} onChange={(e) => setExcerpt(e.target.value)} className="w-full rounded-lg border border-navy-200 px-3 py-2.5 text-sm focus:border-gold-500 focus:outline-none focus:ring-2 focus:ring-gold-500/30" rows={2} />
+            <textarea value={excerpt} onChange={(e) => setExcerpt(e.target.value)} className="w-full rounded-lg border border-navy-200 px-3 py-2.5 text-base focus:border-gold-500 focus:outline-none focus:ring-2 focus:ring-gold-500/30" rows={2} />
           </label>
           <label className="mt-3 block">
             <span className="mb-1 block text-xs font-semibold uppercase tracking-wide text-slate-soft">Body (## for headings)</span>
-            <textarea value={body} onChange={(e) => setBody(e.target.value)} className="w-full rounded-lg border border-navy-200 px-3 py-2.5 font-mono text-xs focus:border-gold-500 focus:outline-none focus:ring-2 focus:ring-gold-500/30" rows={14} />
+            <textarea value={body} onChange={(e) => setBody(e.target.value)} className="w-full rounded-lg border border-navy-200 px-3 py-2.5 font-mono text-base focus:border-gold-500 focus:outline-none focus:ring-2 focus:ring-gold-500/30" rows={14} />
           </label>
         </div>
         <div className="flex items-center gap-3">

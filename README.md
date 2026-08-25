@@ -149,5 +149,5 @@ Next.js 16 (App Router) · React 19 · TypeScript · Tailwind CSS 4 · lucide-re
 ## License & notes
 
 - The site is intended to be sold as a finished product; all copy is placeholder-quality but complete (a copywriter can swap wording without changing layout).
-- Affiliate links currently point to Jumia product pages without an affiliate tag — apply for a free Jumia Affiliate Program account and add the key in `lib/data.ts` when the buyer takes over.
+- Jumia buy buttons are wired through the configured affiliate link (`NEXT_PUBLIC_JUMIA_AFFILIATE_URL`, defaulting to Obed's JForce/Jumia link). Replace it during buyer handoff if the buyer wants their own affiliate account.
 - The admin login uses a simple signed-cookie password for the demo; production handoff can swap in Supabase Auth (schema and client already wired in `lib/store.ts`).

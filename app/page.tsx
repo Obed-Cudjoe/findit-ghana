@@ -20,8 +20,8 @@ export default async function HomePage() {
           aria-hidden="true"
         />
         <div className="relative mx-auto max-w-6xl px-4 py-16 text-center md:py-24">
-          <p className="mx-auto mb-4 inline-flex items-center gap-2 rounded-full border border-navy-600 bg-navy-800/70 px-4 py-1.5 text-xs text-navy-100">
-            <span className="h-1.5 w-1.5 rounded-full bg-gold-500" /> Ghana&apos;s price finder — live prices, named vendors
+          <p className="mx-auto mb-4 inline-flex max-w-full items-center justify-center gap-2 rounded-full border border-navy-600 bg-navy-800/70 px-4 py-1.5 text-center text-xs text-navy-100">
+            <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-gold-500" /> <span className="min-w-0">Ghana&apos;s price finder — live prices, named vendors</span>
           </p>
           <h1 className="mx-auto max-w-3xl text-3xl font-extrabold leading-tight tracking-tight md:text-5xl">
             Find what it really costs <span className="text-gold-500">in Ghana</span>.
@@ -33,16 +33,18 @@ export default async function HomePage() {
           {/* hero search */}
           <form action="/search" method="get" role="search" className="mx-auto mt-8 max-w-xl">
             <label htmlFor="hero-q" className="sr-only">Search for a product</label>
-            <div className="flex overflow-hidden rounded-2xl bg-white shadow-2xl ring-1 ring-navy-700 focus-within:ring-2 focus-within:ring-gold-500">
-              <span className="flex items-center pl-4 text-slate-soft" aria-hidden="true"><Search className="h-5 w-5" /></span>
-              <input
-                id="hero-q"
-                name="q"
-                type="search"
-                placeholder="Try “iphone 13” or “4-burner gas cooker”…"
-                className="w-full px-3 py-4 text-sm text-ink placeholder:text-slate-400 focus:outline-none md:text-base"
-              />
-              <button type="submit" className="shrink-0 bg-gold-500 px-6 text-sm font-bold text-navy-950 hover:bg-gold-400 transition-colors">
+            <div className="flex flex-col overflow-hidden rounded-2xl bg-white shadow-2xl ring-1 ring-navy-700 focus-within:ring-2 focus-within:ring-gold-500 sm:flex-row">
+              <div className="flex min-w-0 flex-1">
+                <span className="flex shrink-0 items-center pl-4 text-slate-soft" aria-hidden="true"><Search className="h-5 w-5" /></span>
+                <input
+                  id="hero-q"
+                  name="q"
+                  type="search"
+                  placeholder="Try “iphone 13” or “gas cooker”…"
+                  className="min-w-0 flex-1 px-3 py-4 text-base text-ink placeholder:text-slate-400 focus:outline-none"
+                />
+              </div>
+              <button type="submit" className="shrink-0 bg-gold-500 px-6 py-3 text-sm font-bold text-navy-950 hover:bg-gold-400 transition-colors sm:py-0">
                 Search
               </button>
             </div>
@@ -63,7 +65,7 @@ export default async function HomePage() {
 
       {/* ===== POPULAR CATEGORIES ===== */}
       <section className="mx-auto max-w-6xl px-4 py-12">
-        <div className="mb-6 flex items-end justify-between">
+        <div className="mb-6 flex items-end justify-between gap-4">
           <div>
             <h2 className="text-xl font-extrabold text-navy-900 md:text-2xl">Browse by category</h2>
             <p className="mt-1 text-sm text-slate-soft">Every price in cedis, checked within the last 24 hours.</p>
@@ -92,7 +94,7 @@ export default async function HomePage() {
       {/* ===== POPULAR PRODUCTS ===== */}
       <section className="bg-navy-50/60 py-12">
         <div className="mx-auto max-w-6xl px-4">
-          <div className="mb-6 flex items-end justify-between">
+          <div className="mb-6 flex items-end justify-between gap-4">
             <div>
               <h2 className="text-xl font-extrabold text-navy-900 md:text-2xl">What Ghana is searching for</h2>
               <p className="mt-1 text-sm text-slate-soft">Live offers from named vendors, sorted by total cost.</p>
@@ -111,7 +113,7 @@ export default async function HomePage() {
 
       {/* ===== LATEST GUIDES ===== */}
       <section className="mx-auto max-w-6xl px-4 py-12">
-        <div className="mb-6 flex items-end justify-between">
+        <div className="mb-6 flex items-end justify-between gap-4">
           <div>
             <h2 className="text-xl font-extrabold text-navy-900 md:text-2xl">Latest price guides</h2>
             <p className="mt-1 text-sm text-slate-soft">Buying advice that updates with the prices.</p>
@@ -173,7 +175,7 @@ export default async function HomePage() {
 
       {/* ===== SELL ON FINDIT GHANA (vendor acquisition) ===== */}
       <section className="mx-auto max-w-6xl px-4 pb-14">
-        <Link href="/for-vendors" className="hover-lift group flex flex-col items-center justify-between gap-4 rounded-2xl bg-gold-500 px-8 py-8 text-center text-navy-950 md:flex-row md:text-left">
+        <Link href="/for-vendors" className="hover-lift group flex flex-col items-center justify-between gap-4 rounded-2xl bg-gold-500 px-5 py-7 text-center text-navy-950 sm:px-8 sm:py-8 md:flex-row md:text-left">
           <div>
             <h2 className="text-xl font-extrabold md:text-2xl">Sell on FindIt Ghana</h2>
             <p className="mt-1 text-sm font-medium text-navy-900/80">

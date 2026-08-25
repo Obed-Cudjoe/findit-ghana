@@ -14,7 +14,7 @@ export default function NotFound() {
         <label htmlFor="nf-q" className="sr-only">Search</label>
         <div className="flex overflow-hidden rounded-xl border border-navy-200 bg-white focus-within:border-gold-500 focus-within:ring-2 focus-within:ring-gold-500/30">
           <span className="flex items-center pl-3 text-slate-soft" aria-hidden="true"><Search className="h-4 w-4" /></span>
-          <input id="nf-q" name="q" type="search" placeholder="Search prices in Ghana…" className="w-full px-3 py-3 text-sm focus:outline-none" />
+          <input id="nf-q" name="q" type="search" placeholder="Search prices in Ghana…" className="min-w-0 flex-1 px-3 py-3 text-base focus:outline-none" />
           <button type="submit" className="shrink-0 bg-navy-900 px-5 text-sm font-semibold text-white hover:bg-navy-800 transition-colors">Go</button>
         </div>
       </form>

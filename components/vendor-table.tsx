@@ -24,7 +24,7 @@ function BuyButton({ offer, vendorName, productSlug }: { offer: PriceOffer; vend
       target="_blank"
       rel="noopener noreferrer nofollow"
       onClick={track}
-      className="inline-flex items-center gap-1.5 rounded-lg bg-gold-500 px-4 py-2 text-sm font-bold text-navy-950 shadow-sm hover:bg-gold-400 active:scale-[0.98] transition-all"
+      className="inline-flex items-center justify-center gap-1.5 whitespace-nowrap rounded-lg bg-gold-500 px-4 py-2 text-sm font-bold text-navy-950 shadow-sm hover:bg-gold-400 active:scale-[0.98] transition-all"
     >
       Buy <ArrowRight className="h-4 w-4" />
     </a>
@@ -38,8 +38,9 @@ export function VendorTable({ offers, vendors, productSlug }: { offers: PriceOff
   const vendorOf = (id: string) => vendors.find((v) => v.id === id);
   return (
     <div className="overflow-hidden rounded-xl border border-navy-100">
-      {/* table for md+ */}
-      <table className="hidden w-full md:table text-sm">
+      {/* table for laptop/desktop; scrolls inside narrow article layouts */}
+      <div className="overflow-x-auto">
+        <table className="hidden w-full min-w-[860px] text-sm lg:table">
         <thead>
           <tr className="bg-navy-50 text-left text-xs uppercase tracking-wide text-slate-soft">
             <th className="px-4 py-3 font-semibold">Vendor</th>
@@ -85,31 +86,32 @@ export function VendorTable({ offers, vendors, productSlug }: { offers: PriceOff
             );
           })}
         </tbody>
-      </table>
-      {/* stacked cards for mobile */}
-      <div className="divide-y divide-navy-100 md:hidden">
+        </table>
+      </div>
+      {/* stacked cards for phones/tablets */}
+      <div className="divide-y divide-navy-100 lg:hidden">
         {offers.map((o) => {
           const v = vendorOf(o.vendorId);
           return (
             <div key={o.id} className="p-4">
-              <div className="flex items-start justify-between gap-2">
-                <div>
-                  <p className="font-semibold text-navy-900">{v?.name ?? "Vendor"}</p>
-                  <p className="flex items-center gap-1 text-xs text-slate-soft">
+              <div className="flex items-start justify-between gap-3">
+                <div className="min-w-0">
+                  <p className="break-words font-semibold text-navy-900">{v?.name ?? "Vendor"}</p>
+                  <p className="flex min-w-0 flex-wrap items-center gap-1 text-xs text-slate-soft">
                     {v?.verified && (
-                      <><ShieldCheck className="h-3.5 w-3.5 text-emerald-600" /> Verified · </>
+                      <><ShieldCheck className="h-3.5 w-3.5 shrink-0 text-emerald-600" /> Verified · </>
                     )}
                     checked {timeAgo(o.lastCheckedAt)}
                   </p>
                 </div>
-                <p className="text-lg font-extrabold text-navy-900">{formatGHS(o.priceGhs)}</p>
+                <p className="shrink-0 text-right text-lg font-extrabold text-navy-900">{formatGHS(o.priceGhs)}</p>
               </div>
-              <div className="mt-2 grid grid-cols-3 gap-2 text-xs text-slate-soft">
-                <span>{o.stockCount ? `${o.stockCount} in stock` : "Pre-order"}</span>
-                <span>{deliveryLabel(o)}</span>
-                <span>Fee {formatGHS(o.deliveryFeeGhs)}</span>
+              <div className="mt-3 grid grid-cols-1 gap-2 text-xs text-slate-soft min-[430px]:grid-cols-3">
+                <span className="rounded-lg bg-navy-50 px-2.5 py-2">{o.stockCount ? `${o.stockCount} in stock` : "Pre-order"}</span>
+                <span className="rounded-lg bg-navy-50 px-2.5 py-2">{deliveryLabel(o)}</span>
+                <span className="rounded-lg bg-navy-50 px-2.5 py-2">Fee {formatGHS(o.deliveryFeeGhs)}</span>
               </div>
-              <div className="mt-3 flex items-center justify-between gap-3">
+              <div className="mt-3 flex flex-col gap-2 min-[380px]:flex-row min-[380px]:items-center min-[380px]:justify-between">
                 <p className="text-sm font-bold text-navy-900">Total {formatGHS(o.priceGhs + o.deliveryFeeGhs)}</p>
                 <BuyButton offer={o} vendorName={v?.name ?? "vendor"} productSlug={productSlug} />
               </div>

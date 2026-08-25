@@ -24,14 +24,14 @@ function Field({ label, error, children }: { label: string; error?: string; chil
 }
 
 const inputCls =
-  "w-full rounded-lg border border-navy-200 bg-white px-3 py-2.5 text-sm text-ink placeholder:text-slate-400 focus:border-gold-500 focus:outline-none focus:ring-2 focus:ring-gold-500/30 transition-shadow";
+  "w-full rounded-lg border border-navy-200 bg-white px-3 py-2.5 text-base text-ink placeholder:text-slate-400 focus:border-gold-500 focus:outline-none focus:ring-2 focus:ring-gold-500/30 transition-shadow";
 
 function SubmitButton({ busy, label }: { busy: boolean; label: string }) {
   return (
     <button
       type="submit"
       disabled={busy}
-      className="inline-flex items-center justify-center gap-2 rounded-lg bg-navy-900 px-6 py-3 text-sm font-bold text-white shadow hover:bg-navy-800 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-60 transition-all"
+      className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-navy-900 px-6 py-3 text-sm font-bold text-white shadow hover:bg-navy-800 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-60 transition-all sm:w-auto"
     >
       {busy && (
         <svg className="h-4 w-4 animate-spin" viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -133,10 +133,10 @@ export function ContactForm() {
 /* ---------- Report form (P13/P14) — two configurations ---------- */
 export type ReportKind = "price_error" | "stock_error" | "delivery_error" | "other" | "suspicious";
 
-export function ReportForm({ kind }: { kind: "price" | "suspicious" }) {
+export function ReportForm({ kind, defaultListingUrl = "" }: { kind: "price" | "suspicious"; defaultListingUrl?: string }) {
   const [form, setForm] = useState({
     kind: (kind === "price" ? "price_error" : "suspicious") as ReportKind,
-    listingUrl: "",
+    listingUrl: defaultListingUrl,
     vendorName: "",
     detail: "",
     reporterEmail: "",
@@ -159,6 +159,7 @@ export function ReportForm({ kind }: { kind: "price" | "suspicious" }) {
         ["suspicious", "Refused a refund"],
         ["other", "Something else"],
       ];
+  const [selectedReasonIndex, setSelectedReasonIndex] = useState(0);
 
   function validate(): boolean {
     const e: Record<string, string> = {};
@@ -227,9 +228,13 @@ export function ReportForm({ kind }: { kind: "price" | "suspicious" }) {
               <input
                 type="radio"
                 name="kind"
+                value={value}
                 className="h-4 w-4 accent-gold-600"
-                checked={i === 0} // first option selected by default; detail text carries the specifics
-                onChange={() => setForm({ ...form, kind: value as ReportKind })}
+                checked={selectedReasonIndex === i}
+                onChange={() => {
+                  setSelectedReasonIndex(i);
+                  setForm({ ...form, kind: value as ReportKind });
+                }}
               />
               {label}
             </label>
