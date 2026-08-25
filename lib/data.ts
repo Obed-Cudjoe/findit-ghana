@@ -1,11 +1,18 @@
-// Read-side data access. In demo mode this serves the seed dataset directly;
-// when Supabase env vars are present, lib/store.ts provides the same shapes
-// from the database. The interface stays identical either way.
-import { vendors, categories, products, offers, snapshots, guides } from "@/data/seed";
+// Read-side data access. The product catalogue is the real Jumia Ghana
+// marketplace snapshot (lib/feeds/jumia.ts ← data/jumia-catalog.json);
+// categories and guides stay in the seed file; vendor listings from the
+// self-service flow merge on top. When Supabase env vars are present,
+// lib/store.ts provides the same shapes from the database.
+import { vendors as seedVendors, categories, guides } from "@/data/seed";
+import { jumiaProducts, jumiaOffers, jumiaVendor } from "@/lib/feeds/jumia";
 import type { Product, Vendor, PriceOffer, Category, Guide } from "@/lib/types";
 
+const demoVendors = seedVendors as unknown as Vendor[];
+
 export function getVendors(): Vendor[] {
-  return vendors as unknown as Vendor[];
+  // The marketplace vendor behind every real offer first, then the named
+  // local vendors used by the vendor-listing flow and demo comparisons.
+  return [jumiaVendor, ...demoVendors];
 }
 
 export function getVendor(id: string): Vendor | undefined {
@@ -21,7 +28,7 @@ export function getCategory(slug: string): Category | undefined {
 }
 
 export function getProducts(): Product[] {
-  return products as unknown as Product[];
+  return jumiaProducts();
 }
 
 export function getProduct(slug: string): Product | undefined {
@@ -46,7 +53,7 @@ function withAffiliateLink(offer: PriceOffer): PriceOffer {
 }
 
 export function getOffers(): PriceOffer[] {
-  return (offers as unknown as PriceOffer[]).map(withAffiliateLink);
+  return jumiaOffers().map(withAffiliateLink);
 }
 
 export function getOffersForProduct(slug: string): PriceOffer[] {
@@ -59,10 +66,11 @@ export function getCheapestOffer(slug: string): PriceOffer | undefined {
   return getOffersForProduct(slug)[0];
 }
 
-export function getSnapshotsForOffer(offerId: string) {
-  return (snapshots as unknown as { offerId: string; priceGhs: number; capturedAt: string }[])
-    .filter((s) => s.offerId === offerId)
-    .sort((a, b) => a.capturedAt.localeCompare(b.capturedAt));
+export function getSnapshotsForOffer(offerId: string): { offerId: string; priceGhs: number; capturedAt: string }[] {
+  // Real-catalogue offers start with a single price observation (the live
+  // scrape); the 12-week history accumulates as the daily /api/refresh cron
+  // records snapshots (Supabase mode) over time.
+  return [];
 }
 
 export async function getGuides(): Promise<Guide[]> {

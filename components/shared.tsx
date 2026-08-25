@@ -122,7 +122,7 @@ export function EmptyState({ title, hint }: { title: string; hint: string }) {
       <p className="font-bold text-navy-900">{title}</p>
       <p className="mx-auto mt-1 max-w-md text-sm text-slate-soft">{hint}</p>
       <div className="mt-4 flex flex-wrap justify-center gap-2 text-sm">
-        {["iphone 13", "gas cooker", "ps5", "airpods"].map((s) => (
+        {["tecno", "smart tv", "ps5", "fridge"].map((s) => (
           <Link key={s} href={`/search?q=${encodeURIComponent(s)}`} className="rounded-full border border-navy-200 bg-white px-3 py-1 text-navy-700 hover:border-gold-500 hover:text-gold-700 transition-colors">
             {s}
           </Link>
