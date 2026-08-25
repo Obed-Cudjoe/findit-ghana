@@ -70,7 +70,7 @@ export default async function ProductPage({ params }: Props) {
     <div className="mx-auto max-w-6xl px-4 py-8">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
 
-      <nav aria-label="Breadcrumb" className="text-sm text-slate-soft">
+      <nav aria-label="Breadcrumb" className="break-words text-sm text-slate-soft">
         <Link href="/" className="hover:text-navy-700">Home</Link> <span aria-hidden="true">›</span>{" "}
         <Link href={`/category/${product.category}`} className="hover:text-navy-700 capitalize">{product.category.replace("-", " & ")}</Link>{" "}
         <span aria-hidden="true">›</span> <span className="text-navy-900">{product.name}</span>
@@ -86,7 +86,7 @@ export default async function ProductPage({ params }: Props) {
           ) : (
             <p className="text-sm font-semibold uppercase tracking-wide text-gold-700">{product.brand}</p>
           )}
-          <h1 className="mt-1 text-2xl font-extrabold text-navy-900 md:text-3xl">{product.name}</h1>
+          <h1 className="mt-1 break-words text-2xl font-extrabold text-navy-900 md:text-3xl">{product.name}</h1>
           <p className="mt-2 inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700">
             <Clock className="h-3.5 w-3.5" /> Prices checked {timeAgo(vListing ? vListing.createdAt : product.updatedAt)}
           </p>
@@ -105,7 +105,7 @@ export default async function ProductPage({ params }: Props) {
                   <p className="text-sm font-semibold text-navy-900">{vListing.stockCount ?? "Ask vendor"}</p>
                 </div>
                 <div className="rounded-lg bg-navy-50 px-3 py-2">
-                  <p className="text-[11px] uppercase tracking-wide text-slate-50">Contact</p>
+                  <p className="text-[11px] uppercase tracking-wide text-slate-soft">Contact</p>
                   <p className="text-sm font-semibold text-navy-900">+{vListing.phone}</p>
                 </div>
               </div>

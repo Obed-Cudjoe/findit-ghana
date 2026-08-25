@@ -32,12 +32,14 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-x: clip;
 }
 
 body {
   font-family: var(--font-sans);
   color: var(--color-ink);
   background: #ffffff;
+  overflow-x: clip;
   -webkit-font-smoothing: antialiased;
 }
 

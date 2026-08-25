@@ -28,8 +28,25 @@ export function getProduct(slug: string): Product | undefined {
   return getProducts().find((p) => p.slug === slug);
 }
 
+const JUMIA_AFFILIATE_URL =
+  process.env.NEXT_PUBLIC_JUMIA_AFFILIATE_URL?.trim() || "https://jforce.jumia.com.gh/s/YKEXEt5";
+
+function isJumiaUrl(url: string): boolean {
+  try {
+    const host = new URL(url).hostname.toLowerCase();
+    return host === "jumia.com.gh" || host.endsWith(".jumia.com.gh");
+  } catch {
+    return false;
+  }
+}
+
+function withAffiliateLink(offer: PriceOffer): PriceOffer {
+  if (!isJumiaUrl(offer.affiliateUrl)) return offer;
+  return { ...offer, affiliateUrl: JUMIA_AFFILIATE_URL };
+}
+
 export function getOffers(): PriceOffer[] {
-  return offers as unknown as PriceOffer[];
+  return (offers as unknown as PriceOffer[]).map(withAffiliateLink);
 }
 
 export function getOffersForProduct(slug: string): PriceOffer[] {
