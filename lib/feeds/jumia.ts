@@ -55,7 +55,7 @@ function slugFor(url: string): string {
 // no invented specs. Customer rating (also scraped) fills the fourth chip.
 function specsFor(entry: CatalogEntry): Record<string, string> {
   const specs: Record<string, string> = {};
-  const screen = entry.name.match(/(\d{2}(?:\.\d)?)\s*(?:"|''|”|-?inch)/i);
+  const screen = entry.name.match(/(?:^|[\s\(])(\d{1,2}(?:\.\d{1,2})?)\s*(?:"|''|”|inch)/i);
   if (screen) specs.Screen = `${screen[1]}"`;
   // Storage: either an explicitly labelled ROM/HDD/SSD figure, or a bare GB
   // figure big enough that it can't be RAM (skips "6GB RAM + 256GB SSD", "1GB+8GB").
