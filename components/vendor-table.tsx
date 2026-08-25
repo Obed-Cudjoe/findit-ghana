@@ -73,7 +73,7 @@ export function VendorTable({ offers, vendors, productSlug }: { offers: PriceOff
                   {o.stockCount !== null && o.stockCount > 0 ? (
                     <span className="text-emerald-700">{o.stockCount} units</span>
                   ) : (
-                    <span className="text-amber-700">Pre-order</span>
+                    <span className="text-amber-700">Check with vendor</span>
                   )}
                 </td>
                 <td className="px-4 py-3 text-slate-soft">{deliveryLabel(o)}</td>
@@ -107,7 +107,7 @@ export function VendorTable({ offers, vendors, productSlug }: { offers: PriceOff
                 <p className="shrink-0 text-right text-lg font-extrabold text-navy-900">{formatGHS(o.priceGhs)}</p>
               </div>
               <div className="mt-3 grid grid-cols-1 gap-2 text-xs text-slate-soft min-[430px]:grid-cols-3">
-                <span className="rounded-lg bg-navy-50 px-2.5 py-2">{o.stockCount ? `${o.stockCount} in stock` : "Pre-order"}</span>
+                <span className="rounded-lg bg-navy-50 px-2.5 py-2">{o.stockCount ? `${o.stockCount} in stock` : "Check with vendor"}</span>
                 <span className="rounded-lg bg-navy-50 px-2.5 py-2">{deliveryLabel(o)}</span>
                 <span className="rounded-lg bg-navy-50 px-2.5 py-2">Fee {formatGHS(o.deliveryFeeGhs)}</span>
               </div>
