@@ -119,6 +119,10 @@ export function VendorTable({ offers, vendors, productSlug }: { offers: PriceOff
           );
         })}
       </div>
+      <p className="mt-4 px-1 text-xs text-slate-400">
+        Buy buttons open the vendor&apos;s site. Where marked, links are affiliate links — FindIt Ghana may earn a
+        commission if you buy, at no extra cost to you. Vendors set their own prices; we show them unchanged.
+      </p>
     </div>
   );
 }

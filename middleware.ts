@@ -1,11 +1,12 @@
 // Protects the admin area with a signed session cookie.
 // The cookie is set by /api/admin/login after checking ADMIN_PASSWORD.
+// Fail-closed: when ADMIN_PASSWORD is unset, the JWT secret is random per
+// boot, so no cookie can ever verify and /admin stays locked.
 // NOTE: demo-grade auth — for a production handoff, swap this for
 // Supabase Auth (schema and client are already wired in lib/store.ts).
 import { NextResponse, type NextRequest } from "next/server";
 import { jwtVerify } from "jose";
-
-const SECRET = new TextEncoder().encode(process.env.ADMIN_PASSWORD || "findit-admin-2026");
+import { getAdminJwtSecret } from "@/lib/admin-auth";
 
 export async function middleware(request: NextRequest) {
   // The login/logout endpoints themselves must stay reachable unauthenticated.
@@ -21,7 +22,7 @@ export async function middleware(request: NextRequest) {
 
   if (token) {
     try {
-      await jwtVerify(token, SECRET);
+      await jwtVerify(token, getAdminJwtSecret());
       return NextResponse.next();
     } catch {
       /* invalid token falls through to login */

@@ -34,6 +34,17 @@ export function isSupabaseMode(): boolean {
   return getSupabase() !== null;
 }
 
+// Which write tier new submissions (reports, contact messages, vendor
+// listings) would land in right now. Surfaced in the admin dashboard so the
+// owner always knows whether vendor PII is sitting in the public demo store.
+export type StorageTier = "supabase" | "local-files" | "public-demo-store";
+export function storageTier(): StorageTier {
+  if (isSupabaseMode()) return "supabase";
+  if (process.env.VERCEL) return "public-demo-store"; // read-only serverless FS
+  return "local-files";
+}
+
+
 // ---------- tier 2: local JSON files (dev machines) ----------
 const SUB_DIR = path.join(process.cwd(), "data", "submissions");
 
@@ -404,6 +415,7 @@ export async function readVendorListings(): Promise<VendorListing[]> {
         deliveryDaysMax: l.delivery_days_max ?? 3, deliveryFeeGhs: Number(l.delivery_fee_ghs ?? 0),
         description: l.description, websiteUrl: l.website_url ?? "",
         status: l.status, createdAt: l.created_at,
+        featuredUntil: l.featured_until ?? null,
       }));
       /* eslint-enable @typescript-eslint/no-explicit-any */
     }
@@ -427,5 +439,27 @@ export async function updateVendorListingStatus(id: string, status: VendorListin
   const row = state.vendorListings.find((l) => l.id === id);
   if (!row) return false;
   row.status = status;
+  return await writeRemoteState(state);
+}
+
+// ---------- featured placements (paid) ----------
+// Featured until a future ISO timestamp => pinned first in its category and
+// badged with ★. The admin sets/clears this after receiving the vendor's
+// MoMo payment (GH₵50/month at launch — see /for-vendors "Get featured").
+export async function setVendorListingFeatured(id: string, featuredUntil: string | null): Promise<boolean> {
+  const supabase = getSupabase();
+  if (supabase) {
+    const { error } = await supabase
+      .from("vendor_listings")
+      .update({ featured_until: featuredUntil })
+      .eq("id", id);
+    return !error;
+  }
+  if (updateLocalJson<VendorListing>("vendor-listings.json", id, { featuredUntil })) return true;
+  const state = await readRemoteState();
+  if (!state) return false;
+  const row = state.vendorListings.find((l) => l.id === id);
+  if (!row) return false;
+  row.featuredUntil = featuredUntil;
   return await writeRemoteState(state);
 }

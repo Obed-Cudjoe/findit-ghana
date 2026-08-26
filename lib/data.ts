@@ -179,8 +179,14 @@ export async function getApprovedVendorListings() {
   }
 }
 
+// A listing is featured while its paid window (featuredUntil) is in the future.
+export function isListingFeatured(l: { featuredUntil?: string | null }): boolean {
+  return !!l.featuredUntil && new Date(l.featuredUntil).getTime() > Date.now();
+}
+
 export function listingToProduct(l: {
   id: string; productName: string; slug: string; category: string; description: string; createdAt: string;
+  featuredUntil?: string | null;
 }): Product {
   const cat = getCategory(l.category);
   return {
@@ -195,6 +201,7 @@ export function listingToProduct(l: {
     canonicalUrl: "",
     updatedAt: l.createdAt,
     isVendorListing: true,
+    featured: isListingFeatured(l),
   };
 }
 
@@ -248,8 +255,14 @@ export async function searchAll(query: string): Promise<SearchResult[]> {
   const q = query.toLowerCase().trim();
   for (const l of listings) {
     if (matchesAllTokens(`${l.productName} ${l.businessName} ${l.category}`, q)) {
-      const product = listingToProduct(l);
-      results.unshift({ product, offers: [listingToOffer(l)], cheapest: listingToOffer(l) });
+      const result = {
+        product: listingToProduct(l),
+        offers: [listingToOffer(l)],
+        cheapest: listingToOffer(l),
+      };
+      // Paid featured listings lead the page; the rest trail catalogue matches.
+      if (result.product.featured) results.unshift(result);
+      else results.push(result);
     }
   }
   return results;
@@ -260,8 +273,9 @@ export async function categoryResultsAll(categorySlug: string): Promise<SearchRe
   const listings = await getApprovedVendorListings();
   for (const l of listings) {
     if (l.category === categorySlug) {
-      const product = listingToProduct(l);
-      results.push({ product, offers: [listingToOffer(l)], cheapest: listingToOffer(l) });
+      const result = { product: listingToProduct(l), offers: [listingToOffer(l)], cheapest: listingToOffer(l) };
+      if (result.product.featured) results.unshift(result); // paid placement: top of the category
+      else results.push(result);
     }
   }
   return results;

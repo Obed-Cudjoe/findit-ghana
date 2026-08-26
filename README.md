@@ -53,7 +53,7 @@ Then open **http://localhost:3000** **on that same computer** — the site loads
 
 ### Admin dashboard
 
-Visit **/admin** and sign in with the demo password `findit-admin-2026` (change it via the `ADMIN_PASSWORD` environment variable). The dashboard shows:
+Visit **/admin** and sign in with the password from the `ADMIN_PASSWORD` environment variable — there is **no default**; until you set one (locally in `.env.local`, or in Vercel → Settings → Environment Variables) admin login is disabled. The dashboard shows:
 
 - **Overview** — open corrections, suspicious reports, outbound clicks tracked
 - **Corrections & reports** — every form submission, with one-click actions (Check / Fixed / Dismiss)
@@ -90,6 +90,7 @@ The script falls back to plain `git` if the GitHub CLI is missing (it will ask f
 3. Every push to the `main` branch now deploys automatically. Pull requests get their own preview URLs.
 4. A **daily price-refresh cron** is pre-configured in `vercel.json` (06:00 UTC, calls `/api/refresh`).
 5. A free GitHub Actions **build check** runs on every push/PR (`npm run build` must pass) — the quality gate before Vercel deploys.
+6. A second Actions workflow (**Refresh Jumia Ghana catalogue**) re-scrapes jumia.com.gh **daily at 05:20 UTC**, commits new prices to `main` when they change, and Vercel deploys them — the "prices checked daily" promise runs itself.
 
 ### Refreshing the real Jumia Ghana catalogue
 

@@ -20,6 +20,7 @@ export interface ListingRow {
   websiteUrl: string;
   status: string;
   createdAt: string;
+  featuredUntil?: string | null;
 }
 
 const BADGE: Record<string, string> = {
@@ -41,6 +42,23 @@ export function ListingsTable({ listings }: { listings: ListingRow[] }) {
       body: JSON.stringify({ status }),
     });
     if (!res.ok) setRows(prev);
+  }
+
+  // Paid featured placement: pin to the top of the category for 30 days.
+  // Set this after the vendor's MoMo payment clears (see /for-vendors).
+  async function setFeatured(id: string, featuredUntil: string | null) {
+    const prev = rows;
+    startTransition(() => setRows(rows.map((r) => (r.id === id ? { ...r, featuredUntil } : r))));
+    const res = await fetch(`/api/admin/listings/${id}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ featuredUntil }),
+    });
+    if (!res.ok) setRows(prev);
+  }
+
+  function isFeatured(r: ListingRow): boolean {
+    return !!r.featuredUntil && new Date(r.featuredUntil).getTime() > Date.now();
   }
 
   return (
@@ -79,6 +97,11 @@ export function ListingsTable({ listings }: { listings: ListingRow[] }) {
                 </td>
                 <td className="px-4 py-3">
                   <span className={`rounded-full px-2.5 py-1 text-xs font-bold ${BADGE[l.status] ?? "bg-slate-100 text-slate-600"}`}>{l.status}</span>
+                  {isFeatured(l) && (
+                    <span className="ml-1.5 inline-block rounded-full bg-gold-500 px-2 py-1 text-[10px] font-extrabold text-navy-950">
+                      ★ Featured · till {new Date(l.featuredUntil as string).toLocaleDateString("en-GB", { day: "numeric", month: "short" })}
+                    </span>
+                  )}
                 </td>
                 <td className="px-4 py-3">
                   <div className="flex justify-end gap-1.5">
@@ -88,6 +111,24 @@ export function ListingsTable({ listings }: { listings: ListingRow[] }) {
                     <button disabled={pending} onClick={() => setStatus(l.id, "rejected")} className="rounded-md border border-red-200 px-2.5 py-1 text-xs font-semibold text-red-600 hover:bg-red-50 transition-colors">
                       Reject
                     </button>
+                    {isFeatured(l) ? (
+                      <button disabled={pending} onClick={() => setFeatured(l.id, null)} className="rounded-md border border-navy-200 px-2.5 py-1 text-xs font-semibold text-navy-700 hover:bg-navy-50 transition-colors">
+                        Unfeature
+                      </button>
+                    ) : (
+                      <button
+                        disabled={pending}
+                        onClick={() => {
+                          const d = new Date();
+                          d.setDate(d.getDate() + 30);
+                          setFeatured(l.id, d.toISOString());
+                        }}
+                        title="Vendor paid? Feature their listing at the top of the category for 30 days."
+                        className="rounded-md border border-gold-600 bg-gold-500/10 px-2.5 py-1 text-xs font-bold text-gold-700 hover:bg-gold-500/20 transition-colors"
+                      >
+                        ★ Feature 30d
+                      </button>
+                    )}
                   </div>
                 </td>
               </tr>

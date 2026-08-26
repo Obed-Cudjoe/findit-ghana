@@ -1,8 +1,15 @@
 // POST /api/contact — contact form (P12). Validates and stores.
 import { NextResponse, type NextRequest } from "next/server";
+import { clientIp, rateLimit } from "@/lib/ratelimit";
 import { saveContact } from "@/lib/store";
 
 export async function POST(request: NextRequest) {
+  // Spam guard: 5 submissions per 60 * 60 * 1000 per IP (per serverless instance).
+  const limit = rateLimit(`contact:${clientIp(request)}`, 5, 60 * 60 * 1000);
+  if (!limit.ok) {
+    return NextResponse.json({ error: "Too many submissions. Please try again later." }, { status: 429, headers: { "Retry-After": String(limit.retryAfterSec) } });
+  }
+
   let body: Record<string, unknown>;
   try {
     body = await request.json();

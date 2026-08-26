@@ -20,6 +20,7 @@ export interface Product {
   canonicalUrl: string;
   updatedAt: string;
   isVendorListing?: boolean; // self-listed by a vendor (reviewed by admin before going live)
+  featured?: boolean; // paid featured placement — sorted first, shown with a ★ badge
 }
 
 export interface PriceOffer {
@@ -114,4 +115,8 @@ export interface VendorListing {
   websiteUrl: string;
   status: "pending" | "approved" | "rejected";
   createdAt: string;
+  // Paid featured placement: listing is pinned to the top of its category and
+  // badged while this ISO timestamp is in the future. Set by the admin after
+  // the vendor pays (see the "Get featured" section on /for-vendors).
+  featuredUntil?: string | null;
 }

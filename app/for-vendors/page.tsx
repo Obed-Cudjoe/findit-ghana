@@ -34,6 +34,22 @@ export default function ForVendorsPage() {
         ))}
       </div>
 
+      {/* Paid featured placement — the vendor pays via MoMo, the admin flips the switch */}
+      <section className="mt-6 rounded-xl border border-gold-600/40 bg-gold-500/10 p-5">
+        <h2 className="flex items-center gap-2 font-extrabold text-navy-900">
+          ★ Get featured — be the first listing shoppers see
+        </h2>
+        <p className="mt-2 text-sm leading-relaxed text-slate-soft">
+          Featured listings sit at the <strong className="text-navy-900">top of their category</strong> with a gold ★ badge for 30 days.
+          <strong className="text-navy-900"> GH₵50/month</strong> — one product per featured slot.
+        </p>
+        <ol className="mt-3 space-y-1.5 text-sm text-slate-soft">
+          <li><span className="font-bold text-navy-900">1.</span> List your product below (free) and wait for approval.</li>
+          <li><span className="font-bold text-navy-900">2.</span> Pay GH₵50 by Mobile Money to <span className="font-bold text-navy-900">053 126 2424</span> (Obed Cudjoe).</li>
+          <li><span className="font-bold text-navy-900">3.</span> WhatsApp your listing link + MoMo reference to <span className="font-bold text-navy-900">053 126 2424</span> — we feature it within a day.</li>
+        </ol>
+      </section>
+
       <div className="mt-10 grid gap-8 lg:grid-cols-[1fr_320px]">
         <div className="rounded-2xl border border-navy-100 bg-white p-4 shadow-sm sm:p-6">
           <h2 className="flex items-center gap-2 text-lg font-extrabold text-navy-900">
