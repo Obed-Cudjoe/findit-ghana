@@ -41,8 +41,13 @@ export function ProductCard({ product, cheapest }: { product: Product; cheapest?
     >
       <ProductVisual product={product} className="aspect-[4/3] w-full" />
       <div className="flex flex-1 flex-col p-4">
-        <p className="text-xs font-semibold uppercase tracking-wide text-slate-soft">
-          {product.isVendorListing ? "New vendor · self-listed" : product.brand}
+        <p className="flex flex-wrap items-center gap-1.5 text-xs font-semibold uppercase tracking-wide text-slate-soft">
+          <span>{product.isVendorListing ? "New vendor · self-listed" : product.brand}</span>
+          {product.featured && (
+            <span className="rounded-full bg-gold-500 px-1.5 py-0.5 text-[10px] font-extrabold normal-case tracking-normal text-navy-950">
+              ★ Featured
+            </span>
+          )}
         </p>
         <h3 className="mt-0.5 break-words font-bold text-navy-900 group-hover:text-navy-600 transition-colors">{product.name}</h3>
         {cheapest ? (

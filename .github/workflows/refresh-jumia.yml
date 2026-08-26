@@ -1,0 +1,54 @@
+# Daily automated price refresh.
+#
+# Runs scripts/fetch-jumia.mjs against the live Jumia Ghana category pages,
+# sanity-checks the result, and commits the updated snapshot to main if any
+# price changed — which triggers the Vercel auto-deploy, keeping the site's
+# "prices checked daily" promise true without anyone touching a keyboard.
+#
+# Needs no secrets: the default GITHUB_TOKEN (contents: write) is enough.
+# Run manually any time via the "Run workflow" button (workflow_dispatch).
+name: Refresh Jumia Ghana catalogue
+
+on:
+  schedule:
+    - cron: "20 5 * * *" # daily 05:20 UTC, before the site's 06:00 freshness cron
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: refresh-jumia
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - run: node scripts/fetch-jumia.mjs
+      - name: Sanity-check the refreshed snapshot
+        run: |
+          node -e "const d=require('./data/jumia-catalog.json'); if(!Array.isArray(d.products)||d.products.length<20){console.error('Snapshot looks wrong:',d.products&&d.products.length);process.exit(1);} console.log('OK — products:',d.products.length);"
+      - name: Commit and push if prices changed
+        run: |
+          if git diff --quiet data/jumia-catalog.json; then
+            echo "No price changes since the last run."
+            exit 0
+          fi
+          git config user.name "findit-ghana-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/jumia-catalog.json
+          git commit -m "Refresh Jumia Ghana catalogue (automated daily price check)"
+          git push
+      - name: Announce price drops to Telegram (optional — needs repo secrets)
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        if: env.TELEGRAM_BOT_TOKEN != ''
+        run: node scripts/announce-price-drops.mjs

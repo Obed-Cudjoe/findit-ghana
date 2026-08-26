@@ -1,11 +1,18 @@
 // POST /api/reports — price/stock/suspicious reports (P13 + P14 forms).
 // Validates, stores (Supabase or demo JSON), returns the reference code.
 import { NextResponse, type NextRequest } from "next/server";
+import { clientIp, rateLimit } from "@/lib/ratelimit";
 import { saveReport } from "@/lib/store";
 
 const VALID_KINDS = ["price_error", "stock_error", "delivery_error", "other", "suspicious"] as const;
 
 export async function POST(request: NextRequest) {
+  // Spam guard: 8 submissions per 60 * 60 * 1000 per IP (per serverless instance).
+  const limit = rateLimit(`reports:${clientIp(request)}`, 8, 60 * 60 * 1000);
+  if (!limit.ok) {
+    return NextResponse.json({ error: "Too many submissions. Please try again later." }, { status: 429, headers: { "Retry-After": String(limit.retryAfterSec) } });
+  }
+
   let body: Record<string, unknown>;
   try {
     body = await request.json();

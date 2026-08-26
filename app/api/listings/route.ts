@@ -1,12 +1,19 @@
 // POST /api/listings — vendor self-listing (For Vendors page).
 // Validates, generates a slug, and stores as "pending" for admin review.
 import { NextResponse, type NextRequest } from "next/server";
+import { clientIp, rateLimit } from "@/lib/ratelimit";
 import { saveVendorListing } from "@/lib/store";
 import { slugify } from "@/lib/utils";
 
 const VALID_CATEGORIES = ["phones", "laptops", "tv-audio", "appliances", "gaming", "fashion"];
 
 export async function POST(request: NextRequest) {
+  // Spam guard: 3 submissions per 60 * 60 * 1000 per IP (per serverless instance).
+  const limit = rateLimit(`listings:${clientIp(request)}`, 3, 60 * 60 * 1000);
+  if (!limit.ok) {
+    return NextResponse.json({ error: "Too many submissions. Please try again later." }, { status: 429, headers: { "Retry-After": String(limit.retryAfterSec) } });
+  }
+
   let body: Record<string, unknown>;
   try {
     body = await request.json();

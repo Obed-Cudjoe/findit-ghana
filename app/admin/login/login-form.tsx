@@ -53,7 +53,6 @@ export function LoginForm() {
       >
         {busy ? "Signing in…" : "Sign in"}
       </button>
-      <p className="text-center text-xs text-slate-400">Demo password: findit-admin-2026 (change via ADMIN_PASSWORD)</p>
     </form>
   );
 }
