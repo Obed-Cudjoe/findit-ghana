@@ -140,14 +140,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           </div>
         </footer>
 
-        {/* Google Analytics — active only when NEXT_PUBLIC_GA_ID is set in the environment */}
+        {/* Google Analytics in <head> (Search Console/verification require head placement) — active only when NEXT_PUBLIC_GA_ID is set */}
         {process.env.NEXT_PUBLIC_GA_ID && (
           <>
             <Script
               src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID}`}
-              strategy="afterInteractive"
+              strategy="beforeInteractive"
             />
-            <Script id="ga" strategy="afterInteractive">
+            <Script id="ga" strategy="beforeInteractive">
               {`window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
