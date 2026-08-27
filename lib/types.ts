@@ -116,6 +116,8 @@ export interface VendorProfile {
   logoHue: number;
   status: VendorProfileStatus;
   createdAt: string;
+  // scrypt hash (`saltHex:keyHex`). Server-only — never send to the browser.
+  passwordHash?: string | null;
 }
 
 // Self-submitted vendor listing (the "List your product" flow).

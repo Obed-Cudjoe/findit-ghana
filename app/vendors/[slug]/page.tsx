@@ -88,6 +88,11 @@ export default async function VendorShopPage({ params }: Props) {
         </div>
       </header>
 
+      <p className="mt-4 text-xs text-slate-soft">
+        This is your shop?{" "}
+        <Link href="/vendor/login" className="font-semibold text-navy-800 underline">Log in to the dashboard →</Link>
+      </p>
+
       <section className="mt-8">
         <h2 className="text-lg font-extrabold text-navy-900">Listings</h2>
         {products.length === 0 ? (

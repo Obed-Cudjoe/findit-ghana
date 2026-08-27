@@ -8,9 +8,18 @@ import {
   upsertVendorProfile,
   readVendorListings,
   countActiveListingsForVendor,
+  findVendorProfileByPhone,
 } from "@/lib/store";
 import { slugify } from "@/lib/utils";
-import { isPlanId, listingLimitFor, VENDOR_PLANS, effectivePlan, type PlanId } from "@/lib/plans";
+import { isPlanId, listingLimitFor, VENDOR_PLANS, type PlanId } from "@/lib/plans";
+import {
+  hashVendorPassword,
+  MIN_VENDOR_PASSWORD,
+  signVendorToken,
+  vendorCookieOptions,
+  vendorPasswordMatches,
+  VENDOR_COOKIE,
+} from "@/lib/vendor-auth";
 
 const VALID_CATEGORIES = ["phones", "laptops", "tv-audio", "appliances", "gaming", "fashion"];
 
@@ -46,6 +55,7 @@ export async function POST(request: NextRequest) {
   const description = str(body.description);
   const websiteUrl = str(body.websiteUrl);
   const requestedPlan: PlanId = isPlanId(body.plan) ? body.plan : "free";
+  const password = str(body.password);
 
   if (businessName.length < 2) return NextResponse.json({ error: "Enter your business name." }, { status: 400 });
   const digits = phone.replace(/[^0-9]/g, "");
@@ -56,6 +66,19 @@ export async function POST(request: NextRequest) {
   if (description.length < 20) return NextResponse.json({ error: "Describe the product (at least 20 characters)." }, { status: 400 });
   if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return NextResponse.json({ error: "Enter a valid email address." }, { status: 400 });
 
+  const existing = await findVendorProfileByPhone(digits);
+  let passwordHash: string | undefined;
+  if (password) {
+    if (password.length < MIN_VENDOR_PASSWORD) {
+      return NextResponse.json({ error: `Password must be at least ${MIN_VENDOR_PASSWORD} characters.` }, { status: 400 });
+    }
+    if (!existing?.passwordHash) passwordHash = await hashVendorPassword(password);
+  } else if (!existing) {
+    return NextResponse.json({ error: "Set a password (at least 8 characters) so you can log in to your shop dashboard." }, { status: 400 });
+  } else if (!existing.passwordHash) {
+    return NextResponse.json({ error: "This shop has no dashboard login yet. Set a password (at least 8 characters) to continue." }, { status: 400 });
+  }
+
   const profile = await upsertVendorProfile({
     businessName,
     contactName,
@@ -64,6 +87,7 @@ export async function POST(request: NextRequest) {
     websiteUrl,
     plan: requestedPlan,
     paymentStatus: requestedPlan === "free" ? "none" : "pending",
+    passwordHash,
   });
 
   if (profile) {
@@ -110,12 +134,28 @@ export async function POST(request: NextRequest) {
   if (!ok) return NextResponse.json({ error: "Could not store the listing. Please try again." }, { status: 500 });
 
   const paymentRequired = requestedPlan !== "free" && (!profile || profile.paymentStatus !== "confirmed");
-  return NextResponse.json({
+
+  let loggedIn = false;
+  let token: string | null = null;
+  if (profile && password.length >= MIN_VENDOR_PASSWORD) {
+    const canSign = passwordHash
+      ? true
+      : await vendorPasswordMatches(password, profile.passwordHash);
+    if (canSign) {
+      token = await signVendorToken(profile.id, profile.slug);
+      loggedIn = true;
+    }
+  }
+
+  const res = NextResponse.json({
     ok: true,
     status: "pending",
     plan: requestedPlan,
     paymentRequired,
     vendorSlug: profile?.slug ?? null,
     listingSlug: slug,
+    loggedIn,
   });
+  if (token) res.cookies.set(VENDOR_COOKIE, token, vendorCookieOptions());
+  return res;
 }

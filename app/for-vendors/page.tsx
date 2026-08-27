@@ -79,6 +79,14 @@ export default function ForVendorsPage() {
               <li><span className="font-bold text-navy-900">3.</span> We confirm payment and approve the listing — your shop appears on <Link className="font-semibold text-navy-800 underline" href="/vendors">/vendors</Link>.</li>
             </ol>
           </div>
+          <div className="rounded-xl border border-navy-100 bg-white p-5 text-sm text-slate-soft">
+            <h2 className="font-bold text-navy-900">Already listed?</h2>
+            <p className="mt-2">
+              Sign in at{" "}
+              <Link className="font-semibold text-navy-800 underline" href="/vendor/login">/vendor</Link>
+              {" "}to see your plan, add products, and (on Pro) shop views and outbound clicks.
+            </p>
+          </div>
           <div className="rounded-xl border border-navy-100 p-5 text-sm text-slate-soft">
             <h2 className="font-bold text-navy-900">Questions?</h2>
             <p className="mt-2">Email <a className="text-navy-700 underline hover:text-gold-700" href="mailto:cudjoe.obed.gh@gmail.com">cudjoe.obed.gh@gmail.com</a> or use the <Link className="text-navy-700 underline hover:text-gold-700" href="/contact">contact page</Link>.</p>
