@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   description: "Browse named vendors on FindIt Ghana — official retailers and independent shops with live cedis prices.",
 };
 
-export const revalidate = 300;
+export const dynamic = "force-dynamic";
 
 export default async function VendorsPage() {
   const vendors = await getDirectoryVendors();
