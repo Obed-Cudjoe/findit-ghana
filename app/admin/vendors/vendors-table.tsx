@@ -19,6 +19,7 @@ export interface AdminVendorRow {
   listingApproved: number;
   listingPending: number;
   listingLimit: number;
+  listingLimitLabel: string;
   clicks: number;
   views: number;
   createdAt: string;
@@ -28,6 +29,7 @@ const PLAN_BADGE: Record<string, string> = {
   free: "bg-slate-100 text-slate-700",
   starter: "bg-gold-500/20 text-gold-700",
   pro: "bg-navy-900 text-white",
+  unlimited: "bg-navy-950 text-gold-400 ring-1 ring-gold-500/60",
 };
 
 const STATUS_BADGE: Record<string, string> = {
@@ -110,7 +112,7 @@ export function VendorsTable({ vendors }: { vendors: AdminVendorRow[] }) {
                   <p className="mt-1 text-xs text-slate-soft">{v.paymentStatus} · {expiryLabel(v.planExpiresAt)}</p>
                 </td>
                 <td className="px-4 py-3 text-xs text-slate-soft">
-                  <p className="font-semibold text-navy-900">{v.listingApproved} live / {v.listingLimit} cap</p>
+                  <p className="font-semibold text-navy-900">{v.listingApproved} live / {v.listingLimitLabel} cap</p>
                   <p>{v.listingPending} pending · {v.listingTotal} total</p>
                 </td>
                 <td className="px-4 py-3 text-xs text-slate-soft">
@@ -144,6 +146,13 @@ export function VendorsTable({ vendors }: { vendors: AdminVendorRow[] }) {
                       className="rounded-md border border-navy-800 bg-navy-900 px-2.5 py-1 text-xs font-bold text-white hover:bg-navy-800 transition-colors"
                     >
                       MoMo → Pro 30d
+                    </button>
+                    <button
+                      disabled={pending}
+                      onClick={() => patch(v.id, { action: "confirm-payment", plan: "unlimited" }, { plan: "unlimited", paymentStatus: "confirmed", status: "approved" })}
+                      className="rounded-md border border-navy-950 bg-navy-950 px-2.5 py-1 text-xs font-extrabold text-gold-400 hover:bg-navy-900 transition-colors"
+                    >
+                      MoMo → Unlimited 30d
                     </button>
                     {v.plan !== "free" && (
                       <button

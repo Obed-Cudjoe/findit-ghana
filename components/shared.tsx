@@ -10,6 +10,7 @@ import {
 import type { Product, PriceOffer, Vendor } from "@/lib/types";
 import { getVendor } from "@/lib/data";
 import { formatGHS, deliveryLabel, timeAgo } from "@/lib/utils";
+import { UNLIMITED_BADGE } from "@/lib/plans";
 
 const ICONS: Record<string, React.ComponentType<{ className?: string; strokeWidth?: number }>> = {
   smartphone: Smartphone, laptop: Laptop, tv: Tv, refrigerator: Refrigerator,
@@ -60,10 +61,16 @@ export function ProductCard({ product, cheapest }: { product: Product; cheapest?
           {!product.isVendorListing && vendorName && (
             <span className="font-medium normal-case tracking-normal text-navy-500">· {vendorName}</span>
           )}
-          {product.featured && (
-            <span className="rounded-full bg-gold-500 px-1.5 py-0.5 text-[10px] font-extrabold normal-case tracking-normal text-navy-950">
-              ★ Featured
+          {product.unlimited ? (
+            <span className="rounded-full bg-navy-950 px-1.5 py-0.5 text-[10px] font-extrabold normal-case tracking-normal text-gold-400 ring-1 ring-gold-500/60">
+              {UNLIMITED_BADGE}
             </span>
+          ) : (
+            product.featured && (
+              <span className="rounded-full bg-gold-500 px-1.5 py-0.5 text-[10px] font-extrabold normal-case tracking-normal text-navy-950">
+                ★ Featured
+              </span>
+            )
           )}
         </p>
         <h3 className="mt-0.5 break-words font-bold text-navy-900 group-hover:text-navy-600 transition-colors">{product.name}</h3>

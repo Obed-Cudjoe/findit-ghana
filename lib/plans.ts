@@ -1,9 +1,23 @@
 // Vendor subscription plans for the self-listing marketplace.
 // Paid plans stay active while paymentStatus === "confirmed" AND planExpiresAt is in the future.
 // After expiry (or before admin confirms MoMo) the vendor falls back to Free limits.
+//
+// Tiers: free (1) → starter (10) → pro (25) → unlimited (∞, GH₵300/month).
+// The Unlimited tier is the top of the ladder: its listings outrank every other
+// vendor (including featured / official catalogue results) and it carries the
+// "∞ Unlimited" badge across the site.
 
-export const PLAN_IDS = ["free", "starter", "pro"] as const;
+export const PLAN_IDS = ["free", "starter", "pro", "unlimited"] as const;
 export type PlanId = (typeof PLAN_IDS)[number];
+
+/** Badge shown on Unlimited shops, product cards and the homepage featured strip. */
+export const UNLIMITED_BADGE = "∞ Unlimited";
+
+/** Sentinel for "no listing cap". Comparisons like `used >= cap` are never true. */
+export const UNLIMITED_LISTINGS = Number.POSITIVE_INFINITY;
+
+/** Paid tiers in ascending order — used to suggest the next upgrade. */
+export const PAID_PLAN_ORDER: PlanId[] = ["starter", "pro", "unlimited"];
 
 export const PAYMENT_STATUSES = ["none", "pending", "confirmed"] as const;
 export type PaymentStatus = (typeof PAYMENT_STATUSES)[number];
@@ -16,10 +30,13 @@ export interface PlanDef {
   name: string;
   tagline: string;
   priceGhs: number;
+  /** Number.MAX-ish sentinel (UNLIMITED_LISTINGS) for the ∞ tier. */
   listingLimit: number;
   featuredRotation: boolean;
   homepageFeatured: boolean;
   stats: boolean;
+  /** ∞ tier: no listing cap, top of search, "∞ Unlimited" badge everywhere. */
+  unlimited: boolean;
   perks: string[];
 }
 
@@ -33,6 +50,7 @@ export const VENDOR_PLANS: Record<PlanId, PlanDef> = {
     featuredRotation: false,
     homepageFeatured: false,
     stats: false,
+    unlimited: false,
     perks: ["1 live listing", "WhatsApp buy button", "Reviewed before it goes live"],
   },
   starter: {
@@ -40,33 +58,58 @@ export const VENDOR_PLANS: Record<PlanId, PlanDef> = {
     name: "Starter",
     tagline: "Be seen first in your category",
     priceGhs: 50,
-    listingLimit: 3,
+    listingLimit: 10,
     featuredRotation: true,
     homepageFeatured: false,
     stats: false,
-    perks: ["Up to 3 listings", "★ Featured rotation in your category", "Verified shop badge after review"],
+    unlimited: false,
+    perks: ["Up to 10 listings", "★ Featured rotation in your category", "Verified shop badge after review"],
   },
   pro: {
     id: "pro",
     name: "Pro",
     tagline: "Homepage shop + full stats",
     priceGhs: 150,
-    listingLimit: 10,
+    listingLimit: 25,
     featuredRotation: true,
     homepageFeatured: true,
     stats: true,
-    perks: ["Up to 10 listings", "Homepage featured shop", "Per-vendor click & view stats", "★ Featured in every category you list"],
+    unlimited: false,
+    perks: ["Up to 25 listings", "Homepage featured shop", "Per-vendor click & view stats", "★ Featured in every category you list"],
+  },
+  unlimited: {
+    id: "unlimited",
+    name: "Unlimited",
+    tagline: "Own the top of every search",
+    priceGhs: 300,
+    listingLimit: UNLIMITED_LISTINGS,
+    featuredRotation: true,
+    homepageFeatured: true,
+    stats: true,
+    unlimited: true,
+    perks: [
+      "Unlimited listings",
+      "Ranked above every other vendor in search & categories",
+      "∞ Unlimited badge on your shop and every product",
+      "Homepage featured shop",
+      "Per-vendor click & view stats",
+    ],
   },
 };
 
-export const PLAN_LIST: PlanDef[] = [VENDOR_PLANS.free, VENDOR_PLANS.starter, VENDOR_PLANS.pro];
+export const PLAN_LIST: PlanDef[] = [
+  VENDOR_PLANS.free,
+  VENDOR_PLANS.starter,
+  VENDOR_PLANS.pro,
+  VENDOR_PLANS.unlimited,
+];
 
 export const MOMO_NUMBER = "053 126 2424";
 export const MOMO_NAME = "Obed Cudjoe";
 export const MOMO_WHATSAPP = "233531262424";
 
 export function isPlanId(v: unknown): v is PlanId {
-  return v === "free" || v === "starter" || v === "pro";
+  return v === "free" || v === "starter" || v === "pro" || v === "unlimited";
 }
 
 export function daysFromNow(days: number): string {
@@ -129,8 +172,38 @@ export function planHasStats(profile: {
   return VENDOR_PLANS[effectivePlan(profile)].stats;
 }
 
+/** True when the shop is on a live, confirmed, unexpired Unlimited plan. */
+export function planHasUnlimited(profile: {
+  plan: PlanId;
+  paymentStatus: PaymentStatus;
+  planExpiresAt?: string | null;
+} | null | undefined): boolean {
+  if (!profile) return false;
+  return VENDOR_PLANS[effectivePlan(profile)].unlimited;
+}
+
+/** "∞" for the unlimited tier, otherwise the number. */
+export function listingLimitLabel(limit: number): string {
+  return Number.isFinite(limit) ? String(limit) : "∞";
+}
+
+/**
+ * The next paid tier up from what the vendor enjoys right now, or null when
+ * they are already on Unlimited (nothing left to upgrade to).
+ */
+export function nextPlanAfter(profile: {
+  plan: PlanId;
+  paymentStatus: PaymentStatus;
+  planExpiresAt?: string | null;
+} | null | undefined): PlanId | null {
+  const current = effectivePlan(profile ?? { plan: "free", paymentStatus: "none", planExpiresAt: null });
+  const i = PAID_PLAN_ORDER.indexOf(current);
+  if (i === -1) return "starter";
+  return PAID_PLAN_ORDER[i + 1] ?? null;
+}
+
 export function planBadgeLabel(plan: PlanId): string {
-  return VENDOR_PLANS[plan].name;
+  return plan === "unlimited" ? UNLIMITED_BADGE : VENDOR_PLANS[plan].name;
 }
 
 /** Last-9-digit key so 024… / 23324… / +233 24… all match the same Ghana number. */

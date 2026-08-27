@@ -11,7 +11,7 @@ import {
   findVendorProfileByPhone,
 } from "@/lib/store";
 import { slugify } from "@/lib/utils";
-import { isPlanId, listingLimitFor, VENDOR_PLANS, type PlanId } from "@/lib/plans";
+import { isPlanId, listingLimitFor, nextPlanAfter, VENDOR_PLANS, type PlanId } from "@/lib/plans";
 import {
   hashVendorPassword,
   MIN_VENDOR_PASSWORD,
@@ -95,10 +95,13 @@ export async function POST(request: NextRequest) {
     const used = countActiveListingsForVendor(listings, profile);
     const cap = listingLimitFor(profile);
     if (used >= cap) {
-      const next = cap >= VENDOR_PLANS.starter.listingLimit ? "Pro" : "Starter";
+      const next = nextPlanAfter(profile);
+      const nextCopy = next
+        ? `Upgrade to ${VENDOR_PLANS[next].name} (GH₵${VENDOR_PLANS[next].priceGhs}/mo) to add more — pick the plan above and pay via MoMo.`
+        : "You are on the Unlimited plan — contact us if you still cannot add listings.";
       return NextResponse.json(
         {
-          error: `Your ${VENDOR_PLANS[listingLimitFor(profile) === 1 ? "free" : profile.plan].name} plan allows ${cap} listing${cap === 1 ? "" : "s"}. Upgrade to ${next} to add more — pick the plan above and pay via MoMo.`,
+          error: `Your ${VENDOR_PLANS[listingLimitFor(profile) === 1 ? "free" : profile.plan].name} plan allows ${Number.isFinite(cap) ? `${cap} listing${cap === 1 ? "" : "s"}` : "unlimited listings"}. ${nextCopy}`,
           code: "listing_limit",
           limit: cap,
           used,
