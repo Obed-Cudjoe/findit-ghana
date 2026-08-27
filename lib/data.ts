@@ -160,7 +160,10 @@ export function searchSuggestions(query: string, limit = 6): { slug: string; nam
   const q = query.toLowerCase().trim();
   if (!q) return [];
   const results: { slug: string; name: string; category: string; minPriceGhs: number | null }[] = getProducts()
-    .filter((p) => p.name.toLowerCase().includes(q) || p.brand.toLowerCase().includes(q) || vendorNamesFor(p).toLowerCase().includes(q))
+    .filter((p) => {
+      const hay = `${p.name} ${p.brand} ${p.category} ${vendorNamesFor(p)}`.toLowerCase();
+      return hay.includes(q) || matchesAllTokens(hay, q);
+    })
     .slice(0, limit)
     .map((p) => ({
       slug: p.slug,
