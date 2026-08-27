@@ -3,7 +3,7 @@ import Link from "next/link";
 import { ShieldCheck, Store } from "lucide-react";
 import { getDirectoryVendors } from "@/lib/data";
 import { VendorAvatar } from "@/components/vendor-avatar";
-import { VENDOR_PLANS } from "@/lib/plans";
+import { UNLIMITED_BADGE, VENDOR_PLANS } from "@/lib/plans";
 
 export const metadata: Metadata = {
   title: "Vendors in Ghana — Named Shops",
@@ -75,8 +75,14 @@ function VendorCard({ vendor }: { vendor: Awaited<ReturnType<typeof getDirectory
               <ShieldCheck className="h-3.5 w-3.5" /> Verified
             </span>
           )}
-          {vendor.featured && (
-            <span className="rounded-full bg-gold-500 px-1.5 py-0.5 text-[10px] font-extrabold text-navy-950">★ Pro</span>
+          {vendor.unlimited ? (
+            <span className="rounded-full bg-navy-950 px-1.5 py-0.5 text-[10px] font-extrabold text-gold-400 ring-1 ring-gold-500/60">
+              {UNLIMITED_BADGE}
+            </span>
+          ) : (
+            vendor.featured && (
+              <span className="rounded-full bg-gold-500 px-1.5 py-0.5 text-[10px] font-extrabold text-navy-950">★ Pro</span>
+            )
           )}
         </p>
         <p className="mt-0.5 text-xs text-slate-soft">

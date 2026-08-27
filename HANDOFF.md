@@ -21,7 +21,7 @@ Set these in **Vercel → Project → Settings → Environment Variables** (and 
 
 Three tiers, automatic (see `lib/store.ts`):
 
-1. **Supabase** — production path. Free tier is enough. Setup: create project → run `supabase/migrations/001_init.sql`, then `002_featured_listings.sql`, then `003_vendor_plans.sql`, then `004_vendor_passwords.sql` → add the three env vars. Done.
+1. **Supabase** — production path. Free tier is enough. Setup: create project → run `supabase/migrations/001_init.sql`, then `002_featured_listings.sql`, then `003_vendor_plans.sql`, then `004_vendor_passwords.sql`, then `005_unlimited_plan.sql` → add the three env vars. Done.
 2. **Local JSON files** — dev machines only.
 3. **Public demo store** — Vercel fallback when Supabase is not connected. ⚠ **Publicly readable and writable by anyone.** Fine for a demo, not for a live marketplace. The admin dashboard banner always shows which tier is active.
 
@@ -58,10 +58,11 @@ Three tiers, automatic (see `lib/store.ts`):
 | Plan | Price | Listings | Placement |
 |---|---|---|---|
 | Free | GH₵0 | 1 | Search + category |
-| Starter | GH₵50/month | up to 3 | ★ featured rotation in their category |
-| Pro | GH₵150/month | up to 10 | Homepage featured shop + category ★ + click/view stats |
+| Starter | GH₵50/month | up to 10 | ★ featured rotation in their category |
+| Pro | GH₵150/month | up to 25 | Homepage featured shop + category ★ + click/view stats |
+| Unlimited | GH₵300/month | Unlimited | ∞ Unlimited badge on shop + every product, **ranked above every other vendor** (including featured/official) in search and category results, homepage featured shop, click/view stats |
 
-Paid flow: vendor submits → pays MoMo to **053 126 2424** → WhatsApps the reference → you confirm on **`/admin/vendors`** → **MoMo → Starter 30d** or **MoMo → Pro 30d** (sets plan + 30-day expiry). Directory: `/vendors` and `/vendors/[slug]`. Vendor login: **`/vendor`** (cookie `findit_vendor`, 12h). Same-named products from different shops merge onto one product page (vendor comparison table). If you use Supabase, run `003_vendor_plans.sql` then `004_vendor_passwords.sql` after 001 and 002. Optional `VENDOR_JWT_SECRET` (falls back to `ADMIN_PASSWORD`).
+Paid flow: vendor submits → pays MoMo to **053 126 2424** → WhatsApps the reference → you confirm on **`/admin/vendors`** → **MoMo → Starter 30d**, **MoMo → Pro 30d** or **MoMo → Unlimited 30d** (sets plan + 30-day expiry). Directory: `/vendors` and `/vendors/[slug]`. Vendor login: **`/vendor`** (cookie `findit_vendor`, 12h). Same-named products from different shops merge onto one product page (vendor comparison table). If you use Supabase, run `003_vendor_plans.sql`, then `004_vendor_passwords.sql`, then `005_unlimited_plan.sql` after 001 and 002. Optional `VENDOR_JWT_SECRET` (falls back to `ADMIN_PASSWORD`).
 
 Per-listing **"★ Feature 30d"** on `/admin/listings` still works as an extra pin (`featured_until`).
 

@@ -7,7 +7,7 @@ import { VendorAvatar } from "@/components/vendor-avatar";
 import { ProductCard } from "@/components/shared";
 import { ViewTracker } from "@/components/view-tracker";
 import { readClicks } from "@/lib/store";
-import { effectivePlan, VENDOR_PLANS } from "@/lib/plans";
+import { effectivePlan, UNLIMITED_BADGE, VENDOR_PLANS } from "@/lib/plans";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -69,10 +69,16 @@ export default async function VendorShopPage({ params }: Props) {
                 <ShieldCheck className="h-3.5 w-3.5" /> Verified
               </span>
             )}
-            {plan && plan !== "free" && (
-              <span className="rounded-full bg-gold-500 px-2.5 py-1 text-xs font-extrabold text-navy-950">
-                {VENDOR_PLANS[plan].name}
+            {plan === "unlimited" ? (
+              <span className="inline-flex items-center gap-1 rounded-full bg-navy-950 px-2.5 py-1 text-xs font-extrabold text-gold-400 ring-1 ring-gold-500/60">
+                {UNLIMITED_BADGE}
               </span>
+            ) : (
+              plan && plan !== "free" && (
+                <span className="rounded-full bg-gold-500 px-2.5 py-1 text-xs font-extrabold text-navy-950">
+                  {VENDOR_PLANS[plan].name}
+                </span>
+              )
             )}
           </h1>
           <p className="mt-1 text-sm text-slate-soft">

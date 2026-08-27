@@ -5,7 +5,7 @@
 // Paid plans show MoMo instructions after submit; admin confirms in /admin/vendors.
 import { useState } from "react";
 import Link from "next/link";
-import { PLAN_LIST, MOMO_NUMBER, MOMO_NAME, MOMO_WHATSAPP, VENDOR_PLANS, type PlanId } from "@/lib/plans";
+import { PLAN_LIST, MOMO_NUMBER, MOMO_NAME, MOMO_WHATSAPP, UNLIMITED_BADGE, VENDOR_PLANS, isPlanId, listingLimitLabel, type PlanId } from "@/lib/plans";
 import { MIN_VENDOR_PASSWORD } from "@/lib/vendor-auth-client";
 
 const CATEGORIES = [
@@ -108,7 +108,7 @@ export function VendorListingForm() {
       if (res.ok) {
         setDone({
           paymentRequired: !!data.paymentRequired,
-          plan: data.plan === "starter" || data.plan === "pro" ? data.plan : "free",
+          plan: isPlanId(data.plan) && data.plan !== "free" ? data.plan : "free",
           vendorSlug: typeof data.vendorSlug === "string" ? data.vendorSlug : null,
           loggedIn: !!data.loggedIn,
         });
@@ -131,8 +131,10 @@ export function VendorListingForm() {
         <div className="rounded-xl border border-gold-600/40 bg-gold-500/10 p-6" role="status">
           <p className="font-extrabold text-navy-900">Listing received — pay to activate {picked.name}</p>
           <p className="mt-2 text-sm leading-relaxed text-slate-soft">
-            Your product is in the review queue. To unlock {picked.listingLimit} listings
+            Your product is in the review queue. To unlock{" "}
+            {Number.isFinite(picked.listingLimit) ? `${picked.listingLimit} listings` : "unlimited listings"}
             {picked.featuredRotation ? ", ★ featured placement" : ""}
+            {picked.unlimited ? ` and the ${UNLIMITED_BADGE} badge` : ""}
             {picked.homepageFeatured ? " and a homepage shop" : ""}, send{" "}
             <strong className="text-navy-900">GH₵{picked.priceGhs}</strong> by Mobile Money:
           </p>
@@ -197,7 +199,7 @@ export function VendorListingForm() {
 
       <fieldset>
         <legend className="text-sm font-bold text-navy-900">0 · Choose a plan</legend>
-        <div className="mt-3 grid gap-3 md:grid-cols-3">
+        <div className="mt-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
           {PLAN_LIST.map((p) => {
             const selected = plan === p.id;
             return (
@@ -213,7 +215,17 @@ export function VendorListingForm() {
                 }`}
               >
                 <p className="text-xs font-bold uppercase tracking-wide text-gold-700">{p.id === "free" ? "Free" : `GH₵${p.priceGhs}/mo`}</p>
-                <p className="mt-0.5 font-extrabold text-navy-900">{p.name}</p>
+                <p className="mt-0.5 flex flex-wrap items-center gap-1.5 font-extrabold text-navy-900">
+                  {p.name}
+                  {p.unlimited && (
+                    <span className="rounded-full bg-navy-950 px-1.5 py-0.5 text-[10px] font-extrabold text-gold-400 ring-1 ring-gold-500/60">
+                      {UNLIMITED_BADGE}
+                    </span>
+                  )}
+                </p>
+                <p className="mt-1 text-xs font-semibold text-navy-800">
+                  {Number.isFinite(p.listingLimit) ? `${listingLimitLabel(p.listingLimit)} listing${p.listingLimit === 1 ? "" : "s"}` : "Unlimited listings"}
+                </p>
                 <p className="mt-1 text-xs text-slate-soft">{p.tagline}</p>
                 <ul className="mt-2 space-y-1 text-[11px] text-navy-800">
                   {p.perks.map((perk) => (

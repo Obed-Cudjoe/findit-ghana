@@ -21,6 +21,7 @@ export interface Product {
   updatedAt: string;
   isVendorListing?: boolean; // self-listed by a vendor (reviewed by admin before going live)
   featured?: boolean; // paid featured placement — sorted first, shown with a ★ badge
+  unlimited?: boolean; // Unlimited plan (GH₵300/mo) — outranks featured, shown with an ∞ Unlimited badge
   image?: string; // product photo URL (served from the source CDN — tiles fall back to the gradient icon when absent)
 }
 
@@ -95,7 +96,7 @@ export interface ClickRow {
   createdAt: string;
 }
 
-export type VendorPlanId = "free" | "starter" | "pro";
+export type VendorPlanId = "free" | "starter" | "pro" | "unlimited";
 export type VendorPaymentStatus = "none" | "pending" | "confirmed";
 export type VendorProfileStatus = "pending" | "approved" | "rejected";
 

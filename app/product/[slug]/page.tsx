@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ShieldCheck, Clock, TriangleAlert, MessageCircle, BadgeCheck } from "lucide-react";
+import { ShieldCheck, Clock, TriangleAlert, MessageCircle, BadgeCheck, Infinity as InfinityIcon } from "lucide-react";
 import {
   getMergedProductPage, getOffersForProduct, getSnapshotsForOffer, getProducts,
 } from "@/lib/data";
 import { ProductVisual, PriceChart, ProductCard } from "@/components/shared";
 import { VendorTable } from "@/components/vendor-table";
 import { formatGHS, timeAgo, formatDate } from "@/lib/utils";
+import { UNLIMITED_BADGE } from "@/lib/plans";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -84,6 +85,11 @@ export default async function ProductPage({ params }: Props) {
             <p className="text-sm font-semibold uppercase tracking-wide text-gold-700">{product.brand}</p>
           )}
           <h1 className="mt-1 break-words text-2xl font-extrabold text-navy-900 md:text-3xl">{product.name}</h1>
+          {product.unlimited && (
+            <p className="mt-2 inline-flex items-center gap-1.5 rounded-full bg-navy-950 px-3 py-1 text-xs font-extrabold text-gold-400 ring-1 ring-gold-500/60">
+              <InfinityIcon className="h-3.5 w-3.5" /> {UNLIMITED_BADGE} vendor
+            </p>
+          )}
           <p className="mt-2 inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700">
             <Clock className="h-3.5 w-3.5" /> Prices checked {timeAgo(listingOnly && vListing ? vListing.createdAt : product.updatedAt)}
           </p>
