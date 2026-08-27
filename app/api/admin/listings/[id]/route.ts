@@ -3,7 +3,7 @@
 // so the listing appears on the site immediately.
 import { NextResponse, type NextRequest } from "next/server";
 import { revalidatePath } from "next/cache";
-import { updateVendorListingStatus, readVendorListings, setVendorListingFeatured } from "@/lib/store";
+import { updateVendorListingStatus, readVendorListings, setVendorListingFeatured, updateVendorProfile } from "@/lib/store";
 
 const VALID = ["pending", "approved", "rejected"] as const;
 
@@ -38,6 +38,10 @@ export async function PATCH(request: NextRequest, { params }: { params: Promise<
       revalidatePath("/search");
       revalidatePath(`/category/${listing.category}`);
       revalidatePath(`/product/${listing.slug}`);
+      revalidatePath("/vendors");
+      if (status === "approved" && listing.vendorId) {
+        await updateVendorProfile(listing.vendorId, { status: "approved" });
+      }
     }
   } catch {
     /* cache invalidation is best-effort */

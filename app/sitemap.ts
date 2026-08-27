@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { getProducts, getCategories, siteConfig } from "@/lib/data";
+import { getProducts, getCategories, siteConfig, officialSources, getVendors } from "@/lib/data";
 import { guides as seedGuides } from "@/data/seed";
 
 // Dynamic sitemap — regenerates on every build.
@@ -7,7 +7,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const base = siteConfig.url;
   const now = new Date();
 
-  const staticRoutes = ["", "/how-it-works", "/trust", "/about", "/contact", "/guides", "/report/price", "/report/suspicious", "/privacy", "/terms"].map(
+  const staticRoutes = ["", "/how-it-works", "/trust", "/about", "/contact", "/guides", "/vendors", "/for-vendors", "/report/price", "/report/suspicious", "/privacy", "/terms"].map(
     (path) => ({ url: `${base}${path}`, lastModified: now, changeFrequency: "weekly" as const, priority: path === "" ? 1 : 0.7 })
   );
 
@@ -32,5 +32,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }));
 
-  return [...staticRoutes, ...productRoutes, ...categoryRoutes, ...guideRoutes];
+  const vendors = getVendors();
+  const vendorRoutes = officialSources
+    .map((s) => vendors.find((v) => v.name === s.name))
+    .filter((v): v is NonNullable<typeof v> => !!v)
+    .map((v) => ({
+      url: `${base}/vendors/${v.slug}`,
+      lastModified: now,
+      changeFrequency: "weekly" as const,
+      priority: 0.6,
+    }));
+
+  return [...staticRoutes, ...productRoutes, ...categoryRoutes, ...guideRoutes, ...vendorRoutes];
 }

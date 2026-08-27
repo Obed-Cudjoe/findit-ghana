@@ -60,6 +60,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 <Link href="/category/laptops" className="hover:text-white transition-colors">Laptops</Link>
                 <Link href="/category/appliances" className="hover:text-white transition-colors">Appliances</Link>
                 <Link href="/guides" className="hover:text-white transition-colors">Guides</Link>
+                <Link href="/vendors" className="hover:text-white transition-colors">Vendors</Link>
                 <Link href="/how-it-works" className="hover:text-white transition-colors">How it works</Link>
                 <Link href="/for-vendors" className="font-semibold text-gold-400 hover:text-gold-300 transition-colors">For vendors</Link>
               </nav>
@@ -109,6 +110,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 <ul className="mt-3 space-y-2 text-sm">
                   <li><Link className="hover:text-gold-400 transition-colors" href="/about">About</Link></li>
                   <li><Link className="hover:text-gold-400 transition-colors" href="/guides">Price guides</Link></li>
+                  <li><Link className="hover:text-gold-400 transition-colors" href="/vendors">Vendor directory</Link></li>
                   <li><Link className="hover:text-gold-400 transition-colors" href="/for-vendors">For vendors — list your product</Link></li>
                   <li><Link className="hover:text-gold-400 transition-colors" href="/contact">Contact</Link></li>
                 </ul>

@@ -21,7 +21,7 @@ Set these in **Vercel → Project → Settings → Environment Variables** (and 
 
 Three tiers, automatic (see `lib/store.ts`):
 
-1. **Supabase** — production path. Free tier is enough. Setup: create project → run `supabase/migrations/001_init.sql` → add the three env vars. Done.
+1. **Supabase** — production path. Free tier is enough. Setup: create project → run `supabase/migrations/001_init.sql`, then `002_featured_listings.sql`, then `003_vendor_plans.sql` → add the three env vars. Done.
 2. **Local JSON files** — dev machines only.
 3. **Public demo store** — Vercel fallback when Supabase is not connected. ⚠ **Publicly readable and writable by anyone.** Fine for a demo, not for a live marketplace. The admin dashboard banner always shows which tier is active.
 
@@ -44,7 +44,7 @@ Three tiers, automatic (see `lib/store.ts`):
 
 ## 5. Known limitations (be honest with buyers)
 
-- **Partner catalogues are snapshots, not a live scrape.** Jumia refreshes daily via GitHub Action. CompuGhana, Franko Trading and Telefonika prices are committed listings — update the JSON when their websites change. Same-product comparison across vendors is real only when two feeds share a slug (today each feed is its own product page).
+- **Partner catalogues are snapshots, not a live scrape.** Jumia refreshes daily via GitHub Action. CompuGhana, Franko Trading and Telefonika prices are committed listings — update the JSON when their websites change. Catalogue feeds still use per-source slugs; independent vendor listings that name the same product merge onto one page (and onto a matching catalogue product when the titles agree).
 - **No email/WhatsApp notifications.** New vendor listings and reports appear in the admin dashboard; nobody is pinged. Wire an email provider into `saveVendorListing`/`saveReport` if wanted.
 - **`supabase/seed.sql` is legacy.** It seeds the old demo catalogue into the DB `products`/`offers` tables — the live site serves the JSON snapshot instead and ignores those tables. Only `vendor_listings`, `reports`, `contacts`, `clicks`, `guides` tables matter.
 - **Rate limits are per serverless instance** (in-memory). Good spam determent, not a hard guarantee; swap `lib/ratelimit.ts` for Upstash Redis if a buyer needs hard limits.
@@ -53,7 +53,17 @@ Three tiers, automatic (see `lib/store.ts`):
 
 ## 7. Earning from the site
 
-**Featured vendor placements (built in).** Vendors list free; you charge **GH₵50/month** to feature a listing — pinned to the top of its category with a ★ badge for 30 days. Flow: vendor pays by MoMo to your number (instructions shown on `/for-vendors` → "Get featured") → you verify the payment → `/admin/listings` → **"★ Feature 30d"**. Renewals = one click. If you use Supabase, run `supabase/migrations/002_featured_listings.sql` once (SQL Editor) to add the `featured_until` column.
+**Vendor plans (built in).** Shops pick a plan on `/for-vendors`:
+
+| Plan | Price | Listings | Placement |
+|---|---|---|---|
+| Free | GH₵0 | 1 | Search + category |
+| Starter | GH₵50/month | up to 3 | ★ featured rotation in their category |
+| Pro | GH₵150/month | up to 10 | Homepage featured shop + category ★ + click/view stats |
+
+Paid flow: vendor submits → pays MoMo to **053 126 2424** → WhatsApps the reference → you confirm on **`/admin/vendors`** → **MoMo → Starter 30d** or **MoMo → Pro 30d** (sets plan + 30-day expiry). Directory: `/vendors` and `/vendors/[slug]`. Same-named products from different shops merge onto one product page (vendor comparison table). If you use Supabase, run `supabase/migrations/003_vendor_plans.sql` after 001 and 002.
+
+Per-listing **"★ Feature 30d"** on `/admin/listings` still works as an extra pin (`featured_until`).
 
 **Daily price-drop channel (built in).** `scripts/announce-price-drops.mjs` compares today's catalogue with yesterday's and posts the biggest drops. The refresh workflow runs it automatically **if** you add two repo secrets (`TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID` — setup steps at the top of the script). Without secrets, run it locally and it prints a copy-paste message for WhatsApp Channels/groups. The message links to the site, which carries the affiliate links — channel → site → Jumia.
 
