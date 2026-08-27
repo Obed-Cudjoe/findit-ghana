@@ -24,7 +24,7 @@ A shopper types a product — *"iphone 13"*, *"gas cooker"*, *"ps5"* — and ins
 
 The site never takes payments and never holds stock. It shows the honest picture and routes the shopper to the vendor. Revenue comes from affiliate links (Jumia pays ~9% per sale in Ghana) and featured vendor placements.
 
-**Every page is finished:** home, search, 82 real product pages (live Jumia Ghana catalogue), 6 category pages, price guides, trust & methodology, about, contact, two working report forms, privacy/terms, and a password-protected admin dashboard with a corrections queue and content editor.
+**Every page is finished:** home, search, 100+ real product pages (Jumia Ghana plus CompuGhana, Franko Trading and Telefonika), 6 category pages, price guides, trust & methodology, about, contact, two working report forms, privacy/terms, and a password-protected admin dashboard with a corrections queue and content editor.
 
 ---
 
@@ -47,7 +47,7 @@ cp .env.example .env.local
 npm run dev
 ```
 
-Then open **http://localhost:3000** **on that same computer** — the site loads locally, seeded with the real Jumia Ghana catalogue (82 products with live GH₵ prices), 6 vendors and 4 guides.
+Then open **http://localhost:3000** **on that same computer** — the site loads locally, seeded with real GH₵ catalogues from Jumia Ghana, CompuGhana, Franko Trading and Telefonika, plus 4 guides.
 
 > ⚠️ `localhost:3000` only works on the machine running the command (it's your own computer's address, not a public link). If you want to see the public site instead, open **https://findit-ghana.vercel.app**.
 
@@ -94,13 +94,20 @@ The script falls back to plain `git` if the GitHub CLI is missing (it will ask f
 
 ### Refreshing the real Jumia Ghana catalogue
 
-The product catalogue is a committed snapshot of **real Jumia Ghana marketplace listings** (`data/jumia-catalog.json`), loaded by `lib/feeds/jumia.ts` — every price is a live GH₵ marketplace price and every buy button goes to the real product page (through the affiliate link). To refresh prices, run this on any machine with normal internet access:
+The product catalogue is committed snapshots of **real Ghanaian retailer listings**:
+
+- `data/jumia-catalog.json` — Jumia Ghana marketplace (buy buttons go through the affiliate link)
+- `data/compughana-catalog.json` — CompuGhana (buy buttons go directly to compughana.com)
+- `data/franko-catalog.json` — Franko Trading (buy buttons go directly to frankotrading.com)
+- `data/telefonika-catalog.json` — Telefonika (buy buttons go directly to telefonika.com)
+
+Every price is a live GH₵ listing price. To refresh Jumia prices, run this on any machine with normal internet access:
 
 ```bash
 node scripts/fetch-jumia.mjs
 ```
 
-It re-scrapes the Jumia GH category pages and rewrites the snapshot. Check the diff, `npm run build`, then commit — Vercel deploys the new prices automatically.
+It re-scrapes the Jumia GH category pages and rewrites the snapshot. Partner catalogues are updated by editing the matching JSON file. Check the diff, `npm run build`, then commit — Vercel deploys the new prices automatically.
 
 ### Connecting the free database (optional but recommended)
 
@@ -139,7 +146,7 @@ app/                pages + API routes (Next.js App Router)
 components/         reusable UI: header/footer, product cards, vendor table,
                     price chart, forms, trust strip, empty states
 lib/                data access, storage layer (Supabase or JSON), utilities
-data/               catalogue snapshot + site dataset (82 real Jumia Ghana products, 6 vendors, 4 guides)
+data/               catalogue snapshots + site dataset (Jumia, CompuGhana, Franko Trading, Telefonika)
 scripts/            fetch-jumia.mjs — refreshes the Jumia Ghana catalogue snapshot
 supabase/           database schema + seed SQL for the free-tier database
 public/             favicon and static assets

@@ -1,0 +1,87 @@
+{
+  "source": "frankotrading.com",
+  "description": "Franko Trading showcase catalogue — real products and live GH₵ prices captured from frankotrading.com public listings on the fetchedAt date. Proof-of-partnership listings: buy buttons go directly to Franko Trading product pages. Refresh prices from their website.",
+  "fetchedAt": "2026-08-27T18:00:00Z",
+  "currency": "GHS",
+  "deliveryModel": "Franko Trading advertises free delivery within Accra and Kumasi, and ships nationwide. Modelled as GH₵0 fee, 1–3 days.",
+  "products": [
+    {
+      "name": "Samsung Galaxy A26 (256GB + 8GB) 5G – Plus Free Voucher",
+      "brand": "Samsung",
+      "category": "phones",
+      "url": "https://www.frankotrading.com/product/a59d19db-a8e7-480c-9422-c4878ca81dea",
+      "image": "https://testing.frankotrading.com/Media/Products_Images/0ff36cad-80ca-4464-a619-e139c95ed394_sam%20A26.webp",
+      "priceGhs": 3730
+    },
+    {
+      "name": "Tecno Pop 20 (128GB + 4GB) – Plus Free Voucher",
+      "brand": "Tecno",
+      "category": "phones",
+      "url": "https://www.frankotrading.com/product/2a3ae38a-9278-4554-9922-0103adeabe38",
+      "image": "https://testing.frankotrading.com/Media/Products_Images/71557183-1c3f-4a0c-9c95-d431cb3b4de7_Pop%2020%202.webp",
+      "priceGhs": 1610
+    },
+    {
+      "name": "Tecno Spark 40 Pro (128GB + 8GB) – Plus Free Voucher",
+      "brand": "Tecno",
+      "category": "phones",
+      "url": "https://www.frankotrading.com/product/4ad452ad-437e-4c3c-9e6d-f9824c9372fc",
+      "image": "https://testing.frankotrading.com/Media/Products_Images/c63fda1c-835f-4f13-a2f2-a21183324233_300.png",
+      "priceGhs": 2300
+    },
+    {
+      "name": "Tecno Spark 40 Pro+ (256GB + 8GB) – Plus Free Voucher",
+      "brand": "Tecno",
+      "category": "phones",
+      "url": "https://www.frankotrading.com/product/5ed799ea-5a04-4474-9ddf-d7d6c92d7faf",
+      "image": "https://testing.frankotrading.com/Media/Products_Images/02825c19-7557-42cb-a5f4-39b971a8e895_2%2C829.png",
+      "priceGhs": 2829
+    },
+    {
+      "name": "Itel P65c (128GB + 4GB)",
+      "brand": "Itel",
+      "category": "phones",
+      "url": "https://www.frankotrading.com/product/74a793c2-0d16-4617-b06b-0ea4b963229f",
+      "image": "https://testing.frankotrading.com/Media/Products_Images/bd391542-2dfb-461e-8e66-c6ff015069b2_image%20-%202025-10-30T102346.806.jpg",
+      "priceGhs": 790,
+      "oldPriceGhs": 850,
+      "discountPct": 7
+    },
+    {
+      "name": "Itel City 100 (128GB + 4GB)",
+      "brand": "Itel",
+      "category": "phones",
+      "url": "https://www.frankotrading.com/product/5db3b674-c9f4-408a-b083-42e004c855cc",
+      "image": "https://testing.frankotrading.com/Media/Products_Images/0f500112-98d2-457a-ba19-c49d6193778e_itel11-removebg-preview.png",
+      "priceGhs": 1030,
+      "oldPriceGhs": 1090,
+      "discountPct": 6
+    },
+    {
+      "name": "HP Pavilion i3 (256GB + 8GB) x360 14-ek0013dx 12th Gen – 14\" Touchscreen",
+      "brand": "HP",
+      "category": "laptops",
+      "url": "https://www.frankotrading.com/product/d43dcc21-03a1-43fa-bfe3-808e83fe304c",
+      "image": "https://testing.frankotrading.com/Media/Products_Images/a5c5edbd-0d91-42ae-a69b-d1630e5758c4_0013.jpg",
+      "priceGhs": 7500
+    },
+    {
+      "name": "HP Victus Ryzen 5 (8GB + 512GB SSD) 15-Fb2063Dx (RX 6550M) – 15.6\" 144Hz",
+      "brand": "HP",
+      "category": "laptops",
+      "url": "https://www.frankotrading.com/product/984f63c3-e811-4a55-a79d-7bd5924eb4dc",
+      "image": "https://testing.frankotrading.com/Media/Products_Images/fdeae3ff-73d8-4365-9cf4-ac34c5ca866c_9f60e704-86ca-470f-ad4c-270a1560ca6e_has_14-removebg-preview.png",
+      "priceGhs": 8290,
+      "oldPriceGhs": 10190,
+      "discountPct": 19
+    },
+    {
+      "name": "Dell Inspiron 3530 i5 (8GB + 512GB SSD) – 15.6\" Touchscreen + Free Infinix Xwatch 3GT & Franko Bag",
+      "brand": "Dell",
+      "category": "laptops",
+      "url": "https://www.frankotrading.com/product/1670f705-7096-4a8c-8547-0953c10bcde1",
+      "image": "https://testing.frankotrading.com/Media/Products_Images/7bdd9438-d91c-4098-934e-3ee7e784507e_WhatsApp%20Image%202026-08-26%20at%205.35.51%20PM.jpeg",
+      "priceGhs": 8500
+    }
+  ]
+}

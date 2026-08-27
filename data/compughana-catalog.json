@@ -120,6 +120,30 @@
       "priceGhs": 21499,
       "oldPriceGhs": 22999,
       "discountPct": 7
+    },
+    {
+      "name": "Tecno Camon Slim (CN6C) – 256GB – 8GB RAM + Free Smart Watch, LDNIO Stand & Earbuds",
+      "brand": "Tecno",
+      "category": "phones",
+      "url": "https://compughana.com/products/tecno-cn6c-camon-slim-256gb-8gb-ram",
+      "image": "https://compughana.com/cdn/shop/files/CAMONSLIM.jpg?v=1784234257&width=533",
+      "priceGhs": 4199
+    },
+    {
+      "name": "Apple iPhone 17 Pro – 256GB – 1 SIM + eSIM",
+      "brand": "Apple",
+      "category": "phones",
+      "url": "https://compughana.com/products/iphone-17-pro-256gb-1-sim-e-sim",
+      "image": "https://compughana.com/cdn/shop/files/ip_17.png?v=1772535669&width=533",
+      "priceGhs": 17499
+    },
+    {
+      "name": "Samsung Galaxy Z Fold8 – SM-F971B – 512GB – 12GB RAM",
+      "brand": "Samsung",
+      "category": "phones",
+      "url": "https://compughana.com/products/samsung-galaxy-sm-f971b-z-fold8-512gb-12gb-ram",
+      "image": "https://compughana.com/cdn/shop/files/FOLD8_JASMINE.png?v=1786775826&width=533",
+      "priceGhs": 24999
     }
   ]
 }

@@ -8,6 +8,7 @@ import {
   ArrowRight, Star,
 } from "lucide-react";
 import type { Product, PriceOffer, Vendor } from "@/lib/types";
+import { getVendor } from "@/lib/data";
 import { formatGHS, deliveryLabel, timeAgo } from "@/lib/utils";
 
 const ICONS: Record<string, React.ComponentType<{ className?: string; strokeWidth?: number }>> = {
@@ -46,6 +47,7 @@ export function ProductVisual({ product, className = "" }: { product: Product; c
 
 /* ---------- Product card (COMP-07): results, category, similar products ---------- */
 export function ProductCard({ product, cheapest }: { product: Product; cheapest?: PriceOffer }) {
+  const vendorName = cheapest ? getVendor(cheapest.vendorId)?.name : undefined;
   return (
     <Link
       href={`/product/${product.slug}`}
@@ -55,6 +57,9 @@ export function ProductCard({ product, cheapest }: { product: Product; cheapest?
       <div className="flex flex-1 flex-col p-4">
         <p className="flex flex-wrap items-center gap-1.5 text-xs font-semibold uppercase tracking-wide text-slate-soft">
           <span>{product.isVendorListing ? "New vendor · self-listed" : product.brand}</span>
+          {!product.isVendorListing && vendorName && (
+            <span className="font-medium normal-case tracking-normal text-navy-500">· {vendorName}</span>
+          )}
           {product.featured && (
             <span className="rounded-full bg-gold-500 px-1.5 py-0.5 text-[10px] font-extrabold normal-case tracking-normal text-navy-950">
               ★ Featured
@@ -129,6 +134,42 @@ export function TrustStrip() {
         <span className="inline-flex items-center gap-1.5"><Truck className="h-4 w-4 text-navy-500" /> Delivery shown upfront</span>
       </div>
     </div>
+  );
+}
+
+/* ---------- Official price sources (Jumia, CompuGhana, Franko, Telefonika) ---------- */
+export function OfficialSources({
+  sources,
+}: {
+  sources: { name: string; host: string; search: string; blurb: string }[];
+}) {
+  return (
+    <section className="mx-auto max-w-6xl px-4 py-12">
+      <div className="mb-6">
+        <h2 className="text-xl font-extrabold text-navy-900 md:text-2xl">Verified price sources</h2>
+        <p className="mt-1 text-sm text-slate-soft">
+          Every catalogue price comes from a named Ghanaian retailer. Buy buttons open that shop&apos;s own product page.
+        </p>
+      </div>
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        {sources.map((s) => (
+          <Link
+            key={s.host}
+            href={`/search?q=${encodeURIComponent(s.search)}`}
+            className="hover-lift group rounded-xl border border-navy-100 bg-white p-5"
+          >
+            <p className="flex items-center gap-1.5 text-sm font-extrabold text-navy-900 group-hover:text-gold-700 transition-colors">
+              <ShieldCheck className="h-4 w-4 text-emerald-600" /> {s.name}
+            </p>
+            <p className="mt-1 text-xs font-semibold uppercase tracking-wide text-slate-400">{s.host}</p>
+            <p className="mt-2 text-sm text-slate-soft">{s.blurb}</p>
+            <span className="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-gold-600 group-hover:gap-2 transition-all">
+              See their prices <ArrowRight className="h-4 w-4" />
+            </span>
+          </Link>
+        ))}
+      </div>
+    </section>
   );
 }
 

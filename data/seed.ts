@@ -1,14 +1,15 @@
 // Site scaffolding dataset: vendors, categories and guides.
-// The PRODUCT CATALOGUE is real — it comes from the Jumia Ghana marketplace
-// snapshot loaded by lib/feeds/jumia.ts (data/jumia-catalog.json), which
-// replaced the old 16-item demo products/offers/snapshots.
+// The PRODUCT CATALOGUE is real — Jumia Ghana plus official partner
+// catalogues (CompuGhana, Franko Trading, Telefonika). The demo vendors
+// below are used by the vendor-listing flow, not as catalogue sources.
+// Telefonika the retailer is the official feed in lib/feeds/telefonika.ts
+// (not this seed list).
 
 export const vendors = [
   { id: "v1", name: "DeviceDeal GH", slug: "devicedeal-gh", verified: true, source: "direct", logoHue: 210 },
   { id: "v2", name: "MobileMall", slug: "mobilemall", verified: true, source: "direct", logoHue: 160 },
   { id: "v3", name: "ImportCourier GH", slug: "importcourier-gh", verified: false, source: "import", logoHue: 25 },
   { id: "v4", name: "Nasco Electronics", slug: "nasco-electronics", verified: true, source: "direct", logoHue: 190 },
-  { id: "v5", name: "Telefonika GH", slug: "telefonika-gh", verified: true, source: "direct", logoHue: 265 },
   { id: "v6", name: "GadgetWorks", slug: "gadgetworks", verified: false, source: "direct", logoHue: 330 },
 ] as const;
 
@@ -37,7 +38,7 @@ export const guides = [
       "TECNO Pop 20 (64GB) — the budget all-rounder at about GH₵1,499, with a big 6.75-inch screen and 5000mAh battery.",
       "TECNO Pop 20 (128GB) — double the storage for about GH₵1,645, still under budget.",
       "## Where the prices come from",
-      "Every price on this page comes from a live marketplace listing (Jumia Ghana), re-checked against the latest catalogue snapshot. If a price looks wrong, the last-checked timestamp next to it is your proof to challenge it — and our report form is one tap away.",
+      "Every price on this page comes from a live listing at a named Ghanaian retailer — Jumia Ghana, CompuGhana, Franko Trading or Telefonika — re-checked against the latest catalogue snapshot. If a price looks wrong, the last-checked timestamp next to it is your proof to challenge it — and our report form is one tap away.",
     ].join("\n"),
     updatedAt: "2026-08-25",
     readMinutes: 6,

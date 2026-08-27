@@ -1,19 +1,34 @@
 // Read-side data access. The product catalogue is the real Jumia Ghana
-// marketplace snapshot (lib/feeds/jumia.ts ← data/jumia-catalog.json);
-// categories and guides stay in the seed file; vendor listings from the
-// self-service flow merge on top. When Supabase env vars are present,
-// lib/store.ts provides the same shapes from the database.
+// marketplace snapshot plus official partner catalogues (CompuGhana,
+// Franko Trading, Telefonika). Categories and guides stay in the seed file;
+// vendor listings from the self-service flow merge on top.
 import { vendors as seedVendors, categories, guides } from "@/data/seed";
 import { jumiaProducts, jumiaOffers, jumiaVendor } from "@/lib/feeds/jumia";
 import { compughanaProducts, compughanaOffers, compughanaVendor } from "@/lib/feeds/compughana";
+import { frankoProducts, frankoOffers, frankoVendor } from "@/lib/feeds/franko";
+import { telefonikaProducts, telefonikaOffers, telefonikaVendor } from "@/lib/feeds/telefonika";
 import type { Product, Vendor, PriceOffer, Category, Guide } from "@/lib/types";
 
 const demoVendors = seedVendors as unknown as Vendor[];
 
+export const officialSources: {
+  id: string;
+  name: string;
+  host: string;
+  search: string;
+  blurb: string;
+  productPrefix: string;
+}[] = [
+  { id: "jumia", name: "Jumia Ghana", host: "jumia.com.gh", search: "jumia", blurb: "Marketplace listings with JumiaPay escrow.", productPrefix: "jm-" },
+  { id: "compughana", name: "CompuGhana", host: "compughana.com", search: "compughana", blurb: "Authorised Apple, Samsung and HP reseller.", productPrefix: "cg-" },
+  { id: "franko", name: "Franko Trading", host: "frankotrading.com", search: "franko", blurb: "High-street electronics chain — free Accra & Kumasi delivery.", productPrefix: "ft-" },
+  { id: "telefonika", name: "Telefonika", host: "telefonika.com", search: "telefonika", blurb: "Phone specialist with stores across Ghana.", productPrefix: "tf-" },
+];
+
 export function getVendors(): Vendor[] {
-  // The marketplace vendor behind every real offer first, then the named
-  // local vendors used by the vendor-listing flow and demo comparisons.
-  return [jumiaVendor, compughanaVendor, ...demoVendors];
+  // Official price sources first, then named local vendors used by the
+  // vendor-listing flow and demo comparisons.
+  return [jumiaVendor, compughanaVendor, frankoVendor, telefonikaVendor, ...demoVendors];
 }
 
 export function getVendor(id: string): Vendor | undefined {
@@ -29,7 +44,7 @@ export function getCategory(slug: string): Category | undefined {
 }
 
 export function getProducts(): Product[] {
-  return [...jumiaProducts(), ...compughanaProducts()];
+  return [...jumiaProducts(), ...compughanaProducts(), ...frankoProducts(), ...telefonikaProducts()];
 }
 
 export function getProduct(slug: string): Product | undefined {
@@ -54,7 +69,7 @@ function withAffiliateLink(offer: PriceOffer): PriceOffer {
 }
 
 export function getOffers(): PriceOffer[] {
-  return [...jumiaOffers(), ...compughanaOffers()].map(withAffiliateLink);
+  return [...jumiaOffers(), ...compughanaOffers(), ...frankoOffers(), ...telefonikaOffers()].map(withAffiliateLink);
 }
 
 export function getOffersForProduct(slug: string): PriceOffer[] {
@@ -113,11 +128,19 @@ function matchesAllTokens(text: string, q: string): boolean {
   return tokens.every((t) => lower.includes(t));
 }
 
+function vendorNamesFor(product: Product): string {
+  const vendors = getVendors();
+  return getOffers()
+    .filter((o) => o.productSlug === product.slug && o.active)
+    .map((o) => vendors.find((v) => v.id === o.vendorId)?.name ?? "")
+    .join(" ");
+}
+
 export function searchProducts(query: string): SearchResult[] {
   const q = query.toLowerCase().trim();
   if (!q) return [];
   return getProducts()
-    .filter((p) => matchesAllTokens(`${p.name} ${p.brand} ${p.category}`, q))
+    .filter((p) => matchesAllTokens(`${p.name} ${p.brand} ${p.category} ${vendorNamesFor(p)}`, q))
     .map((p) => {
       const offers = getOffersForProduct(p.slug);
       return { product: p, offers, cheapest: offers[0] };
@@ -137,7 +160,7 @@ export function searchSuggestions(query: string, limit = 6): { slug: string; nam
   const q = query.toLowerCase().trim();
   if (!q) return [];
   const results: { slug: string; name: string; category: string; minPriceGhs: number | null }[] = getProducts()
-    .filter((p) => p.name.toLowerCase().includes(q) || p.brand.toLowerCase().includes(q))
+    .filter((p) => p.name.toLowerCase().includes(q) || p.brand.toLowerCase().includes(q) || vendorNamesFor(p).toLowerCase().includes(q))
     .slice(0, limit)
     .map((p) => ({
       slug: p.slug,
