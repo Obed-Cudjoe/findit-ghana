@@ -3,7 +3,7 @@ import { NextResponse, type NextRequest } from "next/server";
 import { clientIp, rateLimit } from "@/lib/ratelimit";
 import { saveVendorListing, readVendorListings, countActiveListingsForVendor } from "@/lib/store";
 import { slugify } from "@/lib/utils";
-import { listingLimitFor, VENDOR_PLANS } from "@/lib/plans";
+import { listingLimitFor, nextPlanAfter, VENDOR_PLANS } from "@/lib/plans";
 import { getLoggedInVendor } from "@/lib/vendor-auth";
 
 const VALID_CATEGORIES = ["phones", "laptops", "tv-audio", "appliances", "gaming", "fashion"];
@@ -47,10 +47,13 @@ export async function POST(request: NextRequest) {
   const used = countActiveListingsForVendor(listings, vendor);
   const cap = listingLimitFor(vendor);
   if (used >= cap) {
-    const next = cap >= VENDOR_PLANS.starter.listingLimit ? "Pro" : "Starter";
+    const next = nextPlanAfter(vendor);
+    const nextCopy = next
+      ? `Upgrade to ${VENDOR_PLANS[next].name} (GH₵${VENDOR_PLANS[next].priceGhs}/mo) on For vendors to add more.`
+      : "You are on the Unlimited plan — contact us if you still cannot add listings.";
     return NextResponse.json(
       {
-        error: `Your plan allows ${cap} listing${cap === 1 ? "" : "s"}. Upgrade to ${next} on For vendors to add more.`,
+        error: `Your plan allows ${Number.isFinite(cap) ? `${cap} listing${cap === 1 ? "" : "s"}` : "unlimited listings"}. ${nextCopy}`,
         code: "listing_limit",
         limit: cap,
         used,

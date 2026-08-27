@@ -9,7 +9,7 @@ import { frankoProducts, frankoOffers, frankoVendor } from "@/lib/feeds/franko";
 import { telefonikaProducts, telefonikaOffers, telefonikaVendor } from "@/lib/feeds/telefonika";
 import type { Product, Vendor, PriceOffer, Category, Guide, VendorListing, VendorProfile } from "@/lib/types";
 import { namesLikelySame, findMatchingProduct } from "@/lib/product-match";
-import { phoneKey, planHasCategoryFeatured, planHasHomepageFeatured, planHasStats } from "@/lib/plans";
+import { phoneKey, planHasCategoryFeatured, planHasHomepageFeatured, planHasStats, planHasUnlimited } from "@/lib/plans";
 
 const demoVendors = seedVendors as unknown as Vendor[];
 
@@ -250,13 +250,22 @@ export function profileForListing(l: VendorListing, profiles: VendorProfile[]): 
 }
 
 // A listing is featured while its paid window (featuredUntil) is in the future,
-// or while the shop's Starter/Pro plan is active (category rotation).
+// or while the shop's Starter/Pro/Unlimited plan is active (category rotation).
 export function isListingFeatured(l: { featuredUntil?: string | null }): boolean {
   return !!l.featuredUntil && new Date(l.featuredUntil).getTime() > Date.now();
 }
 
 export function listingHasFeaturedPlacement(l: VendorListing, profile?: VendorProfile | null): boolean {
   return isListingFeatured(l) || planHasCategoryFeatured(profile);
+}
+
+/**
+ * Top of the ladder: the shop is on a live Unlimited plan (GH₵300/month).
+ * These listings outrank every other vendor — including ★ featured ones —
+ * in search and category results.
+ */
+export function listingHasUnlimitedPlacement(_l: VendorListing, profile?: VendorProfile | null): boolean {
+  return planHasUnlimited(profile);
 }
 
 function byTotalCost(a: PriceOffer, b: PriceOffer): number {
@@ -266,7 +275,7 @@ function byTotalCost(a: PriceOffer, b: PriceOffer): number {
 export function listingToProduct(l: {
   id: string; productName: string; slug: string; category: string; description: string; createdAt: string;
   featuredUntil?: string | null;
-}, featured = isListingFeatured(l)): Product {
+}, featured = isListingFeatured(l), unlimited = false): Product {
   const cat = getCategory(l.category);
   return {
     id: `vl-${l.id}`,
@@ -281,6 +290,7 @@ export function listingToProduct(l: {
     updatedAt: l.createdAt,
     isVendorListing: true,
     featured,
+    unlimited,
   };
 }
 
@@ -329,20 +339,36 @@ export function listingToOffer(
   };
 }
 
-function rotateFeaturedFirst(results: SearchResult[]): SearchResult[] {
-  const featured = results.filter((r) => r.product.featured);
-  const rest = results.filter((r) => !r.product.featured);
-  if (featured.length <= 1) return [...featured, ...rest];
-  const offset = Math.floor(Date.now() / 86_400_000) % featured.length;
-  return [...featured.slice(offset), ...featured.slice(0, offset), ...rest];
+/**
+ * Result order: Unlimited shops first (they outrank everything, including
+ * featured/official results), then ★ featured listings on their daily rotation,
+ * then everything else.
+ */
+function rankResultsFirst(results: SearchResult[]): SearchResult[] {
+  const unlimited = results.filter((r) => r.product.unlimited);
+  const featured = results.filter((r) => !r.product.unlimited && r.product.featured);
+  const rest = results.filter((r) => !r.product.unlimited && !r.product.featured);
+  const rotated =
+    featured.length <= 1
+      ? featured
+      : (() => {
+          const offset = Math.floor(Date.now() / 86_400_000) % featured.length;
+          return [...featured.slice(offset), ...featured.slice(0, offset)];
+        })();
+  return [...unlimited, ...rotated, ...rest];
 }
 
-function offerForListing(l: VendorListing, profiles: VendorProfile[], productSlug: string): { offer: PriceOffer; featured: boolean } {
+function offerForListing(
+  l: VendorListing,
+  profiles: VendorProfile[],
+  productSlug: string,
+): { offer: PriceOffer; featured: boolean; unlimited: boolean } {
   const profile = profileForListing(l, profiles);
   const vendor = listingToVendor(l, profile);
   return {
     offer: listingToOffer(l, productSlug, vendor.id),
     featured: listingHasFeaturedPlacement(l, profile),
+    unlimited: listingHasUnlimitedPlacement(l, profile),
   };
 }
 
@@ -368,13 +394,16 @@ function mergeListingsIntoResults(
       return added;
     })();
     if (!target) continue;
-    const { offer, featured } = offerForListing(l, profiles, target.product.slug);
+    const { offer, featured, unlimited } = offerForListing(l, profiles, target.product.slug);
     if (!target.offers.some((o) => o.id === offer.id)) {
       target.offers = [...target.offers, offer].sort(byTotalCost);
       target.cheapest = target.offers[0];
     }
     if (featured && !target.product.featured) {
       target.product = { ...target.product, featured: true };
+    }
+    if (unlimited && !target.product.unlimited) {
+      target.product = { ...target.product, unlimited: true };
     }
     used.add(l.id);
   }
@@ -392,13 +421,14 @@ function mergeListingsIntoResults(
       .map((l) => offerForListing(l, profiles, canonical.slug).offer)
       .sort(byTotalCost);
     const featured = cluster.some((l) => listingHasFeaturedPlacement(l, profileForListing(l, profiles)));
+    const unlimited = cluster.some((l) => listingHasUnlimitedPlacement(l, profileForListing(l, profiles)));
     results.push({
-      product: listingToProduct(canonical, featured),
+      product: listingToProduct(canonical, featured, unlimited),
       offers,
       cheapest: offers[0],
     });
   }
-  return rotateFeaturedFirst(results);
+  return rankResultsFirst(results);
 }
 
 // Async combined reads (seed + approved vendor listings) used by the
@@ -434,9 +464,10 @@ export async function getMergedProductPage(slug: string): Promise<MergedProductP
     : listingBySlug;
 
   const featured = matchingListings.some((l) => listingHasFeaturedPlacement(l, profileForListing(l, profiles)));
+  const unlimited = matchingListings.some((l) => listingHasUnlimitedPlacement(l, profileForListing(l, profiles)));
   const product: Product = catalogueMatch
-    ? { ...catalogueMatch, featured: featured || catalogueMatch.featured }
-    : listingToProduct(canonicalListing ?? listingBySlug!, featured);
+    ? { ...catalogueMatch, featured: featured || catalogueMatch.featured, unlimited: unlimited || catalogueMatch.unlimited }
+    : listingToProduct(canonicalListing ?? listingBySlug!, featured, unlimited);
 
   const listingOffers = matchingListings.map((l) => offerForListing(l, profiles, product.slug).offer);
   const catalogueOffers = catalogueMatch ? getOffersForProduct(catalogueMatch.slug) : [];
@@ -484,6 +515,8 @@ export interface DirectoryVendor {
   source: "official" | "marketplace";
   plan?: VendorProfile["plan"];
   featured?: boolean;
+  /** Unlimited plan — shown with the ∞ Unlimited badge, sorted to the top. */
+  unlimited?: boolean;
   blurb?: string;
 }
 
@@ -520,6 +553,7 @@ export async function getDirectoryVendors(): Promise<DirectoryVendor[]> {
       source: "marketplace",
       plan: p.plan,
       featured: planHasHomepageFeatured(p),
+      unlimited: planHasUnlimited(p),
     });
   }
 
@@ -544,13 +578,22 @@ export async function getDirectoryVendors(): Promise<DirectoryVendor[]> {
     });
   }
 
-  marketplace.sort((a, b) => Number(b.featured) - Number(a.featured) || b.listingCount - a.listingCount || a.name.localeCompare(b.name));
+  marketplace.sort(
+    (a, b) =>
+      Number(!!b.unlimited) - Number(!!a.unlimited) ||
+      Number(!!b.featured) - Number(!!a.featured) ||
+      b.listingCount - a.listingCount ||
+      a.name.localeCompare(b.name),
+  );
   return [...official, ...marketplace];
 }
 
 export async function getFeaturedProVendors(): Promise<DirectoryVendor[]> {
   const all = await getDirectoryVendors();
-  return all.filter((v) => v.source === "marketplace" && v.featured);
+  // Homepage strip: Unlimited shops lead, then Pro shops.
+  return all
+    .filter((v) => v.source === "marketplace" && (v.featured || v.unlimited))
+    .sort((a, b) => Number(!!b.unlimited) - Number(!!a.unlimited) || b.listingCount - a.listingCount || a.name.localeCompare(b.name));
 }
 
 export async function getShopBySlug(slug: string): Promise<{

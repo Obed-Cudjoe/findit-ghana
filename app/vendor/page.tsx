@@ -4,7 +4,7 @@ import { redirect } from "next/navigation";
 import { MousePointerClick, Store, Star } from "lucide-react";
 import { getLoggedInVendor } from "@/lib/vendor-auth";
 import { readClicks, readVendorListings, listingsForVendor, countActiveListingsForVendor } from "@/lib/store";
-import { effectivePlan, listingLimitFor, planHasStats, VENDOR_PLANS, MOMO_NUMBER, MOMO_NAME, MOMO_WHATSAPP } from "@/lib/plans";
+import { effectivePlan, listingLimitFor, listingLimitLabel, planHasStats, UNLIMITED_BADGE, VENDOR_PLANS, MOMO_NUMBER, MOMO_NAME, MOMO_WHATSAPP } from "@/lib/plans";
 import { VendorDashNav } from "@/components/vendor-dash-nav";
 
 export const metadata: Metadata = { title: "Shop dashboard", robots: { index: false } };
@@ -50,7 +50,14 @@ export default async function VendorDashboardPage() {
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <div className="rounded-xl border border-navy-100 bg-white p-4">
           <p className="text-xs font-bold uppercase tracking-wide text-slate-soft">Plan</p>
-          <p className="mt-1 text-xl font-extrabold text-navy-900">{VENDOR_PLANS[plan].name}</p>
+          <p className="mt-1 flex flex-wrap items-center gap-1.5 text-xl font-extrabold text-navy-900">
+            {VENDOR_PLANS[plan].name}
+            {plan === "unlimited" && (
+              <span className="rounded-full bg-navy-950 px-1.5 py-0.5 text-[10px] font-extrabold text-gold-400 ring-1 ring-gold-500/60">
+                {UNLIMITED_BADGE}
+              </span>
+            )}
+          </p>
           <p className="mt-1 text-xs text-slate-soft">
             {plan === "free"
               ? vendor.paymentStatus === "pending"
@@ -61,7 +68,7 @@ export default async function VendorDashboardPage() {
         </div>
         <div className="rounded-xl border border-navy-100 bg-white p-4">
           <p className="text-xs font-bold uppercase tracking-wide text-slate-soft">Listings</p>
-          <p className="mt-1 text-xl font-extrabold text-navy-900">{used} / {cap}</p>
+          <p className="mt-1 text-xl font-extrabold text-navy-900">{used} / {listingLimitLabel(cap)}</p>
           <p className="mt-1 text-xs text-slate-soft">{live} live · {pending} in review</p>
         </div>
         <div className="rounded-xl border border-navy-100 bg-white p-4">
@@ -120,7 +127,7 @@ export default async function VendorDashboardPage() {
             <Star className="h-5 w-5 text-gold-600" /> Stats are on Pro
           </h2>
           <p className="mt-1 text-sm text-slate-soft">
-            Upgrade to Pro (GH₵{VENDOR_PLANS.pro.priceGhs}/mo) for shop views, outbound clicks, 10 listings, and a homepage featured shop.
+            Upgrade to Pro (GH₵{VENDOR_PLANS.pro.priceGhs}/mo) for shop views, outbound clicks, {VENDOR_PLANS.pro.listingLimit} listings, and a homepage featured shop — or go {UNLIMITED_BADGE} (GH₵{VENDOR_PLANS.unlimited.priceGhs}/mo) for unlimited listings and top ranking.
           </p>
           <Link href="/for-vendors" className="mt-3 inline-block text-sm font-bold text-navy-900 underline">
             See plans on For vendors →

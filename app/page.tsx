@@ -3,6 +3,7 @@ import { ArrowRight, Search, ShieldCheck, Truck, BookOpen, Smartphone } from "lu
 import { getCategories, getGuides, getProducts, getOffersForProduct, officialSources, getFeaturedProVendors } from "@/lib/data";
 import { ProductCard, TrustStrip, OfficialSources } from "@/components/shared";
 import { VendorAvatar } from "@/components/vendor-avatar";
+import { UNLIMITED_BADGE } from "@/lib/plans";
 
 // Marketplace Pro shops change when admin confirms MoMo — never serve a stale empty homepage.
 export const dynamic = "force-dynamic";
@@ -72,15 +73,15 @@ export default async function HomePage() {
       {/* ===== TRUST STRIP ===== */}
       <TrustStrip />
 
-      {/* ===== PRO FEATURED SHOPS (homepage placement — GH₵150/mo) ===== */}
+      {/* ===== PRO / UNLIMITED FEATURED SHOPS (homepage placement — GH₵150 & GH₵300/mo) ===== */}
       {featuredShops.length > 0 && (
         <section className="border-b border-gold-500/30 bg-gold-500/15">
           <div className="mx-auto max-w-6xl px-4 py-10">
             <div className="mb-6 flex items-end justify-between gap-4">
               <div>
-                <p className="text-xs font-bold uppercase tracking-widest text-gold-700">Pro · homepage</p>
+                <p className="text-xs font-bold uppercase tracking-widest text-gold-700">Pro &amp; Unlimited · homepage</p>
                 <h2 className="mt-1 text-xl font-extrabold text-navy-900 md:text-2xl">Featured shops</h2>
-                <p className="mt-1 text-sm text-slate-soft">Independent Pro vendors — this slot is the GH₵150/month homepage placement.</p>
+                <p className="mt-1 text-sm text-slate-soft">Independent Pro (GH₵150/month) and {UNLIMITED_BADGE} (GH₵300/month) vendors — Unlimited shops lead this strip.</p>
               </div>
               <Link href="/vendors" className="hidden items-center gap-1 text-sm font-semibold text-gold-700 hover:gap-2 transition-all sm:inline-flex">
                 All vendors <ArrowRight className="h-4 w-4" />
@@ -91,11 +92,18 @@ export default async function HomePage() {
                 <Link key={v.slug} href={`/vendors/${v.slug}`} className="hover-lift flex items-center gap-3 rounded-xl border border-gold-500/50 bg-white p-4 shadow-sm">
                   <VendorAvatar name={v.name} hue={v.logoHue} />
                   <div className="min-w-0">
-                    <p className="flex items-center gap-1.5 font-extrabold text-navy-900">
+                    <p className="flex flex-wrap items-center gap-1.5 font-extrabold text-navy-900">
                       {v.name}
                       {v.verified && <ShieldCheck className="h-3.5 w-3.5 text-emerald-600" />}
+                      {v.unlimited && (
+                        <span className="rounded-full bg-navy-950 px-1.5 py-0.5 text-[10px] font-extrabold text-gold-400 ring-1 ring-gold-500/60">
+                          {UNLIMITED_BADGE}
+                        </span>
+                      )}
                     </p>
-                    <p className="text-xs text-slate-soft">{v.listingCount} listing{v.listingCount === 1 ? "" : "s"} · ★ Pro</p>
+                    <p className="text-xs text-slate-soft">
+                      {v.listingCount} listing{v.listingCount === 1 ? "" : "s"} · {v.unlimited ? UNLIMITED_BADGE : "★ Pro"}
+                    </p>
                   </div>
                 </Link>
               ))}

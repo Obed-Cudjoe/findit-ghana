@@ -28,7 +28,7 @@ export async function PATCH(request: NextRequest, { params }: { params: Promise<
   if (body.action === "confirm-payment") {
     const plan = isPlanId(body.plan) ? body.plan : existing.plan === "free" ? "starter" : existing.plan;
     if (plan === "free") {
-      return NextResponse.json({ error: "Pick Starter or Pro before confirming payment." }, { status: 400 });
+      return NextResponse.json({ error: "Pick Starter, Pro or Unlimited before confirming payment." }, { status: 400 });
     }
     const ok = await updateVendorProfile(id, {
       plan,
