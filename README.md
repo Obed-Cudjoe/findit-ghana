@@ -24,7 +24,7 @@ A shopper types a product — *"iphone 13"*, *"gas cooker"*, *"ps5"* — and ins
 
 The site never takes payments and never holds stock. It shows the honest picture and routes the shopper to the vendor. Revenue comes from affiliate links (Jumia pays ~9% per sale in Ghana) and featured vendor placements.
 
-**Every page is finished:** home, search, 82 real product pages (live Jumia Ghana catalogue), 6 category pages, price guides, trust & methodology, about, contact, two working report forms, privacy/terms, and a password-protected admin dashboard with a corrections queue and content editor.
+**Every page is finished:** home, search, 100+ real product pages (Jumia Ghana plus CompuGhana, Franko Trading and Telefonika), 6 category pages, price guides, trust & methodology, about, contact, two working report forms, privacy/terms, and a password-protected admin dashboard with a corrections queue and content editor.
 
 ---
 
@@ -47,7 +47,7 @@ cp .env.example .env.local
 npm run dev
 ```
 
-Then open **http://localhost:3000** **on that same computer** — the site loads locally, seeded with the real Jumia Ghana catalogue (82 products with live GH₵ prices), 6 vendors and 4 guides.
+Then open **http://localhost:3000** **on that same computer** — the site loads locally, seeded with real GH₵ catalogues from Jumia Ghana, CompuGhana, Franko Trading and Telefonika, plus 4 guides.
 
 > ⚠️ `localhost:3000` only works on the machine running the command (it's your own computer's address, not a public link). If you want to see the public site instead, open **https://findit-ghana.vercel.app**.
 
@@ -57,6 +57,8 @@ Visit **/admin** and sign in with the password from the `ADMIN_PASSWORD` environ
 
 - **Overview** — open corrections, suspicious reports, outbound clicks tracked
 - **Corrections & reports** — every form submission, with one-click actions (Check / Fixed / Dismiss)
+- **Vendor listings** — approve/reject self-listed products, optional ★ Feature 30d
+- **Vendors & plans** — confirm MoMo, set Free / Starter / Pro (30-day expiry), listing counts and click/view stats
 - **Content editor** — edit guide excerpts and bodies, saved instantly
 
 ### Where form submissions go
@@ -94,19 +96,26 @@ The script falls back to plain `git` if the GitHub CLI is missing (it will ask f
 
 ### Refreshing the real Jumia Ghana catalogue
 
-The product catalogue is a committed snapshot of **real Jumia Ghana marketplace listings** (`data/jumia-catalog.json`), loaded by `lib/feeds/jumia.ts` — every price is a live GH₵ marketplace price and every buy button goes to the real product page (through the affiliate link). To refresh prices, run this on any machine with normal internet access:
+The product catalogue is committed snapshots of **real Ghanaian retailer listings**:
+
+- `data/jumia-catalog.json` — Jumia Ghana marketplace (buy buttons go through the affiliate link)
+- `data/compughana-catalog.json` — CompuGhana (buy buttons go directly to compughana.com)
+- `data/franko-catalog.json` — Franko Trading (buy buttons go directly to frankotrading.com)
+- `data/telefonika-catalog.json` — Telefonika (buy buttons go directly to telefonika.com)
+
+Every price is a live GH₵ listing price. To refresh Jumia prices, run this on any machine with normal internet access:
 
 ```bash
 node scripts/fetch-jumia.mjs
 ```
 
-It re-scrapes the Jumia GH category pages and rewrites the snapshot. Check the diff, `npm run build`, then commit — Vercel deploys the new prices automatically.
+It re-scrapes the Jumia GH category pages and rewrites the snapshot. Partner catalogues are updated by editing the matching JSON file. Check the diff, `npm run build`, then commit — Vercel deploys the new prices automatically.
 
 ### Connecting the free database (optional but recommended)
 
 1. Go to **supabase.com** → **New project** (free plan).
-2. Open **SQL Editor** → paste and run `supabase/migrations/001_init.sql` (creates 8 tables + security policies).
-3. Paste and run `supabase/seed.sql` (demo data).
+2. Open **SQL Editor** → paste and run `supabase/migrations/001_init.sql`, then `002_featured_listings.sql`, then `003_vendor_plans.sql`, then `004_vendor_passwords.sql`.
+3. Paste and run `supabase/seed.sql` (demo data — optional; live catalogue is the JSON snapshots).
 4. In Supabase **Settings → API**, copy `Project URL`, `anon public` key and `service_role` key.
 5. Add these as environment variables in Vercel (Project → Settings → Environment Variables):
    `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY` — plus `CRON_SECRET` (any long random string) and `ADMIN_PASSWORD`.
@@ -139,7 +148,7 @@ app/                pages + API routes (Next.js App Router)
 components/         reusable UI: header/footer, product cards, vendor table,
                     price chart, forms, trust strip, empty states
 lib/                data access, storage layer (Supabase or JSON), utilities
-data/               catalogue snapshot + site dataset (82 real Jumia Ghana products, 6 vendors, 4 guides)
+data/               catalogue snapshots + site dataset (Jumia, CompuGhana, Franko Trading, Telefonika)
 scripts/            fetch-jumia.mjs — refreshes the Jumia Ghana catalogue snapshot
 supabase/           database schema + seed SQL for the free-tier database
 public/             favicon and static assets
@@ -147,12 +156,13 @@ public/             favicon and static assets
 
 ## How vendors list products (the "List your product" flow)
 
-1. A vendor opens **/for-vendors** and submits their business details + product (name, category, cedis price, stock, delivery, description).
-2. The listing lands in the admin **Vendor listings** queue as *pending* — nothing goes live unreviewed.
-3. The admin clicks **Approve → live** and the product immediately appears in search and category pages, with a **WhatsApp buy button** straight to the vendor's number (no commission taken).
-4. Listings can be rejected; every listing keeps the vendor's name and contact, consistent with the site's "named vendors only" promise.
+1. A vendor opens **/for-vendors**, picks a plan (Free / Starter GH₵50 / Pro GH₵150), sets a dashboard password, and submits their shop + first product.
+2. The listing lands in the admin **Vendor listings** queue as *pending* — nothing goes live unreviewed. The shop appears in **Vendors & plans**.
+3. Free listings: admin clicks **Approve → live**. Paid plans: vendor pays MoMo to **053 126 2424**, WhatsApps the reference, admin clicks **MoMo → Starter 30d** or **MoMo → Pro 30d**.
+4. Approved products appear in search, category pages and **/vendors/[slug]**, with a **WhatsApp buy button** (no commission). Same-named products from different shops share one product page.
+5. The vendor signs in at **/vendor** (phone + password) to see their plan, add more listings up to the plan cap, and — on Pro — shop views and outbound clicks. Shops listed before login existed can create a password once (phone + matching business name).
 
-Listings are stored in the same three-tier store as form submissions (Supabase table `vendor_listings` in production — private by design, since listings contain phone numbers).
+Listings and shops are stored in the same three-tier store as form submissions (Supabase tables `vendor_listings` + `vendor_profiles` in production — private by design, since they contain phone numbers).
 
 ## Tech stack
 

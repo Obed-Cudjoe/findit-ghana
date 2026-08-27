@@ -21,7 +21,7 @@ Set these in **Vercel → Project → Settings → Environment Variables** (and 
 
 Three tiers, automatic (see `lib/store.ts`):
 
-1. **Supabase** — production path. Free tier is enough. Setup: create project → run `supabase/migrations/001_init.sql` → add the three env vars. Done.
+1. **Supabase** — production path. Free tier is enough. Setup: create project → run `supabase/migrations/001_init.sql`, then `002_featured_listings.sql`, then `003_vendor_plans.sql`, then `004_vendor_passwords.sql` → add the three env vars. Done.
 2. **Local JSON files** — dev machines only.
 3. **Public demo store** — Vercel fallback when Supabase is not connected. ⚠ **Publicly readable and writable by anyone.** Fine for a demo, not for a live marketplace. The admin dashboard banner always shows which tier is active.
 
@@ -37,14 +37,14 @@ Three tiers, automatic (see `lib/store.ts`):
 
 ## 4. How prices stay fresh
 
-- The catalogue is a committed snapshot: `data/jumia-catalog.json` (real Jumia Ghana listings).
+- Catalogues are committed snapshots: `data/jumia-catalog.json` (Jumia Ghana), `data/compughana-catalog.json` (CompuGhana), `data/franko-catalog.json` (Franko Trading), `data/telefonika-catalog.json` (Telefonika).
 - A GitHub Action re-scrapes Jumia **daily at 05:20 UTC** and auto-commits changed prices → Vercel redeploys automatically. No secrets needed; it uses the built-in `GITHUB_TOKEN`.
-- Manual refresh anytime: `node scripts/fetch-jumia.mjs`, then commit the diff.
+- Manual Jumia refresh anytime: `node scripts/fetch-jumia.mjs`, then commit the diff. Partner catalogues are updated by editing the matching JSON file.
 - Product-level price history (12-week chart) activates automatically once the daily `/api/refresh` cron runs in Supabase mode and snapshots accumulate.
 
 ## 5. Known limitations (be honest with buyers)
 
-- **Single price source.** Every catalogue product has one offer (Jumia Ghana). Multi-vendor comparison is real only for approved self-listed vendors. Adding a second marketplace feed is the highest-value next feature.
+- **Partner catalogues are snapshots, not a live scrape.** Jumia refreshes daily via GitHub Action. CompuGhana, Franko Trading and Telefonika prices are committed listings — update the JSON when their websites change. Catalogue feeds still use per-source slugs; independent vendor listings that name the same product merge onto one page (and onto a matching catalogue product when the titles agree).
 - **No email/WhatsApp notifications.** New vendor listings and reports appear in the admin dashboard; nobody is pinged. Wire an email provider into `saveVendorListing`/`saveReport` if wanted.
 - **`supabase/seed.sql` is legacy.** It seeds the old demo catalogue into the DB `products`/`offers` tables — the live site serves the JSON snapshot instead and ignores those tables. Only `vendor_listings`, `reports`, `contacts`, `clicks`, `guides` tables matter.
 - **Rate limits are per serverless instance** (in-memory). Good spam determent, not a hard guarantee; swap `lib/ratelimit.ts` for Upstash Redis if a buyer needs hard limits.
@@ -53,7 +53,17 @@ Three tiers, automatic (see `lib/store.ts`):
 
 ## 7. Earning from the site
 
-**Featured vendor placements (built in).** Vendors list free; you charge **GH₵50/month** to feature a listing — pinned to the top of its category with a ★ badge for 30 days. Flow: vendor pays by MoMo to your number (instructions shown on `/for-vendors` → "Get featured") → you verify the payment → `/admin/listings` → **"★ Feature 30d"**. Renewals = one click. If you use Supabase, run `supabase/migrations/002_featured_listings.sql` once (SQL Editor) to add the `featured_until` column.
+**Vendor plans (built in).** Shops pick a plan on `/for-vendors`:
+
+| Plan | Price | Listings | Placement |
+|---|---|---|---|
+| Free | GH₵0 | 1 | Search + category |
+| Starter | GH₵50/month | up to 3 | ★ featured rotation in their category |
+| Pro | GH₵150/month | up to 10 | Homepage featured shop + category ★ + click/view stats |
+
+Paid flow: vendor submits → pays MoMo to **053 126 2424** → WhatsApps the reference → you confirm on **`/admin/vendors`** → **MoMo → Starter 30d** or **MoMo → Pro 30d** (sets plan + 30-day expiry). Directory: `/vendors` and `/vendors/[slug]`. Vendor login: **`/vendor`** (cookie `findit_vendor`, 12h). Same-named products from different shops merge onto one product page (vendor comparison table). If you use Supabase, run `003_vendor_plans.sql` then `004_vendor_passwords.sql` after 001 and 002. Optional `VENDOR_JWT_SECRET` (falls back to `ADMIN_PASSWORD`).
+
+Per-listing **"★ Feature 30d"** on `/admin/listings` still works as an extra pin (`featured_until`).
 
 **Daily price-drop channel (built in).** `scripts/announce-price-drops.mjs` compares today's catalogue with yesterday's and posts the biggest drops. The refresh workflow runs it automatically **if** you add two repo secrets (`TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID` — setup steps at the top of the script). Without secrets, run it locally and it prints a copy-paste message for WhatsApp Channels/groups. The message links to the site, which carries the affiliate links — channel → site → Jumia.
 

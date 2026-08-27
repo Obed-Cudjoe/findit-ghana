@@ -1,9 +1,25 @@
 // POST /api/listings — vendor self-listing (For Vendors page).
-// Validates, generates a slug, and stores as "pending" for admin review.
+// Validates, upserts a vendor profile, enforces the plan's listing cap,
+// generates a slug, and stores as "pending" for admin review.
 import { NextResponse, type NextRequest } from "next/server";
 import { clientIp, rateLimit } from "@/lib/ratelimit";
-import { saveVendorListing } from "@/lib/store";
+import {
+  saveVendorListing,
+  upsertVendorProfile,
+  readVendorListings,
+  countActiveListingsForVendor,
+  findVendorProfileByPhone,
+} from "@/lib/store";
 import { slugify } from "@/lib/utils";
+import { isPlanId, listingLimitFor, VENDOR_PLANS, type PlanId } from "@/lib/plans";
+import {
+  hashVendorPassword,
+  MIN_VENDOR_PASSWORD,
+  signVendorToken,
+  vendorCookieOptions,
+  vendorPasswordMatches,
+  VENDOR_COOKIE,
+} from "@/lib/vendor-auth";
 
 const VALID_CATEGORIES = ["phones", "laptops", "tv-audio", "appliances", "gaming", "fashion"];
 
@@ -38,6 +54,8 @@ export async function POST(request: NextRequest) {
   const deliveryFeeGhs = Math.max(0, num(body.deliveryFeeGhs) || 0);
   const description = str(body.description);
   const websiteUrl = str(body.websiteUrl);
+  const requestedPlan: PlanId = isPlanId(body.plan) ? body.plan : "free";
+  const password = str(body.password);
 
   if (businessName.length < 2) return NextResponse.json({ error: "Enter your business name." }, { status: 400 });
   const digits = phone.replace(/[^0-9]/g, "");
@@ -47,6 +65,48 @@ export async function POST(request: NextRequest) {
   if (!priceGhs || priceGhs <= 0 || priceGhs > 10_000_000) return NextResponse.json({ error: "Enter a valid price in cedis." }, { status: 400 });
   if (description.length < 20) return NextResponse.json({ error: "Describe the product (at least 20 characters)." }, { status: 400 });
   if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return NextResponse.json({ error: "Enter a valid email address." }, { status: 400 });
+
+  const existing = await findVendorProfileByPhone(digits);
+  let passwordHash: string | undefined;
+  if (password) {
+    if (password.length < MIN_VENDOR_PASSWORD) {
+      return NextResponse.json({ error: `Password must be at least ${MIN_VENDOR_PASSWORD} characters.` }, { status: 400 });
+    }
+    if (!existing?.passwordHash) passwordHash = await hashVendorPassword(password);
+  } else if (!existing) {
+    return NextResponse.json({ error: "Set a password (at least 8 characters) so you can log in to your shop dashboard." }, { status: 400 });
+  } else if (!existing.passwordHash) {
+    return NextResponse.json({ error: "This shop has no dashboard login yet. Set a password (at least 8 characters) to continue." }, { status: 400 });
+  }
+
+  const profile = await upsertVendorProfile({
+    businessName,
+    contactName,
+    phone: digits,
+    email,
+    websiteUrl,
+    plan: requestedPlan,
+    paymentStatus: requestedPlan === "free" ? "none" : "pending",
+    passwordHash,
+  });
+
+  if (profile) {
+    const listings = await readVendorListings();
+    const used = countActiveListingsForVendor(listings, profile);
+    const cap = listingLimitFor(profile);
+    if (used >= cap) {
+      const next = cap >= VENDOR_PLANS.starter.listingLimit ? "Pro" : "Starter";
+      return NextResponse.json(
+        {
+          error: `Your ${VENDOR_PLANS[listingLimitFor(profile) === 1 ? "free" : profile.plan].name} plan allows ${cap} listing${cap === 1 ? "" : "s"}. Upgrade to ${next} to add more — pick the plan above and pay via MoMo.`,
+          code: "listing_limit",
+          limit: cap,
+          used,
+        },
+        { status: 403 },
+      );
+    }
+  }
 
   // unique slug: product name + short random suffix
   const slug = `${slugify(productName)}-${Math.random().toString(36).slice(2, 8)}`;
@@ -67,8 +127,35 @@ export async function POST(request: NextRequest) {
     deliveryFeeGhs,
     description,
     websiteUrl,
+    vendorId: profile?.id ?? null,
+    requestedPlan,
   });
 
   if (!ok) return NextResponse.json({ error: "Could not store the listing. Please try again." }, { status: 500 });
-  return NextResponse.json({ ok: true, status: "pending" });
+
+  const paymentRequired = requestedPlan !== "free" && (!profile || profile.paymentStatus !== "confirmed");
+
+  let loggedIn = false;
+  let token: string | null = null;
+  if (profile && password.length >= MIN_VENDOR_PASSWORD) {
+    const canSign = passwordHash
+      ? true
+      : await vendorPasswordMatches(password, profile.passwordHash);
+    if (canSign) {
+      token = await signVendorToken(profile.id, profile.slug);
+      loggedIn = true;
+    }
+  }
+
+  const res = NextResponse.json({
+    ok: true,
+    status: "pending",
+    plan: requestedPlan,
+    paymentRequired,
+    vendorSlug: profile?.slug ?? null,
+    listingSlug: slug,
+    loggedIn,
+  });
+  if (token) res.cookies.set(VENDOR_COOKIE, token, vendorCookieOptions());
+  return res;
 }

@@ -1,0 +1,113 @@
+{
+  "source": "telefonika.com",
+  "description": "Telefonika Ghana showcase catalogue — real products and live GH₵ prices captured from telefonika.com public listings on the fetchedAt date. Proof-of-partnership listings: buy buttons go directly to Telefonika product pages. Refresh prices from their website.",
+  "fetchedAt": "2026-08-27T18:00:00Z",
+  "currency": "GHS",
+  "deliveryModel": "Telefonika offers free delivery within Accra and ships nationwide from its store network. Modelled as GH₵0 fee, 1–3 days.",
+  "products": [
+    {
+      "name": "Samsung Galaxy A17 – from 4GB/128GB",
+      "brand": "Samsung",
+      "category": "phones",
+      "url": "https://telefonika.com/products/samsung-galaxy-a17",
+      "image": "https://telefonika.com/cdn/shop/files/SAMSUNG_GALAXY_A17_4_128GB__jpg.jpg?v=1787007486&width=500",
+      "priceGhs": 2249
+    },
+    {
+      "name": "Samsung Galaxy A07 LTE – from 4GB/64GB",
+      "brand": "Samsung",
+      "category": "phones",
+      "url": "https://telefonika.com/products/samsung-galaxy-a07-lte",
+      "image": "https://telefonika.com/cdn/shop/files/SAMSUNG_GALAXY_A07_4_64GB.png?v=1785459247&width=500",
+      "priceGhs": 1499
+    },
+    {
+      "name": "Samsung Galaxy S26 – 12GB/256GB",
+      "brand": "Samsung",
+      "category": "phones",
+      "url": "https://telefonika.com/products/samsung-galaxy-s26",
+      "image": "https://telefonika.com/cdn/shop/files/SM-S942_S26_12_256GB.jpg?v=1786400891&width=500",
+      "priceGhs": 11599
+    },
+    {
+      "name": "Samsung Galaxy S26 Ultra – from 12GB/256GB",
+      "brand": "Samsung",
+      "category": "phones",
+      "url": "https://telefonika.com/products/samsung-galaxy-s26-ultra",
+      "image": "https://telefonika.com/cdn/shop/files/SM-S948_S26_ULTRA_12_256GB.jpg?v=1786400886&width=500",
+      "priceGhs": 16399
+    },
+    {
+      "name": "Samsung Galaxy A57 – 8GB/256GB",
+      "brand": "Samsung",
+      "category": "phones",
+      "url": "https://telefonika.com/products/samsung-galaxy-a57",
+      "image": "https://telefonika.com/cdn/shop/files/SAMSUNG_GALAXY_A57_8_256GB.jpg?v=1786401606&width=500",
+      "priceGhs": 6499
+    },
+    {
+      "name": "Samsung Galaxy Z Fold 8 – from 12GB/256GB",
+      "brand": "Samsung",
+      "category": "phones",
+      "url": "https://telefonika.com/products/samsung-galaxy-z-fold-8",
+      "image": "https://telefonika.com/cdn/shop/files/FOLD8_GRAPHITE.jpg?v=1787354676&width=500",
+      "priceGhs": 22499
+    },
+    {
+      "name": "Tecno Spark 50",
+      "brand": "Tecno",
+      "category": "phones",
+      "url": "https://telefonika.com/products/tecno-spark-50",
+      "image": "https://telefonika.com/cdn/shop/files/Spark50Black.jpg?v=1777932314&width=500",
+      "priceGhs": 1999
+    },
+    {
+      "name": "Tecno Pop 20 – from 4GB/64GB",
+      "brand": "Tecno",
+      "category": "phones",
+      "url": "https://telefonika.com/products/tecno-pop-20",
+      "image": "https://telefonika.com/cdn/shop/files/KN3Black.jpg?v=1773518120&width=500",
+      "priceGhs": 1479
+    },
+    {
+      "name": "Tecno Camon 50",
+      "brand": "Tecno",
+      "category": "phones",
+      "url": "https://telefonika.com/products/tecno-camon-50",
+      "image": "https://telefonika.com/cdn/shop/files/TecnoCamon50Black.jpg?v=1773865145&width=500",
+      "priceGhs": 3999
+    },
+    {
+      "name": "Huawei Nova 15 Max",
+      "brand": "Huawei",
+      "category": "phones",
+      "url": "https://telefonika.com/products/huawei-nova-15-max",
+      "image": "https://telefonika.com/cdn/shop/files/1779994122479-Huawei-Nova-15-Max-5G-344.jpg?v=1780440066&width=500",
+      "priceGhs": 3999
+    },
+    {
+      "name": "Xiaomi Redmi A7",
+      "brand": "Xiaomi",
+      "category": "phones",
+      "url": "https://telefonika.com/products/xiaomi-redmi-a7",
+      "image": "https://telefonika.com/cdn/shop/files/RedmiA7black.jpg?v=1783639574&width=500",
+      "priceGhs": 1329
+    },
+    {
+      "name": "Apple iPhone 17 Pro Max (1SIM) – from 256GB",
+      "brand": "Apple",
+      "category": "phones",
+      "url": "https://telefonika.com/products/apple-iphone-17-pro-max-1sim",
+      "image": "https://telefonika.com/cdn/shop/files/iPhone_17_Pro_Max_Deep_Blue.jpg?v=1772210609&width=500",
+      "priceGhs": 20990
+    },
+    {
+      "name": "Apple MacBook Neo (6C CPU/5C GPU) 13-inch – from 8GB/256GB",
+      "brand": "Apple",
+      "category": "laptops",
+      "url": "https://telefonika.com/products/apple-macbook-neo-6c-cpu-5c-gpu-13-inch-8gb-256gb-silver",
+      "image": "https://telefonika.com/cdn/shop/files/AppleMacbookNeo.jpg?v=1774992127&width=500",
+      "priceGhs": 10900
+    }
+  ]
+}
