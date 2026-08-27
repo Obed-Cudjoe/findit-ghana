@@ -54,22 +54,22 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 </span>
               </Link>
 
-              {/* Desktop nav */}
-              <nav className="ml-6 hidden md:flex items-center gap-5 text-sm text-navy-100" aria-label="Main navigation">
+              {/* Desktop nav — lg+ so tablets keep the hamburger instead of overflowing */}
+              <nav className="ml-4 hidden lg:flex items-center gap-4 xl:ml-6 xl:gap-5 text-sm text-navy-100" aria-label="Main navigation">
                 <Link href="/category/phones" className="hover:text-white transition-colors">Phones</Link>
                 <Link href="/category/laptops" className="hover:text-white transition-colors">Laptops</Link>
                 <Link href="/category/appliances" className="hover:text-white transition-colors">Appliances</Link>
                 <Link href="/guides" className="hover:text-white transition-colors">Guides</Link>
                 <Link href="/vendors" className="hover:text-white transition-colors">Vendors</Link>
-                <Link href="/how-it-works" className="hover:text-white transition-colors">How it works</Link>
-                <Link href="/for-vendors" className="font-semibold text-gold-400 hover:text-gold-300 transition-colors">For vendors</Link>
+                <Link href="/how-it-works" className="hidden xl:inline hover:text-white transition-colors">How it works</Link>
+                <Link href="/for-vendors" className="whitespace-nowrap font-semibold text-gold-400 hover:text-gold-300 transition-colors">For vendors</Link>
               </nav>
 
-              <div className="ml-auto hidden md:block w-64">
+              <div className="ml-auto hidden lg:block w-48 xl:w-64">
                 <HeaderSearch />
               </div>
 
-              <Link href="/trust" className="ml-auto md:ml-3 hidden lg:inline-flex items-center gap-1.5 rounded-full border border-navy-600 px-3 py-1.5 text-xs text-navy-100 hover:border-gold-500 hover:text-gold-400 transition-colors">
+              <Link href="/trust" className="ml-3 hidden xl:inline-flex items-center gap-1.5 rounded-full border border-navy-600 px-3 py-1.5 text-xs text-navy-100 hover:border-gold-500 hover:text-gold-400 transition-colors">
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" aria-hidden="true"><path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6l8-4z" /><path d="M9 12l2 2 4-4" /></svg>
                 How we stay honest
               </Link>
