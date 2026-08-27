@@ -63,6 +63,7 @@ export function ListingsTable({ listings }: { listings: ListingRow[] }) {
 
   return (
     <div className="overflow-hidden rounded-xl border border-navy-100 bg-white">
+      <p className="border-b border-navy-100 bg-navy-50/60 px-4 py-2 text-xs text-slate-400 lg:hidden">Swipe the table sideways to see all columns →</p>
       <div className="overflow-x-auto">
         <table className="w-full min-w-[760px] text-sm">
           <thead>
@@ -104,7 +105,7 @@ export function ListingsTable({ listings }: { listings: ListingRow[] }) {
                   )}
                 </td>
                 <td className="px-4 py-3">
-                  <div className="flex justify-end gap-1.5">
+                  <div className="flex flex-wrap justify-end gap-1.5">
                     <button disabled={pending} onClick={() => setStatus(l.id, "approved")} className="rounded-md border border-emerald-200 px-2.5 py-1 text-xs font-semibold text-emerald-700 hover:bg-emerald-50 transition-colors">
                       Approve → live
                     </button>

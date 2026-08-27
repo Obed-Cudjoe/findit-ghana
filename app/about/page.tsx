@@ -38,10 +38,10 @@ export default function AboutPage() {
         <li className="flex gap-3"><Flag className="h-5 w-5 shrink-0 text-gold-600" /> No surprises at delivery — the total is on the table first.</li>
       </ul>
 
-      <h2 className="mt-10 text-xl font-extrabold text-navy-900">The team</h2>
+      <h2 className="mt-10 text-xl font-extrabold text-navy-900">The founder</h2>
       <p className="mt-2 text-sm text-slate-soft">
-        Built by Obed Cudjoe — a small operation in Accra, obsessed with honest prices. <HeartHandshake className="inline h-4 w-4 text-gold-600" aria-hidden="true" /> We started
-        FindIt Ghana after one too many friends lost money to a vendor they couldn&apos;t verify — and we run the checks queue ourselves, every
+        Built by Obed Cudjoe — a one-person operation in Accra, obsessed with honest prices. <HeartHandshake className="inline h-4 w-4 text-gold-600" aria-hidden="true" /> I started
+        FindIt Ghana after one too many friends lost money to a vendor they couldn&apos;t verify — and I run the checks queue myself, every
         business day.
       </p>
       <p className="mt-3 text-sm">
