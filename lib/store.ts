@@ -491,6 +491,7 @@ export interface SaveVendorProfileInput {
   websiteUrl: string;
   plan: VendorPlanId;
   paymentStatus: VendorPaymentStatus;
+  passwordHash?: string | null;
 }
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
@@ -511,6 +512,7 @@ function mapVendorProfile(r: any): VendorProfile {
     logoHue: Number(r.logo_hue ?? hueFromName(r.business_name ?? "")),
     status: (r.status as VendorProfileStatus) ?? "pending",
     createdAt: r.created_at,
+    passwordHash: r.password_hash ?? r.passwordHash ?? null,
   };
 }
 /* eslint-enable @typescript-eslint/no-explicit-any */
@@ -551,6 +553,26 @@ export async function findVendorProfileByPhone(phone: string): Promise<VendorPro
   return all.find((p) => phoneKey(p.phone) === key);
 }
 
+export async function findVendorProfileById(id: string): Promise<VendorProfile | undefined> {
+  if (!id) return undefined;
+  const supabase = getSupabase();
+  if (supabase) {
+    const { data, error } = await supabase.from("vendor_profiles").select("*").eq("id", id).maybeSingle();
+    if (!error && data) return mapVendorProfile(data);
+    return undefined;
+  }
+  const all = await readVendorProfiles();
+  return all.find((p) => p.id === id);
+}
+
+export function listingsForVendor(listings: VendorListing[], profile: VendorProfile): VendorListing[] {
+  const key = phoneKey(profile.phone);
+  return listings.filter((l) => {
+    if (profile.id && l.vendorId === profile.id) return true;
+    return phoneKey(l.phone) === key;
+  });
+}
+
 export async function upsertVendorProfile(input: SaveVendorProfileInput): Promise<VendorProfile | null> {
   const existing = await findVendorProfileByPhone(input.phone);
   if (existing) {
@@ -568,6 +590,7 @@ export async function upsertVendorProfile(input: SaveVendorProfileInput): Promis
       patch.plan = input.plan;
       patch.paymentStatus = "pending";
     }
+    if (input.passwordHash && !existing.passwordHash) patch.passwordHash = input.passwordHash;
     if (Object.keys(patch).length > 0) {
       await updateVendorProfile(existing.id, patch);
       return { ...existing, ...patch };
@@ -593,6 +616,7 @@ export async function upsertVendorProfile(input: SaveVendorProfileInput): Promis
     logoHue: hueFromName(input.businessName),
     status: "pending",
     createdAt: new Date().toISOString(),
+    passwordHash: input.passwordHash ?? null,
   };
 
   const supabase = getSupabase();
@@ -612,8 +636,29 @@ export async function upsertVendorProfile(input: SaveVendorProfileInput): Promis
       verified: false,
       logo_hue: row.logoHue,
       status: "pending",
+      password_hash: row.passwordHash || null,
     }).select("*").single();
-    if (error || !data) return null;
+    if (error) {
+      const retry = await supabase.from("vendor_profiles").insert({
+        id: row.id,
+        business_name: row.businessName,
+        slug: row.slug,
+        contact_name: row.contactName || null,
+        phone: row.phone,
+        email: row.email || null,
+        website_url: row.websiteUrl || null,
+        plan: row.plan,
+        plan_expires_at: null,
+        payment_status: row.paymentStatus,
+        momo_reference: null,
+        verified: false,
+        logo_hue: row.logoHue,
+        status: "pending",
+      }).select("*").single();
+      if (retry.error || !retry.data) return null;
+      return mapVendorProfile(retry.data);
+    }
+    if (!data) return null;
     return mapVendorProfile(data);
   }
 
@@ -643,6 +688,7 @@ export async function updateVendorProfile(id: string, patch: Partial<VendorProfi
     if (patch.verified !== undefined) db.verified = patch.verified;
     if (patch.logoHue !== undefined) db.logo_hue = patch.logoHue;
     if (patch.status !== undefined) db.status = patch.status;
+    if (patch.passwordHash !== undefined) db.password_hash = patch.passwordHash || null;
     if (Object.keys(db).length === 0) return true;
     const { error } = await supabase.from("vendor_profiles").update(db).eq("id", id);
     return !error;
@@ -657,10 +703,5 @@ export async function updateVendorProfile(id: string, patch: Partial<VendorProfi
 }
 
 export function countActiveListingsForVendor(listings: VendorListing[], profile: VendorProfile): number {
-  const key = phoneKey(profile.phone);
-  return listings.filter((l) => {
-    if (l.status === "rejected") return false;
-    if (profile.id && l.vendorId === profile.id) return true;
-    return phoneKey(l.phone) === key;
-  }).length;
+  return listingsForVendor(listings, profile).filter((l) => l.status !== "rejected").length;
 }

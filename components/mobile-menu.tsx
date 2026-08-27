@@ -17,6 +17,7 @@ const LINKS: [string, string][] = [
   ["/guides", "Price guides"],
   ["/vendors", "Vendors"],
   ["/for-vendors", "For vendors — list your product"],
+  ["/vendor/login", "Vendor login"],
   ["/how-it-works", "How it works"],
   ["/trust", "How we stay honest"],
   ["/about", "About"],

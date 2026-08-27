@@ -112,6 +112,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   <li><Link className="hover:text-gold-400 transition-colors" href="/guides">Price guides</Link></li>
                   <li><Link className="hover:text-gold-400 transition-colors" href="/vendors">Vendor directory</Link></li>
                   <li><Link className="hover:text-gold-400 transition-colors" href="/for-vendors">For vendors — list your product</Link></li>
+                  <li><Link className="hover:text-gold-400 transition-colors" href="/vendor/login">Vendor login</Link></li>
                   <li><Link className="hover:text-gold-400 transition-colors" href="/contact">Contact</Link></li>
                 </ul>
               </div>

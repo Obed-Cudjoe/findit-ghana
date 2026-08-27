@@ -114,7 +114,7 @@ It re-scrapes the Jumia GH category pages and rewrites the snapshot. Partner cat
 ### Connecting the free database (optional but recommended)
 
 1. Go to **supabase.com** → **New project** (free plan).
-2. Open **SQL Editor** → paste and run `supabase/migrations/001_init.sql`, then `002_featured_listings.sql`, then `003_vendor_plans.sql`.
+2. Open **SQL Editor** → paste and run `supabase/migrations/001_init.sql`, then `002_featured_listings.sql`, then `003_vendor_plans.sql`, then `004_vendor_passwords.sql`.
 3. Paste and run `supabase/seed.sql` (demo data — optional; live catalogue is the JSON snapshots).
 4. In Supabase **Settings → API**, copy `Project URL`, `anon public` key and `service_role` key.
 5. Add these as environment variables in Vercel (Project → Settings → Environment Variables):
@@ -156,10 +156,11 @@ public/             favicon and static assets
 
 ## How vendors list products (the "List your product" flow)
 
-1. A vendor opens **/for-vendors**, picks a plan (Free / Starter GH₵50 / Pro GH₵150) and submits their shop + first product.
+1. A vendor opens **/for-vendors**, picks a plan (Free / Starter GH₵50 / Pro GH₵150), sets a dashboard password, and submits their shop + first product.
 2. The listing lands in the admin **Vendor listings** queue as *pending* — nothing goes live unreviewed. The shop appears in **Vendors & plans**.
 3. Free listings: admin clicks **Approve → live**. Paid plans: vendor pays MoMo to **053 126 2424**, WhatsApps the reference, admin clicks **MoMo → Starter 30d** or **MoMo → Pro 30d**.
 4. Approved products appear in search, category pages and **/vendors/[slug]**, with a **WhatsApp buy button** (no commission). Same-named products from different shops share one product page.
+5. The vendor signs in at **/vendor** (phone + password) to see their plan, add more listings up to the plan cap, and — on Pro — shop views and outbound clicks. Shops listed before login existed can create a password once (phone + matching business name).
 
 Listings and shops are stored in the same three-tier store as form submissions (Supabase tables `vendor_listings` + `vendor_profiles` in production — private by design, since they contain phone numbers).
 

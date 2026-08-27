@@ -6,6 +6,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { PLAN_LIST, MOMO_NUMBER, MOMO_NAME, MOMO_WHATSAPP, VENDOR_PLANS, type PlanId } from "@/lib/plans";
+import { MIN_VENDOR_PASSWORD } from "@/lib/vendor-auth-client";
 
 const CATEGORIES = [
   ["phones", "Phones"],
@@ -53,10 +54,12 @@ export function VendorListingForm() {
     deliveryFeeGhs: "0",
     description: "",
     websiteUrl: "",
+    password: "",
+    passwordConfirm: "",
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [busy, setBusy] = useState(false);
-  const [done, setDone] = useState<{ paymentRequired: boolean; plan: PlanId; vendorSlug: string | null } | null>(null);
+  const [done, setDone] = useState<{ paymentRequired: boolean; plan: PlanId; vendorSlug: string | null; loggedIn: boolean } | null>(null);
   const [serverError, setServerError] = useState("");
 
   function set<K extends keyof typeof form>(key: K, value: string) {
@@ -74,6 +77,10 @@ export function VendorListingForm() {
     if (form.stockCount && (isNaN(Number(form.stockCount)) || Number(form.stockCount) < 0)) e.stockCount = "Numbers only";
     if (form.description.trim().length < 20) e.description = "Describe the product (at least 20 characters)";
     if (form.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) e.email = "Enter a valid email address";
+    if (form.password) {
+      if (form.password.length < MIN_VENDOR_PASSWORD) e.password = `At least ${MIN_VENDOR_PASSWORD} characters`;
+      if (form.password !== form.passwordConfirm) e.passwordConfirm = "Passwords do not match";
+    }
     setErrors(e);
     return Object.keys(e).length === 0;
   }
@@ -103,6 +110,7 @@ export function VendorListingForm() {
           paymentRequired: !!data.paymentRequired,
           plan: data.plan === "starter" || data.plan === "pro" ? data.plan : "free",
           vendorSlug: typeof data.vendorSlug === "string" ? data.vendorSlug : null,
+          loggedIn: !!data.loggedIn,
         });
       } else {
         setServerError(data.error || "Something went wrong. Please try again.");
@@ -147,6 +155,11 @@ export function VendorListingForm() {
             Until payment clears you still have the Free plan (1 listing).{" "}
             <Link href="/" className="font-semibold text-navy-800 underline">Browse the site while you wait →</Link>
           </p>
+          <p className="mt-2 text-center text-sm">
+            <Link href={done.loggedIn ? "/vendor" : "/vendor/login"} className="font-bold text-navy-900 underline">
+              {done.loggedIn ? "Open your shop dashboard →" : "Sign in to your shop dashboard →"}
+            </Link>
+          </p>
         </div>
       );
     }
@@ -162,6 +175,11 @@ export function VendorListingForm() {
         </p>
         <p className="mt-3 text-sm">
           <Link href="/" className="font-semibold text-emerald-900 underline">Browse the site while you wait →</Link>
+        </p>
+        <p className="mt-2 text-sm">
+          <Link href={done.loggedIn ? "/vendor" : "/vendor/login"} className="font-bold text-emerald-900 underline">
+            {done.loggedIn ? "Open your shop dashboard →" : "Sign in to your shop dashboard →"}
+          </Link>
         </p>
       </div>
     );
@@ -223,7 +241,16 @@ export function VendorListingForm() {
           <Field label="Email (optional)" error={errors.email}>
             <input className={inputCls} type="email" value={form.email} onChange={(e) => set("email", e.target.value)} placeholder="you@example.com" autoComplete="email" />
           </Field>
+          <Field label="Dashboard password" error={errors.password}>
+            <input className={inputCls} type="password" value={form.password} onChange={(e) => set("password", e.target.value)} placeholder={`At least ${MIN_VENDOR_PASSWORD} characters`} autoComplete="new-password" />
+          </Field>
+          <Field label="Confirm password" error={errors.passwordConfirm}>
+            <input className={inputCls} type="password" value={form.passwordConfirm} onChange={(e) => set("passwordConfirm", e.target.value)} placeholder="••••••••" autoComplete="new-password" />
+          </Field>
         </div>
+        <p className="mt-3 text-xs text-slate-soft">
+          New shops need a password to open <Link href="/vendor/login" className="font-semibold underline">/vendor</Link>. Returning shops can skip this if they already have a login.
+        </p>
       </div>
 
       <div className="rounded-xl bg-navy-50/70 p-4">

@@ -1,25 +1,51 @@
-// Protects the admin area with a signed session cookie.
-// The cookie is set by /api/admin/login after checking ADMIN_PASSWORD.
-// Fail-closed: when ADMIN_PASSWORD is unset, the JWT secret is random per
-// boot, so no cookie can ever verify and /admin stays locked.
-// NOTE: demo-grade auth — for a production handoff, swap this for
-// Supabase Auth (schema and client are already wired in lib/store.ts).
+// Protects /admin and /vendor with signed session cookies.
+// /vendors (public directory) is NOT matched — only /vendor and /vendor/*.
 import { NextResponse, type NextRequest } from "next/server";
 import { jwtVerify } from "jose";
 import { getAdminJwtSecret } from "@/lib/admin-auth";
+import { VENDOR_COOKIE, getVendorJwtSecret } from "@/lib/vendor-session";
+
+function isVendorDashboardPath(pathname: string): boolean {
+  return pathname === "/vendor" || pathname.startsWith("/vendor/") || pathname === "/api/vendor" || pathname.startsWith("/api/vendor/");
+}
 
 export async function middleware(request: NextRequest) {
-  // The login/logout endpoints themselves must stay reachable unauthenticated.
+  const { pathname } = request.nextUrl;
+
+  if (isVendorDashboardPath(pathname)) {
+    if (
+      pathname === "/vendor/login" ||
+      pathname === "/api/vendor/login" ||
+      pathname === "/api/vendor/logout" ||
+      pathname === "/api/vendor/password"
+    ) {
+      return NextResponse.next();
+    }
+    const token = request.cookies.get(VENDOR_COOKIE)?.value;
+    if (token) {
+      try {
+        await jwtVerify(token, getVendorJwtSecret());
+        return NextResponse.next();
+      } catch {
+        /* invalid token falls through */
+      }
+    }
+    const loginUrl = request.nextUrl.clone();
+    loginUrl.pathname = "/vendor/login";
+    loginUrl.searchParams.set("next", pathname);
+    return NextResponse.redirect(loginUrl);
+  }
+
+  // Admin area
   if (
-    request.nextUrl.pathname === "/admin/login" ||
-    request.nextUrl.pathname === "/api/admin/login" ||
-    request.nextUrl.pathname === "/api/admin/logout"
+    pathname === "/admin/login" ||
+    pathname === "/api/admin/login" ||
+    pathname === "/api/admin/logout"
   ) {
     return NextResponse.next();
   }
 
   const token = request.cookies.get("findit_admin")?.value;
-
   if (token) {
     try {
       await jwtVerify(token, getAdminJwtSecret());
@@ -31,10 +57,10 @@ export async function middleware(request: NextRequest) {
 
   const loginUrl = request.nextUrl.clone();
   loginUrl.pathname = "/admin/login";
-  loginUrl.searchParams.set("next", request.nextUrl.pathname);
+  loginUrl.searchParams.set("next", pathname);
   return NextResponse.redirect(loginUrl);
 }
 
 export const config = {
-  matcher: ["/admin/:path*", "/api/admin/:path*"],
+  matcher: ["/admin/:path*", "/api/admin/:path*", "/vendor", "/vendor/:path*", "/api/vendor/:path*"],
 };
