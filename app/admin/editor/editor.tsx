@@ -53,18 +53,18 @@ export function Editor({ guides }: { guides: GuideInput[] }) {
   return (
     <div className="grid gap-6 lg:grid-cols-[260px_1fr]">
       {/* page list */}
-      <div className="space-y-1 rounded-xl border border-navy-100 bg-white p-3">
+      <div className="flex gap-1.5 overflow-x-auto rounded-xl border border-navy-100 bg-white p-3 lg:flex-col lg:gap-0 lg:space-y-1 lg:overflow-visible">
         <p className="px-2 py-1 text-xs font-bold uppercase tracking-wide text-slate-soft">Guides</p>
         {guides.map((g) => (
           <button
             key={g.slug}
             onClick={() => pick(g.slug)}
-            className={`block w-full rounded-lg px-3 py-2 text-left text-sm font-semibold transition-colors ${selected?.slug === g.slug ? "bg-navy-900 text-white" : "text-navy-800 hover:bg-navy-50"}`}
+            className={`block w-full whitespace-nowrap rounded-lg px-3 py-2 text-left text-sm font-semibold transition-colors lg:whitespace-normal ${selected?.slug === g.slug ? "bg-navy-900 text-white" : "text-navy-800 hover:bg-navy-50"}`}
           >
             {g.title}
           </button>
         ))}
-        <p className="mt-3 px-2 pt-3 text-xs leading-relaxed text-slate-400 border-t border-navy-100">
+        <p className="mt-3 hidden px-2 pt-3 text-xs leading-relaxed text-slate-400 border-t border-navy-100 lg:block">
           Static pages (About, How It Works, Trust, Privacy, Terms) live in <code>app/</code> as committed files — edit them in the repo. Guides are editable here.
         </p>
       </div>
@@ -82,7 +82,7 @@ export function Editor({ guides }: { guides: GuideInput[] }) {
             <textarea value={body} onChange={(e) => setBody(e.target.value)} className="w-full rounded-lg border border-navy-200 px-3 py-2.5 font-mono text-base focus:border-gold-500 focus:outline-none focus:ring-2 focus:ring-gold-500/30" rows={14} />
           </label>
         </div>
-        <div className="flex items-center gap-3">
+        <div className="flex flex-wrap items-center gap-3">
           <button onClick={save} disabled={busy} className="rounded-lg bg-navy-900 px-6 py-2.5 text-sm font-bold text-white hover:bg-navy-800 active:scale-[0.98] disabled:opacity-60 transition-all">
             {busy ? "Saving…" : "Save changes"}
           </button>

@@ -24,10 +24,6 @@ export default async function AdminDashboardPage() {
 
   return (
     <div>
-      <p className={`mb-4 inline-block rounded-full px-3 py-1 text-xs font-semibold ${isSupabaseMode() ? "bg-emerald-50 text-emerald-700" : "bg-amber-50 text-amber-700"}`}>
-        {isSupabaseMode() ? "Database: Supabase (production mode)" : "Database: demo JSON store (add Supabase env vars for production)"}
-      </p>
-
       <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
         {stats.map((s) => (
           <div key={s.label} className="rounded-xl border border-navy-100 bg-white p-5">
@@ -46,7 +42,7 @@ export default async function AdminDashboardPage() {
       ) : (
         <ul className="mt-3 divide-y divide-navy-100 rounded-xl border border-navy-100 bg-white">
           {recent.map((r, i) => (
-            <li key={i} className="flex items-center justify-between gap-3 px-4 py-3 text-sm">
+            <li key={i} className="flex flex-wrap items-center justify-between gap-x-3 gap-y-1 px-4 py-3 text-sm">
               <span className="font-semibold text-navy-900">
                 {r.kind === "contact" ? "Contact message" : `Report ${r.refCode}`}
                 <span className="ml-2 font-normal text-slate-soft">{r.kind === "contact" ? (r as { name?: string }).name : r.kind.replace("_", " ")}</span>
