@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { readVendorProfiles, readVendorListings, readClicks, countActiveListingsForVendor } from "@/lib/store";
-import { listingLimitFor, phoneKey } from "@/lib/plans";
+import { listingLimitFor, listingLimitLabel, phoneKey } from "@/lib/plans";
 import { VendorsTable } from "./vendors-table";
 
 export const metadata: Metadata = { title: "Vendors", robots: { index: false } };
@@ -38,6 +38,7 @@ export default async function AdminVendorsPage() {
       listingApproved: theirs.filter((l) => l.status === "approved").length,
       listingPending: theirs.filter((l) => l.status === "pending").length,
       listingLimit: listingLimitFor(p),
+      listingLimitLabel: listingLimitLabel(listingLimitFor(p)),
       clicks: vendorClicks.length,
       views: vendorViews.length,
       createdAt: p.createdAt,
