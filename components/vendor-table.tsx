@@ -25,7 +25,7 @@ function BuyButton({ offer, vendorName, productSlug }: { offer: PriceOffer; vend
       target="_blank"
       rel="noopener noreferrer nofollow"
       onClick={track}
-      className="inline-flex items-center justify-center gap-1.5 whitespace-nowrap rounded-lg bg-gold-500 px-4 py-2 text-sm font-bold text-navy-950 shadow-sm hover:bg-gold-400 active:scale-[0.98] transition-all"
+      className="inline-flex min-h-11 min-w-[5.5rem] items-center justify-center gap-1.5 whitespace-nowrap rounded-lg bg-gold-500 px-4 py-2.5 text-sm font-bold text-navy-950 shadow-sm hover:bg-gold-400 active:scale-[0.98] transition-all"
     >
       Buy <ArrowRight className="h-4 w-4" />
     </a>

@@ -44,13 +44,13 @@ export function MobileMenu() {
   }, [open]);
 
   return (
-    <div className="ml-auto md:hidden">
+    <div className="ml-auto lg:hidden">
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
         aria-expanded={open}
         aria-label={open ? "Close menu" : "Open menu"}
-        className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-lg hover:bg-navy-800 transition-colors"
+        className="flex h-11 w-11 cursor-pointer items-center justify-center rounded-lg hover:bg-navy-800 transition-colors"
       >
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="pointer-events-none" aria-hidden="true">
           {open ? <path d="M6 6l12 12M18 6L6 18" /> : <path d="M4 7h16M4 12h16M4 17h16" />}

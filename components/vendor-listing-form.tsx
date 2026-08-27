@@ -179,7 +179,7 @@ export function VendorListingForm() {
 
       <fieldset>
         <legend className="text-sm font-bold text-navy-900">0 · Choose a plan</legend>
-        <div className="mt-3 grid gap-3 sm:grid-cols-3">
+        <div className="mt-3 grid gap-3 md:grid-cols-3">
           {PLAN_LIST.map((p) => {
             const selected = plan === p.id;
             return (

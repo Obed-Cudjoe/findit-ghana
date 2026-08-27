@@ -34,7 +34,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       </p>
 
       <div className="grid gap-6 lg:grid-cols-[220px_1fr]">
-        <nav aria-label="Admin navigation" className="space-y-1">
+        <nav aria-label="Admin navigation" className="-mx-4 flex gap-1 overflow-x-auto px-4 pb-1 lg:mx-0 lg:block lg:space-y-1 lg:overflow-visible lg:px-0 lg:pb-0">
           {[
             ["/admin", "Overview"],
             ["/admin/queue", "Corrections & reports"],
@@ -45,16 +45,16 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             <Link
               key={href}
               href={href}
-              className="block rounded-lg px-4 py-2.5 text-sm font-semibold text-navy-800 hover:bg-navy-50 hover:text-navy-900 transition-colors"
+              className="shrink-0 rounded-lg bg-navy-50 px-4 py-2.5 text-sm font-semibold text-navy-800 hover:bg-navy-100 hover:text-navy-900 transition-colors lg:block lg:bg-transparent lg:hover:bg-navy-50"
             >
               {label}
             </Link>
           ))}
-          <p className="mt-6 rounded-lg bg-navy-50 p-3 text-xs text-slate-soft">
+          <p className="mt-6 hidden rounded-lg bg-navy-50 p-3 text-xs text-slate-soft lg:block">
             Prices and listings are managed by the data pipeline — static pages and guides are edited in the content editor.
           </p>
         </nav>
-        <div>{children}</div>
+        <div className="min-w-0">{children}</div>
       </div>
     </div>
   );
