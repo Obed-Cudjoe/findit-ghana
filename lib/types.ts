@@ -21,6 +21,7 @@ export interface Product {
   updatedAt: string;
   isVendorListing?: boolean; // self-listed by a vendor (reviewed by admin before going live)
   featured?: boolean; // paid featured placement — sorted first, shown with a ★ badge
+  image?: string; // product photo URL (served from the source CDN — tiles fall back to the gradient icon when absent)
 }
 
 export interface PriceOffer {

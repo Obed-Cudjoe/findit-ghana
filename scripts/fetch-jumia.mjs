@@ -11,7 +11,12 @@
 //
 // Scraping etiquette: one request per category page, a small delay between
 // requests, a descriptive User-Agent, and only listing-page data (names,
-// prices, URLs) — no product-page crawl.
+// prices, URLs, card images) — no product-page crawl.
+//
+// MERGE MODE: the existing snapshot is the source of truth for curated
+// product names (and any photo a card didn't expose this run). A refresh
+// updates prices/discounts/ratings/images and adds/removes products, but
+// never rewrites the display names you've curated.
 
 import fs from "node:fs";
 import path from "node:path";
@@ -103,12 +108,16 @@ function extractProducts(html, fallbackCategory) {
     const rating = ratingMatch ? Number(ratingMatch[1]) : undefined;
     const reviews = ratingMatch ? Number(tail.match(reviewsRe)?.[1]) || undefined : undefined;
 
+    // Card photo: the listing card's <img> pointing at the marketplace CDN.
+    const image = tail.match(/<img[^>]+(?:data-src|src)="(https:\/\/[^"]*?jumia\.is\/[^"]*?\/product\/[^"]+)"/i)?.[1];
+
     seen.add(url);
     products.push({
       name: decodeEntities(name),
       brand: decodeEntities(name).split(/[\s–-]/)[0] || "Generic",
       category: fallbackCategory,
       url,
+      ...(image ? { image } : {}),
       priceGhs,
       ...(oldPriceGhs ? { oldPriceGhs } : {}),
       ...(discountPct ? { discountPct } : {}),
@@ -150,6 +159,25 @@ async function main() {
   const byUrl = new Map();
   for (const p of collected) if (!byUrl.has(p.url)) byUrl.set(p.url, p);
   const products = [...byUrl.values()];
+
+  // Merge with the existing snapshot: curated names (and any previously
+  // captured photo) survive every refresh; prices/stock data come fresh.
+  let previous = null;
+  try {
+    previous = JSON.parse(fs.readFileSync(OUT, "utf8"));
+  } catch {
+    previous = null;
+  }
+  const prevByUrl = new Map((previous?.products ?? []).map((p) => [p.url, p]));
+  let mergedCount = 0;
+  for (const p of products) {
+    const old = prevByUrl.get(p.url);
+    if (!old) continue;
+    mergedCount++;
+    if (old.name) p.name = old.name;
+    if (old.brand) p.brand = old.brand;
+    if (!p.image && old.image) p.image = old.image;
+  }
 
   if (products.length === 0) {
     console.error("\nNo products parsed — Jumia's markup may have changed. Inspect the listing HTML and update extractProducts().");

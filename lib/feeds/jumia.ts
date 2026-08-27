@@ -19,6 +19,7 @@ interface CatalogEntry {
   brand: string;
   category: string;
   url: string;
+  image?: string;
   priceGhs: number;
   oldPriceGhs?: number;
   discountPct?: number;
@@ -162,6 +163,7 @@ export function jumiaProducts(): Product[] {
       specs: specsFor(entry),
       gradient: gradientFor(slug, entry.category),
       icon: iconFor(entry),
+      image: entry.image,
       canonicalUrl: entry.url,
       updatedAt: catalog.fetchedAt,
     };

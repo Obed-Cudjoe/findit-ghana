@@ -22,12 +22,24 @@ export function ProductVisual({ product, className = "" }: { product: Product; c
   const Icon = ICONS[product.icon] ?? Package;
   return (
     <div
-      className={`flex items-center justify-center ${className}`}
+      className={`flex items-center justify-center overflow-hidden ${className}`}
       style={{ background: product.gradient }}
-      role="img"
-      aria-label={product.name}
     >
-      <Icon className="h-2/5 w-2/5 text-white/85" strokeWidth={1.4} />
+      {product.image ? (
+        // Plain <img> on purpose: the photo loads straight from the source CDN,
+        // so it never consumes Vercel bandwidth or image-optimization quota.
+        <img
+          src={product.image}
+          alt={product.name}
+          loading="lazy"
+          decoding="async"
+          className="h-full w-full bg-white object-contain"
+        />
+      ) : (
+        <div className="flex h-full w-full items-center justify-center" role="img" aria-label={product.name}>
+          <Icon className="h-2/5 w-2/5 text-white/85" strokeWidth={1.4} />
+        </div>
+      )}
     </div>
   );
 }
