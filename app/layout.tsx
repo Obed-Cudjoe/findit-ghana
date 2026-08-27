@@ -3,6 +3,7 @@ import Script from "next/script";
 import Link from "next/link";
 import "./globals.css";
 import { siteConfig } from "@/lib/data";
+import { MobileMenu } from "@/components/mobile-menu";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
@@ -178,52 +179,5 @@ function HeaderSearch() {
         </button>
       </div>
     </form>
-  );
-}
-
-/* Mobile hamburger menu — plain HTML/CSS toggle, no JS bundle needed */
-function MobileMenu() {
-  return (
-    <div className="ml-auto md:hidden">
-      <input type="checkbox" id="mobile-menu-toggle" className="peer sr-only" aria-label="Toggle menu" />
-      <label
-        htmlFor="mobile-menu-toggle"
-        className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-lg hover:bg-navy-800 transition-colors"
-        aria-label="Open menu"
-      >
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="pointer-events-none" aria-hidden="true">
-          <path d="M4 7h16M4 12h16M4 17h16" />
-        </svg>
-      </label>
-      {/* dropdown panel — toggled by the peer checkbox */}
-      <div className="pointer-events-none fixed inset-x-0 top-16 z-50 hidden max-h-[calc(100dvh-4rem)] flex-col overflow-y-auto border-t border-navy-800 bg-navy-900 shadow-2xl peer-checked:pointer-events-auto peer-checked:flex">
-        <nav className="mx-auto flex w-full max-w-6xl flex-col gap-1 px-4 py-4 pb-[calc(1rem+env(safe-area-inset-bottom))]" aria-label="Mobile navigation">
-          <form action="/search" method="get" className="mb-2">
-            <div className="flex overflow-hidden rounded-lg bg-navy-800">
-              <input name="q" type="search" placeholder="Search prices…" className="min-w-0 flex-1 bg-transparent px-4 py-2.5 text-base text-white placeholder:text-navy-300 focus:outline-none" aria-label="Search prices" />
-              <button type="submit" className="bg-gold-500 px-4 text-navy-950 hover:bg-gold-400 transition-colors" aria-label="Search">Go</button>
-            </div>
-          </form>
-          {[
-            ["/category/phones", "Phones"],
-            ["/category/laptops", "Laptops"],
-            ["/category/tv-audio", "TVs & Audio"],
-            ["/category/appliances", "Appliances"],
-            ["/category/gaming", "Gaming"],
-            ["/guides", "Price guides"],
-            ["/for-vendors", "For vendors — list your product"],
-            ["/how-it-works", "How it works"],
-            ["/trust", "How we stay honest"],
-            ["/about", "About"],
-            ["/contact", "Contact"],
-            ["/report/price", "Report a price error"],
-          ].map(([href, label]) => (
-            <Link key={href} href={href} className="rounded-lg px-3 py-2.5 text-sm text-navy-100 hover:bg-navy-800 hover:text-white transition-colors">
-              {label}
-            </Link>
-          ))}
-        </nav>
-      </div>
-    </div>
   );
 }
