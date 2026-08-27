@@ -1,15 +1,24 @@
 import type { Metadata } from "next";
-import { Inbox, ShieldAlert, MousePointerClick, Package } from "lucide-react";
-import { readReports, readContactMessages, readClicks, isSupabaseMode } from "@/lib/store";
+import Link from "next/link";
+import { Inbox, ShieldAlert, MousePointerClick, Package, Store, ClipboardList } from "lucide-react";
+import { readReports, readContactMessages, readClicks, readVendorProfiles, readVendorListings } from "@/lib/store";
 import { getProducts } from "@/lib/data";
 
 export const metadata: Metadata = { title: "Admin Dashboard", robots: { index: false } };
 export const dynamic = "force-dynamic";
 
 export default async function AdminDashboardPage() {
-  const [reports, contacts, clicks] = await Promise.all([readReports(), readContactMessages(), readClicks()]);
+  const [reports, contacts, clicks, profiles, listings] = await Promise.all([
+    readReports(),
+    readContactMessages(),
+    readClicks(),
+    readVendorProfiles(),
+    readVendorListings(),
+  ]);
   const openReports = reports.filter((r) => r.status === "new" || r.status === "checking");
   const products = getProducts().length;
+  const pendingPay = profiles.filter((p) => p.paymentStatus === "pending").length;
+  const pendingListings = listings.filter((l) => l.status === "pending").length;
 
   const stats = [
     { icon: Inbox, label: "Open corrections", value: openReports.filter((r) => r.kind !== "suspicious").length },
