@@ -21,6 +21,7 @@ export interface ListingRow {
   status: string;
   createdAt: string;
   featuredUntil?: string | null;
+  requestedPlan?: string;
 }
 
 const BADGE: Record<string, string> = {
@@ -98,6 +99,11 @@ export function ListingsTable({ listings }: { listings: ListingRow[] }) {
                 </td>
                 <td className="px-4 py-3">
                   <span className={`rounded-full px-2.5 py-1 text-xs font-bold ${BADGE[l.status] ?? "bg-slate-100 text-slate-600"}`}>{l.status}</span>
+                  {l.requestedPlan && l.requestedPlan !== "free" && (
+                    <span className="ml-1.5 inline-block rounded-full bg-navy-100 px-2 py-1 text-[10px] font-bold text-navy-800">
+                      wants {l.requestedPlan}
+                    </span>
+                  )}
                   {isFeatured(l) && (
                     <span className="ml-1.5 inline-block rounded-full bg-gold-500 px-2 py-1 text-[10px] font-extrabold text-navy-950">
                       ★ Featured · till {new Date(l.featuredUntil as string).toLocaleDateString("en-GB", { day: "numeric", month: "short" })}

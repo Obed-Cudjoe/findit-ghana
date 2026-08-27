@@ -2,10 +2,11 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Store, Search, MessageCircle, ShieldCheck } from "lucide-react";
 import { VendorListingForm } from "@/components/vendor-listing-form";
+import { PLAN_LIST, MOMO_NUMBER, MOMO_NAME } from "@/lib/plans";
 
 export const metadata: Metadata = {
   title: "For Vendors — List Your Product Free",
-  description: "List your product on FindIt Ghana free — Ghanaian shoppers find it, message you on WhatsApp, and buy directly from you. No commission on sales.",
+  description: "List your product on FindIt Ghana free — Ghanaian shoppers find it, message you on WhatsApp, and buy directly from you. No commission on sales. Upgrade to Starter or Pro for featured placement.",
 };
 
 export default function ForVendorsPage() {
@@ -16,7 +17,7 @@ export default function ForVendorsPage() {
         <h1 className="mt-2 text-2xl font-extrabold text-navy-900 sm:text-3xl">Put your product in front of Ghanaian shoppers</h1>
         <p className="mt-3 text-sm leading-relaxed text-slate-soft">
           When someone searches &quot;price of iPhone 13 in Ghana&quot;, they should find <strong className="text-navy-900">you</strong>.
-          List your product free — shoppers see your price in cedis, your stock level, and a WhatsApp button that goes straight to you.
+          List your first product free — shoppers see your price in cedis, your stock level, and a WhatsApp button that goes straight to you.
         </p>
       </header>
 
@@ -34,20 +35,30 @@ export default function ForVendorsPage() {
         ))}
       </div>
 
-      {/* Paid featured placement — the vendor pays via MoMo, the admin flips the switch */}
-      <section className="mt-6 rounded-xl border border-gold-600/40 bg-gold-500/10 p-5">
-        <h2 className="flex items-center gap-2 font-extrabold text-navy-900">
-          ★ Get featured — be the first listing shoppers see
-        </h2>
-        <p className="mt-2 text-sm leading-relaxed text-slate-soft">
-          Featured listings sit at the <strong className="text-navy-900">top of their category</strong> with a gold ★ badge for 30 days.
-          <strong className="text-navy-900"> GH₵50/month</strong> — one product per featured slot.
+      <section className="mt-8">
+        <h2 className="text-lg font-extrabold text-navy-900">Plans</h2>
+        <p className="mt-1 text-sm text-slate-soft">
+          Start free. Paid plans are activated after MoMo to <strong className="text-navy-900">{MOMO_NUMBER}</strong> ({MOMO_NAME}) — we confirm it in admin.
         </p>
-        <ol className="mt-3 space-y-1.5 text-sm text-slate-soft">
-          <li><span className="font-bold text-navy-900">1.</span> List your product below (free) and wait for approval.</li>
-          <li><span className="font-bold text-navy-900">2.</span> Pay GH₵50 by Mobile Money to <span className="font-bold text-navy-900">053 126 2424</span> (Obed Cudjoe).</li>
-          <li><span className="font-bold text-navy-900">3.</span> WhatsApp your listing link + MoMo reference to <span className="font-bold text-navy-900">053 126 2424</span> — we feature it within a day.</li>
-        </ol>
+        <div className="mt-4 grid gap-4 md:grid-cols-3">
+          {PLAN_LIST.map((p) => (
+            <div
+              key={p.id}
+              className={`rounded-xl border bg-white p-5 ${p.id === "starter" ? "border-gold-500 ring-1 ring-gold-500/30" : "border-navy-100"}`}
+            >
+              <p className="text-xs font-bold uppercase tracking-wide text-gold-700">
+                {p.priceGhs === 0 ? "Free forever" : `GH₵${p.priceGhs} / month`}
+              </p>
+              <h3 className="mt-1 text-xl font-extrabold text-navy-900">{p.name}</h3>
+              <p className="mt-1 text-sm text-slate-soft">{p.tagline}</p>
+              <ul className="mt-3 space-y-1.5 text-sm text-navy-800">
+                {p.perks.map((perk) => (
+                  <li key={perk}>• {perk}</li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
       </section>
 
       <div className="mt-10 grid gap-8 lg:grid-cols-[1fr_320px]">
@@ -55,7 +66,7 @@ export default function ForVendorsPage() {
           <h2 className="flex items-center gap-2 text-lg font-extrabold text-navy-900">
             <Store className="h-5 w-5 text-gold-600" /> List your product
           </h2>
-          <p className="mb-5 mt-1 text-sm text-slate-soft">Two short sections. Takes about two minutes.</p>
+          <p className="mb-5 mt-1 text-sm text-slate-soft">Pick a plan, then two short sections. Takes about two minutes.</p>
           <VendorListingForm />
         </div>
 
@@ -64,8 +75,8 @@ export default function ForVendorsPage() {
             <h2 className="font-bold text-navy-900">What happens next</h2>
             <ol className="mt-3 space-y-2 text-sm text-slate-soft">
               <li><span className="font-bold text-navy-900">1.</span> Your listing enters our review queue.</li>
-              <li><span className="font-bold text-navy-900">2.</span> We check it (usually within 1 business day).</li>
-              <li><span className="font-bold text-navy-900">3.</span> It goes live with your name, price and WhatsApp link.</li>
+              <li><span className="font-bold text-navy-900">2.</span> Paid plans: send MoMo to {MOMO_NUMBER}, then WhatsApp the reference.</li>
+              <li><span className="font-bold text-navy-900">3.</span> We confirm payment and approve the listing — your shop appears on <Link className="font-semibold text-navy-800 underline" href="/vendors">/vendors</Link>.</li>
             </ol>
           </div>
           <div className="rounded-xl border border-navy-100 p-5 text-sm text-slate-soft">

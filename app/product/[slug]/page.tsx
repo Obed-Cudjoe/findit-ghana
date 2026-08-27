@@ -3,10 +3,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ShieldCheck, Clock, TriangleAlert, MessageCircle, BadgeCheck } from "lucide-react";
 import {
-  getAnyProduct, getOffersForProduct, getVendors, getSnapshotsForOffer, getProducts,
-  listingToOffer, listingToVendor,
+  getMergedProductPage, getOffersForProduct, getSnapshotsForOffer, getProducts,
 } from "@/lib/data";
-import type { VendorListing } from "@/lib/types";
 import { ProductVisual, PriceChart, ProductCard } from "@/components/shared";
 import { VendorTable } from "@/components/vendor-table";
 import { formatGHS, timeAgo, formatDate } from "@/lib/utils";
@@ -24,10 +22,10 @@ export function generateStaticParams() {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const found = await getAnyProduct(slug);
+  const found = await getMergedProductPage(slug);
   if (!found) return { title: "Product not found" };
-  const { product, listing } = found;
-  const cheapest = listing ? listingToOffer(listing as VendorListing) : getOffersForProduct(slug)[0];
+  const { product, offers } = found;
+  const cheapest = offers[0];
   const title = cheapest
     ? `${product.name} Price in Ghana — from ${formatGHS(cheapest.priceGhs)}`
     : `${product.name} — Prices in Ghana`;
@@ -37,26 +35,22 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function ProductPage({ params }: Props) {
   const { slug } = await params;
-  const found = await getAnyProduct(slug);
+  const found = await getMergedProductPage(slug);
   if (!found) notFound();
 
-  const { product, listing } = found;
-  const vListing = listing as VendorListing | undefined;
-
-  // vendor-listing path: one offer, one pseudo-vendor, WhatsApp buy link
-  const offers = vListing ? [listingToOffer(vListing)] : getOffersForProduct(slug);
-  const vendors = vListing ? [...getVendors(), listingToVendor(vListing)] : getVendors();
+  const { product, offers, vendors, listing: vListing, listings, isCatalogue } = found;
   const cheapest = offers[0];
-  const chartPoints = !vListing && cheapest
+  const chartPoints = isCatalogue && cheapest
     ? getSnapshotsForOffer(cheapest.id).map((s) => ({ priceGhs: s.priceGhs, capturedAt: s.capturedAt }))
     : [];
   const similar = getProducts().filter((p) => p.category === product.category && p.slug !== slug).slice(0, 3);
+  const listingOnly = !isCatalogue;
 
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Product",
     name: product.name,
-    brand: { "@type": "Brand", name: vListing ? vListing.businessName : product.brand },
+    brand: { "@type": "Brand", name: listingOnly && vListing ? vListing.businessName : product.brand },
     offers: {
       "@type": "AggregateOffer",
       priceCurrency: "GHS",
@@ -79,19 +73,22 @@ export default async function ProductPage({ params }: Props) {
       <div className="mt-4 grid gap-6 lg:grid-cols-[320px_1fr]">
         <ProductVisual product={product} className="aspect-square w-full rounded-2xl shadow-md" />
         <div>
-          {vListing ? (
+          {listingOnly && vListing ? (
             <p className="inline-flex items-center gap-1.5 rounded-full bg-amber-50 px-3 py-1 text-xs font-semibold text-amber-700">
-              <BadgeCheck className="h-3.5 w-3.5" /> Self-listed by {vListing.businessName} · added {formatDate(vListing.createdAt)}
+              <BadgeCheck className="h-3.5 w-3.5" />{" "}
+              {listings.length > 1
+                ? `${listings.length} independent vendors · first listed ${formatDate(vListing.createdAt)}`
+                : `Self-listed by ${vListing.businessName} · added ${formatDate(vListing.createdAt)}`}
             </p>
           ) : (
             <p className="text-sm font-semibold uppercase tracking-wide text-gold-700">{product.brand}</p>
           )}
           <h1 className="mt-1 break-words text-2xl font-extrabold text-navy-900 md:text-3xl">{product.name}</h1>
           <p className="mt-2 inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700">
-            <Clock className="h-3.5 w-3.5" /> Prices checked {timeAgo(vListing ? vListing.createdAt : product.updatedAt)}
+            <Clock className="h-3.5 w-3.5" /> Prices checked {timeAgo(listingOnly && vListing ? vListing.createdAt : product.updatedAt)}
           </p>
 
-          {vListing ? (
+          {listingOnly && vListing ? (
             /* vendor listing: description + contact instead of specs */
             <div className="mt-5 space-y-4">
               <p className="text-sm leading-relaxed text-slate-soft">{vListing.description}</p>
@@ -105,12 +102,12 @@ export default async function ProductPage({ params }: Props) {
                   <p className="text-sm font-semibold text-navy-900">{vListing.stockCount ?? "Ask vendor"}</p>
                 </div>
                 <div className="rounded-lg bg-navy-50 px-3 py-2">
-                  <p className="text-[11px] uppercase tracking-wide text-slate-soft">Contact</p>
-                  <p className="text-sm font-semibold text-navy-900">+{vListing.phone}</p>
+                  <p className="text-[11px] uppercase tracking-wide text-slate-soft">Vendors</p>
+                  <p className="text-sm font-semibold text-navy-900">{offers.length} live offer{offers.length === 1 ? "" : "s"}</p>
                 </div>
               </div>
               <p className="flex items-center gap-1.5 text-xs text-slate-soft">
-                <MessageCircle className="h-4 w-4 text-emerald-600" /> The buy button opens WhatsApp straight to this vendor — no middleman.
+                <MessageCircle className="h-4 w-4 text-emerald-600" /> Buy buttons open WhatsApp straight to each vendor — no middleman.
               </p>
             </div>
           ) : (

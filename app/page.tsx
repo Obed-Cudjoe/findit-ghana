@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { ArrowRight, Search, ShieldCheck, Truck, BookOpen, Smartphone } from "lucide-react";
-import { getCategories, getGuides, getProducts, getOffersForProduct, officialSources } from "@/lib/data";
+import { getCategories, getGuides, getProducts, getOffersForProduct, officialSources, getFeaturedProVendors } from "@/lib/data";
 import { ProductCard, TrustStrip, OfficialSources } from "@/components/shared";
+import { VendorAvatar } from "@/components/vendor-avatar";
 
 export default async function HomePage() {
   const categories = getCategories();
@@ -9,6 +10,7 @@ export default async function HomePage() {
   // One live product from each official price source so CompuGhana, Franko
   // Trading and Telefonika sit next to Jumia on the homepage — not buried
   // behind 80 marketplace listings.
+  const featuredShops = await getFeaturedProVendors();
   const popular = officialSources
     .map((source) => getProducts().find((p) => p.id.startsWith(source.productPrefix)))
     .filter((p): p is NonNullable<typeof p> => !!p)
@@ -69,6 +71,35 @@ export default async function HomePage() {
 
       {/* ===== VERIFIED PRICE SOURCES ===== */}
       <OfficialSources sources={officialSources} />
+
+      {/* ===== PRO FEATURED SHOPS ===== */}
+      {featuredShops.length > 0 && (
+        <section className="mx-auto max-w-6xl px-4 pb-4">
+          <div className="mb-6 flex items-end justify-between gap-4">
+            <div>
+              <h2 className="text-xl font-extrabold text-navy-900 md:text-2xl">Featured shops</h2>
+              <p className="mt-1 text-sm text-slate-soft">Pro vendors — homepage placement for 30 days after MoMo clears.</p>
+            </div>
+            <Link href="/vendors" className="hidden items-center gap-1 text-sm font-semibold text-gold-700 hover:gap-2 transition-all sm:inline-flex">
+              All vendors <ArrowRight className="h-4 w-4" />
+            </Link>
+          </div>
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {featuredShops.map((v) => (
+              <Link key={v.slug} href={`/vendors/${v.slug}`} className="hover-lift flex items-center gap-3 rounded-xl border border-gold-500/40 bg-gold-500/10 p-4">
+                <VendorAvatar name={v.name} hue={v.logoHue} />
+                <div className="min-w-0">
+                  <p className="flex items-center gap-1.5 font-extrabold text-navy-900">
+                    {v.name}
+                    {v.verified && <ShieldCheck className="h-3.5 w-3.5 text-emerald-600" />}
+                  </p>
+                  <p className="text-xs text-slate-soft">{v.listingCount} listing{v.listingCount === 1 ? "" : "s"} · ★ Pro</p>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </section>
+      )}
 
       {/* ===== POPULAR CATEGORIES ===== */}
       <section className="mx-auto max-w-6xl px-4 py-12">

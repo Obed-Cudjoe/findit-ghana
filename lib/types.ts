@@ -95,6 +95,29 @@ export interface ClickRow {
   createdAt: string;
 }
 
+export type VendorPlanId = "free" | "starter" | "pro";
+export type VendorPaymentStatus = "none" | "pending" | "confirmed";
+export type VendorProfileStatus = "pending" | "approved" | "rejected";
+
+// One shop in the self-listing marketplace. Listings hang off this row.
+export interface VendorProfile {
+  id: string;
+  businessName: string;
+  slug: string;
+  contactName: string;
+  phone: string;
+  email: string;
+  websiteUrl: string;
+  plan: VendorPlanId;
+  planExpiresAt: string | null;
+  paymentStatus: VendorPaymentStatus;
+  momoReference: string;
+  verified: boolean;
+  logoHue: number;
+  status: VendorProfileStatus;
+  createdAt: string;
+}
+
 // Self-submitted vendor listing (the "List your product" flow).
 // status: pending (admin queue) → approved (appears on the site) | rejected.
 export interface VendorListing {
@@ -120,4 +143,6 @@ export interface VendorListing {
   // badged while this ISO timestamp is in the future. Set by the admin after
   // the vendor pays (see the "Get featured" section on /for-vendors).
   featuredUntil?: string | null;
+  vendorId?: string | null;
+  requestedPlan?: VendorPlanId;
 }
