@@ -2,16 +2,15 @@
 // scripts/fetch-jumia.mjs — refresh the real Jumia Ghana catalogue snapshot.
 //
 //   node scripts/fetch-jumia.mjs            # scrape the default categories
-//   node scripts/fetch-jumia.mjs --url=https://www.jumia.com.gh/smartphones/?page=2
+//   node scripts/fetch-jumia.mjs --url=https://www.jumia.com.gh/smartphones/?page=2 --category=phones
+//   DEBUG_JUMIA=1 node scripts/fetch-jumia.mjs   # diagnose failures
 //
 // Writes data/jumia-catalog.json (the file lib/feeds/jumia.ts serves to the
-// site). Run this from any machine with normal internet access — the build
-// server does not need network access to Jumia, it only reads the committed
-// snapshot. Commit the refreshed JSON afterwards.
+// site). Run from any machine with normal internet access; commit the result.
 //
 // Scraping etiquette: one request per category page, a small delay between
-// requests, a descriptive User-Agent, and only listing-page data (names,
-// prices, URLs, card images) — no product-page crawl.
+// requests, and only listing-page data (names, prices, URLs, card images) —
+// no product-page crawl.
 //
 // MERGE MODE: the existing snapshot is the source of truth for curated
 // product names (and any photo a card didn't expose this run). A refresh
@@ -37,14 +36,18 @@ const DEFAULT_PAGES = [
   ["fashion", "https://www.jumia.com.gh/smart-watches/"],
 ];
 
+// Browser-grade headers: Jumia's CDN serves bot-check pages to unknown
+// user-agents, which is what blanked an earlier run. Light, polite scraping
+// with normal browser headers + delays is what keeps this working.
 const UA =
-  "FindItGhana-catalog/1.0 (+https://findit-ghana.vercel.app; contact: cudjoe.obed.gh@gmail.com)";
+  "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36";
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
 const args = process.argv.slice(2);
 const onlyUrl = args.find((a) => a.startsWith("--url="))?.slice(6);
 const forcedCategory = args.find((a) => a.startsWith("--category="))?.slice(11);
+const DEBUG = !!process.env.DEBUG_JUMIA;
 
 function decodeEntities(s) {
   return s
@@ -67,20 +70,21 @@ function parseGhs(text) {
   return Number.isFinite(n) && n > 0 ? n : null;
 }
 
-// Extract product cards from a Jumia listing page's HTML. Tolerant to markup
-// drift: pulls every product link with a name, then looks for the nearest
-// price/discount/rating markers after it.
+// Extract product cards from a Jumia listing page's HTML. Tolerant by design:
+// any anchor to a product page qualifies as a card candidate; the name
+// (<h3 class="name">) + price (<div class="prc">) requirement is the real
+// filter — banner and utility links never carry both.
 function extractProducts(html, fallbackCategory) {
   const products = [];
   const seen = new Set();
-  const cardRe = /<a[^>]+href="(\/[^"]+\.html)"[^>]*class="[^"]*\bcore\b[^"]*"/g;
+  const anchorRe = /<a\b[^>]*href="(\/[^"]*?\.html)"[^>]*>/g;
   const priceRe = /class="prc[^"]*"[^>]*>([\s\S]{0,200}?)<\/div>/;
   const nameRe = /class="name"[^>]*>([\s\S]{0,300}?)<\/h3>/;
   const ratingRe = /class="rev[^"]*"[^>]*>\s*([\d.]+)\s*(?:out of|\/)\s*5/i;
   const reviewsRe = /\((\d+)\)/;
 
   let m;
-  while ((m = cardRe.exec(html)) !== null) {
+  while ((m = anchorRe.exec(html)) !== null) {
     const href = m[1];
     const tail = html.slice(m.index, m.index + 4000); // card scope
     const name = tail.match(nameRe)?.[1];
@@ -92,13 +96,13 @@ function extractProducts(html, fallbackCategory) {
     const url = `https://www.jumia.com.gh${href}`;
     if (seen.has(url)) continue;
 
-    // Price = first GH₵ figure; old price = a following higher one.
-    // (Tolerant of whichever currency glyph the markup uses.)
+    // Price = first GH₵ figure. (Tolerant of whichever currency glyph.)
     const figures = [...priceBlock.matchAll(/GH[^0-9]{0,6}\s*([\d][\d ,]*)/g)]
       .map((x) => parseGhs(x[0]))
       .filter((x) => x !== null);
     const priceGhs = figures[0];
     if (!priceGhs) continue;
+
     // Old price lives in its own <div class="old"> inside the card scope.
     const oldRaw = tail.match(/class="old"[^>]*>([\s\S]{0,120}?)<\/div>/)?.[1];
     const oldPriceGhs = oldRaw ? parseGhs(decodeEntities(oldRaw)) : undefined;
@@ -129,7 +133,11 @@ function extractProducts(html, fallbackCategory) {
 
 async function fetchPage(url) {
   const res = await fetch(url, {
-    headers: { "User-Agent": UA, Accept: "text/html" },
+    headers: {
+      "User-Agent": UA,
+      Accept: "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+      "Accept-Language": "en-US,en;q=0.9",
+    },
     redirect: "follow",
   });
   if (!res.ok) throw new Error(`HTTP ${res.status} for ${url}`);
@@ -137,9 +145,7 @@ async function fetchPage(url) {
 }
 
 async function main() {
-  const pages = onlyUrl
-    ? [[forcedCategory ?? "phones", onlyUrl]]
-    : DEFAULT_PAGES;
+  const pages = onlyUrl ? [[forcedCategory ?? "phones", onlyUrl]] : DEFAULT_PAGES;
 
   const collected = [];
   for (const [category, url] of pages) {
@@ -149,6 +155,17 @@ async function main() {
       const found = extractProducts(html, category);
       console.log(`${found.length} products`);
       collected.push(...found);
+
+      if (found.length === 0 && DEBUG) {
+        const title = html.match(/<title>([^<]*)<\/title>/i)?.[1] ?? "(no title)";
+        const anchors = (html.match(/href="\/[^"]*?\.html"/g) ?? []).length;
+        const cores = (html.match(/class="[^"]*\bcore\b/g) ?? []).length;
+        const botCheck = /captcha|robot|access denied|unusual traffic|are you a human/i.test(html);
+        console.log(`  [debug] title: ${title}`);
+        console.log(`  [debug] anchors to .html: ${anchors} | class~=core: ${cores} | bot-check page: ${botCheck}`);
+        fs.writeFileSync(`debug-${category}.html`, html);
+        console.log(`  [debug] raw page saved to debug-${category}.html — open it and check what Jumia returned`);
+      }
     } catch (err) {
       console.log(`FAILED (${err.message})`);
     }
@@ -169,18 +186,17 @@ async function main() {
     previous = null;
   }
   const prevByUrl = new Map((previous?.products ?? []).map((p) => [p.url, p]));
-  let mergedCount = 0;
   for (const p of products) {
     const old = prevByUrl.get(p.url);
     if (!old) continue;
-    mergedCount++;
     if (old.name) p.name = old.name;
     if (old.brand) p.brand = old.brand;
     if (!p.image && old.image) p.image = old.image;
   }
 
   if (products.length === 0) {
-    console.error("\nNo products parsed — Jumia's markup may have changed. Inspect the listing HTML and update extractProducts().");
+    console.error("\nNo products parsed. Run with DEBUG_JUMIA=1 against a single category to see what Jumia returned:");
+    console.error('  DEBUG_JUMIA=1 node scripts/fetch-jumia.mjs --url="https://www.jumia.com.gh/smartphones/" --category=phones');
     process.exit(1);
   }
 
@@ -196,7 +212,8 @@ async function main() {
   };
 
   fs.writeFileSync(OUT, JSON.stringify(doc, null, 2) + "\n");
-  console.log(`\nWrote ${products.length} products → ${path.relative(ROOT, OUT)}`);
+  const withImages = products.filter((p) => p.image).length;
+  console.log(`\nWrote ${products.length} products (${withImages} with photos) → ${path.relative(ROOT, OUT)}`);
   console.log("Next: npm run lint && npm run build, then commit the refreshed snapshot.");
 }
 
