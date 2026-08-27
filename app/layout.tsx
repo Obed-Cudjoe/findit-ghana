@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import { Analytics } from "@vercel/analytics/next";
 import Script from "next/script";
 import Link from "next/link";
 import "./globals.css";
@@ -159,6 +160,9 @@ gtag('config', '${process.env.NEXT_PUBLIC_GA_ID}');`}
             </Script>
           </>
         )}
+
+        {/* Vercel Web Analytics — page views and traffic insights, enabled on Vercel */}
+        <Analytics />
       </body>
     </html>
   );
