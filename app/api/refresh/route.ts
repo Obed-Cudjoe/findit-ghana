@@ -1,10 +1,12 @@
 // GET /api/refresh — daily price-refresh cron (Vercel Cron calls this at 06:00 UTC).
 // In Supabase mode this upserts fresh vendor data; in demo mode it reports the
-// real Jumia Ghana catalogue snapshot the site is serving (lib/feeds/jumia.ts).
+// catalogue snapshots the site is serving.
 import { NextResponse, type NextRequest } from "next/server";
 import { isSupabaseMode } from "@/lib/store";
 import { jumiaProducts, jumiaOffers, jumiaCatalogMeta } from "@/lib/feeds/jumia";
 import { compughanaProducts, compughanaOffers } from "@/lib/feeds/compughana";
+import { frankoProducts, frankoOffers } from "@/lib/feeds/franko";
+import { telefonikaProducts, telefonikaOffers } from "@/lib/feeds/telefonika";
 
 export async function GET(request: NextRequest) {
   // Cron protection: Vercel sends CRON_SECRET as a Bearer token.
@@ -22,27 +24,32 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({
       ok: true,
       mode: "supabase",
-      note: "Feed upsert hook — wire lib/feeds/jumia.ts here with the buyer's affiliate key.",
+      note: "Feed upsert hook — wire lib/feeds/*.ts here with the buyer's affiliate key.",
       at: new Date().toISOString(),
     });
   }
 
-  // Demo mode: the real Jumia Ghana catalogue snapshot currently being served.
   const meta = jumiaCatalogMeta();
+  const jumia = jumiaProducts().length;
+  const compughana = compughanaProducts().length;
+  const franko = frankoProducts().length;
+  const telefonika = telefonikaProducts().length;
   return NextResponse.json({
     ok: true,
     mode: "demo",
     source: meta.source,
     catalogFetchedAt: meta.fetchedAt,
-    products: jumiaProducts().length + compughanaProducts().length,
-    offers: jumiaOffers().length + compughanaOffers().length,
+    products: jumia + compughana + franko + telefonika,
+    offers: jumiaOffers().length + compughanaOffers().length + frankoOffers().length + telefonikaOffers().length,
     sources: {
-      "jumia.com.gh": jumiaProducts().length,
-      "compughana.com": compughanaProducts().length,
+      "jumia.com.gh": jumia,
+      "compughana.com": compughana,
+      "frankotrading.com": franko,
+      "telefonika.com": telefonika,
     },
     snapshots: 0,
     staleDeactivated: 0,
-    note: "Refresh prices by running scripts/fetch-jumia.mjs and committing the updated data/jumia-catalog.json.",
+    note: "Refresh Jumia prices by running scripts/fetch-jumia.mjs. Partner catalogues (CompuGhana, Franko Trading, Telefonika) are committed snapshots in data/*-catalog.json.",
     at: new Date().toISOString(),
   });
 }

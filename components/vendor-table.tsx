@@ -2,6 +2,7 @@
 // outbound Buy buttons with affiliate click tracking, so it runs in the browser.
 "use client";
 
+import Link from "next/link";
 import { ShieldCheck, ArrowRight } from "lucide-react";
 import type { PriceOffer, Vendor } from "@/lib/types";
 import { formatGHS, deliveryLabel, timeAgo } from "@/lib/utils";
@@ -24,7 +25,7 @@ function BuyButton({ offer, vendorName, productSlug }: { offer: PriceOffer; vend
       target="_blank"
       rel="noopener noreferrer nofollow"
       onClick={track}
-      className="inline-flex items-center justify-center gap-1.5 whitespace-nowrap rounded-lg bg-gold-500 px-4 py-2 text-sm font-bold text-navy-950 shadow-sm hover:bg-gold-400 active:scale-[0.98] transition-all"
+      className="inline-flex min-h-11 min-w-[5.5rem] items-center justify-center gap-1.5 whitespace-nowrap rounded-lg bg-gold-500 px-4 py-2.5 text-sm font-bold text-navy-950 shadow-sm hover:bg-gold-400 active:scale-[0.98] transition-all"
     >
       Buy <ArrowRight className="h-4 w-4" />
     </a>
@@ -58,7 +59,13 @@ export function VendorTable({ offers, vendors, productSlug }: { offers: PriceOff
             return (
               <tr key={o.id} className={i % 2 ? "bg-navy-50/50" : "bg-white"}>
                 <td className="px-4 py-3">
-                  <p className="font-semibold text-navy-900">{v?.name ?? "Vendor"}</p>
+                  <p className="font-semibold text-navy-900">
+                    {v?.slug ? (
+                      <Link href={`/vendors/${v.slug}`} className="hover:text-gold-700 transition-colors">{v.name}</Link>
+                    ) : (
+                      v?.name ?? "Vendor"
+                    )}
+                  </p>
                   <p className="flex items-center gap-1 text-xs text-slate-soft">
                     {v?.verified ? (
                       <><ShieldCheck className="h-3.5 w-3.5 text-emerald-600" /> Verified</>
@@ -96,7 +103,13 @@ export function VendorTable({ offers, vendors, productSlug }: { offers: PriceOff
             <div key={o.id} className="p-4">
               <div className="flex items-start justify-between gap-3">
                 <div className="min-w-0">
-                  <p className="break-words font-semibold text-navy-900">{v?.name ?? "Vendor"}</p>
+                  <p className="break-words font-semibold text-navy-900">
+                    {v?.slug ? (
+                      <Link href={`/vendors/${v.slug}`} className="hover:text-gold-700 transition-colors">{v.name}</Link>
+                    ) : (
+                      v?.name ?? "Vendor"
+                    )}
+                  </p>
                   <p className="flex min-w-0 flex-wrap items-center gap-1 text-xs text-slate-soft">
                     {v?.verified && (
                       <><ShieldCheck className="h-3.5 w-3.5 shrink-0 text-emerald-600" /> Verified · </>

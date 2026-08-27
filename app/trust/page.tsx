@@ -19,7 +19,12 @@ export default function TrustPage() {
         <div>
           <h2 className="flex items-center gap-2 text-lg font-bold text-navy-900"><Clock className="h-5 w-5 text-gold-600" /> Where prices come from</h2>
           <p className="mt-2 text-sm leading-relaxed text-slate-soft">
-            Prices come from vendor catalogues and public listings, refreshed on a schedule — at minimum once a day. Every listing carries a
+            Prices come from named Ghanaian retailers, refreshed on a schedule — at minimum once a day. Official catalogue sources today:
+            <strong className="text-navy-900"> Jumia Ghana</strong> (jumia.com.gh),
+            <strong className="text-navy-900"> CompuGhana</strong> (compughana.com),
+            <strong className="text-navy-900"> Franko Trading</strong> (frankotrading.com) and
+            <strong className="text-navy-900"> Telefonika</strong> (telefonika.com). Buy buttons open that shop&apos;s own product page.
+            Every listing carries a
             <strong className="text-navy-900"> last-checked timestamp</strong>, so you can see exactly how fresh the number you&apos;re looking at is.
             Stale data is labelled, never dressed up as fresh.
           </p>

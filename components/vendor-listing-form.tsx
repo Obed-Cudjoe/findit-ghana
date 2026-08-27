@@ -2,8 +2,11 @@
 
 // "List your product" form (For Vendors page).
 // Submits to /api/listings → admin queue → appears on the site once approved.
+// Paid plans show MoMo instructions after submit; admin confirms in /admin/vendors.
 import { useState } from "react";
 import Link from "next/link";
+import { PLAN_LIST, MOMO_NUMBER, MOMO_NAME, MOMO_WHATSAPP, VENDOR_PLANS, type PlanId } from "@/lib/plans";
+import { MIN_VENDOR_PASSWORD } from "@/lib/vendor-auth-client";
 
 const CATEGORIES = [
   ["phones", "Phones"],
@@ -35,6 +38,7 @@ function Field({ label, required, error, children }: { label: string; required?:
 }
 
 export function VendorListingForm() {
+  const [plan, setPlan] = useState<PlanId>("free");
   const [form, setForm] = useState({
     businessName: "",
     contactName: "",
@@ -50,10 +54,12 @@ export function VendorListingForm() {
     deliveryFeeGhs: "0",
     description: "",
     websiteUrl: "",
+    password: "",
+    passwordConfirm: "",
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [busy, setBusy] = useState(false);
-  const [done, setDone] = useState(false);
+  const [done, setDone] = useState<{ paymentRequired: boolean; plan: PlanId; vendorSlug: string | null; loggedIn: boolean } | null>(null);
   const [serverError, setServerError] = useState("");
 
   function set<K extends keyof typeof form>(key: K, value: string) {
@@ -71,6 +77,10 @@ export function VendorListingForm() {
     if (form.stockCount && (isNaN(Number(form.stockCount)) || Number(form.stockCount) < 0)) e.stockCount = "Numbers only";
     if (form.description.trim().length < 20) e.description = "Describe the product (at least 20 characters)";
     if (form.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) e.email = "Enter a valid email address";
+    if (form.password) {
+      if (form.password.length < MIN_VENDOR_PASSWORD) e.password = `At least ${MIN_VENDOR_PASSWORD} characters`;
+      if (form.password !== form.passwordConfirm) e.passwordConfirm = "Passwords do not match";
+    }
     setErrors(e);
     return Object.keys(e).length === 0;
   }
@@ -86,6 +96,7 @@ export function VendorListingForm() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           ...form,
+          plan,
           priceGhs: Number(form.priceGhs),
           stockCount: form.stockCount ? Number(form.stockCount) : null,
           deliveryDaysMin: Number(form.deliveryDaysMin) || 1,
@@ -93,10 +104,15 @@ export function VendorListingForm() {
           deliveryFeeGhs: Number(form.deliveryFeeGhs) || 0,
         }),
       });
+      const data = await res.json().catch(() => ({}));
       if (res.ok) {
-        setDone(true);
+        setDone({
+          paymentRequired: !!data.paymentRequired,
+          plan: data.plan === "starter" || data.plan === "pro" ? data.plan : "free",
+          vendorSlug: typeof data.vendorSlug === "string" ? data.vendorSlug : null,
+          loggedIn: !!data.loggedIn,
+        });
       } else {
-        const data = await res.json().catch(() => ({}));
         setServerError(data.error || "Something went wrong. Please try again.");
       }
     } catch {
@@ -107,6 +123,46 @@ export function VendorListingForm() {
   }
 
   if (done) {
+    if (done.paymentRequired) {
+      const picked = VENDOR_PLANS[done.plan];
+      const ref = `FINDIT-${(done.vendorSlug || "SHOP").toUpperCase().slice(0, 18)}`;
+      const waText = encodeURIComponent(`Hi, I just listed on FindIt Ghana (${picked.name} plan). MoMo reference: ${ref}. Business: ${form.businessName}.`);
+      return (
+        <div className="rounded-xl border border-gold-600/40 bg-gold-500/10 p-6" role="status">
+          <p className="font-extrabold text-navy-900">Listing received — pay to activate {picked.name}</p>
+          <p className="mt-2 text-sm leading-relaxed text-slate-soft">
+            Your product is in the review queue. To unlock {picked.listingLimit} listings
+            {picked.featuredRotation ? ", ★ featured placement" : ""}
+            {picked.homepageFeatured ? " and a homepage shop" : ""}, send{" "}
+            <strong className="text-navy-900">GH₵{picked.priceGhs}</strong> by Mobile Money:
+          </p>
+          <ol className="mt-4 space-y-2 text-sm text-navy-900">
+            <li><span className="font-bold">1.</span> Pay <strong>GH₵{picked.priceGhs}</strong> to <strong>{MOMO_NUMBER}</strong> ({MOMO_NAME}).</li>
+            <li><span className="font-bold">2.</span> Use reference <span className="rounded bg-white px-1.5 py-0.5 font-mono text-xs font-bold">{ref}</span></li>
+            <li>
+              <span className="font-bold">3.</span> WhatsApp that reference to the same number — we confirm within a business day and your shop goes live.
+            </li>
+          </ol>
+          <a
+            href={`https://wa.me/${MOMO_WHATSAPP}?text=${waText}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-5 inline-flex w-full items-center justify-center rounded-xl bg-gold-500 px-5 py-3 text-sm font-bold text-navy-950 hover:bg-gold-400 transition-colors"
+          >
+            WhatsApp {MOMO_NUMBER} with my reference
+          </a>
+          <p className="mt-3 text-center text-xs text-slate-soft">
+            Until payment clears you still have the Free plan (1 listing).{" "}
+            <Link href="/" className="font-semibold text-navy-800 underline">Browse the site while you wait →</Link>
+          </p>
+          <p className="mt-2 text-center text-sm">
+            <Link href={done.loggedIn ? "/vendor" : "/vendor/login"} className="font-bold text-navy-900 underline">
+              {done.loggedIn ? "Open your shop dashboard →" : "Sign in to your shop dashboard →"}
+            </Link>
+          </p>
+        </div>
+      );
+    }
     return (
       <div className="rounded-xl border border-emerald-200 bg-emerald-50 p-6" role="status">
         <p className="flex items-center gap-2 font-bold text-emerald-800">
@@ -120,15 +176,55 @@ export function VendorListingForm() {
         <p className="mt-3 text-sm">
           <Link href="/" className="font-semibold text-emerald-900 underline">Browse the site while you wait →</Link>
         </p>
+        <p className="mt-2 text-sm">
+          <Link href={done.loggedIn ? "/vendor" : "/vendor/login"} className="font-bold text-emerald-900 underline">
+            {done.loggedIn ? "Open your shop dashboard →" : "Sign in to your shop dashboard →"}
+          </Link>
+        </p>
       </div>
     );
   }
+
+  const submitLabel = plan === "free"
+    ? "Submit listing — it's free"
+    : `Submit & pay GH₵${VENDOR_PLANS[plan].priceGhs} via MoMo`;
 
   return (
     <form onSubmit={onSubmit} noValidate className="space-y-4">
       {serverError && (
         <p className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm font-medium text-red-700" role="alert">{serverError}</p>
       )}
+
+      <fieldset>
+        <legend className="text-sm font-bold text-navy-900">0 · Choose a plan</legend>
+        <div className="mt-3 grid gap-3 md:grid-cols-3">
+          {PLAN_LIST.map((p) => {
+            const selected = plan === p.id;
+            return (
+              <button
+                key={p.id}
+                type="button"
+                onClick={() => setPlan(p.id)}
+                aria-pressed={selected}
+                className={`rounded-xl border p-4 text-left transition-colors ${
+                  selected
+                    ? "border-gold-500 bg-gold-500/15 ring-2 ring-gold-500/40"
+                    : "border-navy-100 bg-white hover:border-gold-400"
+                }`}
+              >
+                <p className="text-xs font-bold uppercase tracking-wide text-gold-700">{p.id === "free" ? "Free" : `GH₵${p.priceGhs}/mo`}</p>
+                <p className="mt-0.5 font-extrabold text-navy-900">{p.name}</p>
+                <p className="mt-1 text-xs text-slate-soft">{p.tagline}</p>
+                <ul className="mt-2 space-y-1 text-[11px] text-navy-800">
+                  {p.perks.map((perk) => (
+                    <li key={perk}>• {perk}</li>
+                  ))}
+                </ul>
+              </button>
+            );
+          })}
+        </div>
+      </fieldset>
 
       <div className="rounded-xl bg-navy-50/70 p-4">
         <p className="text-sm font-bold text-navy-900">1 · About your business</p>
@@ -145,7 +241,16 @@ export function VendorListingForm() {
           <Field label="Email (optional)" error={errors.email}>
             <input className={inputCls} type="email" value={form.email} onChange={(e) => set("email", e.target.value)} placeholder="you@example.com" autoComplete="email" />
           </Field>
+          <Field label="Dashboard password" error={errors.password}>
+            <input className={inputCls} type="password" value={form.password} onChange={(e) => set("password", e.target.value)} placeholder={`At least ${MIN_VENDOR_PASSWORD} characters`} autoComplete="new-password" />
+          </Field>
+          <Field label="Confirm password" error={errors.passwordConfirm}>
+            <input className={inputCls} type="password" value={form.passwordConfirm} onChange={(e) => set("passwordConfirm", e.target.value)} placeholder="••••••••" autoComplete="new-password" />
+          </Field>
         </div>
+        <p className="mt-3 text-xs text-slate-soft">
+          New shops need a password to open <Link href="/vendor/login" className="font-semibold underline">/vendor</Link>. Returning shops can skip this if they already have a login.
+        </p>
       </div>
 
       <div className="rounded-xl bg-navy-50/70 p-4">
@@ -202,10 +307,11 @@ export function VendorListingForm() {
         disabled={busy}
         className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-gold-500 px-6 py-3.5 text-base font-bold text-navy-950 shadow hover:bg-gold-400 active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-60 transition-all"
       >
-        {busy ? "Submitting…" : "Submit listing — it's free"}
+        {busy ? "Submitting…" : submitLabel}
       </button>
       <p className="text-center text-xs text-slate-soft">
         Your WhatsApp number appears on the listing so buyers can reach you directly. We review every listing before it goes live.
+        {plan !== "free" && ` Paid plans start after we confirm your MoMo payment to ${MOMO_NUMBER}.`}
       </p>
     </form>
   );
