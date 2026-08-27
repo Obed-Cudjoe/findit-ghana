@@ -5,6 +5,7 @@
 // lib/store.ts provides the same shapes from the database.
 import { vendors as seedVendors, categories, guides } from "@/data/seed";
 import { jumiaProducts, jumiaOffers, jumiaVendor } from "@/lib/feeds/jumia";
+import { compughanaProducts, compughanaOffers, compughanaVendor } from "@/lib/feeds/compughana";
 import type { Product, Vendor, PriceOffer, Category, Guide } from "@/lib/types";
 
 const demoVendors = seedVendors as unknown as Vendor[];
@@ -12,7 +13,7 @@ const demoVendors = seedVendors as unknown as Vendor[];
 export function getVendors(): Vendor[] {
   // The marketplace vendor behind every real offer first, then the named
   // local vendors used by the vendor-listing flow and demo comparisons.
-  return [jumiaVendor, ...demoVendors];
+  return [jumiaVendor, compughanaVendor, ...demoVendors];
 }
 
 export function getVendor(id: string): Vendor | undefined {
@@ -28,7 +29,7 @@ export function getCategory(slug: string): Category | undefined {
 }
 
 export function getProducts(): Product[] {
-  return jumiaProducts();
+  return [...jumiaProducts(), ...compughanaProducts()];
 }
 
 export function getProduct(slug: string): Product | undefined {
@@ -53,7 +54,7 @@ function withAffiliateLink(offer: PriceOffer): PriceOffer {
 }
 
 export function getOffers(): PriceOffer[] {
-  return jumiaOffers().map(withAffiliateLink);
+  return [...jumiaOffers(), ...compughanaOffers()].map(withAffiliateLink);
 }
 
 export function getOffersForProduct(slug: string): PriceOffer[] {

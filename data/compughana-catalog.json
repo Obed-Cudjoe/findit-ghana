@@ -1,0 +1,125 @@
+{
+  "source": "compughana.com",
+  "description": "CompuGhana showcase catalogue — real products and live GH₵ prices captured from compughana.com public listings on the fetchedAt date. Proof-of-partnership listings: buy buttons go directly to CompuGhana's own product pages. Refresh prices from their weekly price list or the website.",
+  "fetchedAt": "2026-08-27T12:00:00Z",
+  "currency": "GHS",
+  "deliveryModel": "CompuGhana offers same-day delivery in Accra for orders before 2PM and nationwide delivery (fee confirmed at checkout). Modelled as GH₵30 fee, 1-3 days.",
+  "products": [
+    {
+      "name": "Samsung Galaxy A17 4G – 128GB – 4GB RAM + Free Cover, Screen Protector & Smart Watch",
+      "brand": "Samsung",
+      "category": "phones",
+      "url": "https://compughana.com/products/samsung-galaxy-a175f-ds-128gb-4gb-ram",
+      "image": "https://compughana.com/cdn/shop/files/A17N.png?v=1772537073&width=533",
+      "priceGhs": 2249
+    },
+    {
+      "name": "Samsung Galaxy A07 – 64GB – 4GB RAM + Free Cover, Screen Protector & LDNIO Earphones",
+      "brand": "Samsung",
+      "category": "phones",
+      "url": "https://compughana.com/products/samsung-galaxy-a075f-ds-a07-64gb-4gb-ram",
+      "image": "https://compughana.com/cdn/shop/files/A07CBB4.png?v=1772537074&width=533",
+      "priceGhs": 1499
+    },
+    {
+      "name": "Samsung Galaxy A07 – 128GB – 4GB RAM + Free Back Cover & Screen Protector",
+      "brand": "Samsung",
+      "category": "phones",
+      "url": "https://compughana.com/products/samsung-galaxy-a075f-ds-a07-128gb-4gb-ram-free-back-cover-screen",
+      "image": "https://compughana.com/cdn/shop/files/a07cb_1.png?v=1776189733&width=533",
+      "priceGhs": 1829
+    },
+    {
+      "name": "Samsung Galaxy A17 4G – 128GB – 6GB RAM + Free Cover & Screen Protector",
+      "brand": "Samsung",
+      "category": "phones",
+      "url": "https://compughana.com/products/samsung-galaxy-a175f-ds-128gb-6gb-ram-gray",
+      "image": "https://compughana.com/cdn/shop/files/SAM_GAL_A17BR_8625454a-40e1-4c6c-8c7c-12b50b1714d9.png?v=1780602427&width=533",
+      "priceGhs": 2499
+    },
+    {
+      "name": "Samsung Galaxy A17 4G – 256GB – 8GB RAM + Free Cover, Screen Protector & Phone Stand",
+      "brand": "Samsung",
+      "category": "phones",
+      "url": "https://compughana.com/products/samsung-galaxy-a175f-ds-256gb-8gb-ram",
+      "image": "https://compughana.com/cdn/shop/files/SAM_GAL_A17BR.png?v=1776190174&width=533",
+      "priceGhs": 3299
+    },
+    {
+      "name": "Samsung Galaxy S26 Ultra – SM-S948B/DS + Free Lynx Octave, Travel Adapter & Back Cover",
+      "brand": "Samsung",
+      "category": "phones",
+      "url": "https://compughana.com/products/samsung-galaxy-s26-ultra-sm-s948b-ds",
+      "image": "https://compughana.com/cdn/shop/files/S26_ULTRA_VLT_091344a1-9a03-4f01-9d0f-d2e20224c42c.png?v=1776438956&width=533",
+      "priceGhs": 16399
+    },
+    {
+      "name": "Itel A100C – 128GB – 3GB RAM",
+      "brand": "Itel",
+      "category": "phones",
+      "url": "https://compughana.com/products/itel-a100c-64gb-3gb-ram",
+      "image": "https://compughana.com/cdn/shop/files/itel_a100c_b.png?v=1772537076&width=533",
+      "priceGhs": 950,
+      "oldPriceGhs": 999,
+      "discountPct": 5
+    },
+    {
+      "name": "Tecno Pop 20 (KN3) – 64GB – 4GB RAM + Free LDNIO Foldable Desktop Stand",
+      "brand": "Tecno",
+      "category": "phones",
+      "url": "https://compughana.com/products/tecno-kn3-pop-20-64gb-4gb-ram",
+      "image": "https://compughana.com/cdn/shop/files/KN3WW.png?v=1778686746&width=533",
+      "priceGhs": 1479
+    },
+    {
+      "name": "HP 250R G10 – Core 3 100U – 8GB – 512GB SSD – 15.6\" Win11 + Free Bag, Mouse & Headset",
+      "brand": "HP",
+      "category": "laptops",
+      "url": "https://compughana.com/products/hp-250r-g10-core3-100u-8gb-512gb-15-6-inch-laptop",
+      "image": "https://compughana.com/cdn/shop/files/printer505.png?v=1772535850&width=533",
+      "priceGhs": 7299,
+      "oldPriceGhs": 7999,
+      "discountPct": 9
+    },
+    {
+      "name": "Dell Pro 15 Essential – PV15250 Core 3 100U – 8GB – 512GB SSD – 15.6\" + Free Bag, Mouse & Headset",
+      "brand": "Dell",
+      "category": "laptops",
+      "url": "https://compughana.com/products/dell-pro-15-essential-pv15250-c3-100u-8gb-512gb-ssd-15-6-inch-laptop",
+      "image": "https://compughana.com/cdn/shop/files/lenovo_260.avif?v=1770116818&width=533",
+      "priceGhs": 6999,
+      "oldPriceGhs": 7899,
+      "discountPct": 11
+    },
+    {
+      "name": "Tecno Megabook K15S – Ryzen 5 7430U – 8GB – 512GB SSD – 15.6\" Win11 + Free Bag, Mouse & Headset",
+      "brand": "Tecno",
+      "category": "laptops",
+      "url": "https://compughana.com/products/tecno-megabook-k15s-amd-r5-7430u-8gb-512gb-ssd-15-6-inch-win11-laptop",
+      "image": "https://compughana.com/cdn/shop/files/Hikvision_camera_17548989895212443561.jpg?v=1774409771&width=533",
+      "priceGhs": 6599,
+      "oldPriceGhs": 7499,
+      "discountPct": 12
+    },
+    {
+      "name": "Lenovo ThinkBook 16 G7 – Ryzen 5 7535HS – 16GB – 512GB SSD – 16\" + Free Bag, Mouse & Headset",
+      "brand": "Lenovo",
+      "category": "laptops",
+      "url": "https://compughana.com/products/lenovo-thinkbook-16-g7-arp-amd-ryzen-5-7535hs-16gb-512gb-ssd-16-inch-laptop",
+      "image": "https://compughana.com/cdn/shop/files/sencorelectric54182_f06d10ff-a93e-40ab-9994-4c8d4e3feae6.jpg?v=1777426035&width=533",
+      "priceGhs": 10599,
+      "oldPriceGhs": 11599,
+      "discountPct": 9
+    },
+    {
+      "name": "Dell Pro 16 Plus – Ultra 5 235U – 16GB – 1TB SSD – 16\" + Free Bag, Mouse & Headset",
+      "brand": "Dell",
+      "category": "laptops",
+      "url": "https://compughana.com/products/dell-pro-16-plus-ultra5-235u-vpro-16gb-1tb-ssd-16-inch-laptop",
+      "image": "https://compughana.com/cdn/shop/files/Hikvisioncamera17696.jpg?v=1772784256&width=533",
+      "priceGhs": 21499,
+      "oldPriceGhs": 22999,
+      "discountPct": 7
+    }
+  ]
+}

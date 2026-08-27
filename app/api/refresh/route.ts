@@ -4,6 +4,7 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { isSupabaseMode } from "@/lib/store";
 import { jumiaProducts, jumiaOffers, jumiaCatalogMeta } from "@/lib/feeds/jumia";
+import { compughanaProducts, compughanaOffers } from "@/lib/feeds/compughana";
 
 export async function GET(request: NextRequest) {
   // Cron protection: Vercel sends CRON_SECRET as a Bearer token.
@@ -33,8 +34,12 @@ export async function GET(request: NextRequest) {
     mode: "demo",
     source: meta.source,
     catalogFetchedAt: meta.fetchedAt,
-    products: jumiaProducts().length,
-    offers: jumiaOffers().length,
+    products: jumiaProducts().length + compughanaProducts().length,
+    offers: jumiaOffers().length + compughanaOffers().length,
+    sources: {
+      "jumia.com.gh": jumiaProducts().length,
+      "compughana.com": compughanaProducts().length,
+    },
     snapshots: 0,
     staleDeactivated: 0,
     note: "Refresh prices by running scripts/fetch-jumia.mjs and committing the updated data/jumia-catalog.json.",
