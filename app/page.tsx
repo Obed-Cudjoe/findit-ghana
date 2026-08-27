@@ -1,14 +1,18 @@
 import Link from "next/link";
-import { ArrowRight, Search, ShieldCheck, Clock, Truck, BookOpen, Smartphone } from "lucide-react";
-import { getCategories, getGuides, getProducts, getOffersForProduct, searchProducts } from "@/lib/data";
-import { ProductCard, TrustStrip } from "@/components/shared";
+import { ArrowRight, Search, ShieldCheck, Truck, BookOpen, Smartphone } from "lucide-react";
+import { getCategories, getGuides, getProducts, getOffersForProduct, officialSources } from "@/lib/data";
+import { ProductCard, TrustStrip, OfficialSources } from "@/components/shared";
 
 export default async function HomePage() {
   const categories = getCategories();
   const guides = (await getGuides()).slice(0, 3);
-  const popular = searchProducts("phone").slice(0, 4).length >= 4
-    ? searchProducts("phone").slice(0, 4)
-    : getProducts().slice(0, 4).map((product) => ({ product, offers: getOffersForProduct(product.slug), cheapest: getOffersForProduct(product.slug)[0] }));
+  // One live product from each official price source so CompuGhana, Franko
+  // Trading and Telefonika sit next to Jumia on the homepage — not buried
+  // behind 80 marketplace listings.
+  const popular = officialSources
+    .map((source) => getProducts().find((p) => p.id.startsWith(source.productPrefix)))
+    .filter((p): p is NonNullable<typeof p> => !!p)
+    .map((product) => ({ product, offers: getOffersForProduct(product.slug), cheapest: getOffersForProduct(product.slug)[0] }));
 
   return (
     <>
@@ -51,7 +55,7 @@ export default async function HomePage() {
           </form>
           <div className="mt-4 flex flex-wrap items-center justify-center gap-2 text-xs text-navy-100">
             <span className="text-navy-300">Popular:</span>
-            {["tecno", "smart tv", "ps5", "fridge", "laptops"].map((s) => (
+            {["tecno", "samsung", "laptops", "compughana", "franko"].map((s) => (
               <Link key={s} href={`/search?q=${encodeURIComponent(s)}`} className="rounded-full border border-navy-600 px-3 py-1 hover:border-gold-500 hover:text-gold-400 transition-colors">
                 {s}
               </Link>
@@ -62,6 +66,9 @@ export default async function HomePage() {
 
       {/* ===== TRUST STRIP ===== */}
       <TrustStrip />
+
+      {/* ===== VERIFIED PRICE SOURCES ===== */}
+      <OfficialSources sources={officialSources} />
 
       {/* ===== POPULAR CATEGORIES ===== */}
       <section className="mx-auto max-w-6xl px-4 py-12">
@@ -97,7 +104,7 @@ export default async function HomePage() {
           <div className="mb-6 flex items-end justify-between gap-4">
             <div>
               <h2 className="text-xl font-extrabold text-navy-900 md:text-2xl">What Ghana is searching for</h2>
-              <p className="mt-1 text-sm text-slate-soft">Live offers from named vendors, sorted by total cost.</p>
+              <p className="mt-1 text-sm text-slate-soft">Live offers from Jumia, CompuGhana, Franko Trading and Telefonika.</p>
             </div>
             <Link href="/category/phones" className="hidden items-center gap-1 text-sm font-semibold text-gold-700 hover:gap-2 transition-all sm:inline-flex">
               See all phones <ArrowRight className="h-4 w-4" />

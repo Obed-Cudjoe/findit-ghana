@@ -37,14 +37,14 @@ Three tiers, automatic (see `lib/store.ts`):
 
 ## 4. How prices stay fresh
 
-- The catalogue is a committed snapshot: `data/jumia-catalog.json` (real Jumia Ghana listings).
+- Catalogues are committed snapshots: `data/jumia-catalog.json` (Jumia Ghana), `data/compughana-catalog.json` (CompuGhana), `data/franko-catalog.json` (Franko Trading), `data/telefonika-catalog.json` (Telefonika).
 - A GitHub Action re-scrapes Jumia **daily at 05:20 UTC** and auto-commits changed prices → Vercel redeploys automatically. No secrets needed; it uses the built-in `GITHUB_TOKEN`.
-- Manual refresh anytime: `node scripts/fetch-jumia.mjs`, then commit the diff.
+- Manual Jumia refresh anytime: `node scripts/fetch-jumia.mjs`, then commit the diff. Partner catalogues are updated by editing the matching JSON file.
 - Product-level price history (12-week chart) activates automatically once the daily `/api/refresh` cron runs in Supabase mode and snapshots accumulate.
 
 ## 5. Known limitations (be honest with buyers)
 
-- **Single price source.** Every catalogue product has one offer (Jumia Ghana). Multi-vendor comparison is real only for approved self-listed vendors. Adding a second marketplace feed is the highest-value next feature.
+- **Partner catalogues are snapshots, not a live scrape.** Jumia refreshes daily via GitHub Action. CompuGhana, Franko Trading and Telefonika prices are committed listings — update the JSON when their websites change. Same-product comparison across vendors is real only when two feeds share a slug (today each feed is its own product page).
 - **No email/WhatsApp notifications.** New vendor listings and reports appear in the admin dashboard; nobody is pinged. Wire an email provider into `saveVendorListing`/`saveReport` if wanted.
 - **`supabase/seed.sql` is legacy.** It seeds the old demo catalogue into the DB `products`/`offers` tables — the live site serves the JSON snapshot instead and ignores those tables. Only `vendor_listings`, `reports`, `contacts`, `clicks`, `guides` tables matter.
 - **Rate limits are per serverless instance** (in-memory). Good spam determent, not a hard guarantee; swap `lib/ratelimit.ts` for Upstash Redis if a buyer needs hard limits.
