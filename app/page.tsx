@@ -4,6 +4,9 @@ import { getCategories, getGuides, getProducts, getOffersForProduct, officialSou
 import { ProductCard, TrustStrip, OfficialSources } from "@/components/shared";
 import { VendorAvatar } from "@/components/vendor-avatar";
 
+// Marketplace Pro shops change when admin confirms MoMo — never serve a stale empty homepage.
+export const dynamic = "force-dynamic";
+
 export default async function HomePage() {
   const categories = getCategories();
   const guides = (await getGuides()).slice(0, 3);
@@ -69,37 +72,40 @@ export default async function HomePage() {
       {/* ===== TRUST STRIP ===== */}
       <TrustStrip />
 
-      {/* ===== VERIFIED PRICE SOURCES ===== */}
-      <OfficialSources sources={officialSources} />
-
-      {/* ===== PRO FEATURED SHOPS ===== */}
+      {/* ===== PRO FEATURED SHOPS (homepage placement — GH₵150/mo) ===== */}
       {featuredShops.length > 0 && (
-        <section className="mx-auto max-w-6xl px-4 pb-4">
-          <div className="mb-6 flex items-end justify-between gap-4">
-            <div>
-              <h2 className="text-xl font-extrabold text-navy-900 md:text-2xl">Featured shops</h2>
-              <p className="mt-1 text-sm text-slate-soft">Pro vendors — homepage placement for 30 days after MoMo clears.</p>
-            </div>
-            <Link href="/vendors" className="hidden items-center gap-1 text-sm font-semibold text-gold-700 hover:gap-2 transition-all sm:inline-flex">
-              All vendors <ArrowRight className="h-4 w-4" />
-            </Link>
-          </div>
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {featuredShops.map((v) => (
-              <Link key={v.slug} href={`/vendors/${v.slug}`} className="hover-lift flex items-center gap-3 rounded-xl border border-gold-500/40 bg-gold-500/10 p-4">
-                <VendorAvatar name={v.name} hue={v.logoHue} />
-                <div className="min-w-0">
-                  <p className="flex items-center gap-1.5 font-extrabold text-navy-900">
-                    {v.name}
-                    {v.verified && <ShieldCheck className="h-3.5 w-3.5 text-emerald-600" />}
-                  </p>
-                  <p className="text-xs text-slate-soft">{v.listingCount} listing{v.listingCount === 1 ? "" : "s"} · ★ Pro</p>
-                </div>
+        <section className="border-b border-gold-500/30 bg-gold-500/15">
+          <div className="mx-auto max-w-6xl px-4 py-10">
+            <div className="mb-6 flex items-end justify-between gap-4">
+              <div>
+                <p className="text-xs font-bold uppercase tracking-widest text-gold-700">Pro · homepage</p>
+                <h2 className="mt-1 text-xl font-extrabold text-navy-900 md:text-2xl">Featured shops</h2>
+                <p className="mt-1 text-sm text-slate-soft">Independent Pro vendors — this slot is the GH₵150/month homepage placement.</p>
+              </div>
+              <Link href="/vendors" className="hidden items-center gap-1 text-sm font-semibold text-gold-700 hover:gap-2 transition-all sm:inline-flex">
+                All vendors <ArrowRight className="h-4 w-4" />
               </Link>
-            ))}
+            </div>
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+              {featuredShops.map((v) => (
+                <Link key={v.slug} href={`/vendors/${v.slug}`} className="hover-lift flex items-center gap-3 rounded-xl border border-gold-500/50 bg-white p-4 shadow-sm">
+                  <VendorAvatar name={v.name} hue={v.logoHue} />
+                  <div className="min-w-0">
+                    <p className="flex items-center gap-1.5 font-extrabold text-navy-900">
+                      {v.name}
+                      {v.verified && <ShieldCheck className="h-3.5 w-3.5 text-emerald-600" />}
+                    </p>
+                    <p className="text-xs text-slate-soft">{v.listingCount} listing{v.listingCount === 1 ? "" : "s"} · ★ Pro</p>
+                  </div>
+                </Link>
+              ))}
+            </div>
           </div>
         </section>
       )}
+
+      {/* ===== VERIFIED PRICE SOURCES ===== */}
+      <OfficialSources sources={officialSources} />
 
       {/* ===== POPULAR CATEGORIES ===== */}
       <section className="mx-auto max-w-6xl px-4 py-12">
