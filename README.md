@@ -114,7 +114,7 @@ It re-scrapes the Jumia GH category pages and rewrites the snapshot. Partner cat
 ### Connecting the free database (optional but recommended)
 
 1. Go to **supabase.com** → **New project** (free plan).
-2. Open **SQL Editor** → paste and run `supabase/migrations/001_init.sql`, then `002_featured_listings.sql`, then `003_vendor_plans.sql`, then `004_vendor_passwords.sql`, then `005_unlimited_plan.sql`, then `006_listing_images.sql` (adds the product-photo column and the public `vendor-images` storage bucket).
+2. Open **SQL Editor** → paste and run `supabase/migrations/001_init.sql`, then `002_featured_listings.sql`, then `003_vendor_plans.sql`, then `004_vendor_passwords.sql`, then `005_unlimited_plan.sql`, then `006_listing_images.sql` (adds the product-photo column and the public `vendor-images` storage bucket), then `007_vendor_listing_updates.sql` (adds `vendor_listings.updated_at`, which powers the "Prices checked" freshness after a vendor edits their price).
 3. Paste and run `supabase/seed.sql` (demo data — optional; live catalogue is the JSON snapshots).
 4. In Supabase **Settings → API**, copy `Project URL`, `anon public` key and `service_role` key.
 5. Add these as environment variables in Vercel (Project → Settings → Environment Variables):
@@ -165,7 +165,11 @@ Two steps: **register the shop**, then **list products from the dashboard**.
 5. Each product lands in the admin **Vendor listings** queue as *pending* — nothing goes live unreviewed. Admin clicks **Approve → live**.
 6. Approved products appear in search, category pages and **/vendors/[slug]**, with a **photo gallery** (thumbnail strip + full-screen lightbox) and a **WhatsApp buy button** (no commission). Same-named products from different shops share one product page and pool all their photos. On Pro / Unlimited the dashboard also shows shop views and outbound clicks. Shops listed before login existed can create a password once (phone + matching business name).
 
-Listings and shops are stored in the same three-tier store as form submissions (Supabase tables `vendor_listings` + `vendor_profiles` in production — private by design, since they contain phone numbers). **Product photos** use the same tiering: Supabase Storage bucket `vendor-images` (created by `006_listing_images.sql`) in production, `public/uploads/vendor-images/` on a dev machine, and refused with a clear message on the public demo store (the shared JSON object can't hold image bytes).
+**Vendors edit their own prices.** On **/vendor/listings** every row has an **Edit** button that expands an inline form — price, units in stock, delivery fee, delivery days and description, prefilled with the current values. Save and the row, the product page, the admin listings queue and the search results all pick up the new price immediately (no re-review — edits to approved listings go live right away). The product page's "Prices checked" timestamp switches to the edit time (`updated_at`, added by `007_vendor_listing_updates.sql`). Name, category, photos and status are not editable.
+
+Listings and shops are stored in the same three-tier store as form submissions (Supabase tables `vendor_listings` + `vendor_profiles` in production — private by design, since they contain phone numbers). **Product photos** use the same tiering: Supabase Storage bucket `vendor-images` (created by `006_listing_images.sql`) in production, `public/uploads/listings/<slug>/` on a dev machine (served at `/uploads/...`), and refused with a clear message on the public demo store (the shared JSON object can't hold image bytes).
+
+**Every photo is auto-compressed on upload** (server-side, before it reaches any tier): the longest side is resized to ≤ 1600 px and the image is re-encoded at quality ~80 (JPEG for JPG/PNG input, WebP stays WebP). A ~3 MB phone photo is typically stored well under ~500 KB while still looking sharp in the gallery. The browser also downscales large photos before sending, so vendors on mobile data upload less — the server pass is the source of truth either way.
 
 ## Tech stack
 

@@ -125,7 +125,7 @@ export function ProductImageUpload({
       </div>
 
       <p className="mt-2 text-xs text-slate-soft">
-        Show the product from at least 3 angles — buyers view them before contacting you. JPG, PNG or WebP · max 3 MB each.
+        Show the product from at least 3 angles — buyers view them before contacting you. JPG, PNG or WebP · max 3 MB each · auto-compressed on upload.
       </p>
       {shownError && (
         <p className="mt-1.5 text-xs font-medium text-red-700" role="alert">

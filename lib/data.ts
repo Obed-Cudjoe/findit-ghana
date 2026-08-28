@@ -274,7 +274,7 @@ function byTotalCost(a: PriceOffer, b: PriceOffer): number {
 
 export function listingToProduct(l: {
   id: string; productName: string; slug: string; category: string; description: string; createdAt: string;
-  featuredUntil?: string | null; imageUrls?: string[];
+  updatedAt?: string; featuredUntil?: string | null; imageUrls?: string[];
 }, featured = isListingFeatured(l), unlimited = false): Product {
   const cat = getCategory(l.category);
   const firstPhoto = l.imageUrls?.find((u) => typeof u === "string" && u.length > 0);
@@ -288,7 +288,9 @@ export function listingToProduct(l: {
     gradient: cat?.gradient ?? "linear-gradient(135deg,#0F2A43 0%,#1B4B6E 100%)",
     icon: "package",
     canonicalUrl: "",
-    updatedAt: l.createdAt,
+    // Freshness: vendor-edited listings show when the price was last changed;
+    // rows created before migration 007 (or never edited) fall back to createdAt.
+    updatedAt: l.updatedAt ?? l.createdAt,
     isVendorListing: true,
     featured,
     unlimited,

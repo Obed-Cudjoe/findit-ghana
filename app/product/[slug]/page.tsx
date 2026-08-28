@@ -107,7 +107,7 @@ export default async function ProductPage({ params }: Props) {
             </p>
           )}
           <p className="mt-2 inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700">
-            <Clock className="h-3.5 w-3.5" /> Prices checked {timeAgo(listingOnly && vListing ? vListing.createdAt : product.updatedAt)}
+            <Clock className="h-3.5 w-3.5" /> Prices checked {timeAgo(listingOnly && vListing ? (vListing.updatedAt ?? vListing.createdAt) : product.updatedAt)}
           </p>
 
           {listingOnly && vListing ? (

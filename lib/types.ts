@@ -145,6 +145,10 @@ export interface VendorListing {
   imageUrls?: string[];
   status: "pending" | "approved" | "rejected";
   createdAt: string;
+  // Last time the vendor edited price / stock / delivery / description
+  // (migration 007_vendor_listing_updates.sql). Older rows have no value —
+  // freshness everywhere falls back to updatedAt ?? createdAt.
+  updatedAt?: string;
   // Paid featured placement: listing is pinned to the top of its category and
   // badged while this ISO timestamp is in the future. Set by the admin after
   // the vendor pays (see the "Get featured" section on /for-vendors).
