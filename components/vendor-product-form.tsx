@@ -17,6 +17,46 @@ const CATEGORIES = [
 const inputCls =
   "w-full rounded-lg border border-navy-200 bg-white px-3 py-2.5 text-base text-ink placeholder:text-slate-400 focus:border-gold-500 focus:outline-none focus:ring-2 focus:ring-gold-500/30 transition-shadow";
 
+/**
+ * Bonus: downscale photos in the browser before sending, so vendors on
+ * mobile data upload a fraction of the bytes. The server-side compression in
+ * lib/uploads.ts is still the source of truth — this only shrinks what goes
+ * over the wire. Falls back to the original file on any failure.
+ */
+const CLIENT_MAX_EDGE = 1600;
+
+async function downscaleForUpload(file: File): Promise<File> {
+  if (file.size <= 1_000_000) return file;
+  try {
+    const url = URL.createObjectURL(file);
+    try {
+      const img = await new Promise<HTMLImageElement>((resolve, reject) => {
+        const el = new Image();
+        el.onload = () => resolve(el);
+        el.onerror = () => reject(new Error("decode failed"));
+        el.src = url;
+      });
+      const edge = Math.max(img.naturalWidth, img.naturalHeight);
+      if (edge <= CLIENT_MAX_EDGE) return file;
+      const scale = CLIENT_MAX_EDGE / edge;
+      const canvas = document.createElement("canvas");
+      canvas.width = Math.max(1, Math.round(img.naturalWidth * scale));
+      canvas.height = Math.max(1, Math.round(img.naturalHeight * scale));
+      const ctx = canvas.getContext("2d");
+      if (!ctx) return file;
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+      const blob = await new Promise<Blob | null>((resolve) => canvas.toBlob(resolve, "image/jpeg", 0.8));
+      if (!blob) return file;
+      const base = file.name.replace(/\.[^.]+$/, "") || "photo";
+      return new File([blob], `${base}.jpg`, { type: "image/jpeg" });
+    } finally {
+      URL.revokeObjectURL(url);
+    }
+  } catch {
+    return file;
+  }
+}
+
 function Field({ label, required, error, children }: { label: string; required?: boolean; error?: string; children: React.ReactNode }) {
   return (
     <label className="block">
@@ -87,7 +127,7 @@ export function VendorProductForm() {
       fd.append("deliveryFeeGhs", String(Number(form.deliveryFeeGhs) || 0));
       fd.append("description", form.description);
       fd.append("websiteUrl", form.websiteUrl);
-      for (const file of photos) fd.append("images", file);
+      for (const file of photos) fd.append("images", await downscaleForUpload(file));
       const res = await fetch("/api/vendor/listings", {
         method: "POST",
         body: fd,

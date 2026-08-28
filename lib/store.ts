@@ -20,6 +20,7 @@ import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 import { makeRefCode, slugify } from "@/lib/utils";
 import type { ReportRow, ContactRow, ClickRow, VendorListing, VendorProfile, VendorPlanId, VendorPaymentStatus, VendorProfileStatus } from "@/lib/types";
 import { hueFromName, isPlanId, phoneKey } from "@/lib/plans";
+import { deleteVendorListingPhotos } from "@/lib/uploads";
 
 let client: SupabaseClient | null = null;
 
@@ -89,6 +90,35 @@ function updateLocalJson<T extends { id: string }>(file: string, id: string, pat
   } catch {
     return false;
   }
+}
+
+/** Remove whole rows by id from a local JSON file (no-op when ids is empty). */
+function removeLocalRows<T extends { id: string }>(file: string, ids: string[]): boolean {
+  if (ids.length === 0) return true;
+  try {
+    const filePath = path.join(SUB_DIR, file);
+    if (!fs.existsSync(filePath)) return false;
+    const rows = JSON.parse(fs.readFileSync(filePath, "utf-8")) as T[];
+    const next = rows.filter((r) => !ids.includes(r.id));
+    fs.writeFileSync(filePath, JSON.stringify(next, null, 2));
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+/** True when any of the local JSON files currently holds rows (local tier is live). */
+function localHasAnyRows(...files: string[]): boolean {
+  return files.some((file) => {
+    try {
+      const filePath = path.join(SUB_DIR, file);
+      if (!fs.existsSync(filePath)) return false;
+      const rows = JSON.parse(fs.readFileSync(filePath, "utf-8"));
+      return Array.isArray(rows) && rows.length > 0;
+    } catch {
+      return false;
+    }
+  });
 }
 
 // ---------- tier 3: remote demo store (serverless-safe) ----------
@@ -440,6 +470,7 @@ export async function readVendorListings(): Promise<VendorListing[]> {
           ? l.image_urls.filter((u: unknown) => typeof u === "string" && (u as string).length > 0)
           : [],
         status: l.status, createdAt: l.created_at,
+        updatedAt: l.updated_at ?? l.created_at,
         featuredUntil: l.featured_until ?? null,
         vendorId: l.vendor_id ?? null,
         requestedPlan: isPlanId(l.requested_plan) ? l.requested_plan : "free",
@@ -466,6 +497,45 @@ export async function updateVendorListingStatus(id: string, status: VendorListin
   const row = state.vendorListings.find((l) => l.id === id);
   if (!row) return false;
   row.status = status;
+  return await writeRemoteState(state);
+}
+
+// Fields a vendor may edit on their own listing (PATCH /api/vendor/listings/[id]).
+// Product name, category, slug, photos and status are deliberately not here.
+export interface VendorListingPatch {
+  priceGhs?: number;
+  stockCount?: number | null;
+  deliveryFeeGhs?: number;
+  deliveryDaysMin?: number;
+  deliveryDaysMax?: number;
+  description?: string;
+}
+
+/**
+ * Edit a vendor's own listing (price / stock / delivery / description).
+ * Always bumps updated_at (= updatedAt), which drives the "Prices checked …"
+ * freshness on the product page — approved edits go live immediately, with
+ * no re-review, because status is not part of the patch.
+ */
+export async function updateVendorListing(id: string, patch: VendorListingPatch): Promise<boolean> {
+  const supabase = getSupabase();
+  if (supabase) {
+    const db: Record<string, unknown> = { updated_at: new Date().toISOString() };
+    if (patch.priceGhs !== undefined) db.price_ghs = patch.priceGhs;
+    if (patch.stockCount !== undefined) db.stock_count = patch.stockCount;
+    if (patch.deliveryFeeGhs !== undefined) db.delivery_fee_ghs = patch.deliveryFeeGhs;
+    if (patch.deliveryDaysMin !== undefined) db.delivery_days_min = patch.deliveryDaysMin;
+    if (patch.deliveryDaysMax !== undefined) db.delivery_days_max = patch.deliveryDaysMax;
+    if (patch.description !== undefined) db.description = patch.description;
+    const { error } = await supabase.from("vendor_listings").update(db).eq("id", id);
+    return !error;
+  }
+  if (updateLocalJson<VendorListing>("vendor-listings.json", id, { ...patch, updatedAt: new Date().toISOString() })) return true;
+  const state = await readRemoteState();
+  if (!state) return false;
+  const row = state.vendorListings.find((l) => l.id === id);
+  if (!row) return false;
+  Object.assign(row, patch, { updatedAt: new Date().toISOString() });
   return await writeRemoteState(state);
 }
 
@@ -713,4 +783,55 @@ export async function updateVendorProfile(id: string, patch: Partial<VendorProfi
 
 export function countActiveListingsForVendor(listings: VendorListing[], profile: VendorProfile): number {
   return listingsForVendor(listings, profile).filter((l) => l.status !== "rejected").length;
+}
+
+// ---------- admin: delete a shop (suspected fraud / bad actor) ----------
+/**
+ * Permanently remove a shop in this order:
+ *   (a) every listing it owns — the caller passes the exact set from
+ *       listingsForVendor(), which covers both the vendor_id match and the
+ *       legacy phone-key match;
+ *   (b) the shop's uploaded photos (Supabase Storage objects / local
+ *       public/uploads folders — see lib/uploads.ts);
+ *   (c) the vendor_profiles row itself.
+ *
+ * Click events and buyer reports are intentionally NOT touched — they stay
+ * as the audit trail when the owner is reporting a bad actor.
+ */
+export async function deleteVendorProfile(
+  id: string,
+  opts: { listings: VendorListing[]; phone: string },
+): Promise<boolean> {
+  const listingIds = opts.listings.map((l) => l.id);
+  const supabase = getSupabase();
+  const localTier = !supabase && localHasAnyRows("vendor-listings.json", "vendor-profiles.json");
+
+  // (a) all listings owned by the shop.
+  if (supabase) {
+    if (listingIds.length > 0) {
+      const { error } = await supabase.from("vendor_listings").delete().in("id", listingIds);
+      if (error) return false;
+    }
+  } else if (localTier) {
+    if (!removeLocalRows<VendorListing>("vendor-listings.json", listingIds)) return false;
+  } else {
+    const state = await readRemoteState();
+    if (!state) return false;
+    state.vendorListings = state.vendorListings.filter((l) => !listingIds.includes(l.id));
+    if (!(await writeRemoteState(state))) return false;
+  }
+
+  // (b) the shop's uploaded photos — best-effort, never blocks the rows.
+  await deleteVendorListingPhotos(opts.listings);
+
+  // (c) the vendor_profiles row itself.
+  if (supabase) {
+    const { error } = await supabase.from("vendor_profiles").delete().eq("id", id);
+    return !error;
+  }
+  if (localTier) return removeLocalRows<VendorProfile>("vendor-profiles.json", [id]);
+  const state = await readRemoteState();
+  if (!state) return false;
+  state.vendorProfiles = state.vendorProfiles.filter((p) => p.id !== id);
+  return await writeRemoteState(state);
 }
