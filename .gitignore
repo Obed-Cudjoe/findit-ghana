@@ -34,6 +34,10 @@ yarn-error.log*
 # demo submission store (local JSON fallback — committed sample is in data/submissions/.gitkeep)
 data/submissions/*.json
 
+# vendor photo uploads written in local dev (served from /uploads in dev only;
+# production uploads live in the Supabase Storage `vendor-images` bucket)
+/public/uploads/
+
 # supabase local dev
 /supabase/.branches
 /supabase/.temp
