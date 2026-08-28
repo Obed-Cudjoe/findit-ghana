@@ -6,15 +6,10 @@ import { readVendorListings, listingsForVendor, countActiveListingsForVendor } f
 import { listingLimitFor, listingLimitLabel, nextPlanAfter, VENDOR_PLANS } from "@/lib/plans";
 import { VendorDashNav } from "@/components/vendor-dash-nav";
 import { VendorProductForm } from "@/components/vendor-product-form";
+import { VendorListingsTable } from "@/components/vendor-listings-table";
 
 export const metadata: Metadata = { title: "Your listings", robots: { index: false } };
 export const dynamic = "force-dynamic";
-
-const STATUS_BADGE: Record<string, string> = {
-  pending: "bg-amber-100 text-amber-800",
-  approved: "bg-emerald-100 text-emerald-800",
-  rejected: "bg-slate-100 text-slate-600",
-};
 
 export default async function VendorListingsPage() {
   const vendor = await getLoggedInVendor();
@@ -43,57 +38,7 @@ export default async function VendorListingsPage() {
           No listings yet. Add your first product below.
         </p>
       ) : (
-        <div className="overflow-hidden rounded-xl border border-navy-100 bg-white">
-          <p className="border-b border-navy-100 bg-navy-50/60 px-4 py-2 text-xs text-slate-400 lg:hidden">Swipe the table sideways →</p>
-          <div className="overflow-x-auto">
-            <table className="w-full min-w-[640px] text-sm">
-              <thead>
-                <tr className="bg-navy-50 text-left text-xs uppercase tracking-wide text-slate-soft">
-                  <th className="px-4 py-3">Product</th>
-                  <th className="px-4 py-3">Photos</th>
-                  <th className="px-4 py-3">Price</th>
-                  <th className="px-4 py-3">Status</th>
-                  <th className="px-4 py-3">Added</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-navy-100">
-                {mine.map((l) => {
-                  const photos = l.imageUrls ?? [];
-                  return (
-                  <tr key={l.id}>
-                    <td className="px-4 py-3">
-                      <p className="font-semibold text-navy-900">{l.productName}</p>
-                      <p className="text-xs text-slate-soft">{l.category}</p>
-                    </td>
-                    <td className="px-4 py-3">
-                      {photos.length > 0 ? (
-                        <span className="flex items-center gap-1.5">
-                          <img
-                            src={photos[0]}
-                            alt={`First photo of ${l.productName}`}
-                            className="h-10 w-10 rounded-md border border-navy-100 object-cover"
-                            loading="lazy"
-                          />
-                          <span className="text-xs font-semibold text-slate-soft">×{photos.length}</span>
-                        </span>
-                      ) : (
-                        <span className="text-xs text-slate-400">—</span>
-                      )}
-                    </td>
-                    <td className="px-4 py-3 font-semibold text-navy-900">GH₵{l.priceGhs.toLocaleString()}</td>
-                    <td className="px-4 py-3">
-                      <span className={`rounded-full px-2.5 py-1 text-xs font-bold ${STATUS_BADGE[l.status] ?? "bg-slate-100"}`}>{l.status}</span>
-                    </td>
-                    <td className="px-4 py-3 text-xs text-slate-soft">
-                      {new Date(l.createdAt).toLocaleDateString("en-GB", { day: "numeric", month: "short" })}
-                    </td>
-                  </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </div>
-        </div>
+        <VendorListingsTable listings={mine} />
       )}
 
       <section className="mt-8 rounded-2xl border border-navy-100 bg-white p-4 shadow-sm sm:p-6">
