@@ -114,7 +114,7 @@ It re-scrapes the Jumia GH category pages and rewrites the snapshot. Partner cat
 ### Connecting the free database (optional but recommended)
 
 1. Go to **supabase.com** → **New project** (free plan).
-2. Open **SQL Editor** → paste and run `supabase/migrations/001_init.sql`, then `002_featured_listings.sql`, then `003_vendor_plans.sql`, then `004_vendor_passwords.sql`.
+2. Open **SQL Editor** → paste and run `supabase/migrations/001_init.sql`, then `002_featured_listings.sql`, then `003_vendor_plans.sql`, then `004_vendor_passwords.sql`, then `005_unlimited_plan.sql`, then `006_listing_images.sql` (adds the product-photo column and the public `vendor-images` storage bucket).
 3. Paste and run `supabase/seed.sql` (demo data — optional; live catalogue is the JSON snapshots).
 4. In Supabase **Settings → API**, copy `Project URL`, `anon public` key and `service_role` key.
 5. Add these as environment variables in Vercel (Project → Settings → Environment Variables):
@@ -156,13 +156,13 @@ public/             favicon and static assets
 
 ## How vendors list products (the "List your product" flow)
 
-1. A vendor opens **/for-vendors**, picks a plan (Free / Starter GH₵50 / Pro GH₵150 / Unlimited GH₵300), sets a dashboard password, and submits their shop + first product.
-2. The listing lands in the admin **Vendor listings** queue as *pending* — nothing goes live unreviewed. The shop appears in **Vendors & plans**.
+1. A vendor opens **/for-vendors** (or signs in at **/vendor**), picks a plan (Free / Starter GH₵50 / Pro GH₵150 / Unlimited GH₵300), sets a dashboard password, and submits their shop + first product with **at least 3 product photos** (up to 6) so buyers can see the item before they contact the vendor.
+2. The listing (photos included) lands in the admin **Vendor listings** queue as *pending* — nothing goes live unreviewed. The shop appears in **Vendors & plans**.
 3. Free listings: admin clicks **Approve → live**. Paid plans: vendor pays MoMo to **053 126 2424**, WhatsApps the reference, admin clicks **MoMo → Starter 30d**, **MoMo → Pro 30d** or **MoMo → Unlimited 30d**.
-4. Approved products appear in search, category pages and **/vendors/[slug]**, with a **WhatsApp buy button** (no commission). Same-named products from different shops share one product page.
+4. Approved products appear in search, category pages and **/vendors/[slug]**, with a **photo gallery** (thumbnail strip + full-screen lightbox) and a **WhatsApp buy button** (no commission). Same-named products from different shops share one product page and pool all their photos.
 5. The vendor signs in at **/vendor** (phone + password) to see their plan, add more listings up to the plan cap (Unlimited has no cap), and — on Pro / Unlimited — shop views and outbound clicks. Shops listed before login existed can create a password once (phone + matching business name).
 
-Listings and shops are stored in the same three-tier store as form submissions (Supabase tables `vendor_listings` + `vendor_profiles` in production — private by design, since they contain phone numbers).
+Listings and shops are stored in the same three-tier store as form submissions (Supabase tables `vendor_listings` + `vendor_profiles` in production — private by design, since they contain phone numbers). **Product photos** use the same tiering: Supabase Storage bucket `vendor-images` (created by `006_listing_images.sql`) in production, `public/uploads/vendor-images/` on a dev machine, and refused with a clear message on the public demo store (the shared JSON object can't hold image bytes).
 
 ## Tech stack
 

@@ -18,6 +18,7 @@ export interface ListingRow {
   deliveryFeeGhs: number;
   description: string;
   websiteUrl: string;
+  imageUrls?: string[];
   status: string;
   createdAt: string;
   featuredUntil?: string | null;
@@ -81,8 +82,35 @@ export function ListingsTable({ listings }: { listings: ListingRow[] }) {
             {rows.map((l) => (
               <tr key={l.id}>
                 <td className="px-4 py-3">
-                  <p className="font-semibold text-navy-900">{l.productName}</p>
-                  <p className="text-xs text-slate-soft capitalize">{l.category.replace("-", " & ")} · {l.stockCount ?? "no stock"} units</p>
+                  <div className="flex items-start gap-3">
+                    {(l.imageUrls?.length ?? 0) > 0 ? (
+                      <span className="flex shrink-0 gap-1">
+                        {l.imageUrls!.slice(0, 3).map((src, i) => (
+                          // eslint-disable-next-line @next/next/no-img-element
+                          <img
+                            key={i}
+                            src={src}
+                            alt={`${l.productName} photo ${i + 1}`}
+                            className="h-11 w-11 rounded-md border border-navy-100 object-cover"
+                            loading="lazy"
+                          />
+                        ))}
+                        {(l.imageUrls!.length ?? 0) > 3 && (
+                          <span className="flex h-11 w-11 items-center justify-center rounded-md border border-navy-100 bg-navy-50 text-[10px] font-bold text-slate-soft">
+                            +{l.imageUrls!.length - 3}
+                          </span>
+                        )}
+                      </span>
+                    ) : (
+                      <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-md border border-dashed border-navy-200 text-[10px] font-semibold text-slate-400">
+                        no photos
+                      </span>
+                    )}
+                    <div className="min-w-0">
+                      <p className="font-semibold text-navy-900">{l.productName}</p>
+                      <p className="text-xs text-slate-soft capitalize">{l.category.replace("-", " & ")} · {l.stockCount ?? "no stock"} units</p>
+                    </div>
+                  </div>
                 </td>
                 <td className="px-4 py-3 text-xs text-slate-soft">
                   <p className="font-semibold text-navy-800">{l.businessName}</p>
