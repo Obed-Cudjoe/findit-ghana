@@ -274,9 +274,10 @@ function byTotalCost(a: PriceOffer, b: PriceOffer): number {
 
 export function listingToProduct(l: {
   id: string; productName: string; slug: string; category: string; description: string; createdAt: string;
-  featuredUntil?: string | null;
+  featuredUntil?: string | null; imageUrls?: string[];
 }, featured = isListingFeatured(l), unlimited = false): Product {
   const cat = getCategory(l.category);
+  const firstPhoto = l.imageUrls?.find((u) => typeof u === "string" && u.length > 0);
   return {
     id: `vl-${l.id}`,
     name: l.productName,
@@ -291,6 +292,9 @@ export function listingToProduct(l: {
     isVendorListing: true,
     featured,
     unlimited,
+    // Vendor photos replace the gradient tile everywhere product cards render
+    // (search, categories, the shop page, "shoppers also compared").
+    image: firstPhoto,
   };
 }
 

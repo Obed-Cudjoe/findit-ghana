@@ -7,6 +7,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { PLAN_LIST, MOMO_NUMBER, MOMO_NAME, MOMO_WHATSAPP, UNLIMITED_BADGE, VENDOR_PLANS, isPlanId, listingLimitLabel, type PlanId } from "@/lib/plans";
 import { MIN_VENDOR_PASSWORD } from "@/lib/vendor-auth-client";
+import { ProductImageUpload, MIN_PHOTOS } from "@/components/image-upload-field";
 
 const CATEGORIES = [
   ["phones", "Phones"],
@@ -39,6 +40,7 @@ function Field({ label, required, error, children }: { label: string; required?:
 
 export function VendorListingForm() {
   const [plan, setPlan] = useState<PlanId>("free");
+  const [photos, setPhotos] = useState<File[]>([]);
   const [form, setForm] = useState({
     businessName: "",
     contactName: "",
@@ -77,6 +79,7 @@ export function VendorListingForm() {
     if (form.stockCount && (isNaN(Number(form.stockCount)) || Number(form.stockCount) < 0)) e.stockCount = "Numbers only";
     if (form.description.trim().length < 20) e.description = "Describe the product (at least 20 characters)";
     if (form.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) e.email = "Enter a valid email address";
+    if (photos.length < MIN_PHOTOS) e.photos = `Add at least ${MIN_PHOTOS} photos of the product`;
     if (form.password) {
       if (form.password.length < MIN_VENDOR_PASSWORD) e.password = `At least ${MIN_VENDOR_PASSWORD} characters`;
       if (form.password !== form.passwordConfirm) e.passwordConfirm = "Passwords do not match";
@@ -91,18 +94,19 @@ export function VendorListingForm() {
     if (!validate()) return;
     setBusy(true);
     try {
+      // FormData so the photo files travel with the listing fields.
+      const fd = new FormData();
+      for (const [key, value] of Object.entries(form)) fd.append(key, value);
+      fd.append("plan", plan);
+      fd.append("priceGhs", String(Number(form.priceGhs)));
+      fd.append("stockCount", form.stockCount || "");
+      fd.append("deliveryDaysMin", String(Number(form.deliveryDaysMin) || 1));
+      fd.append("deliveryDaysMax", String(Number(form.deliveryDaysMax) || 2));
+      fd.append("deliveryFeeGhs", String(Number(form.deliveryFeeGhs) || 0));
+      for (const file of photos) fd.append("images", file);
       const res = await fetch("/api/listings", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          ...form,
-          plan,
-          priceGhs: Number(form.priceGhs),
-          stockCount: form.stockCount ? Number(form.stockCount) : null,
-          deliveryDaysMin: Number(form.deliveryDaysMin) || 1,
-          deliveryDaysMax: Number(form.deliveryDaysMax) || 2,
-          deliveryFeeGhs: Number(form.deliveryFeeGhs) || 0,
-        }),
+        body: fd,
       });
       const data = await res.json().catch(() => ({}));
       if (res.ok) {
@@ -112,6 +116,8 @@ export function VendorListingForm() {
           vendorSlug: typeof data.vendorSlug === "string" ? data.vendorSlug : null,
           loggedIn: !!data.loggedIn,
         });
+        setPhotos([]);
+        setErrors({});
       } else {
         setServerError(data.error || "Something went wrong. Please try again.");
       }
@@ -311,6 +317,9 @@ export function VendorListingForm() {
               placeholder="Condition, warranty, colour options — what should buyers know before they message you?"
             />
           </Field>
+        </div>
+        <div className="mt-4 rounded-xl border border-navy-100 bg-white p-4">
+          <ProductImageUpload photos={photos} onChange={setPhotos} error={errors.photos} />
         </div>
       </div>
 

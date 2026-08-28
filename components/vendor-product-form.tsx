@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { ProductImageUpload, MIN_PHOTOS } from "@/components/image-upload-field";
 
 const CATEGORIES = [
   ["phones", "Phones"],
@@ -46,6 +47,7 @@ export function VendorProductForm() {
     description: "",
     websiteUrl: "",
   });
+  const [photos, setPhotos] = useState<File[]>([]);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [busy, setBusy] = useState(false);
   const [done, setDone] = useState(false);
@@ -62,6 +64,7 @@ export function VendorProductForm() {
     if (!price || price <= 0) e.priceGhs = "Enter the price in cedis (numbers only)";
     if (form.stockCount && (isNaN(Number(form.stockCount)) || Number(form.stockCount) < 0)) e.stockCount = "Numbers only";
     if (form.description.trim().length < 20) e.description = "Describe the product (at least 20 characters)";
+    if (photos.length < MIN_PHOTOS) e.photos = `Add at least ${MIN_PHOTOS} photos of the product`;
     setErrors(e);
     return Object.keys(e).length === 0;
   }
@@ -72,21 +75,28 @@ export function VendorProductForm() {
     if (!validate()) return;
     setBusy(true);
     try {
+      // FormData so the photo files travel with the listing fields.
+      const fd = new FormData();
+      fd.append("productName", form.productName);
+      fd.append("category", form.category);
+      fd.append("priceGhs", String(Number(form.priceGhs)));
+      fd.append("stockCount", form.stockCount || "");
+      fd.append("deliveryZone", form.deliveryZone);
+      fd.append("deliveryDaysMin", String(Number(form.deliveryDaysMin) || 1));
+      fd.append("deliveryDaysMax", String(Number(form.deliveryDaysMax) || 2));
+      fd.append("deliveryFeeGhs", String(Number(form.deliveryFeeGhs) || 0));
+      fd.append("description", form.description);
+      fd.append("websiteUrl", form.websiteUrl);
+      for (const file of photos) fd.append("images", file);
       const res = await fetch("/api/vendor/listings", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          ...form,
-          priceGhs: Number(form.priceGhs),
-          stockCount: form.stockCount ? Number(form.stockCount) : null,
-          deliveryDaysMin: Number(form.deliveryDaysMin) || 1,
-          deliveryDaysMax: Number(form.deliveryDaysMax) || 2,
-          deliveryFeeGhs: Number(form.deliveryFeeGhs) || 0,
-        }),
+        body: fd,
       });
       const data = await res.json().catch(() => ({}));
       if (res.ok) {
         setDone(true);
+        setPhotos([]);
+        setErrors({});
         router.refresh();
       } else {
         setServerError(data.error || "Something went wrong. Please try again.");
@@ -107,6 +117,8 @@ export function VendorProductForm() {
           type="button"
           onClick={() => {
             setDone(false);
+            setPhotos([]);
+            setErrors({});
             setForm({
               productName: "",
               category: "phones",
@@ -181,6 +193,9 @@ export function VendorProductForm() {
           placeholder="Condition, warranty, colour options — what should buyers know before they message you?"
         />
       </Field>
+      <div className="rounded-xl border border-navy-100 bg-navy-50/40 p-4">
+        <ProductImageUpload photos={photos} onChange={setPhotos} error={errors.photos} />
+      </div>
       <button
         type="submit"
         disabled={busy}

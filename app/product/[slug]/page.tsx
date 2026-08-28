@@ -6,6 +6,7 @@ import {
   getMergedProductPage, getOffersForProduct, getSnapshotsForOffer, getProducts,
 } from "@/lib/data";
 import { ProductVisual, PriceChart, ProductCard } from "@/components/shared";
+import { ImageGallery } from "@/components/image-gallery";
 import { VendorTable } from "@/components/vendor-table";
 import { formatGHS, timeAgo, formatDate } from "@/lib/utils";
 import { UNLIMITED_BADGE } from "@/lib/plans";
@@ -47,10 +48,21 @@ export default async function ProductPage({ params }: Props) {
   const similar = getProducts().filter((p) => p.category === product.category && p.slug !== slug).slice(0, 3);
   const listingOnly = !isCatalogue;
 
+  // Every photo the vendors on this page uploaded, in order. When several
+  // shops list the same product, buyers see photos from all of them.
+  const galleryImages = [
+    ...new Set(
+      listings
+        .flatMap((l) => l.imageUrls ?? [])
+        .filter((u) => typeof u === "string" && u.length > 0),
+    ),
+  ];
+
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Product",
     name: product.name,
+    image: galleryImages.length > 0 ? galleryImages : undefined,
     brand: { "@type": "Brand", name: listingOnly && vListing ? vListing.businessName : product.brand },
     offers: {
       "@type": "AggregateOffer",
@@ -72,7 +84,11 @@ export default async function ProductPage({ params }: Props) {
       </nav>
 
       <div className="mt-4 grid gap-6 lg:grid-cols-[320px_1fr]">
-        <ProductVisual product={product} className="aspect-square w-full rounded-2xl shadow-md" />
+        {galleryImages.length > 0 ? (
+          <ImageGallery images={galleryImages} name={product.name} className="w-full" />
+        ) : (
+          <ProductVisual product={product} className="aspect-square w-full rounded-2xl shadow-md" />
+        )}
         <div>
           {listingOnly && vListing ? (
             <p className="inline-flex items-center gap-1.5 rounded-full bg-amber-50 px-3 py-1 text-xs font-semibold text-amber-700">
