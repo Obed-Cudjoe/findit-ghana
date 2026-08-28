@@ -91,7 +91,7 @@ export default async function VendorDashboardPage() {
           <p className="mt-1 text-sm text-slate-soft">
             Send <strong className="text-navy-900">GH₵{VENDOR_PLANS[vendor.plan].priceGhs}</strong> to{" "}
             <strong className="text-navy-900">{MOMO_NUMBER}</strong> ({MOMO_NAME}) with reference{" "}
-            <span className="rounded bg-white px-1.5 py-0.5 font-mono text-xs font-bold">{ref}</span>. Until we confirm, you still have Free limits (1 listing).
+            <span className="rounded bg-white px-1.5 py-0.5 font-mono text-xs font-bold">{ref}</span>. Until we confirm, you still have Free limits ({VENDOR_PLANS.free.listingLimit} listings).
           </p>
           <a
             href={`https://wa.me/${MOMO_WHATSAPP}?text=${waText}`}
