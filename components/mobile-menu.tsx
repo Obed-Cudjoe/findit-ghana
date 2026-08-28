@@ -16,7 +16,7 @@ const LINKS: [string, string][] = [
   ["/category/gaming", "Gaming"],
   ["/guides", "Price guides"],
   ["/vendors", "Vendors"],
-  ["/for-vendors", "For vendors — list your product"],
+  ["/for-vendors", "For vendors — sell your products"],
   ["/vendor/login", "Vendor login"],
   ["/how-it-works", "How it works"],
   ["/trust", "How we stay honest"],

@@ -53,16 +53,18 @@ Three tiers, automatic (see `lib/store.ts`):
 
 ## 7. Earning from the site
 
-**Vendor plans (built in).** Shops pick a plan on `/for-vendors`:
+**Vendor plans (built in).** Shops register and pick a plan on `/for-vendors` (shop details only — no product fields), then list products from their dashboard at `/vendor/listings`:
 
 | Plan | Price | Listings | Placement |
 |---|---|---|---|
-| Free | GH₵0 | 1 | Search + category |
+| Free | GH₵0 | 3 | Search + category |
 | Starter | GH₵50/month | up to 10 | ★ featured rotation in their category |
 | Pro | GH₵150/month | up to 25 | Homepage featured shop + category ★ + click/view stats |
 | Unlimited | GH₵300/month | Unlimited | ∞ Unlimited badge on shop + every product, **ranked above every other vendor** (including featured/official) in search and category results, homepage featured shop, click/view stats |
 
-Paid flow: vendor submits → pays MoMo to **053 126 2424** → WhatsApps the reference → you confirm on **`/admin/vendors`** → **MoMo → Starter 30d**, **MoMo → Pro 30d** or **MoMo → Unlimited 30d** (sets plan + 30-day expiry). Directory: `/vendors` and `/vendors/[slug]`. Vendor login: **`/vendor`** (cookie `findit_vendor`, 12h). Same-named products from different shops merge onto one product page (vendor comparison table). If you use Supabase, run `003_vendor_plans.sql`, then `004_vendor_passwords.sql`, then `005_unlimited_plan.sql`, then `006_listing_images.sql` after 001 and 002. Optional `VENDOR_JWT_SECRET` (falls back to `ADMIN_PASSWORD`). **Product photos (3–6 per listing)** upload to the public `vendor-images` storage bucket in Supabase mode, to `public/uploads/` on a dev machine, and are refused (with a clear message) on the public demo store — so photos need Supabase to work on a live Vercel deploy.
+Flow: vendor registers the shop on `/for-vendors` (lands in `/admin/vendors` as pending, nothing in the listings queue) → signs in at `/vendor` → adds products on `/vendor/listings` with 3–6 photos each, up to the plan cap → each product goes to `/admin/listings` for approval.
+
+Paid flow: vendor picks a paid plan at signup → pays MoMo to **053 126 2424** → WhatsApps the reference → you confirm on **`/admin/vendors`** → **MoMo → Starter 30d**, **MoMo → Pro 30d** or **MoMo → Unlimited 30d** (sets plan + 30-day expiry). Directory: `/vendors` and `/vendors/[slug]`. Vendor login: **`/vendor`** (cookie `findit_vendor`, 12h). Same-named products from different shops merge onto one product page (vendor comparison table). If you use Supabase, run `003_vendor_plans.sql`, then `004_vendor_passwords.sql`, then `005_unlimited_plan.sql`, then `006_listing_images.sql` after 001 and 002. Optional `VENDOR_JWT_SECRET` (falls back to `ADMIN_PASSWORD`). **Product photos (3–6 per listing)** upload to the public `vendor-images` storage bucket in Supabase mode, to `public/uploads/` on a dev machine, and are refused (with a clear message) on the public demo store — so photos need Supabase to work on a live Vercel deploy.
 
 Per-listing **"★ Feature 30d"** on `/admin/listings` still works as an extra pin (`featured_until`).
 

@@ -231,11 +231,11 @@ export default async function HomePage() {
           <div>
             <h2 className="text-xl font-extrabold md:text-2xl">Sell on FindIt Ghana</h2>
             <p className="mt-1 text-sm font-medium text-navy-900/80">
-              List your product free — shoppers find it, message you on WhatsApp, and buy directly from you. No commission on sales.
+              Register your shop free, then list your products — shoppers find them, message you on WhatsApp, and buy directly from you. No commission on sales.
             </p>
           </div>
           <span className="inline-flex shrink-0 items-center gap-2 rounded-xl bg-navy-950 px-6 py-3 text-sm font-bold text-white group-hover:bg-navy-900 transition-colors">
-            List your product <ArrowRight className="h-4 w-4" />
+            Register your shop <ArrowRight className="h-4 w-4" />
           </span>
         </Link>
       </section>
