@@ -154,13 +154,16 @@ supabase/           database schema + seed SQL for the free-tier database
 public/             favicon and static assets
 ```
 
-## How vendors list products (the "List your product" flow)
+## How vendors list products (register your shop, then list from the dashboard)
 
-1. A vendor opens **/for-vendors** (or signs in at **/vendor**), picks a plan (Free / Starter GH₵50 / Pro GH₵150 / Unlimited GH₵300), sets a dashboard password, and submits their shop + first product with **at least 3 product photos** (up to 6) so buyers can see the item before they contact the vendor.
-2. The listing (photos included) lands in the admin **Vendor listings** queue as *pending* — nothing goes live unreviewed. The shop appears in **Vendors & plans**.
-3. Free listings: admin clicks **Approve → live**. Paid plans: vendor pays MoMo to **053 126 2424**, WhatsApps the reference, admin clicks **MoMo → Starter 30d**, **MoMo → Pro 30d** or **MoMo → Unlimited 30d**.
-4. Approved products appear in search, category pages and **/vendors/[slug]**, with a **photo gallery** (thumbnail strip + full-screen lightbox) and a **WhatsApp buy button** (no commission). Same-named products from different shops share one product page and pool all their photos.
-5. The vendor signs in at **/vendor** (phone + password) to see their plan, add more listings up to the plan cap (Unlimited has no cap), and — on Pro / Unlimited — shop views and outbound clicks. Shops listed before login existed can create a password once (phone + matching business name).
+Two steps: **register the shop**, then **list products from the dashboard**.
+
+1. A vendor opens **/for-vendors** and registers their shop only — business name, contact, phone/WhatsApp, email, optional website, a plan (Free / Starter GH₵50 / Pro GH₵150 / Unlimited GH₵300) and a dashboard password. No product fields here.
+2. The shop lands in the admin **Vendors & plans** queue as *pending*. Nothing enters the listings queue at signup — no product is created yet.
+3. Paid plans: vendor pays MoMo to **053 126 2424**, WhatsApps the reference, admin clicks **MoMo → Starter 30d**, **MoMo → Pro 30d** or **MoMo → Unlimited 30d**. Until confirmed the shop runs on Free limits (3 listings).
+4. The vendor signs in at **/vendor** (phone + password — the signup already sets the login cookie) and adds products on **/vendor/listings** with **at least 3 product photos** (up to 6) each. That "Add a listing" form is the only place listings are created. The plan cap applies: Free = 3 listings, Starter = 10, Pro = 25, Unlimited = no cap — one past the cap and the form shows the upgrade prompt instead.
+5. Each product lands in the admin **Vendor listings** queue as *pending* — nothing goes live unreviewed. Admin clicks **Approve → live**.
+6. Approved products appear in search, category pages and **/vendors/[slug]**, with a **photo gallery** (thumbnail strip + full-screen lightbox) and a **WhatsApp buy button** (no commission). Same-named products from different shops share one product page and pool all their photos. On Pro / Unlimited the dashboard also shows shop views and outbound clicks. Shops listed before login existed can create a password once (phone + matching business name).
 
 Listings and shops are stored in the same three-tier store as form submissions (Supabase tables `vendor_listings` + `vendor_profiles` in production — private by design, since they contain phone numbers). **Product photos** use the same tiering: Supabase Storage bucket `vendor-images` (created by `006_listing_images.sql`) in production, `public/uploads/vendor-images/` on a dev machine, and refused with a clear message on the public demo store (the shared JSON object can't hold image bytes).
 

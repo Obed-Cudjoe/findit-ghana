@@ -2,7 +2,7 @@
 // Paid plans stay active while paymentStatus === "confirmed" AND planExpiresAt is in the future.
 // After expiry (or before admin confirms MoMo) the vendor falls back to Free limits.
 //
-// Tiers: free (1) → starter (10) → pro (25) → unlimited (∞, GH₵300/month).
+// Tiers: free (3) → starter (10) → pro (25) → unlimited (∞, GH₵300/month).
 // The Unlimited tier is the top of the ladder: its listings outrank every other
 // vendor (including featured / official catalogue results) and it carries the
 // "∞ Unlimited" badge across the site.
@@ -44,14 +44,14 @@ export const VENDOR_PLANS: Record<PlanId, PlanDef> = {
   free: {
     id: "free",
     name: "Free",
-    tagline: "Get found — one product",
+    tagline: "Get found — up to three products",
     priceGhs: 0,
-    listingLimit: 1,
+    listingLimit: 3,
     featuredRotation: false,
     homepageFeatured: false,
     stats: false,
     unlimited: false,
-    perks: ["1 live listing", "WhatsApp buy button", "Reviewed before it goes live"],
+    perks: ["Up to 3 live listings", "WhatsApp buy button", "Reviewed before it goes live"],
   },
   starter: {
     id: "starter",
