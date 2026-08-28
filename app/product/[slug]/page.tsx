@@ -15,7 +15,10 @@ interface Props {
   params: Promise<{ slug: string }>;
 }
 
-// Seed products pre-render at build time; vendor-listed products render on demand.
+// Catalogue pages MUST pre-render at build time (force-static) — without
+// this, Vercel serves cached 404s for every product page. Vendor-listed
+// products still render on demand via dynamicParams.
+export const dynamic = "force-static";
 export const revalidate = 3600;
 
 export function generateStaticParams() {

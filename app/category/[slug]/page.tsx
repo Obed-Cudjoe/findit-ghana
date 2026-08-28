@@ -9,6 +9,9 @@ interface Props {
   params: Promise<{ slug: string }>;
 }
 
+// Category pages MUST pre-render at build time — same 404-risk as products
+// without force-static on Vercel.
+export const dynamic = "force-static";
 export const revalidate = 3600;
 
 export function generateStaticParams() {
