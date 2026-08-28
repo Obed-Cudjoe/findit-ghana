@@ -50,17 +50,35 @@ export default async function VendorListingsPage() {
               <thead>
                 <tr className="bg-navy-50 text-left text-xs uppercase tracking-wide text-slate-soft">
                   <th className="px-4 py-3">Product</th>
+                  <th className="px-4 py-3">Photos</th>
                   <th className="px-4 py-3">Price</th>
                   <th className="px-4 py-3">Status</th>
                   <th className="px-4 py-3">Added</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-navy-100">
-                {mine.map((l) => (
+                {mine.map((l) => {
+                  const photos = l.imageUrls ?? [];
+                  return (
                   <tr key={l.id}>
                     <td className="px-4 py-3">
                       <p className="font-semibold text-navy-900">{l.productName}</p>
                       <p className="text-xs text-slate-soft">{l.category}</p>
+                    </td>
+                    <td className="px-4 py-3">
+                      {photos.length > 0 ? (
+                        <span className="flex items-center gap-1.5">
+                          <img
+                            src={photos[0]}
+                            alt={`First photo of ${l.productName}`}
+                            className="h-10 w-10 rounded-md border border-navy-100 object-cover"
+                            loading="lazy"
+                          />
+                          <span className="text-xs font-semibold text-slate-soft">×{photos.length}</span>
+                        </span>
+                      ) : (
+                        <span className="text-xs text-slate-400">—</span>
+                      )}
                     </td>
                     <td className="px-4 py-3 font-semibold text-navy-900">GH₵{l.priceGhs.toLocaleString()}</td>
                     <td className="px-4 py-3">
@@ -70,7 +88,8 @@ export default async function VendorListingsPage() {
                       {new Date(l.createdAt).toLocaleDateString("en-GB", { day: "numeric", month: "short" })}
                     </td>
                   </tr>
-                ))}
+                  );
+                })}
               </tbody>
             </table>
           </div>

@@ -140,6 +140,9 @@ export interface VendorListing {
   deliveryFeeGhs: number;
   description: string;
   websiteUrl: string;
+  // Product photos uploaded by the vendor (3–6 public URLs). Shown to buyers
+  // on the product page, shop page and result cards before they contact.
+  imageUrls?: string[];
   status: "pending" | "approved" | "rejected";
   createdAt: string;
   // Paid featured placement: listing is pinned to the top of its category and

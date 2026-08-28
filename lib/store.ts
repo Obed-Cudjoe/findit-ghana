@@ -364,6 +364,7 @@ export interface SaveListingInput {
   deliveryFeeGhs: number;
   description: string;
   websiteUrl: string;
+  imageUrls?: string[];
   vendorId?: string | null;
   requestedPlan?: VendorPlanId;
 }
@@ -389,13 +390,18 @@ export async function saveVendorListing(input: SaveListingInput): Promise<boolea
       website_url: input.websiteUrl || null,
       status: "pending",
     };
+    const imageUrls = (input.imageUrls ?? []).filter((u) => typeof u === "string" && u.length > 0);
     const withPlan = {
       ...base,
       vendor_id: input.vendorId || null,
       requested_plan: input.requestedPlan ?? "free",
     };
-    const first = await supabase.from("vendor_listings").insert(withPlan);
+    const withImages = { ...withPlan, image_urls: imageUrls };
+    const first = await supabase.from("vendor_listings").insert(withImages);
     if (!first.error) return true;
+    // Migration 006 not applied yet — retry without the photos column.
+    const second = await supabase.from("vendor_listings").insert(withPlan);
+    if (!second.error) return true;
     // Migration 003 not applied yet — fall back to the original columns.
     const { error } = await supabase.from("vendor_listings").insert(base);
     return !error;
@@ -430,6 +436,9 @@ export async function readVendorListings(): Promise<VendorListing[]> {
         deliveryZone: l.delivery_zone ?? "", deliveryDaysMin: l.delivery_days_min ?? 1,
         deliveryDaysMax: l.delivery_days_max ?? 3, deliveryFeeGhs: Number(l.delivery_fee_ghs ?? 0),
         description: l.description, websiteUrl: l.website_url ?? "",
+        imageUrls: Array.isArray(l.image_urls)
+          ? l.image_urls.filter((u: unknown) => typeof u === "string" && (u as string).length > 0)
+          : [],
         status: l.status, createdAt: l.created_at,
         featuredUntil: l.featured_until ?? null,
         vendorId: l.vendor_id ?? null,
