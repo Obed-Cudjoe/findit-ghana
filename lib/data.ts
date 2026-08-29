@@ -255,6 +255,51 @@ export async function getMarketplaceState(): Promise<{ listings: VendorListing[]
   }
 }
 
+// ------------------------------------------------------------------
+// Homepage "What Ghana is searching for" picks.
+// 1. One product per official shop, ROTATING daily — a deterministic
+//    day-based offset walks through each catalogue so the strip shows
+//    different products every day (stable within a day, no randomness).
+// 2. Up to 2 independent vendor listings — featured listings first,
+//    then the newest approved ones. Vendors earn homepage presence
+//    simply by being approved (and Pro/Unlimited get priority).
+// ------------------------------------------------------------------
+export async function getHomepagePicks(): Promise<SearchResult[]> {
+  const day = Math.floor(Date.now() / 86_400_000);
+
+  const official = officialSources
+    .map((source, si) => {
+      const pool = getProducts().filter((p) => p.id.startsWith(source.productPrefix));
+      if (pool.length === 0) return undefined;
+      // spread each source's pick with a different offset so they rotate
+      // independently instead of all stepping together
+      const idx = (day * 7 + si * 13) % pool.length;
+      const product = pool[idx];
+      const offers = getOffersForProduct(product.slug);
+      return { product, offers, cheapest: offers[0] } as SearchResult;
+    })
+    .filter((r): r is SearchResult => Boolean(r));
+
+  const { listings, profiles } = await getMarketplaceState();
+  const now = Date.now();
+  const sorted = [...listings].sort((a, b) => {
+    const fa = a.featuredUntil ? new Date(a.featuredUntil).getTime() > now : false;
+    const fb = b.featuredUntil ? new Date(b.featuredUntil).getTime() > now : false;
+    if (fa !== fb) return fa ? -1 : 1;
+    return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+  });
+
+  const independent = sorted.slice(0, 2).map((l) => {
+    const profile = profileForListing(l, profiles);
+    const vendor = listingToVendor(l, profile);
+    const product = listingToProduct(l);
+    const offer = listingToOffer(l, l.slug, vendor.id);
+    return { product, offers: [offer], cheapest: offer } as SearchResult;
+  });
+
+  return [...official, ...independent];
+}
+
 export function profileForListing(l: VendorListing, profiles: VendorProfile[]): VendorProfile | undefined {
   if (l.vendorId) {
     const byId = profiles.find((p) => p.id === l.vendorId);

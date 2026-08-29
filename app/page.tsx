@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { ArrowRight, Search, ShieldCheck, Truck, BookOpen, Smartphone } from "lucide-react";
-import { getCategories, getGuides, getProducts, getOffersForProduct, officialSources, getFeaturedProVendors } from "@/lib/data";
+import { getCategories, getGuides, getProducts, getOffersForProduct, officialSources, getFeaturedProVendors, getHomepagePicks } from "@/lib/data";
 import { ProductCard, TrustStrip, OfficialSources } from "@/components/shared";
 import { SearchAutocomplete } from "@/components/search-autocomplete";
 import { VendorAvatar } from "@/components/vendor-avatar";
@@ -16,10 +16,10 @@ export default async function HomePage() {
   // Trading and Telefonika sit next to Jumia on the homepage — not buried
   // behind 80 marketplace listings.
   const featuredShops = await getFeaturedProVendors();
-  const popular = officialSources
-    .map((source) => getProducts().find((p) => p.id.startsWith(source.productPrefix)))
-    .filter((p): p is NonNullable<typeof p> => !!p)
-    .map((product) => ({ product, offers: getOffersForProduct(product.slug), cheapest: getOffersForProduct(product.slug)[0] }));
+  // "What Ghana is searching for": one rotating pick per official shop
+  // (changes daily) + up to 2 approved independent vendor listings —
+  // featured listings first, then the newest.
+  const popular = await getHomepagePicks();
 
   return (
     <>
@@ -135,7 +135,7 @@ export default async function HomePage() {
           <div className="mb-6 flex items-end justify-between gap-4">
             <div>
               <h2 className="text-xl font-extrabold text-navy-900 md:text-2xl">What Ghana is searching for</h2>
-              <p className="mt-1 text-sm text-slate-soft">Live offers from Jumia, CompuGhana, Franko Trading and Telefonika.</p>
+              <p className="mt-1 text-sm text-slate-soft">Rotates daily — Jumia, CompuGhana, Franko Trading and Telefonika, plus approved independent shops.</p>
             </div>
             <Link href="/category/phones" className="hidden items-center gap-1 text-sm font-semibold text-gold-700 hover:gap-2 transition-all sm:inline-flex">
               See all phones <ArrowRight className="h-4 w-4" />
