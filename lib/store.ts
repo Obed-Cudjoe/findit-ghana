@@ -835,3 +835,24 @@ export async function deleteVendorProfile(
   state.vendorProfiles = state.vendorProfiles.filter((p) => p.id !== id);
   return await writeRemoteState(state);
 }
+
+// ---------- price snapshots (price-history chart + drop badges) ----------
+export async function readOfferSnapshots(
+  offerId: string
+): Promise<{ offerId: string; priceGhs: number; capturedAt: string }[]> {
+  const supabase = getSupabase();
+  if (!supabase) return [];
+  const { data, error } = await supabase
+    .from("price_snapshots")
+    .select("offer_id, price_ghs, captured_at")
+    .eq("offer_id", offerId)
+    .order("captured_at", { ascending: true });
+  if (error || !data) return [];
+  /* eslint-disable @typescript-eslint/no-explicit-any */
+  return (data as any[]).map((s: any) => ({
+    offerId: s.offer_id,
+    priceGhs: Number(s.price_ghs),
+    capturedAt: s.captured_at,
+  }));
+  /* eslint-enable @typescript-eslint/no-explicit-any */
+}

@@ -3,10 +3,10 @@
 // Franko Trading, Telefonika). Categories and guides stay in the seed file;
 // vendor listings from the self-service flow merge on top.
 import { vendors as seedVendors, categories, guides } from "@/data/seed";
-import { jumiaProducts, jumiaOffers, jumiaVendor } from "@/lib/feeds/jumia";
-import { compughanaProducts, compughanaOffers, compughanaVendor } from "@/lib/feeds/compughana";
-import { frankoProducts, frankoOffers, frankoVendor } from "@/lib/feeds/franko";
-import { telefonikaProducts, telefonikaOffers, telefonikaVendor } from "@/lib/feeds/telefonika";
+import { jumiaProducts, jumiaOffers, jumiaVendor, jumiaCatalogMeta } from "@/lib/feeds/jumia";
+import { compughanaProducts, compughanaOffers, compughanaVendor, compughanaCatalogMeta } from "@/lib/feeds/compughana";
+import { frankoProducts, frankoOffers, frankoVendor, frankoCatalogMeta } from "@/lib/feeds/franko";
+import { telefonikaProducts, telefonikaOffers, telefonikaVendor, telefonikaCatalogMeta } from "@/lib/feeds/telefonika";
 import type { Product, Vendor, PriceOffer, Category, Guide, VendorListing, VendorProfile } from "@/lib/types";
 import { namesLikelySame, findMatchingProduct } from "@/lib/product-match";
 import { phoneKey, planHasCategoryFeatured, planHasHomepageFeatured, planHasStats, planHasUnlimited } from "@/lib/plans";
@@ -28,11 +28,12 @@ export const officialSources: {
   search: string;
   blurb: string;
   productPrefix: string;
+  catalogFetchedAt: string;
 }[] = [
-  { id: "jumia", name: "Jumia Ghana", host: "jumia.com.gh", search: "jumia", blurb: "Marketplace listings with JumiaPay escrow.", productPrefix: "jm-" },
-  { id: "compughana", name: "CompuGhana", host: "compughana.com", search: "compughana", blurb: "Authorised Apple, Samsung and HP reseller.", productPrefix: "cg-" },
-  { id: "franko", name: "Franko Trading", host: "frankotrading.com", search: "franko", blurb: "High-street electronics chain — free Accra & Kumasi delivery.", productPrefix: "ft-" },
-  { id: "telefonika", name: "Telefonika", host: "telefonika.com", search: "telefonika", blurb: "Phone specialist with stores across Ghana.", productPrefix: "tf-" },
+  { id: "jumia", name: "Jumia Ghana", host: "jumia.com.gh", search: "jumia", blurb: "Marketplace listings with JumiaPay escrow.", productPrefix: "jm-", catalogFetchedAt: jumiaCatalogMeta().fetchedAt },
+  { id: "compughana", name: "CompuGhana", host: "compughana.com", search: "compughana", blurb: "Authorised Apple, Samsung and HP reseller.", productPrefix: "cg-", catalogFetchedAt: compughanaCatalogMeta().fetchedAt },
+  { id: "franko", name: "Franko Trading", host: "frankotrading.com", search: "franko", blurb: "High-street electronics chain — free Accra & Kumasi delivery.", productPrefix: "ft-", catalogFetchedAt: frankoCatalogMeta().fetchedAt },
+  { id: "telefonika", name: "Telefonika", host: "telefonika.com", search: "telefonika", blurb: "Phone specialist with stores across Ghana.", productPrefix: "tf-", catalogFetchedAt: telefonikaCatalogMeta().fetchedAt },
 ];
 
 export function getVendors(): Vendor[] {
@@ -108,6 +109,21 @@ export function getSnapshotsForOffer(offerId: string): { offerId: string; priceG
   // scrape); the 12-week history accumulates as the daily /api/refresh cron
   // records snapshots (Supabase mode) over time.
   return [];
+}
+
+// Async variant used by the product page: reads the accumulated snapshot
+// history from Supabase once the daily cron has recorded observations.
+export async function loadSnapshotsForOffer(
+  offerId: string
+): Promise<{ offerId: string; priceGhs: number; capturedAt: string }[]> {
+  const local = getSnapshotsForOffer(offerId);
+  if (local.length > 0) return local;
+  try {
+    const { readOfferSnapshots } = await import("@/lib/store");
+    return await readOfferSnapshots(offerId);
+  } catch {
+    return [];
+  }
 }
 
 export async function getGuides(): Promise<Guide[]> {

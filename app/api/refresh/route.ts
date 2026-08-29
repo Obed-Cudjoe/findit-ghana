@@ -7,6 +7,7 @@ import { jumiaProducts, jumiaOffers, jumiaCatalogMeta } from "@/lib/feeds/jumia"
 import { compughanaProducts, compughanaOffers } from "@/lib/feeds/compughana";
 import { frankoProducts, frankoOffers } from "@/lib/feeds/franko";
 import { telefonikaProducts, telefonikaOffers } from "@/lib/feeds/telefonika";
+import { syncCatalogueToSupabase } from "@/lib/feeds/sync";
 
 export async function GET(request: NextRequest) {
   // Cron protection: Vercel sends CRON_SECRET as a Bearer token.
@@ -19,12 +20,14 @@ export async function GET(request: NextRequest) {
   }
 
   if (isSupabaseMode()) {
-    // Production path: the Supabase schema (migrations/001_init.sql) is the source
-    // of truth; vendor feeds upsert here. Kept explicit for the handoff.
+    // Production path: push the live catalogue into Supabase (stable ids,
+    // idempotent) and record today's price snapshot per offer. Snapshots
+    // accumulate daily → powers the price-history chart and drop badges.
+    const result = await syncCatalogueToSupabase();
     return NextResponse.json({
-      ok: true,
+      ok: !result.error,
       mode: "supabase",
-      note: "Feed upsert hook — wire lib/feeds/*.ts here with the buyer's affiliate key.",
+      ...result,
       at: new Date().toISOString(),
     });
   }

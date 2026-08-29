@@ -3,9 +3,9 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ShieldCheck, Clock, TriangleAlert, MessageCircle, BadgeCheck, Infinity as InfinityIcon } from "lucide-react";
 import {
-  getMergedProductPage, getOffersForProduct, getSnapshotsForOffer, getProducts,
+  getMergedProductPage, getOffersForProduct, getSnapshotsForOffer, loadSnapshotsForOffer, getProducts,
 } from "@/lib/data";
-import { ProductVisual, PriceChart, ProductCard } from "@/components/shared";
+import { ProductVisual, PriceChart, ProductCard, PriceDropBadge } from "@/components/shared";
 import { ImageGallery } from "@/components/image-gallery";
 import { VendorTable } from "@/components/vendor-table";
 import { formatGHS, timeAgo, formatDate } from "@/lib/utils";
@@ -46,7 +46,7 @@ export default async function ProductPage({ params }: Props) {
   const { product, offers, vendors, listing: vListing, listings, isCatalogue } = found;
   const cheapest = offers[0];
   const chartPoints = isCatalogue && cheapest
-    ? getSnapshotsForOffer(cheapest.id).map((s) => ({ priceGhs: s.priceGhs, capturedAt: s.capturedAt }))
+    ? (await loadSnapshotsForOffer(cheapest.id)).map((s) => ({ priceGhs: s.priceGhs, capturedAt: s.capturedAt }))
     : [];
   const similar = getProducts().filter((p) => p.category === product.category && p.slug !== slug).slice(0, 3);
   const listingOnly = !isCatalogue;
@@ -147,9 +147,12 @@ export default async function ProductPage({ params }: Props) {
               </div>
               {chartPoints.length > 1 && (
                 <div className="mt-5 rounded-xl border border-navy-100 p-4">
-                  <p className="mb-2 flex items-center gap-1.5 text-sm font-semibold text-navy-900">
-                    Price history <span className="text-xs font-normal text-slate-soft">(best offer)</span>
-                  </p>
+                  <div className="mb-2 flex flex-wrap items-center justify-between gap-2">
+                    <p className="flex items-center gap-1.5 text-sm font-semibold text-navy-900">
+                      Price history <span className="text-xs font-normal text-slate-soft">(best offer)</span>
+                    </p>
+                    <PriceDropBadge points={chartPoints} />
+                  </div>
                   <PriceChart points={chartPoints} />
                 </div>
               )}

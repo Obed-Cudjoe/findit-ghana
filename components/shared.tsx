@@ -8,7 +8,7 @@ import {
   ArrowRight, Star,
 } from "lucide-react";
 import type { Product, PriceOffer, Vendor } from "@/lib/types";
-import { getVendor } from "@/lib/data";
+import { getVendor, getProducts, officialSources } from "@/lib/data";
 import { formatGHS, deliveryLabel, timeAgo } from "@/lib/utils";
 import { UNLIMITED_BADGE } from "@/lib/plans";
 
@@ -133,12 +133,38 @@ export function PriceChart({ points }: { points: { priceGhs: number; capturedAt:
 
 /* ---------- Trust strip (COMP-06) ---------- */
 export function TrustStrip() {
+  // Live, real numbers from the committed catalogues — the strip doubles as
+  // proof that the engine is alive, which is exactly what buyers check.
+  const productCount = getProducts().length;
+  const shopCount = officialSources.length;
+  const latestFetch = Math.max(
+    ...officialSources.map((s) => new Date(s.catalogFetchedAt).getTime())
+  );
+  const latestDate = new Date(latestFetch).toLocaleDateString("en-GB", {
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+  });
+
   return (
     <div className="border-y border-navy-100 bg-navy-50">
       <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-center gap-x-8 gap-y-2 px-4 py-3 text-sm text-navy-800">
-        <span className="inline-flex items-center gap-1.5"><ShieldCheck className="h-4 w-4 text-emerald-600" /> Named vendors</span>
-        <span className="inline-flex items-center gap-1.5"><Clock className="h-4 w-4 text-gold-600" /> Prices checked daily</span>
-        <span className="inline-flex items-center gap-1.5"><Truck className="h-4 w-4 text-navy-500" /> Delivery shown upfront</span>
+        <span className="inline-flex items-center gap-1.5">
+          <Package className="h-4 w-4 text-gold-600" />
+          <strong>{productCount.toLocaleString("en-GH")}</strong>&nbsp;products compared
+        </span>
+        <span className="inline-flex items-center gap-1.5">
+          <ShieldCheck className="h-4 w-4 text-emerald-600" />
+          <strong>{shopCount}</strong>&nbsp;verified shops
+        </span>
+        <span className="inline-flex items-center gap-1.5">
+          <Clock className="h-4 w-4 text-gold-600" />
+          Catalogues checked&nbsp;<strong>{latestDate}</strong>
+        </span>
+        <span className="inline-flex items-center gap-1.5">
+          <Truck className="h-4 w-4 text-navy-500" />
+          Delivery shown upfront
+        </span>
       </div>
     </div>
   );
@@ -204,6 +230,28 @@ export function Stars({ n = 5 }: { n?: number }) {
       {Array.from({ length: 5 }).map((_, i) => (
         <Star key={i} className={`h-3.5 w-3.5 ${i < n ? "fill-gold-500 text-gold-500" : "text-navy-200"}`} />
       ))}
+    </span>
+  );
+}
+
+/* ---------- Price-drop badge (honest: renders only when snapshots prove a
+   real drop vs the previous observation; hidden until history exists) ---------- */
+export function PriceDropBadge({
+  points,
+}: {
+  points: { priceGhs: number; capturedAt: string }[];
+}) {
+  if (points.length < 2) return null;
+  const latest = points[points.length - 1];
+  const previous = points[points.length - 2];
+  const drop = previous.priceGhs - latest.priceGhs;
+  if (drop <= 0) return null;
+  return (
+    <span className="inline-flex items-center gap-1 rounded-full bg-emerald-50 px-3 py-1 text-xs font-bold text-emerald-700 ring-1 ring-emerald-200">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" aria-hidden="true">
+        <path d="M12 19V5M5 12l7-7 7 7" />
+      </svg>
+      {formatGHS(drop)} drop since {new Date(previous.capturedAt).toLocaleDateString("en-GB", { day: "numeric", month: "short" })}
     </span>
   );
 }
