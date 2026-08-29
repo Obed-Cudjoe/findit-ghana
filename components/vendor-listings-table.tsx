@@ -40,6 +40,7 @@ function EditForm({
   onSaved: (updated: Partial<VendorListing>) => void;
 }) {
   const [form, setForm] = useState({
+    productName: listing.productName ?? "",
     priceGhs: String(listing.priceGhs),
     stockCount: listing.stockCount === null || listing.stockCount === undefined ? "" : String(listing.stockCount),
     deliveryFeeGhs: String(listing.deliveryFeeGhs ?? 0),
@@ -57,6 +58,12 @@ function EditForm({
   async function save(ev: React.FormEvent) {
     ev.preventDefault();
     setError("");
+
+    const name = form.productName.trim();
+    if (name.length < 3 || name.length > 140) {
+      setError("Product name must be 3–140 characters.");
+      return;
+    }
 
     const price = Number(form.priceGhs);
     if (!Number.isFinite(price) || price <= 0 || price > MAX_PRICE_GHS) {
@@ -92,6 +99,7 @@ function EditForm({
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
+          productName: name,
           priceGhs: price,
           stockCount: stock,
           deliveryFeeGhs: Math.round(fee),
@@ -123,6 +131,15 @@ function EditForm({
             : `Pending listing — changes are saved; it still needs approval to appear.`}
         </p>
       </div>
+      <Field label="Product name (renaming keeps your listing link)">
+        <input
+          className={inputCls}
+          value={form.productName}
+          onChange={(e) => set("productName", e.target.value)}
+          placeholder="e.g. iPhone 13 (128GB)"
+          maxLength={140}
+        />
+      </Field>
       <div className="grid gap-3 sm:grid-cols-3">
         <Field label="Price (GHS)">
           <input className={inputCls} value={form.priceGhs} onChange={(e) => set("priceGhs", e.target.value)} inputMode="numeric" required />

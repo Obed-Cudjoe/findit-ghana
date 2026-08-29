@@ -501,8 +501,11 @@ export async function updateVendorListingStatus(id: string, status: VendorListin
 }
 
 // Fields a vendor may edit on their own listing (PATCH /api/vendor/listings/[id]).
-// Product name, category, slug, photos and status are deliberately not here.
+// Category, slug, photos and status are deliberately not here — the slug is
+// fixed at listing time so the product link never breaks when a vendor renames
+// their product (the new name shows everywhere, the URL stays the same).
 export interface VendorListingPatch {
+  productName?: string;
   priceGhs?: number;
   stockCount?: number | null;
   deliveryFeeGhs?: number;
@@ -521,6 +524,7 @@ export async function updateVendorListing(id: string, patch: VendorListingPatch)
   const supabase = getSupabase();
   if (supabase) {
     const db: Record<string, unknown> = { updated_at: new Date().toISOString() };
+    if (patch.productName !== undefined) db.product_name = patch.productName;
     if (patch.priceGhs !== undefined) db.price_ghs = patch.priceGhs;
     if (patch.stockCount !== undefined) db.stock_count = patch.stockCount;
     if (patch.deliveryFeeGhs !== undefined) db.delivery_fee_ghs = patch.deliveryFeeGhs;

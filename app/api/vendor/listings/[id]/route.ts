@@ -1,7 +1,8 @@
-// PATCH /api/vendor/listings/[id] — edit the price and basic terms of the
-// vendor's OWN listing (price is the core ask; stock, delivery fee, delivery
-// days and description are also editable). Everything else — product name,
-// category, slug, photos, status — is not.
+// PATCH /api/vendor/listings/[id] — edit the vendor's OWN listing: product
+// name, price, stock, delivery fee, delivery days and description. The slug,
+// category, photos and status are not editable — the slug stays fixed so the
+// product link never breaks when the vendor renames (the new name shows in
+// search, cards and the product page immediately).
 //
 // Ownership uses the same rule as listingsForVendor in lib/store.ts: the
 // listing's vendorId matches the logged-in profile OR the phone numbers match
@@ -16,6 +17,8 @@ import { getLoggedInVendor } from "@/lib/vendor-auth";
 
 const MAX_PRICE_GHS = 10_000_000;
 const MAX_DELIVERY_DAYS = 60;
+const MIN_NAME_LENGTH = 3;
+const MAX_NAME_LENGTH = 140;
 
 export async function PATCH(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const vendor = await getLoggedInVendor();
@@ -38,6 +41,17 @@ export async function PATCH(request: NextRequest, { params }: { params: Promise<
   if (!listing) return NextResponse.json({ error: "Listing not found." }, { status: 404 });
 
   const patch: Parameters<typeof updateVendorListing>[1] = {};
+
+  if (body.productName !== undefined) {
+    const name = String(body.productName).trim();
+    if (name.length < MIN_NAME_LENGTH || name.length > MAX_NAME_LENGTH) {
+      return NextResponse.json(
+        { error: `Product name must be ${MIN_NAME_LENGTH}–${MAX_NAME_LENGTH} characters.` },
+        { status: 400 }
+      );
+    }
+    patch.productName = name;
+  }
 
   if (body.priceGhs !== undefined) {
     const price = Number(body.priceGhs);
@@ -109,6 +123,7 @@ export async function PATCH(request: NextRequest, { params }: { params: Promise<
     ok: true,
     listing: {
       id: listing.id,
+      productName: patch.productName ?? listing.productName,
       priceGhs: patch.priceGhs ?? listing.priceGhs,
       stockCount: patch.stockCount !== undefined ? patch.stockCount : listing.stockCount,
       deliveryFeeGhs: patch.deliveryFeeGhs ?? listing.deliveryFeeGhs,
