@@ -522,6 +522,141 @@ export async function searchAll(query: string): Promise<SearchResult[]> {
   return mergeListingsIntoResults(results, matched, profiles);
 }
 
+// ------------------------------------------------------------------
+// F02/F03 — filters + sort (server-side, query-param driven)
+// ------------------------------------------------------------------
+export interface SearchOptions {
+  brand?: string;
+  minPrice?: number;
+  maxPrice?: number;
+  inStockOnly?: boolean;
+  verifiedOnly?: boolean;
+  zone?: string;
+  sort?: "relevance" | "price-asc" | "price-desc" | "newest";
+}
+
+export async function searchWithOptions(query: string, opts: SearchOptions): Promise<SearchResult[]> {
+  // No query: browse everything (so filters work standalone, e.g. brand=Tecno
+  // with an empty search box). With a query: normal search.
+  let results: SearchResult[];
+  if (!query.trim()) {
+    results = getProducts().map((p) => {
+      const offers = getOffersForProduct(p.slug);
+      return { product: p, offers, cheapest: offers[0] };
+    });
+    const { listings, profiles } = await getMarketplaceState();
+    results = mergeListingsIntoResults(results, listings, profiles);
+  } else {
+    results = await searchAll(query);
+  }
+
+  // Filter by brand (name or brand field)
+  if (opts.brand) {
+    const b = opts.brand.toLowerCase();
+    results = results.filter(
+      (r) => r.product.brand.toLowerCase().includes(b) || r.product.name.toLowerCase().includes(b)
+    );
+  }
+
+  // Filter by total price range (price + delivery fee = what the buyer pays)
+  if (opts.minPrice !== undefined) {
+    results = results.filter((r) => r.cheapest && r.cheapest.priceGhs + r.cheapest.deliveryFeeGhs >= opts.minPrice!);
+  }
+  if (opts.maxPrice !== undefined) {
+    results = results.filter((r) => r.cheapest && r.cheapest.priceGhs + r.cheapest.deliveryFeeGhs <= opts.maxPrice!);
+  }
+
+  // In-stock only
+  if (opts.inStockOnly) {
+    results = results.filter((r) => r.cheapest && (r.cheapest.stockCount ?? 0) > 0);
+  }
+
+  // Verified vendors only (official shops are always verified)
+  if (opts.verifiedOnly) {
+    const vendors = getVendors();
+    results = results.filter(
+      (r) => !r.cheapest || (vendors.find((v) => v.id === r.cheapest!.vendorId)?.verified ?? false)
+    );
+  }
+
+  // Delivery zone (matches the cheapest offer's zone)
+  if (opts.zone) {
+    const z = opts.zone.toLowerCase();
+    results = results.filter((r) => r.cheapest && r.cheapest.deliveryZone.toLowerCase().includes(z));
+  }
+
+  // Sort
+  switch (opts.sort) {
+    case "price-asc":
+      results.sort((a, b) => (a.cheapest?.priceGhs ?? Infinity) - (b.cheapest?.priceGhs ?? Infinity));
+      break;
+    case "price-desc":
+      results.sort((a, b) => (b.cheapest?.priceGhs ?? -Infinity) - (a.cheapest?.priceGhs ?? -Infinity));
+      break;
+    case "newest":
+      results.sort((a, b) => new Date(b.product.updatedAt).getTime() - new Date(a.product.updatedAt).getTime());
+      break;
+    default:
+      break; // relevance = natural order
+  }
+
+  return results;
+}
+
+// Distinct brands + zones present in the catalogue — powers the filter UI.
+export function getBrandOptions(): string[] {
+  const brands = new Set<string>();
+  for (const p of getProducts()) if (p.brand && p.brand.trim()) brands.add(p.brand.trim());
+  return [...brands].sort((a, b) => a.localeCompare(b));
+}
+
+export function getZoneOptions(): string[] {
+  const zones = new Set<string>();
+  for (const o of getOffers()) if (o.active && o.deliveryZone) zones.add(o.deliveryZone);
+  return [...zones].sort((a, b) => a.localeCompare(b));
+}
+
+// F01 typo tolerance: "did you mean" — returns the best candidate when the
+// query has zero results. Uses a light edit-distance check (≤2 characters)
+// against product names, brands and categories.
+function editDistance(a: string, b: string): number {
+  const m = a.length, n = b.length;
+  const dp = Array.from({ length: m + 1 }, (_, i) => [i, ...Array(n).fill(0)]);
+  for (let j = 0; j <= n; j++) dp[0][j] = j;
+  for (let i = 1; i <= m; i++) {
+    for (let j = 1; j <= n; j++) {
+      dp[i][j] = Math.min(
+        dp[i - 1][j] + 1,
+        dp[i][j - 1] + 1,
+        dp[i - 1][j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1)
+      );
+    }
+  }
+  return dp[m][n];
+}
+
+export function didYouMean(query: string): string | null {
+  const q = query.toLowerCase().trim();
+  if (q.length < 3) return null;
+  let best: { term: string; distance: number } | null = null;
+  const candidates = new Set<string>();
+  for (const p of getProducts()) {
+    for (const word of p.name.toLowerCase().split(/[\s()\/-]+/)) {
+      if (word.length >= 3) candidates.add(word);
+    }
+    candidates.add(p.name.toLowerCase());
+    if (p.brand) candidates.add(p.brand.toLowerCase());
+  }
+  for (const c of getCategories()) candidates.add(c.name.toLowerCase());
+  for (const cand of candidates) {
+    // word must share the first letter (cheap + effective for typos)
+    if (cand[0] !== q[0]) continue;
+    const d = Math.min(editDistance(q, cand), editDistance(q.split(" ")[0], cand.split(" ")[0]));
+    if (d <= 2 && (!best || d < best.distance)) best = { term: cand, distance: d };
+  }
+  return best ? best.term : null;
+}
+
 export async function categoryResultsAll(categorySlug: string): Promise<SearchResult[]> {
   const results = productsByCategory(categorySlug);
   const { listings, profiles } = await getMarketplaceState();

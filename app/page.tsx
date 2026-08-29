@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ArrowRight, Search, ShieldCheck, Truck, BookOpen, Smartphone } from "lucide-react";
 import { getCategories, getGuides, getProducts, getOffersForProduct, officialSources, getFeaturedProVendors } from "@/lib/data";
 import { ProductCard, TrustStrip, OfficialSources } from "@/components/shared";
+import { SearchAutocomplete } from "@/components/search-autocomplete";
 import { VendorAvatar } from "@/components/vendor-avatar";
 import { UNLIMITED_BADGE } from "@/lib/plans";
 
@@ -40,25 +41,10 @@ export default async function HomePage() {
             One search. Real cedis prices, live stock and delivery costs — from named vendors only.
           </p>
 
-          {/* hero search */}
-          <form action="/search" method="get" role="search" className="mx-auto mt-8 max-w-xl">
-            <label htmlFor="hero-q" className="sr-only">Search for a product</label>
-            <div className="flex flex-col overflow-hidden rounded-2xl bg-white shadow-2xl ring-1 ring-navy-700 focus-within:ring-2 focus-within:ring-gold-500 sm:flex-row">
-              <div className="flex min-w-0 flex-1">
-                <span className="flex shrink-0 items-center pl-4 text-slate-soft" aria-hidden="true"><Search className="h-5 w-5" /></span>
-                <input
-                  id="hero-q"
-                  name="q"
-                  type="search"
-                  placeholder="Try “tecno spark” or “smart tv”…"
-                  className="min-w-0 flex-1 px-3 py-4 text-base text-ink placeholder:text-slate-400 focus:outline-none"
-                />
-              </div>
-              <button type="submit" className="shrink-0 bg-gold-500 px-6 py-3 text-sm font-bold text-navy-950 hover:bg-gold-400 transition-colors sm:py-0">
-                Search
-              </button>
-            </div>
-          </form>
+          {/* hero search — live autocomplete (F01) */}
+          <div className="mx-auto mt-8 max-w-xl">
+            <SearchAutocomplete variant="hero" />
+          </div>
           <div className="mt-4 flex flex-wrap items-center justify-center gap-2 text-xs text-navy-100">
             <span className="text-navy-300">Popular:</span>
             {["tecno", "samsung", "laptops", "compughana", "franko"].map((s) => (

@@ -5,6 +5,7 @@ import Link from "next/link";
 import "./globals.css";
 import { siteConfig } from "@/lib/data";
 import { MobileMenu } from "@/components/mobile-menu";
+import { SearchAutocomplete } from "@/components/search-autocomplete";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
@@ -67,7 +68,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               </nav>
 
               <div className="ml-auto hidden lg:block w-48 xl:w-64">
-                <HeaderSearch />
+                <SearchAutocomplete variant="compact" />
               </div>
 
               <Link href="/trust" className="ml-3 hidden xl:inline-flex items-center gap-1.5 rounded-full border border-navy-600 px-3 py-1.5 text-xs text-navy-100 hover:border-gold-500 hover:text-gold-400 transition-colors">
@@ -168,23 +169,3 @@ gtag('config', '${process.env.NEXT_PUBLIC_GA_ID}');`}
   );
 }
 
-/* Compact search used in the header (desktop) — submits to /search */
-function HeaderSearch() {
-  return (
-    <form action="/search" method="get" role="search">
-      <label htmlFor="header-q" className="sr-only">Search prices</label>
-      <div className="flex items-center rounded-full bg-navy-800 focus-within:ring-2 focus-within:ring-gold-500 overflow-hidden">
-        <input
-          id="header-q"
-          name="q"
-          type="search"
-          placeholder="Search prices in Ghana…"
-          className="min-w-0 flex-1 bg-transparent px-4 py-2 text-sm text-white placeholder:text-navy-300 focus:outline-none"
-        />
-        <button type="submit" aria-label="Search" className="shrink-0 bg-gold-500 px-4 py-2 text-navy-950 hover:bg-gold-400 transition-colors">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" aria-hidden="true"><circle cx="11" cy="11" r="7" /><path d="M21 21l-4.3-4.3" /></svg>
-        </button>
-      </div>
-    </form>
-  );
-}

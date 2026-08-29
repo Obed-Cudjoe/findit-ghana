@@ -5,6 +5,7 @@
 // because nothing reset the checkbox when Next.js swapped the page.)
 
 import Link from "next/link";
+import { SearchAutocomplete } from "@/components/search-autocomplete";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -61,12 +62,7 @@ export function MobileMenu() {
       {open && (
         <div className="fixed inset-x-0 top-16 z-50 max-h-[calc(100dvh-4rem)] overflow-y-auto border-t border-navy-800 bg-navy-900 shadow-2xl">
           <nav className="mx-auto flex w-full max-w-6xl flex-col gap-1 px-4 py-4 pb-[calc(1rem+env(safe-area-inset-bottom))]" aria-label="Mobile navigation">
-            <form action="/search" method="get" className="mb-2" onSubmit={() => setOpen(false)}>
-              <div className="flex overflow-hidden rounded-lg bg-navy-800">
-                <input name="q" type="search" placeholder="Search prices…" className="min-w-0 flex-1 bg-transparent px-4 py-2.5 text-base text-white placeholder:text-navy-300 focus:outline-none" aria-label="Search prices" />
-                <button type="submit" className="bg-gold-500 px-4 text-navy-950 hover:bg-gold-400 transition-colors" aria-label="Search">Go</button>
-              </div>
-            </form>
+            <div className="mb-2"><SearchAutocomplete variant="compact" /></div>
             {LINKS.map(([href, label]) => (
               <Link key={href} href={href} onClick={() => setOpen(false)} className="rounded-lg px-3 py-2.5 text-sm text-navy-100 hover:bg-navy-800 hover:text-white transition-colors">
                 {label}
