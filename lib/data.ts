@@ -219,6 +219,45 @@ export function searchSuggestions(query: string, limit = 6): { slug: string; nam
   return results;
 }
 
+// Autocomplete for the live search bars — catalogue suggestions PLUS approved
+// independent vendor listings (the reason a vendor product "took time to show
+// up" was that suggestions only covered the catalogue). Ranked: exact prefix
+// matches first, then includes, then token matches; vendor name shown so
+// shoppers recognise the shop they were looking for.
+export async function searchSuggestionsAll(
+  query: string,
+  limit = 8
+): Promise<{ slug: string; name: string; category: string; minPriceGhs: number | null; vendorName?: string }[]> {
+  const q = query.toLowerCase().trim();
+  if (!q) return [];
+  const base = searchSuggestions(query, limit);
+
+  const { listings } = await getMarketplaceState();
+  const withVendors: { slug: string; name: string; category: string; minPriceGhs: number | null; vendorName?: string; rank: number }[] = base.map((s) => ({
+    ...s,
+    rank: s.name.toLowerCase().startsWith(q) ? 0 : s.name.toLowerCase().includes(q) ? 1 : 2,
+  }));
+
+  for (const l of listings) {
+    const hay = `${l.productName} ${l.businessName} ${l.category}`.toLowerCase();
+    if (!(hay.includes(q) || matchesAllTokens(hay, q))) continue;
+    const rank = l.productName.toLowerCase().startsWith(q) ? 0 : l.productName.toLowerCase().includes(q) ? 1 : 2;
+    withVendors.push({
+      slug: l.slug,
+      name: l.productName,
+      category: l.category,
+      minPriceGhs: l.priceGhs,
+      vendorName: l.businessName,
+      rank,
+    });
+  }
+
+  return withVendors
+    .sort((a, b) => a.rank - b.rank)
+    .slice(0, limit)
+    .map(({ slug, name, category, minPriceGhs, vendorName }) => ({ slug, name, category, minPriceGhs, vendorName }));
+}
+
 export const siteConfig = {
   name: "FindIt Ghana",
   tagline: "Ghana's price finder",

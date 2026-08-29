@@ -13,6 +13,7 @@ interface Suggestion {
   name: string;
   category: string;
   minPriceGhs: number | null;
+  vendorName?: string;
 }
 
 export function SearchAutocomplete({
@@ -176,7 +177,9 @@ export function SearchAutocomplete({
                 <Smartphone className="h-4 w-4 shrink-0 text-navy-400" aria-hidden="true" />
                 <span className="min-w-0 flex-1">
                   <span className="block truncate text-sm font-semibold text-navy-900">{s.name}</span>
-                  <span className="block text-xs capitalize text-slate-soft">{s.category.replace("-", " & ")}</span>
+                  <span className="block truncate text-xs capitalize text-slate-soft">
+                    {s.vendorName ? `${s.vendorName} · ${s.category.replace("-", " & ")}` : s.category.replace("-", " & ")}
+                  </span>
                 </span>
                 {s.minPriceGhs !== null && (
                   <span className="shrink-0 text-sm font-bold text-gold-700">{formatGHS(s.minPriceGhs)}</span>

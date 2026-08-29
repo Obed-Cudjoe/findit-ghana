@@ -11,7 +11,10 @@ export const metadata: Metadata = {
   description: "Search live prices in cedis across named vendors in Ghana — stock levels and delivery costs included.",
 };
 
-export const revalidate = 300;
+// 60s freshness: vendor approvals and edits revalidate /search, and a short
+// window means a just-approved vendor product appears almost immediately
+// instead of waiting out a 5-minute cache.
+export const revalidate = 60;
 
 interface Props {
   searchParams: Promise<{
