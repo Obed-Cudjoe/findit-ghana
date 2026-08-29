@@ -3,7 +3,7 @@
 // F01 — search bar with live autocomplete.
 // Debounced fetch to /api/search/suggest; dropdown shows product name,
 // best price in cedis and category. Keyboard: arrows + Enter + Escape.
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Search, Smartphone, ArrowRight } from "lucide-react";
 import { formatGHS } from "@/lib/utils";
@@ -18,11 +18,15 @@ interface Suggestion {
 export function SearchAutocomplete({
   variant = "compact",
   initialQuery = "",
+  onNavigate,
 }: {
   variant?: "compact" | "hero";
   initialQuery?: string;
+  /** called after a suggestion is chosen (mobile menu uses it to close itself) */
+  onNavigate?: () => void;
 }) {
   const router = useRouter();
+  const inputId = useId(); // unique per instance — header and mobile menu both render a compact bar
   const [value, setValue] = useState(initialQuery);
   const [suggestions, setSuggestions] = useState<Suggestion[]>([]);
   const [open, setOpen] = useState(false);
@@ -76,6 +80,7 @@ export function SearchAutocomplete({
       router.push(`/product/${slug}`);
     }
     setValue(name.replace(/^All /, ""));
+    onNavigate?.();
   }
 
   function submit(e: React.FormEvent) {
@@ -106,7 +111,7 @@ export function SearchAutocomplete({
   return (
     <div ref={boxRef} className="relative w-full">
       <form onSubmit={submit} role="search">
-        <label htmlFor={`autocomplete-${variant}`} className="sr-only">Search prices in Ghana</label>
+        <label htmlFor={inputId} className="sr-only">Search prices in Ghana</label>
         <div
           className={`flex items-center overflow-hidden ${
             isHero
@@ -118,15 +123,15 @@ export function SearchAutocomplete({
             <Search className={isHero ? "h-5 w-5" : "h-4 w-4"} />
           </span>
           <input
-            id={`autocomplete-${variant}`}
+            id={inputId}
             type="search"
             value={value}
             autoComplete="off"
             placeholder={isHero ? "Try “iphone 13” or “4-burner gas cooker”…" : "Search prices in Ghana…"}
             className={`w-full bg-transparent focus:outline-none ${
               isHero
-                ? "px-3 py-4 text-sm text-ink placeholder:text-slate-400 md:text-base"
-                : "px-3 py-2 text-sm text-white placeholder:text-navy-300"
+                ? "px-3 py-4 text-base text-ink placeholder:text-slate-400 md:text-base"
+                : "px-3 py-2.5 text-base text-white placeholder:text-navy-300"
             }`}
             onChange={(e) => onInput(e.target.value)}
             onKeyDown={onKeyDown}
@@ -137,7 +142,7 @@ export function SearchAutocomplete({
             className={`shrink-0 font-bold transition-colors ${
               isHero
                 ? "bg-gold-500 px-6 py-4 text-sm text-navy-950 hover:bg-gold-400"
-                : "bg-gold-500 px-4 py-2.5 text-navy-950 hover:bg-gold-400"
+                : "bg-gold-500 px-4 py-2.5 text-sm text-navy-950 hover:bg-gold-400"
             }`}
           >
             Search
@@ -145,12 +150,12 @@ export function SearchAutocomplete({
         </div>
       </form>
 
-      {/* suggestions dropdown */}
+      {/* suggestions dropdown — opaque, scrollable, above every other layer */}
       {open && (
         <ul
           role="listbox"
           aria-label="Search suggestions"
-          className="absolute inset-x-0 top-full z-50 mt-2 overflow-hidden rounded-xl border border-navy-100 bg-white shadow-xl"
+          className="absolute inset-x-0 top-full z-[70] mt-2 max-h-[60vh] overflow-y-auto rounded-xl border border-navy-100 bg-white shadow-2xl"
         >
           {busy && suggestions.length === 0 && (
             <li className="px-4 py-3 text-sm text-slate-soft">Searching…</li>

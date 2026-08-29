@@ -62,7 +62,9 @@ export function MobileMenu() {
       {open && (
         <div className="fixed inset-x-0 top-16 z-50 max-h-[calc(100dvh-4rem)] overflow-y-auto border-t border-navy-800 bg-navy-900 shadow-2xl">
           <nav className="mx-auto flex w-full max-w-6xl flex-col gap-1 px-4 py-4 pb-[calc(1rem+env(safe-area-inset-bottom))]" aria-label="Mobile navigation">
-            <div className="mb-2"><SearchAutocomplete variant="compact" /></div>
+            <div className="mb-2">
+              <SearchAutocomplete variant="compact" onNavigate={() => setOpen(false)} />
+            </div>
             {LINKS.map(([href, label]) => (
               <Link key={href} href={href} onClick={() => setOpen(false)} className="rounded-lg px-3 py-2.5 text-sm text-navy-100 hover:bg-navy-800 hover:text-white transition-colors">
                 {label}

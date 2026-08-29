@@ -24,7 +24,9 @@ export default async function HomePage() {
   return (
     <>
       {/* ===== HERO: the promise + the search, above the fold ===== */}
-      <section className="relative overflow-hidden bg-navy-900 text-white">
+      {/* NOTE: no overflow-hidden here — it clipped the autocomplete dropdown
+          on mobile (suggestions appeared cut off / overlapping the chips). */}
+      <section className="relative bg-navy-900 text-white">
         <div
           className="pointer-events-none absolute inset-0 opacity-40"
           style={{ background: "radial-gradient(700px 340px at 20% 0%, rgba(242,183,5,0.28), transparent 60%), radial-gradient(600px 300px at 90% 100%, rgba(90,140,190,0.25), transparent 60%)" }}
