@@ -6,6 +6,8 @@ import "./globals.css";
 import { siteConfig } from "@/lib/data";
 import { MobileMenu } from "@/components/mobile-menu";
 import { SearchAutocomplete } from "@/components/search-autocomplete";
+import { ServiceWorkerRegister } from "@/components/service-worker-register";
+import { InstallAppBanner } from "@/components/install-app";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
@@ -28,7 +30,19 @@ export const metadata: Metadata = {
     title: `${siteConfig.name} — ${siteConfig.tagline}`,
     description: siteConfig.description,
   },
-  icons: { icon: "/favicon.svg", apple: "/favicon.svg" },
+  icons: {
+    icon: [
+      { url: "/favicon.svg", type: "image/svg+xml" },
+      { url: "/icons/icon-192.png", sizes: "192x192", type: "image/png" },
+    ],
+    apple: [{ url: "/icons/apple-touch-icon.png", sizes: "180x180", type: "image/png" }],
+  },
+  manifest: "/manifest.webmanifest",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "black-translucent",
+    title: "FindIt Ghana",
+  },
 };
 
 export const viewport: Viewport = {
@@ -164,6 +178,9 @@ gtag('config', '${process.env.NEXT_PUBLIC_GA_ID}');`}
 
         {/* Vercel Web Analytics — page views and traffic insights, enabled on Vercel */}
         <Analytics />
+        {/* PWA: service worker + install prompt (add-to-home-screen) */}
+        <ServiceWorkerRegister />
+        <InstallAppBanner />
       </body>
     </html>
   );
