@@ -221,8 +221,8 @@ export function VendorProductForm() {
         <Field label="Delivery fee in cedis (0 if free)">
           <input className={inputCls} value={form.deliveryFeeGhs} onChange={(e) => set("deliveryFeeGhs", e.target.value)} placeholder="e.g. 45" inputMode="numeric" />
         </Field>
-        <Field label="Website or Instagram (optional)">
-          <input className={inputCls} value={form.websiteUrl} onChange={(e) => set("websiteUrl", e.target.value)} placeholder="https://…" />
+        <Field label="TikTok or Facebook link (optional)">
+          <input className={inputCls} value={form.websiteUrl} onChange={(e) => set("websiteUrl", e.target.value)} placeholder="https://tiktok.com/@your-shop or facebook.com/your-shop" />
         </Field>
       </div>
       <Field label="Description" required error={errors.description}>

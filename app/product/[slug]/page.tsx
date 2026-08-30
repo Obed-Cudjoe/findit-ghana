@@ -132,7 +132,7 @@ export default async function ProductPage({ params }: Props) {
                 </div>
               </div>
               <p className="flex items-center gap-1.5 text-xs text-slate-soft">
-                <MessageCircle className="h-4 w-4 text-emerald-600" /> Buy buttons open WhatsApp straight to each vendor — no middleman.
+                <MessageCircle className="h-4 w-4 text-emerald-600" /> The button opens WhatsApp straight to this vendor — the sale happens between you and them, never on FindIt Ghana.
               </p>
             </div>
           ) : (

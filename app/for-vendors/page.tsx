@@ -26,7 +26,7 @@ export default function ForVendorsPage() {
       <div className="mt-8 grid gap-4 md:grid-cols-3">
         {[
           { icon: Search, title: "Get found first", text: "Your listing appears in search and category pages — the pages Ghanaian shoppers actually land on." },
-          { icon: MessageCircle, title: "Buyers message you directly", text: "The buy button opens WhatsApp straight to your number. No middleman, no commission on your sale." },
+          { icon: MessageCircle, title: "Buyers message you directly", text: "The contact button opens WhatsApp straight to your number. No middleman, no commission on your sale." },
           { icon: ShieldCheck, title: "Reviewed, then live", text: "Our checks team reviews every listing — usually within 1 business day — so shoppers trust what they see." },
         ].map((b) => (
           <div key={b.title} className="rounded-xl border border-navy-100 bg-white p-5">

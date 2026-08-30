@@ -23,7 +23,7 @@ export default function TrustPage() {
             <strong className="text-navy-900"> Jumia Ghana</strong> (jumia.com.gh),
             <strong className="text-navy-900"> CompuGhana</strong> (compughana.com),
             <strong className="text-navy-900"> Franko Trading</strong> (frankotrading.com) and
-            <strong className="text-navy-900"> Telefonika</strong> (telefonika.com). Buy buttons open that shop&apos;s own product page.
+            <strong className="text-navy-900"> Telefonika</strong> (telefonika.com). Deal buttons open that shop&apos;s own product page.
             Every listing carries a
             <strong className="text-navy-900"> last-checked timestamp</strong>, so you can see exactly how fresh the number you&apos;re looking at is.
             Stale data is labelled, never dressed up as fresh.

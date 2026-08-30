@@ -8,6 +8,11 @@ import type { PriceOffer, Vendor } from "@/lib/types";
 import { formatGHS, deliveryLabel, timeAgo } from "@/lib/utils";
 
 function BuyButton({ offer, vendorName, productSlug }: { offer: PriceOffer; vendorName: string; productSlug: string }) {
+  // Honest CTA: this site never transacts — the sale completes on the
+  // vendor's side. Independent vendor listings link to WhatsApp ("Chat on
+  // WhatsApp"); catalogue offers link to the vendor/marketplace ("View deal").
+  const isWhatsApp = offer.affiliateUrl.startsWith("https://wa.me");
+  const label = isWhatsApp ? "Chat on WhatsApp" : "View deal";
   async function track() {
     try {
       await fetch("/api/click", {
@@ -25,9 +30,11 @@ function BuyButton({ offer, vendorName, productSlug }: { offer: PriceOffer; vend
       target="_blank"
       rel="noopener noreferrer nofollow"
       onClick={track}
-      className="inline-flex min-h-11 min-w-[5.5rem] items-center justify-center gap-1.5 whitespace-nowrap rounded-lg bg-gold-500 px-4 py-2.5 text-sm font-bold text-navy-950 shadow-sm hover:bg-gold-400 active:scale-[0.98] transition-all"
+      className={`inline-flex min-h-11 min-w-[5.5rem] items-center justify-center gap-1.5 whitespace-nowrap rounded-lg px-4 py-2.5 text-sm font-bold shadow-sm hover:bg-gold-400 active:scale-[0.98] transition-all ${
+        isWhatsApp ? "bg-emerald-500 text-white hover:bg-emerald-400" : "bg-gold-500 text-navy-950"
+      }`}
     >
-      Buy <ArrowRight className="h-4 w-4" />
+      {label} <ArrowRight className="h-4 w-4" />
     </a>
   );
 }
@@ -133,8 +140,9 @@ export function VendorTable({ offers, vendors, productSlug }: { offers: PriceOff
         })}
       </div>
       <p className="mt-4 px-1 text-xs text-slate-400">
-        Buy buttons open the vendor&apos;s site. Where marked, links are affiliate links — FindIt Ghana may earn a
-        commission if you buy, at no extra cost to you. Vendors set their own prices; we show them unchanged.
+        &quot;View deal&quot; opens the vendor&apos;s site; &quot;Chat on WhatsApp&quot; opens the vendor&apos;s WhatsApp. The sale always
+        completes on the vendor&apos;s side — never on FindIt Ghana. Where marked, links are affiliate links; FindIt Ghana may
+        earn a commission if you buy, at no extra cost to you. Vendors set their own prices; we show them unchanged.
       </p>
     </div>
   );

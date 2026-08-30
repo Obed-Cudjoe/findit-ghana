@@ -224,8 +224,8 @@ export function VendorListingForm() {
           <Field label="Email (optional)" error={errors.email}>
             <input className={inputCls} type="email" value={form.email} onChange={(e) => set("email", e.target.value)} placeholder="you@example.com" autoComplete="email" />
           </Field>
-          <Field label="Website or Instagram (optional)">
-            <input className={inputCls} value={form.websiteUrl} onChange={(e) => set("websiteUrl", e.target.value)} placeholder="https://…" />
+          <Field label="TikTok or Facebook link (optional)">
+            <input className={inputCls} value={form.websiteUrl} onChange={(e) => set("websiteUrl", e.target.value)} placeholder="https://tiktok.com/@your-shop or facebook.com/your-shop" />
           </Field>
         </div>
       </div>

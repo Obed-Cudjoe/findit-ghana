@@ -181,7 +181,7 @@ export function OfficialSources({
       <div className="mb-6">
         <h2 className="text-xl font-extrabold text-navy-900 md:text-2xl">Verified price sources</h2>
         <p className="mt-1 text-sm text-slate-soft">
-          Every catalogue price comes from a named Ghanaian retailer. Buy buttons open that shop&apos;s own product page.
+          Every catalogue price comes from a named Ghanaian retailer. Deal buttons open that shop&apos;s own product page.
         </p>
       </div>
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
