@@ -1,6 +1,7 @@
 // POST /api/reports — price/stock/suspicious reports (P13 + P14 forms).
 // Validates, stores (Supabase or demo JSON), returns the reference code.
 import { NextResponse, type NextRequest } from "next/server";
+import { revalidatePath } from "next/cache";
 import { clientIp, rateLimit } from "@/lib/ratelimit";
 import { saveReport } from "@/lib/store";
 
@@ -50,5 +51,20 @@ export async function POST(request: NextRequest) {
   if (!ok) {
     return NextResponse.json({ error: "Could not store the report. Please try again." }, { status: 500 });
   }
+
+  // The report badge on the product page reads this data — revalidate the
+  // affected pages so a new report shows up immediately instead of after
+  // the page's one-hour cache window.
+  try {
+    const slug = listingUrl.split("/product/")[1]?.split(/[/?#]/)[0];
+    if (slug) {
+      revalidatePath(`/product/${slug}`);
+      revalidatePath("/search");
+      revalidatePath("/vendors");
+    }
+  } catch {
+    /* cache invalidation is best-effort */
+  }
+
   return NextResponse.json({ ok: true, refCode });
 }

@@ -8,6 +8,12 @@ import {
 import { ProductVisual, PriceChart, ProductCard, PriceDropBadge } from "@/components/shared";
 import { ImageGallery } from "@/components/image-gallery";
 import { VendorTable } from "@/components/vendor-table";
+import {
+  ProductActionRow,
+  VendorTrustSignals,
+  BeforeYouPayCard,
+} from "@/components/product-actions";
+import { readReports } from "@/lib/store";
 import { formatGHS, timeAgo, formatDate } from "@/lib/utils";
 import { UNLIMITED_BADGE } from "@/lib/plans";
 
@@ -50,6 +56,21 @@ export default async function ProductPage({ params }: Props) {
     : [];
   const similar = getProducts().filter((p) => p.category === product.category && p.slug !== slug).slice(0, 3);
   const listingOnly = !isCatalogue;
+
+  // Trust signals: honest report history for THIS product. Reports match by
+  // the listing URL containing the product slug. Read whenever a vendor
+  // listing is involved — including merged pages where a listing matches a
+  // catalogue product (isCatalogue true but a canonical listing exists).
+  const allReports = vListing ? await readReports() : [];
+  const reportStats = vListing
+    ? (() => {
+        const related = allReports.filter(
+          (r) => r.listingUrl && r.listingUrl.toLowerCase().includes(slug.toLowerCase()),
+        );
+        const unresolved = related.filter((r) => r.status === "new" || r.status === "checking").length;
+        return { total: related.length, unresolved };
+      })()
+    : { total: 0, unresolved: 0 };
 
   // Every photo the vendors on this page uploaded, in order. When several
   // shops list the same product, buyers see photos from all of them.
@@ -113,6 +134,14 @@ export default async function ProductPage({ params }: Props) {
             <Clock className="h-3.5 w-3.5" /> Prices checked {timeAgo(listingOnly && vListing ? (vListing.updatedAt ?? vListing.createdAt) : product.updatedAt)}
           </p>
 
+          {/* Social presence + report history — rendered whenever a vendor
+              listing is on the page (standalone or merged with catalogue) */}
+          {vListing && (
+            <div className="mt-3">
+              <VendorTrustSignals socialUrl={vListing.websiteUrl ?? ""} reports={reportStats} />
+            </div>
+          )}
+
           {listingOnly && vListing ? (
             /* vendor listing: description + contact instead of specs */
             <div className="mt-5 space-y-4">
@@ -174,7 +203,16 @@ export default async function ProductPage({ params }: Props) {
         </div>
       </section>
 
-      <div className="mt-6 flex flex-wrap gap-2 text-sm">
+      {/* Before-you-pay checklist — every product page (both catalogue + vendor) */}
+      <BeforeYouPayCard />
+
+      <div className="mt-6 flex flex-wrap items-center gap-2 text-sm">
+        <ProductActionRow
+          productName={product.name}
+          priceGhs={cheapest?.priceGhs ?? 0}
+          slug={slug}
+          socialUrl={vListing?.websiteUrl || undefined}
+        />
         <Link href={`/report/price?listing=${encodeURIComponent(`https://findit-ghana.vercel.app/product/${slug}`)}`} className="rounded-lg border border-navy-200 px-4 py-2 text-navy-700 hover:border-gold-500 hover:text-gold-700 transition-colors">
           Report a price error
         </Link>
