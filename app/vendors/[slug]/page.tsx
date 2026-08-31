@@ -106,7 +106,7 @@ export default async function VendorShopPage({ params }: Props) {
             No live listings from this shop yet.
           </p>
         ) : (
-          <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-4 grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-4">
             {products.map(({ product, cheapest }) => (
               <ProductCard key={product.id} product={product} cheapest={cheapest} />
             ))}

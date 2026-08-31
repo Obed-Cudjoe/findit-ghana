@@ -224,7 +224,7 @@ export default async function ProductPage({ params }: Props) {
       {similar.length > 0 && (
         <section className="mt-10">
           <h2 className="mb-4 text-lg font-extrabold text-navy-900">Shoppers also compared</h2>
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+          <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
             {similar.map((p) => (
               <ProductCard key={p.id} product={p} cheapest={getOffersForProduct(p.slug)[0]} />
             ))}

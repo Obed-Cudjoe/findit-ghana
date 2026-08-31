@@ -63,7 +63,7 @@ export default async function CategoryPage({ params }: Props) {
         {results.length === 0 ? (
           <EmptyState title={`No live offers in ${category.name} yet`} hint="We add new products with every daily refresh — check back soon, or search for something else." />
         ) : (
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-4">
             {results.map(({ product, cheapest }) => (
               <ProductCard key={product.id} product={product} cheapest={cheapest} />
             ))}

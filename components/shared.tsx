@@ -55,11 +55,11 @@ export function ProductCard({ product, cheapest }: { product: Product; cheapest?
       className="hover-lift group flex min-w-0 flex-col overflow-hidden rounded-xl border border-navy-100 bg-white"
     >
       <ProductVisual product={product} className="aspect-[4/3] w-full" />
-      <div className="flex flex-1 flex-col p-4">
-        <p className="flex flex-wrap items-center gap-1.5 text-xs font-semibold uppercase tracking-wide text-slate-soft">
-          <span>{product.isVendorListing ? "New vendor · self-listed" : product.brand}</span>
+      <div className="flex flex-1 flex-col p-3">
+        <p className="flex flex-wrap items-center gap-1.5 text-[11px] font-semibold uppercase tracking-wide text-slate-soft">
+          <span className="truncate">{product.isVendorListing ? "New vendor · self-listed" : product.brand}</span>
           {!product.isVendorListing && vendorName && (
-            <span className="font-medium normal-case tracking-normal text-navy-500">· {vendorName}</span>
+            <span className="truncate font-medium normal-case tracking-normal text-navy-500">· {vendorName}</span>
           )}
           {product.unlimited ? (
             <span className="rounded-full bg-navy-950 px-1.5 py-0.5 text-[10px] font-extrabold normal-case tracking-normal text-gold-400 ring-1 ring-gold-500/60">
@@ -73,11 +73,14 @@ export function ProductCard({ product, cheapest }: { product: Product; cheapest?
             )
           )}
         </p>
-        <h3 className="mt-0.5 break-words font-bold text-navy-900 group-hover:text-navy-600 transition-colors">{product.name}</h3>
+        {/* line-clamp-2 keeps the pair layout even — Jiji-style compact cards */}
+        <h3 className="mt-0.5 line-clamp-2 break-words text-sm font-bold leading-snug text-navy-900 group-hover:text-navy-600 transition-colors">
+          {product.name}
+        </h3>
         {cheapest ? (
           <>
-            <p className="mt-2 text-xl font-extrabold text-navy-900">{formatGHS(cheapest.priceGhs)}</p>
-            <p className="mt-1 text-xs text-slate-soft">
+            <p className="mt-1.5 text-lg font-extrabold text-navy-900 lg:text-xl">{formatGHS(cheapest.priceGhs)}</p>
+            <p className="mt-0.5 text-[11px] text-slate-soft">
               {cheapest.stockCount !== null && cheapest.stockCount > 0 ? (
                 <span className="inline-flex items-center gap-1 text-emerald-700">
                   <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" /> In stock · {cheapest.stockCount}
@@ -86,14 +89,14 @@ export function ProductCard({ product, cheapest }: { product: Product; cheapest?
                 <span className="text-amber-700">Check stock with vendor</span>
               )}
             </p>
-            <p className="mt-1 flex min-w-0 items-center gap-1 text-xs text-slate-soft">
-              <Truck className="h-3.5 w-3.5" /> {deliveryLabel(cheapest)}
+            <p className="mt-0.5 flex min-w-0 items-center gap-1 text-[11px] text-slate-soft">
+              <Truck className="h-3.5 w-3.5 shrink-0" /> <span className="truncate">{deliveryLabel(cheapest)}</span>
             </p>
           </>
         ) : (
           <p className="mt-2 text-sm text-slate-soft">No live offers yet</p>
         )}
-        <span className="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-gold-600 group-hover:gap-2 transition-all">
+        <span className="mt-2 inline-flex items-center gap-1 text-xs font-semibold text-gold-600 group-hover:gap-2 transition-all lg:text-sm">
           View prices <ArrowRight className="h-4 w-4" />
         </span>
       </div>
