@@ -34,9 +34,14 @@ export const MAX_LISTING_IMAGES = 6;
 export const MAX_IMAGE_BYTES = 3 * 1024 * 1024; // 3 MB per photo (incoming cap)
 
 // Server-side compression settings (see header comment).
-export const MAX_IMAGE_EDGE = 1600; // longest side in px after resizing
-export const IMAGE_JPEG_QUALITY = 80;
-export const IMAGE_WEBP_QUALITY = 80;
+// Tuned for the FREE Supabase tier (1 GB storage): 1280px is ample for the
+// gallery display (max ~600px wide, so it still covers 2x/retina), and
+// quality ~72 is visually indistinguishable from 80 at this size while
+// cutting bytes by roughly a third. A 12MP phone photo typically lands at
+// ~120–220 KB after this pass.
+export const MAX_IMAGE_EDGE = 1280; // longest side in px after resizing
+export const IMAGE_JPEG_QUALITY = 72;
+export const IMAGE_WEBP_QUALITY = 72;
 
 const IMAGE_TYPES: Record<string, string> = {
   "image/jpeg": "jpg",

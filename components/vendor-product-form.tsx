@@ -23,7 +23,7 @@ const inputCls =
  * lib/uploads.ts is still the source of truth — this only shrinks what goes
  * over the wire. Falls back to the original file on any failure.
  */
-const CLIENT_MAX_EDGE = 1600;
+const CLIENT_MAX_EDGE = 1280; // mirrors lib/uploads.ts MAX_IMAGE_EDGE
 
 async function downscaleForUpload(file: File): Promise<File> {
   if (file.size <= 1_000_000) return file;

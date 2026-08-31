@@ -1,9 +1,13 @@
 // Admin-only: approve / reject a vendor listing.
 // Approval instantly revalidates search, category and product pages
 // so the listing appears on the site immediately.
+// Rejection also deletes the listing's uploaded photos from storage —
+// the free Supabase tier is 1 GB, and rejected photos would otherwise
+// sit there forever.
 import { NextResponse, type NextRequest } from "next/server";
 import { revalidatePath } from "next/cache";
 import { updateVendorListingStatus, readVendorListings, setVendorListingFeatured, updateVendorProfile } from "@/lib/store";
+import { deleteVendorListingPhotos } from "@/lib/uploads";
 
 const VALID = ["pending", "approved", "rejected"] as const;
 
@@ -41,6 +45,11 @@ export async function PATCH(request: NextRequest, { params }: { params: Promise<
       revalidatePath("/vendors");
       if (status === "approved" && listing.vendorId) {
         await updateVendorProfile(listing.vendorId, { status: "approved" });
+      }
+      // Free-tier storage hygiene: a rejected listing's photos are dead
+      // weight — remove them (best-effort, never blocks the status change).
+      if (status === "rejected") {
+        await deleteVendorListingPhotos([listing]);
       }
     }
   } catch {
