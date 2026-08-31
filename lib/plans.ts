@@ -2,7 +2,11 @@
 // Paid plans stay active while paymentStatus === "confirmed" AND planExpiresAt is in the future.
 // After expiry (or before admin confirms MoMo) the vendor falls back to Free limits.
 //
-// Tiers: free (3) → starter (10) → pro (25) → unlimited (∞, GH₵300/month).
+// Tiers: free (3) → starter (10, GH₵50/mo) → pro (25, GH₵100/mo) →
+// unlimited (∞, GH₵200/mo OR GH₵500/year — annual saves GH₵1,900).
+// Pricing is tuned for Ghana's 2026 reality: electricity tariffs jumped ~28%
+// and SMEs operate on thin margins, so every tier must pay for itself with
+// roughly one extra sale.
 // The Unlimited tier is the top of the ladder: its listings outrank every other
 // vendor (including featured / official catalogue results) and it carries the
 // "∞ Unlimited" badge across the site.
@@ -19,6 +23,12 @@ export const UNLIMITED_LISTINGS = Number.POSITIVE_INFINITY;
 /** Paid tiers in ascending order — used to suggest the next upgrade. */
 export const PAID_PLAN_ORDER: PlanId[] = ["starter", "pro", "unlimited"];
 
+/** One-week featured boost for Free vendors — GH₵10 pins ONE listing to the
+ *  top of its category for 7 days. Admin sets it after MoMo clears (the same
+ *  featured_until mechanism as the monthly plans). */
+export const WEEKLY_FEATURED_PRICE_GHS = 10;
+export const WEEKLY_FEATURED_DAYS = 7;
+
 export const PAYMENT_STATUSES = ["none", "pending", "confirmed"] as const;
 export type PaymentStatus = (typeof PAYMENT_STATUSES)[number];
 
@@ -30,6 +40,10 @@ export interface PlanDef {
   name: string;
   tagline: string;
   priceGhs: number;
+  /** Billing cadence shown to vendors: "week" | "month" (annual is a variant of the month plan). */
+  billingPeriod: "week" | "month";
+  /** Annual option for this plan (Unlimited only). Vendors see the savings vs paying monthly. */
+  yearlyPriceGhs?: number;
   /** Number.MAX-ish sentinel (UNLIMITED_LISTINGS) for the ∞ tier. */
   listingLimit: number;
   featuredRotation: boolean;
@@ -40,12 +54,25 @@ export interface PlanDef {
   perks: string[];
 }
 
+/** What a vendor saves by paying yearly instead of monthly (cedis). */
+export function yearlySavingsGhs(plan: PlanDef): number {
+  if (!plan.yearlyPriceGhs) return 0;
+  return plan.priceGhs * 12 - plan.yearlyPriceGhs;
+}
+
+/** The savings as a percentage, rounded — shown as "79% off". */
+export function yearlySavingsPct(plan: PlanDef): number {
+  if (!plan.yearlyPriceGhs) return 0;
+  return Math.round((yearlySavingsGhs(plan) / (plan.priceGhs * 12)) * 100);
+}
+
 export const VENDOR_PLANS: Record<PlanId, PlanDef> = {
   free: {
     id: "free",
     name: "Free",
     tagline: "Get found — up to three products",
     priceGhs: 0,
+    billingPeriod: "month",
     listingLimit: 3,
     featuredRotation: false,
     homepageFeatured: false,
@@ -58,6 +85,7 @@ export const VENDOR_PLANS: Record<PlanId, PlanDef> = {
     name: "Starter",
     tagline: "Be seen first in your category",
     priceGhs: 50,
+    billingPeriod: "month",
     listingLimit: 10,
     featuredRotation: true,
     homepageFeatured: false,
@@ -69,7 +97,8 @@ export const VENDOR_PLANS: Record<PlanId, PlanDef> = {
     id: "pro",
     name: "Pro",
     tagline: "Homepage shop + full stats",
-    priceGhs: 150,
+    priceGhs: 100,
+    billingPeriod: "month",
     listingLimit: 25,
     featuredRotation: true,
     homepageFeatured: true,
@@ -81,7 +110,9 @@ export const VENDOR_PLANS: Record<PlanId, PlanDef> = {
     id: "unlimited",
     name: "Unlimited",
     tagline: "Own the top of every search",
-    priceGhs: 300,
+    priceGhs: 200,
+    billingPeriod: "month",
+    yearlyPriceGhs: 500,
     listingLimit: UNLIMITED_LISTINGS,
     featuredRotation: true,
     homepageFeatured: true,

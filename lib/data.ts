@@ -405,7 +405,7 @@ export function listingHasFeaturedPlacement(l: VendorListing, profile?: VendorPr
 }
 
 /**
- * Top of the ladder: the shop is on a live Unlimited plan (GH₵300/month).
+ * Top of the ladder: the shop is on a live Unlimited plan (GH₵200/month, or GH₵500/year).
  * These listings outrank every other vendor — including ★ featured ones —
  * in search and category results.
  */

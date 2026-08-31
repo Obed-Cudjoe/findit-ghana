@@ -3,6 +3,7 @@
 // Admin review table for vendor listings: approve → live on the site,
 // reject → hidden. Approving makes the product searchable immediately.
 import { useState, useTransition } from "react";
+import { WEEKLY_FEATURED_DAYS, WEEKLY_FEATURED_PRICE_GHS } from "@/lib/plans";
 
 export interface ListingRow {
   id: string;
@@ -151,18 +152,32 @@ export function ListingsTable({ listings }: { listings: ListingRow[] }) {
                         Unfeature
                       </button>
                     ) : (
-                      <button
-                        disabled={pending}
-                        onClick={() => {
-                          const d = new Date();
-                          d.setDate(d.getDate() + 30);
-                          setFeatured(l.id, d.toISOString());
-                        }}
-                        title="Vendor paid? Feature their listing at the top of the category for 30 days."
-                        className="rounded-md border border-gold-600 bg-gold-500/10 px-2.5 py-1 text-xs font-bold text-gold-700 hover:bg-gold-500/20 transition-colors"
-                      >
-                        ★ Feature 30d
-                      </button>
+                      <>
+                        <button
+                          disabled={pending}
+                          onClick={() => {
+                            const d = new Date();
+                            d.setDate(d.getDate() + WEEKLY_FEATURED_DAYS);
+                            setFeatured(l.id, d.toISOString());
+                          }}
+                          title={`Vendor paid GH₵${WEEKLY_FEATURED_PRICE_GHS}? Feature their listing for ${WEEKLY_FEATURED_DAYS} days.`}
+                          className="rounded-md border border-gold-600 bg-gold-500/10 px-2.5 py-1 text-xs font-bold text-gold-700 hover:bg-gold-500/20 transition-colors"
+                        >
+                          ★ {WEEKLY_FEATURED_DAYS}d · GH₵{WEEKLY_FEATURED_PRICE_GHS}
+                        </button>
+                        <button
+                          disabled={pending}
+                          onClick={() => {
+                            const d = new Date();
+                            d.setDate(d.getDate() + 30);
+                            setFeatured(l.id, d.toISOString());
+                          }}
+                          title="Vendor paid for a monthly plan? Feature their listing at the top of the category for 30 days."
+                          className="rounded-md border border-gold-600 bg-gold-500/10 px-2.5 py-1 text-xs font-bold text-gold-700 hover:bg-gold-500/20 transition-colors"
+                        >
+                          ★ Feature 30d
+                        </button>
+                      </>
                     )}
                   </div>
                 </td>

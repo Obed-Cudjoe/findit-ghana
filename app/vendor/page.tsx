@@ -4,7 +4,7 @@ import { redirect } from "next/navigation";
 import { MousePointerClick, Store, Star } from "lucide-react";
 import { getLoggedInVendor } from "@/lib/vendor-auth";
 import { readClicks, readVendorListings, listingsForVendor, countActiveListingsForVendor } from "@/lib/store";
-import { effectivePlan, listingLimitFor, listingLimitLabel, planHasStats, UNLIMITED_BADGE, VENDOR_PLANS, MOMO_NUMBER, MOMO_NAME, MOMO_WHATSAPP } from "@/lib/plans";
+import { effectivePlan, listingLimitFor, listingLimitLabel, planHasStats, UNLIMITED_BADGE, VENDOR_PLANS, MOMO_NUMBER, MOMO_NAME, MOMO_WHATSAPP, yearlySavingsGhs } from "@/lib/plans";
 import { VendorDashNav } from "@/components/vendor-dash-nav";
 
 export const metadata: Metadata = { title: "Shop dashboard", robots: { index: false } };
@@ -127,7 +127,7 @@ export default async function VendorDashboardPage() {
             <Star className="h-5 w-5 text-gold-600" /> Stats are on Pro
           </h2>
           <p className="mt-1 text-sm text-slate-soft">
-            Upgrade to Pro (GH₵{VENDOR_PLANS.pro.priceGhs}/mo) for shop views, outbound clicks, {VENDOR_PLANS.pro.listingLimit} listings, and a homepage featured shop — or go {UNLIMITED_BADGE} (GH₵{VENDOR_PLANS.unlimited.priceGhs}/mo) for unlimited listings and top ranking.
+            Upgrade to Pro (GH₵{VENDOR_PLANS.pro.priceGhs}/mo) for shop views, outbound clicks, {VENDOR_PLANS.pro.listingLimit} listings, and a homepage featured shop — or go {UNLIMITED_BADGE} (GH₵{VENDOR_PLANS.unlimited.priceGhs}/mo, or GH₵{VENDOR_PLANS.unlimited.yearlyPriceGhs}/year — save GH₵{yearlySavingsGhs(VENDOR_PLANS.unlimited).toLocaleString("en-GH")}) for unlimited listings and top ranking.
           </p>
           <Link href="/for-vendors" className="mt-3 inline-block text-sm font-bold text-navy-900 underline">
             See plans on For vendors →

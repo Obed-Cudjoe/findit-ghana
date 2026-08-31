@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { CheckCircle2, XCircle, ArrowRight, ShieldCheck, Zap, Wallet } from "lucide-react";
+import { VENDOR_PLANS, WEEKLY_FEATURED_DAYS, WEEKLY_FEATURED_PRICE_GHS, yearlySavingsGhs, yearlySavingsPct } from "@/lib/plans";
 
 export const metadata: Metadata = {
   title: "Free Means Free — Selling on FindIt Ghana",
@@ -39,22 +40,34 @@ export default function FreeSellersPage() {
           <ul className="mt-4 space-y-3 text-sm text-emerald-900 dark:text-emerald-200">
             <li>Listing is free. Forever. No paywall, no &quot;boost to be seen&quot;.</li>
             <li>Approved listings appear in search, categories and the homepage — because they&apos;re approved, not because they paid.</li>
-            <li>Featured placement is optional — GH₵50/month, clearly labelled ★ so buyers know it&apos;s an ad.</li>
+            <li>Featured placement is optional — a GH₵10 weekly boost, or from GH₵50/month, always clearly labelled ★ so buyers know it&apos;s an ad.</li>
             <li>Buyers contact you directly on WhatsApp. We take zero commission on your sale.</li>
           </ul>
         </div>
       </div>
 
-      <div className="mt-10 grid gap-4 md:grid-cols-3">
-        {[
-          { icon: Wallet, title: "Free", text: "1 live listing. Reviewed, visible, zero cost." },
-          { icon: Zap, title: "Starter — GH₵50/month", text: "Up to 10 listings with featured rotation in your category." },
-          { icon: ShieldCheck, title: "Pro — GH₵150/month", text: "25 listings, homepage featured shop, per-vendor stats." },
-        ].map((p) => (
-          <div key={p.title} className="rounded-xl border border-navy-100 bg-white p-5 dark:border-navy-800 dark:bg-navy-900">
+      <div className="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+        {([
+          { icon: Wallet, title: "Free", text: "Up to 3 live listings. Reviewed, visible, zero cost.", yearly: false },
+          { icon: Zap, title: `Weekly boost — GH₵${WEEKLY_FEATURED_PRICE_GHS}/week`, text: `Pin ONE listing to the top of its category for ${WEEKLY_FEATURED_DAYS} days. Try being featured before you commit.`, yearly: false },
+          { icon: ShieldCheck, title: "Starter — GH₵50/month", text: "Up to 10 listings with featured rotation in your category.", yearly: false },
+          { icon: ShieldCheck, title: "Pro — GH₵100/month", text: "25 listings, homepage featured shop, per-vendor stats.", yearly: false },
+          { icon: ShieldCheck, title: "Unlimited — GH₵200/month", text: "Unlimited listings, ranked above every other vendor, ∞ badge everywhere.", yearly: true },
+        ] as { icon: React.ComponentType<{ className?: string; strokeWidth?: number }>; title: string; text: string; yearly: boolean }[]).map((p) => (
+          <div key={p.title} className={`rounded-xl border bg-white p-5 dark:bg-navy-900 ${p.yearly ? "border-gold-500 ring-1 ring-gold-500/40" : "border-navy-100 dark:border-navy-800"}`}>
             <p.icon className="h-6 w-6 text-gold-600" strokeWidth={1.7} aria-hidden="true" />
             <p className="mt-2 font-bold text-navy-900 dark:text-white">{p.title}</p>
             <p className="mt-1 text-sm text-slate-soft">{p.text}</p>
+            {p.yearly && (
+              <div className="mt-3 rounded-lg bg-gold-500/15 px-3 py-2 text-center">
+                <p className="text-sm font-extrabold text-navy-900 dark:text-gold-400">
+                  GH₵{VENDOR_PLANS.unlimited.yearlyPriceGhs}/year
+                </p>
+                <p className="text-xs font-semibold text-emerald-700 dark:text-emerald-400">
+                  You save GH₵{yearlySavingsGhs(VENDOR_PLANS.unlimited).toLocaleString("en-GH")} ({yearlySavingsPct(VENDOR_PLANS.unlimited)}% off)
+                </p>
+              </div>
+            )}
           </div>
         ))}
       </div>

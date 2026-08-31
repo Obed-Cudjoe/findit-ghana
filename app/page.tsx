@@ -61,7 +61,7 @@ export default async function HomePage() {
       {/* ===== TRUST STRIP ===== */}
       <TrustStrip />
 
-      {/* ===== PRO / UNLIMITED FEATURED SHOPS (homepage placement — GH₵150 & GH₵300/mo) ===== */}
+      {/* ===== PRO / UNLIMITED FEATURED SHOPS (homepage placement — GH₵100 & GH₵200/mo) ===== */}
       {featuredShops.length > 0 && (
         <section className="border-b border-gold-500/30 bg-gold-500/15">
           <div className="mx-auto max-w-6xl px-4 py-10">
@@ -69,7 +69,7 @@ export default async function HomePage() {
               <div>
                 <p className="text-xs font-bold uppercase tracking-widest text-gold-700">Pro &amp; Unlimited · homepage</p>
                 <h2 className="mt-1 text-xl font-extrabold text-navy-900 md:text-2xl">Featured shops</h2>
-                <p className="mt-1 text-sm text-slate-soft">Independent Pro (GH₵150/month) and {UNLIMITED_BADGE} (GH₵300/month) vendors — Unlimited shops lead this strip.</p>
+                <p className="mt-1 text-sm text-slate-soft">Independent Pro (GH₵100/month) and {UNLIMITED_BADGE} (GH₵200/month, or GH₵500/year) vendors — Unlimited shops lead this strip.</p>
               </div>
               <Link href="/vendors" className="hidden items-center gap-1 text-sm font-semibold text-gold-700 hover:gap-2 transition-all sm:inline-flex">
                 All vendors <ArrowRight className="h-4 w-4" />
