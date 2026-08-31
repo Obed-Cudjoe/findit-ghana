@@ -154,6 +154,29 @@ supabase/           database schema + seed SQL for the free-tier database
 public/             favicon and static assets
 ```
 
+## Daily price refresh (keeps the "prices checked daily" promise true)
+
+From your own machine (Ghana internet — Jumia blocks data-center IPs):
+
+```bash
+npm run refresh          # Jumia + partner catalogues in one command
+# then push the fresh data:
+git add data/
+git commit -m "Refresh catalogues"
+git push
+```
+
+Vercel auto-deploys within ~2 minutes. What each command does:
+
+| Command | What it refreshes |
+|---|---|
+| `npm run refresh` | Jumia (listing-page scrape) + CompuGhana & Telefonika (Shopify JSON API) |
+| `npm run refresh:jumia` | Jumia only |
+| `npm run refresh:partners` | CompuGhana + Telefonika only (Franko's SPA is skipped gracefully) |
+
+The daily 06:00 Vercel cron then syncs the committed data into Supabase and
+records price snapshots (which power the price-history chart and drop badges).
+
 ## How vendors list products (register your shop, then list from the dashboard)
 
 Two steps: **register the shop**, then **list products from the dashboard**.
