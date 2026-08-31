@@ -45,7 +45,7 @@ export function VendorTable({ offers, vendors, productSlug }: { offers: PriceOff
   }
   const vendorOf = (id: string) => vendors.find((v) => v.id === id);
   return (
-    <div className="overflow-hidden rounded-xl border border-navy-100">
+    <div className="overflow-hidden rounded-xl border border-navy-100 dark:border-navy-800">
       {/* table for laptop/desktop; scrolls inside narrow article layouts */}
       <div className="overflow-x-auto">
         <table className="hidden w-full min-w-[860px] text-sm lg:table">
@@ -64,9 +64,9 @@ export function VendorTable({ offers, vendors, productSlug }: { offers: PriceOff
           {offers.map((o, i) => {
             const v = vendorOf(o.vendorId);
             return (
-              <tr key={o.id} className={i % 2 ? "bg-navy-50/50" : "bg-white"}>
+              <tr key={o.id} className={i % 2 ? "bg-navy-50/50 dark:bg-navy-900/40" : "bg-white dark:bg-navy-900"}>
                 <td className="px-4 py-3">
-                  <p className="font-semibold text-navy-900">
+                  <p className="font-semibold text-navy-900 dark:text-navy-100">
                     {v?.slug ? (
                       <Link href={`/vendors/${v.slug}`} className="hover:text-gold-700 transition-colors">{v.name}</Link>
                     ) : (
@@ -82,7 +82,7 @@ export function VendorTable({ offers, vendors, productSlug }: { offers: PriceOff
                     <span className="text-slate-300">·</span> checked {timeAgo(o.lastCheckedAt)}
                   </p>
                 </td>
-                <td className="px-4 py-3 font-bold text-navy-900">{formatGHS(o.priceGhs)}</td>
+                <td className="px-4 py-3 font-bold text-navy-900 dark:text-white">{formatGHS(o.priceGhs)}</td>
                 <td className="px-4 py-3">
                   {o.stockCount !== null && o.stockCount > 0 ? (
                     <span className="text-emerald-700">{o.stockCount} units</span>
@@ -92,7 +92,7 @@ export function VendorTable({ offers, vendors, productSlug }: { offers: PriceOff
                 </td>
                 <td className="px-4 py-3 text-slate-soft">{deliveryLabel(o)}</td>
                 <td className="px-4 py-3 text-slate-soft">{formatGHS(o.deliveryFeeGhs)}</td>
-                <td className="px-4 py-3 text-right font-extrabold text-navy-900">{formatGHS(o.priceGhs + o.deliveryFeeGhs)}</td>
+                <td className="px-4 py-3 text-right font-extrabold text-navy-900 dark:text-white">{formatGHS(o.priceGhs + o.deliveryFeeGhs)}</td>
                 <td className="px-4 py-3 text-right">
                   <BuyButton offer={o} vendorName={v?.name ?? "vendor"} productSlug={productSlug} />
                 </td>
@@ -110,7 +110,7 @@ export function VendorTable({ offers, vendors, productSlug }: { offers: PriceOff
             <div key={o.id} className="p-4">
               <div className="flex items-start justify-between gap-3">
                 <div className="min-w-0">
-                  <p className="break-words font-semibold text-navy-900">
+                  <p className="break-words font-semibold text-navy-900 dark:text-navy-100">
                     {v?.slug ? (
                       <Link href={`/vendors/${v.slug}`} className="hover:text-gold-700 transition-colors">{v.name}</Link>
                     ) : (
@@ -132,7 +132,7 @@ export function VendorTable({ offers, vendors, productSlug }: { offers: PriceOff
                 <span className="rounded-lg bg-navy-50 px-2.5 py-2">Fee {formatGHS(o.deliveryFeeGhs)}</span>
               </div>
               <div className="mt-3 flex flex-col gap-2 min-[380px]:flex-row min-[380px]:items-center min-[380px]:justify-between">
-                <p className="text-sm font-bold text-navy-900">Total {formatGHS(o.priceGhs + o.deliveryFeeGhs)}</p>
+                <p className="text-sm font-bold text-navy-900 dark:text-white">Total {formatGHS(o.priceGhs + o.deliveryFeeGhs)}</p>
                 <BuyButton offer={o} vendorName={v?.name ?? "vendor"} productSlug={productSlug} />
               </div>
             </div>

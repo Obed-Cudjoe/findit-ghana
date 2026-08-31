@@ -79,6 +79,23 @@ export interface ReportRow {
   createdAt: string;
 }
 
+// Price-drop alert subscription (WhatsApp). Shopper picks a product + target
+// price; the daily refresh checks subscriptions after recording snapshots and
+// creates a triggered alert row when the best offer drops to or below target.
+// Delivery: the admin dashboard shows triggered alerts with one-tap wa.me
+// links pre-filled to the shopper (free manual delivery until a WhatsApp
+// Business API account is connected — documented honestly on the site).
+export interface PriceAlert {
+  id: string;
+  productSlug: string;
+  productName: string;
+  phone: string; // WhatsApp number to message
+  targetPriceGhs: number;
+  status: "active" | "triggered" | "cancelled";
+  createdAt: string;
+  triggeredAt?: string;
+}
+
 export interface ContactRow {
   id: string;
   name: string;

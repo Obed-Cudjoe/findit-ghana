@@ -2,7 +2,7 @@
 // In Supabase mode this upserts fresh vendor data; in demo mode it reports the
 // catalogue snapshots the site is serving.
 import { NextResponse, type NextRequest } from "next/server";
-import { isSupabaseMode } from "@/lib/store";
+import { isSupabaseMode, readPriceAlerts, updatePriceAlertStatus } from "@/lib/store";
 import { jumiaProducts, jumiaOffers, jumiaCatalogMeta } from "@/lib/feeds/jumia";
 import { compughanaProducts, compughanaOffers } from "@/lib/feeds/compughana";
 import { frankoProducts, frankoOffers } from "@/lib/feeds/franko";
@@ -21,13 +21,25 @@ export async function GET(request: NextRequest) {
 
   if (isSupabaseMode()) {
     // Production path: push the live catalogue into Supabase (stable ids,
-    // idempotent) and record today's price snapshot per offer. Snapshots
-    // accumulate daily → powers the price-history chart and drop badges.
+    // idempotent), record today's price snapshot per offer, then check the
+    // price-drop alert watchlist against today's lowest prices.
     const result = await syncCatalogueToSupabase();
+    let alertsTriggered = 0;
+    if (!result.error) {
+      const alerts = (await readPriceAlerts()).filter((a) => a.status === "active");
+      for (const alert of alerts) {
+        const current = result.prices[alert.productSlug];
+        if (current !== undefined && current <= alert.targetPriceGhs) {
+          const ok = await updatePriceAlertStatus(alert.id, "triggered");
+          if (ok) alertsTriggered += 1;
+        }
+      }
+    }
     return NextResponse.json({
       ok: !result.error,
       mode: "supabase",
       ...result,
+      alertsTriggered,
       at: new Date().toISOString(),
     });
   }

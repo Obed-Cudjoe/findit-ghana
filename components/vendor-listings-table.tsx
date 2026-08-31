@@ -196,6 +196,31 @@ export function VendorListingsTable({ listings }: { listings: VendorListing[] })
   const [rows, setRows] = useState(listings);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [savedId, setSavedId] = useState<string | null>(null);
+  const [reconfirmingId, setReconfirmingId] = useState<string | null>(null);
+
+  // "Still available" — bumps the freshness clock so the listing never
+  // slides into stale territory (freshness enforcement feature).
+  async function reconfirm(l: VendorListing) {
+    setReconfirmingId(l.id);
+    try {
+      const res = await fetch(`/api/vendor/listings/${l.id}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ reconfirm: true }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (res.ok) {
+        setRows((cur) => cur.map((r) => (r.id === l.id ? { ...r, updatedAt: data.listing?.updatedAt ?? new Date().toISOString() } : r)));
+        setSavedId(l.id);
+        window.setTimeout(() => setSavedId((cur) => (cur === l.id ? null : cur)), 4000);
+        router.refresh();
+      }
+    } catch {
+      /* network error — leave state unchanged */
+    } finally {
+      setReconfirmingId(null);
+    }
+  }
 
   function onSaved(updated: Partial<VendorListing>) {
     if (!editingId) return;
@@ -259,16 +284,28 @@ export function VendorListingsTable({ listings }: { listings: VendorListing[] })
                       {editing ? (
                         <span className="text-xs font-semibold text-slate-soft">editing…</span>
                       ) : (
-                        <button
-                          type="button"
-                          onClick={() => {
-                            setEditingId(l.id);
-                            setSavedId(null);
-                          }}
-                          className="inline-flex items-center gap-1 rounded-md border border-navy-200 px-2.5 py-1 text-xs font-semibold text-navy-700 hover:border-gold-500 hover:text-gold-700 transition-colors"
-                        >
-                          <Pencil className="h-3.5 w-3.5" /> Edit
-                        </button>
+                        <span className="inline-flex flex-wrap justify-end gap-1.5">
+                          {l.status === "approved" && (
+                            <button
+                              type="button"
+                              onClick={() => reconfirm(l)}
+                              disabled={reconfirmingId === l.id}
+                              className="inline-flex items-center gap-1 rounded-md border border-emerald-200 px-2.5 py-1 text-xs font-semibold text-emerald-700 hover:bg-emerald-50 disabled:opacity-60 transition-colors"
+                            >
+                              {reconfirmingId === l.id ? "Confirming…" : "✓ Still available"}
+                            </button>
+                          )}
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setEditingId(l.id);
+                              setSavedId(null);
+                            }}
+                            className="inline-flex items-center gap-1 rounded-md border border-navy-200 px-2.5 py-1 text-xs font-semibold text-navy-700 hover:border-gold-500 hover:text-gold-700 transition-colors"
+                          >
+                            <Pencil className="h-3.5 w-3.5" /> Edit
+                          </button>
+                        </span>
                       )}
                     </td>
                   </tr>

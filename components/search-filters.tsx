@@ -167,7 +167,7 @@ export function SearchFilterPanel({
     <>
       {/* desktop sidebar */}
       <div className="hidden lg:block">
-        <div className="rounded-xl border border-navy-100 bg-white p-5">
+        <div className="rounded-xl border border-navy-100 bg-white p-5 dark:border-navy-800 dark:bg-navy-900">
           <p className="mb-4 flex items-center gap-2 font-bold text-navy-900">
             <SlidersHorizontal className="h-4 w-4 text-gold-600" /> Filters
           </p>
@@ -186,7 +186,7 @@ export function SearchFilterPanel({
           {hasActive ? "Filters active" : "Filters & sort"}
         </button>
         {mobileOpen && (
-          <div className="mt-3 rounded-xl border border-navy-100 bg-white p-5 shadow-lg">
+          <div className="mt-3 rounded-xl border border-navy-100 bg-white p-5 shadow-lg dark:border-navy-800 dark:bg-navy-900">
             <div className="mb-4 flex items-center justify-between">
               <p className="font-bold text-navy-900">Filters & sort</p>
               <button

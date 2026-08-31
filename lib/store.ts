@@ -18,7 +18,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 import { makeRefCode, slugify } from "@/lib/utils";
-import type { ReportRow, ContactRow, ClickRow, VendorListing, VendorProfile, VendorPlanId, VendorPaymentStatus, VendorProfileStatus } from "@/lib/types";
+import type { ReportRow, ContactRow, ClickRow, VendorListing, VendorProfile, VendorPlanId, VendorPaymentStatus, VendorProfileStatus, PriceAlert } from "@/lib/types";
 import { hueFromName, isPlanId, phoneKey } from "@/lib/plans";
 import { deleteVendorListingPhotos } from "@/lib/uploads";
 
@@ -132,6 +132,7 @@ interface RemoteState {
   guideOverrides: GuideOverride[];
   vendorListings: VendorListing[];
   vendorProfiles: VendorProfile[];
+  priceAlerts: PriceAlert[];
 }
 
 async function readRemoteState(): Promise<RemoteState | null> {
@@ -147,6 +148,7 @@ async function readRemoteState(): Promise<RemoteState | null> {
       guideOverrides: Array.isArray(data.guideOverrides) ? data.guideOverrides : [],
       vendorListings: Array.isArray(data.vendorListings) ? data.vendorListings : [],
       vendorProfiles: Array.isArray(data.vendorProfiles) ? data.vendorProfiles : [],
+      priceAlerts: Array.isArray(data.priceAlerts) ? data.priceAlerts : [],
     };
   } catch {
     return null;
@@ -859,4 +861,84 @@ export async function readOfferSnapshots(
     capturedAt: s.captured_at,
   }));
   /* eslint-enable @typescript-eslint/no-explicit-any */
+}
+
+// ---------- price-drop alerts (WhatsApp watchlist) ----------
+// Subscriptions live in the same three-tier store as everything else.
+// In Supabase mode the refresh cron checks them after recording snapshots
+// and flips matching rows to "triggered"; the admin dashboard shows
+// triggered alerts with one-tap wa.me links for manual delivery.
+
+export async function savePriceAlert(input: {
+  productSlug: string;
+  productName: string;
+  phone: string;
+  targetPriceGhs: number;
+}): Promise<boolean> {
+  const supabase = getSupabase();
+  if (supabase) {
+    const { error } = await supabase.from("price_alerts").insert({
+      product_slug: input.productSlug,
+      product_name: input.productName,
+      phone: input.phone,
+      target_price_ghs: input.targetPriceGhs,
+      status: "active",
+    });
+    return !error;
+  }
+  const row: PriceAlert = {
+    id: crypto.randomUUID(),
+    ...input,
+    status: "active",
+    createdAt: new Date().toISOString(),
+  };
+  if (appendJson<PriceAlert>("price-alerts.json", row)) return true;
+  const state = await readRemoteState();
+  if (!state) return false;
+  state.priceAlerts.push(row);
+  return await writeRemoteState(state);
+}
+
+export async function readPriceAlerts(): Promise<PriceAlert[]> {
+  const supabase = getSupabase();
+  if (supabase) {
+    const { data, error } = await supabase.from("price_alerts").select("*").order("created_at", { ascending: false });
+    if (!error && data) {
+      /* eslint-disable @typescript-eslint/no-explicit-any */
+      return (data as any[]).map((a: any) => ({
+        id: a.id,
+        productSlug: a.product_slug,
+        productName: a.product_name,
+        phone: a.phone,
+        targetPriceGhs: Number(a.target_price_ghs),
+        status: a.status,
+        createdAt: a.created_at,
+        triggeredAt: a.triggered_at ?? undefined,
+      }));
+      /* eslint-enable @typescript-eslint/no-explicit-any */
+    }
+    return [];
+  }
+  const local = readJson<PriceAlert>("price-alerts.json");
+  if (local.length > 0) return local.sort((a, b) => b.createdAt.localeCompare(a.createdAt));
+  const state = await readRemoteState();
+  return (state?.priceAlerts ?? []).sort((a, b) => b.createdAt.localeCompare(a.createdAt));
+}
+
+export async function updatePriceAlertStatus(id: string, status: PriceAlert["status"]): Promise<boolean> {
+  const supabase = getSupabase();
+  if (supabase) {
+    const { error } = await supabase
+      .from("price_alerts")
+      .update({ status, triggered_at: status === "triggered" ? new Date().toISOString() : null })
+      .eq("id", id);
+    return !error;
+  }
+  if (updateLocalJson<PriceAlert>("price-alerts.json", id, { status })) return true;
+  const state = await readRemoteState();
+  if (!state) return false;
+  const row = state.priceAlerts.find((a) => a.id === id);
+  if (!row) return false;
+  row.status = status;
+  return await writeRemoteState(state);
 }

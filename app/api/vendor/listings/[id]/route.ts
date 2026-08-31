@@ -99,7 +99,11 @@ export async function PATCH(request: NextRequest, { params }: { params: Promise<
     patch.description = description;
   }
 
-  if (Object.keys(patch).length === 0) {
+  // Re-confirm: vendor taps "still available" — bumps updatedAt only, which
+  // resets the freshness clock and keeps the listing out of stale territory.
+  const reconfirm = body.reconfirm === true || body.reconfirm === "1";
+
+  if (Object.keys(patch).length === 0 && !reconfirm) {
     return NextResponse.json({ error: "Nothing to update." }, { status: 400 });
   }
 

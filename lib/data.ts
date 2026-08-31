@@ -288,10 +288,55 @@ export async function getMarketplaceState(): Promise<{ listings: VendorListing[]
   try {
     const { readVendorListings, readVendorProfiles } = await import("@/lib/store");
     const [all, profiles] = await Promise.all([readVendorListings(), readVendorProfiles()]);
-    return { listings: all.filter((l) => l.status === "approved"), profiles };
+    // Approved only, minus stale listings (vendors must re-confirm; after
+    // STALE_DAYS without a touch the listing drops out of public views —
+    // this is what keeps "call and be told it's sold" off FindIt Ghana).
+    return { listings: all.filter((l) => l.status === "approved" && !isListingStale(l)), profiles };
   } catch {
     return { listings: [], profiles: [] };
   }
+}
+
+// ------------------------------------------------------------------
+// Freshness enforcement — the honest-data system. Every listing shows how
+// long ago the vendor confirmed it; stale listings disappear from public
+// pages and the vendor dashboard asks for a re-confirm.
+// ------------------------------------------------------------------
+export const STALE_DAYS = 60;
+export const RECONFIRM_NUDGE_DAYS = 14;
+
+export function listingDaysSinceConfirm(l: { updatedAt?: string; createdAt: string }): number {
+  const base = l.updatedAt ?? l.createdAt;
+  const days = Math.floor((Date.now() - new Date(base).getTime()) / 86_400_000);
+  return Math.max(0, days);
+}
+
+export function isListingStale(l: { updatedAt?: string; createdAt: string }): boolean {
+  return listingDaysSinceConfirm(l) > STALE_DAYS;
+}
+
+// ------------------------------------------------------------------
+// Vendor trust score — one number out of 5, computed from real signals.
+//   verified shop          +2
+//   social link present    +1
+//   no unresolved reports  +2
+//   confirmed ≤7 days ago  +1
+//   paid placement         +1   (capped at 5)
+// ------------------------------------------------------------------
+export function vendorTrustScore(opts: {
+  verified: boolean;
+  hasSocial: boolean;
+  unresolvedReports: number;
+  daysSinceConfirm: number;
+  hasPaidPlacement: boolean;
+}): number {
+  let pts = 0;
+  if (opts.verified) pts += 2;
+  if (opts.hasSocial) pts += 1;
+  if (opts.unresolvedReports === 0) pts += 2;
+  if (opts.daysSinceConfirm <= 7) pts += 1;
+  if (opts.hasPaidPlacement) pts += 1;
+  return Math.max(0, Math.min(5, pts));
 }
 
 // ------------------------------------------------------------------

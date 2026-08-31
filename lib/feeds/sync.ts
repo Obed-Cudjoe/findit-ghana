@@ -28,13 +28,15 @@ interface SyncResult {
   products: number;
   offers: number;
   snapshots: number;
+  /** productSlug -> lowest offer price in cedis after this sync (alert checks) */
+  prices: Record<string, number>;
   error?: string;
 }
 
 export async function syncCatalogueToSupabase(): Promise<SyncResult> {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
-  if (!url || !key) return { vendors: 0, products: 0, offers: 0, snapshots: 0 };
+  if (!url || !key) return { vendors: 0, products: 0, offers: 0, snapshots: 0, prices: {} };
 
   const sb: SupabaseClient = createClient(url, key, { auth: { persistSession: false } });
 
@@ -55,7 +57,7 @@ export async function syncCatalogueToSupabase(): Promise<SyncResult> {
     external_id: s.vendor.slug,
   }));
   const { error: vendorErr } = await sb.from("vendors").upsert(vendorRows, { onConflict: "slug" });
-  if (vendorErr) return { vendors: 0, products: 0, offers: 0, snapshots: 0, error: vendorErr.message };
+  if (vendorErr) return { vendors: 0, products: 0, offers: 0, snapshots: 0, prices: {}, error: vendorErr.message };
 
   // 2. Upsert products (stable id per source-prefixed slug).
   const productRows = sources.flatMap((s) =>
@@ -74,7 +76,7 @@ export async function syncCatalogueToSupabase(): Promise<SyncResult> {
     }))
   );
   const { error: productErr } = await sb.from("products").upsert(productRows, { onConflict: "slug" });
-  if (productErr) return { vendors: vendorRows.length, products: 0, offers: 0, snapshots: 0, error: productErr.message };
+  if (productErr) return { vendors: vendorRows.length, products: 0, offers: 0, snapshots: 0, prices: {}, error: productErr.message };
 
   // 3. Upsert offers (stable id; FK to vendor + product by stable ids).
   const offerRows = sources.flatMap((s) =>
@@ -94,7 +96,7 @@ export async function syncCatalogueToSupabase(): Promise<SyncResult> {
     }))
   );
   const { error: offerErr } = await sb.from("price_offers").upsert(offerRows, { onConflict: "id" });
-  if (offerErr) return { vendors: vendorRows.length, products: productRows.length, offers: 0, snapshots: 0, error: offerErr.message };
+  if (offerErr) return { vendors: vendorRows.length, products: productRows.length, offers: 0, snapshots: 0, prices: {}, error: offerErr.message };
 
   // 4. Record one snapshot per offer — today's price observation. History
   // accumulates daily, which powers the price-history chart and drop badges.
@@ -105,12 +107,23 @@ export async function syncCatalogueToSupabase(): Promise<SyncResult> {
     captured_at: now,
   }));
   const { error: snapErr } = await sb.from("price_snapshots").insert(snapshotRows);
-  if (snapErr) return { vendors: vendorRows.length, products: productRows.length, offers: offerRows.length, snapshots: 0, error: snapErr.message };
+  if (snapErr) return { vendors: vendorRows.length, products: productRows.length, offers: offerRows.length, snapshots: 0, prices: {}, error: snapErr.message };
+
+  // Lowest current price per product slug — used to trigger price-drop alerts.
+  // Built from the source offers (which carry slugs) rather than the DB rows.
+  const prices: Record<string, number> = {};
+  for (const s of sources) {
+    for (const o of s.offers) {
+      const cur = prices[o.productSlug];
+      if (cur === undefined || o.priceGhs < cur) prices[o.productSlug] = o.priceGhs;
+    }
+  }
 
   return {
     vendors: vendorRows.length,
     products: productRows.length,
     offers: offerRows.length,
     snapshots: snapshotRows.length,
+    prices,
   };
 }

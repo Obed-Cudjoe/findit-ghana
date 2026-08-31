@@ -8,6 +8,7 @@ import { MobileMenu } from "@/components/mobile-menu";
 import { SearchAutocomplete } from "@/components/search-autocomplete";
 import { ServiceWorkerRegister } from "@/components/service-worker-register";
 import { InstallAppBanner } from "@/components/install-app";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
@@ -53,8 +54,15 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
-      <body className="min-h-screen flex flex-col">
+    <html lang="en" suppressHydrationWarning>
+      <body className="min-h-screen flex flex-col bg-white text-ink dark:bg-navy-950 dark:text-navy-100">
+        {/* set dark mode before paint — avoids the white flash on reload */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              'try{const t=localStorage.getItem("theme");if(t==="dark"||(!t&&window.matchMedia("(prefers-color-scheme: dark)").matches))document.documentElement.classList.add("dark")}catch(e){}',
+          }}
+        />
         {/* Site header — shared across every public page */}
         <header className="sticky top-0 z-40 bg-navy-900 text-white shadow-lg">
           <div className="mx-auto max-w-6xl px-4">
@@ -79,11 +87,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 <Link href="/vendors" className="hover:text-white transition-colors">Vendors</Link>
                 <Link href="/how-it-works" className="hidden xl:inline hover:text-white transition-colors">How it works</Link>
                 <Link href="/for-vendors" className="whitespace-nowrap font-semibold text-gold-400 hover:text-gold-300 transition-colors">For vendors</Link>
+                <Link href="/free-sellers" className="hidden xl:inline hover:text-white transition-colors">Free means free</Link>
               </nav>
 
               <div className="ml-auto hidden lg:block w-48 xl:w-64">
                 <SearchAutocomplete variant="compact" />
               </div>
+
+              <ThemeToggle />
 
               <Link href="/trust" className="ml-3 hidden xl:inline-flex items-center gap-1.5 rounded-full border border-navy-600 px-3 py-1.5 text-xs text-navy-100 hover:border-gold-500 hover:text-gold-400 transition-colors">
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" aria-hidden="true"><path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6l8-4z" /><path d="M9 12l2 2 4-4" /></svg>
@@ -128,6 +139,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   <li><Link className="hover:text-gold-400 transition-colors" href="/guides">Price guides</Link></li>
                   <li><Link className="hover:text-gold-400 transition-colors" href="/vendors">Vendor directory</Link></li>
                   <li><Link className="hover:text-gold-400 transition-colors" href="/for-vendors">For vendors — sell your products</Link></li>
+                  <li><Link className="hover:text-gold-400 transition-colors" href="/free-sellers">Free means free</Link></li>
                   <li><Link className="hover:text-gold-400 transition-colors" href="/vendor/login">Vendor login</Link></li>
                   <li><Link className="hover:text-gold-400 transition-colors" href="/contact">Contact</Link></li>
                 </ul>

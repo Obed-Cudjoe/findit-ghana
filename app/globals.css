@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+/* Dark mode: class-based, toggled from the header (persisted in
+   localStorage). Tailwind v4 needs the custom variant declared. */
+@custom-variant dark (&:where(.dark, .dark *));
+
 /* ============================================================
    FindIt Ghana — design tokens
    navy #0F2A43 · gold #F2B705 (brand system from the logo pack)

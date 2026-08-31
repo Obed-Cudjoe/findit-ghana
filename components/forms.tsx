@@ -24,7 +24,7 @@ function Field({ label, error, children }: { label: string; error?: string; chil
 }
 
 const inputCls =
-  "w-full rounded-lg border border-navy-200 bg-white px-3 py-2.5 text-base text-ink placeholder:text-slate-400 focus:border-gold-500 focus:outline-none focus:ring-2 focus:ring-gold-500/30 transition-shadow";
+  "w-full rounded-lg border border-navy-200 bg-white px-3 py-2.5 text-base text-ink placeholder:text-slate-400 focus:border-gold-500 focus:outline-none focus:ring-2 focus:ring-gold-500/30 transition-shadow dark:border-navy-700 dark:bg-navy-800 dark:text-navy-100";
 
 function SubmitButton({ busy, label }: { busy: boolean; label: string }) {
   return (

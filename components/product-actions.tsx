@@ -151,7 +151,7 @@ export function BeforeYouPayCard() {
     "What do other buyers say? Check reviews outside the vendor's own page.",
   ];
   return (
-    <section className="mt-8 rounded-xl border border-navy-100 bg-navy-50/50 p-5">
+    <section className="mt-8 rounded-xl border border-navy-100 bg-navy-50/50 p-5 dark:border-navy-800 dark:bg-navy-900/50">
       <h2 className="flex items-center gap-1.5 text-sm font-extrabold text-navy-900">
         <ShieldCheck className="h-4 w-4 text-gold-600" />
         Before you pay — four quick checks

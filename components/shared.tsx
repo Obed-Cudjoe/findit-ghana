@@ -52,7 +52,7 @@ export function ProductCard({ product, cheapest }: { product: Product; cheapest?
   return (
     <Link
       href={`/product/${product.slug}`}
-      className="hover-lift group flex min-w-0 flex-col overflow-hidden rounded-xl border border-navy-100 bg-white"
+      className="hover-lift group flex min-w-0 flex-col overflow-hidden rounded-xl border border-navy-100 bg-white dark:border-navy-800 dark:bg-navy-900"
     >
       <ProductVisual product={product} className="aspect-[4/3] w-full" />
       <div className="flex flex-1 flex-col p-3">
@@ -74,12 +74,12 @@ export function ProductCard({ product, cheapest }: { product: Product; cheapest?
           )}
         </p>
         {/* line-clamp-2 keeps the pair layout even — Jiji-style compact cards */}
-        <h3 className="mt-0.5 line-clamp-2 break-words text-sm font-bold leading-snug text-navy-900 group-hover:text-navy-600 transition-colors">
+        <h3 className="mt-0.5 line-clamp-2 break-words text-sm font-bold leading-snug text-navy-900 group-hover:text-navy-600 dark:text-navy-100 transition-colors">
           {product.name}
         </h3>
         {cheapest ? (
           <>
-            <p className="mt-1.5 text-lg font-extrabold text-navy-900 lg:text-xl">{formatGHS(cheapest.priceGhs)}</p>
+            <p className="mt-1.5 text-lg font-extrabold text-navy-900 dark:text-white lg:text-xl">{formatGHS(cheapest.priceGhs)}</p>
             <p className="mt-0.5 text-[11px] text-slate-soft">
               {cheapest.stockCount !== null && cheapest.stockCount > 0 ? (
                 <span className="inline-flex items-center gap-1 text-emerald-700">
@@ -150,7 +150,7 @@ export function TrustStrip() {
   });
 
   return (
-    <div className="border-y border-navy-100 bg-navy-50">
+    <div className="border-y border-navy-100 bg-navy-50 dark:border-navy-800 dark:bg-navy-900">
       <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-center gap-x-8 gap-y-2 px-4 py-3 text-sm text-navy-800">
         <span className="inline-flex items-center gap-1.5">
           <Package className="h-4 w-4 text-gold-600" />
@@ -212,7 +212,7 @@ export function OfficialSources({
 /* ---------- Empty state (COMP-15) — never a dead end ---------- */
 export function EmptyState({ title, hint }: { title: string; hint: string }) {
   return (
-    <div className="rounded-xl border border-dashed border-navy-200 bg-navy-50/60 p-10 text-center">
+    <div className="rounded-xl border border-dashed border-navy-200 bg-navy-50/60 p-10 text-center dark:border-navy-700 dark:bg-navy-900/60">
       <p className="font-bold text-navy-900">{title}</p>
       <p className="mx-auto mt-1 max-w-md text-sm text-slate-soft">{hint}</p>
       <div className="mt-4 flex flex-wrap justify-center gap-2 text-sm">

@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { ShieldCheck, Clock, TriangleAlert, MessageCircle, BadgeCheck, Infinity as InfinityIcon } from "lucide-react";
 import {
   getMergedProductPage, getOffersForProduct, getSnapshotsForOffer, loadSnapshotsForOffer, getProducts,
+  listingDaysSinceConfirm, vendorTrustScore, isListingFeatured, RECONFIRM_NUDGE_DAYS,
 } from "@/lib/data";
 import { ProductVisual, PriceChart, ProductCard, PriceDropBadge } from "@/components/shared";
 import { ImageGallery } from "@/components/image-gallery";
@@ -14,6 +15,7 @@ import {
   BeforeYouPayCard,
 } from "@/components/product-actions";
 import { readReports } from "@/lib/store";
+import { PriceAlertForm } from "@/components/price-alert-form";
 import { formatGHS, timeAgo, formatDate } from "@/lib/utils";
 import { UNLIMITED_BADGE } from "@/lib/plans";
 
@@ -71,6 +73,21 @@ export default async function ProductPage({ params }: Props) {
         return { total: related.length, unresolved };
       })()
     : { total: 0, unresolved: 0 };
+
+  // Freshness + trust score for vendor listings (honest-data features).
+  const daysConfirmed = vListing ? listingDaysSinceConfirm(vListing) : 0;
+  const trustVendor = vListing
+    ? vendors.find((v) => v.id === (vListing.vendorId ? `vp-${vListing.vendorId}` : `vlv-${vListing.id}`))
+    : undefined;
+  const trustScore = vListing
+    ? vendorTrustScore({
+        verified: trustVendor?.verified ?? false,
+        hasSocial: Boolean(vListing.websiteUrl),
+        unresolvedReports: reportStats.unresolved,
+        daysSinceConfirm: daysConfirmed,
+        hasPaidPlacement: Boolean(product.featured || product.unlimited || isListingFeatured(vListing)),
+      })
+    : 0;
 
   // Every photo the vendors on this page uploaded, in order. When several
   // shops list the same product, buyers see photos from all of them.
@@ -134,11 +151,31 @@ export default async function ProductPage({ params }: Props) {
             <Clock className="h-3.5 w-3.5" /> Prices checked {timeAgo(listingOnly && vListing ? (vListing.updatedAt ?? vListing.createdAt) : product.updatedAt)}
           </p>
 
-          {/* Social presence + report history — rendered whenever a vendor
-              listing is on the page (standalone or merged with catalogue) */}
+          {/* Social presence + report history + trust score (honest-data features) */}
           {vListing && (
-            <div className="mt-3">
+            <div className="mt-3 space-y-2">
               <VendorTrustSignals socialUrl={vListing.websiteUrl ?? ""} reports={reportStats} />
+              <div className="flex flex-wrap items-center gap-2">
+                <span
+                  className="inline-flex items-center gap-1.5 rounded-full bg-navy-900 px-3 py-1 text-xs font-bold text-white"
+                  title="Computed from verification, social presence, report history, freshness and plan"
+                >
+                  <ShieldCheck className={`h-3.5 w-3.5 ${trustScore >= 4 ? "text-emerald-400" : trustScore >= 3 ? "text-gold-400" : "text-amber-400"}`} />
+                  Trust score {trustScore}/5
+                </span>
+                <span
+                  className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold ${
+                    daysConfirmed > RECONFIRM_NUDGE_DAYS
+                      ? "bg-amber-50 text-amber-700 ring-1 ring-amber-200"
+                      : "bg-emerald-50 text-emerald-700 ring-1 ring-emerald-200"
+                  }`}
+                >
+                  <Clock className="h-3.5 w-3.5" />
+                  {daysConfirmed <= RECONFIRM_NUDGE_DAYS
+                    ? `Vendor confirmed ${daysConfirmed === 0 ? "today" : `${daysConfirmed} day${daysConfirmed === 1 ? "" : "s"} ago`}`
+                    : `Not re-confirmed in ${daysConfirmed} days — ask the vendor if it's still available`}
+                </span>
+              </div>
             </div>
           )}
 
@@ -202,6 +239,16 @@ export default async function ProductPage({ params }: Props) {
           <span className="inline-flex items-center gap-1.5"><TriangleAlert className="h-4 w-4 text-amber-600" /> Total cost includes delivery, so nothing surprises you at the door.</span>
         </div>
       </section>
+
+      {/* Price-drop alert — every product page. Subscribes the shopper's
+          WhatsApp number; the daily refresh triggers it on a real drop. */}
+      <div className="mt-6">
+        <PriceAlertForm
+          productSlug={slug}
+          productName={product.name}
+          currentPrice={cheapest?.priceGhs}
+        />
+      </div>
 
       {/* Before-you-pay checklist — every product page (both catalogue + vendor) */}
       <BeforeYouPayCard />
