@@ -67,7 +67,7 @@ export function SearchFilterPanel({
   const panel = (
     <div className="space-y-5">
       <div>
-        <p className="mb-1.5 text-xs font-bold uppercase tracking-wide text-slate-soft">Sort by</p>
+        <p className="mb-1.5 text-xs font-bold uppercase tracking-wide text-slate-soft dark:text-navy-300">Sort by</p>
         <select className={selectCls} value={draft.sort} onChange={(e) => setDraft({ ...draft, sort: e.target.value })}>
           <option value="relevance">Relevance</option>
           <option value="price-asc">Price: low to high</option>
@@ -77,7 +77,7 @@ export function SearchFilterPanel({
       </div>
 
       <div>
-        <p className="mb-1.5 text-xs font-bold uppercase tracking-wide text-slate-soft">Brand</p>
+        <p className="mb-1.5 text-xs font-bold uppercase tracking-wide text-slate-soft dark:text-navy-300">Brand</p>
         <select className={selectCls} value={draft.brand} onChange={(e) => setDraft({ ...draft, brand: e.target.value })}>
           <option value="">All brands</option>
           {brands.map((b) => (
@@ -87,7 +87,7 @@ export function SearchFilterPanel({
       </div>
 
       <div>
-        <p className="mb-1.5 text-xs font-bold uppercase tracking-wide text-slate-soft">Max price (GH₵)</p>
+        <p className="mb-1.5 text-xs font-bold uppercase tracking-wide text-slate-soft dark:text-navy-300">Max price (GH₵)</p>
         <div className="flex items-center gap-2">
           <input
             className={inputCls}
@@ -98,7 +98,7 @@ export function SearchFilterPanel({
             value={draft.min}
             onChange={(e) => setDraft({ ...draft, min: e.target.value })}
           />
-          <span className="text-slate-soft">–</span>
+          <span className="text-slate-soft dark:text-navy-300">–</span>
           <input
             className={inputCls}
             type="number"
@@ -112,7 +112,7 @@ export function SearchFilterPanel({
       </div>
 
       <div>
-        <p className="mb-1.5 text-xs font-bold uppercase tracking-wide text-slate-soft">Delivery zone</p>
+        <p className="mb-1.5 text-xs font-bold uppercase tracking-wide text-slate-soft dark:text-navy-300">Delivery zone</p>
         <select className={selectCls} value={draft.zone} onChange={(e) => setDraft({ ...draft, zone: e.target.value })}>
           <option value="">All zones</option>
           {zones.map((z) => (
@@ -122,7 +122,7 @@ export function SearchFilterPanel({
       </div>
 
       <div className="space-y-2">
-        <label className="flex cursor-pointer items-center gap-2 text-sm text-navy-900">
+        <label className="flex cursor-pointer items-center gap-2 text-sm text-navy-900 dark:text-navy-100">
           <input
             type="checkbox"
             className="h-4 w-4 accent-gold-600"
@@ -131,7 +131,7 @@ export function SearchFilterPanel({
           />
           In stock only
         </label>
-        <label className="flex cursor-pointer items-center gap-2 text-sm text-navy-900">
+        <label className="flex cursor-pointer items-center gap-2 text-sm text-navy-900 dark:text-navy-100">
           <input
             type="checkbox"
             className="h-4 w-4 accent-gold-600"
@@ -154,7 +154,7 @@ export function SearchFilterPanel({
           <button
             type="button"
             onClick={clearAll}
-            className="rounded-lg border border-navy-200 px-4 py-2.5 text-sm font-semibold text-slate-soft hover:border-red-300 hover:text-red-700 transition-colors"
+            className="rounded-lg border border-navy-200 dark:border-navy-700 px-4 py-2.5 text-sm font-semibold text-slate-soft dark:text-navy-300 hover:border-red-300 hover:text-red-700 transition-colors"
           >
             Clear
           </button>
@@ -167,9 +167,9 @@ export function SearchFilterPanel({
     <>
       {/* desktop sidebar */}
       <div className="hidden lg:block">
-        <div className="rounded-xl border border-navy-100 bg-white p-5 dark:border-navy-800 dark:bg-navy-900">
-          <p className="mb-4 flex items-center gap-2 font-bold text-navy-900">
-            <SlidersHorizontal className="h-4 w-4 text-gold-600" /> Filters
+        <div className="rounded-xl border border-navy-100 dark:border-navy-800 bg-white dark:bg-navy-900 p-5 dark:border-navy-800 dark:bg-navy-900">
+          <p className="mb-4 flex items-center gap-2 font-bold text-navy-900 dark:text-navy-100">
+            <SlidersHorizontal className="h-4 w-4 text-gold-600 dark:text-gold-500" /> Filters
           </p>
           {panel}
         </div>
@@ -180,20 +180,20 @@ export function SearchFilterPanel({
         <button
           type="button"
           onClick={() => setMobileOpen((o) => !o)}
-          className="flex w-full items-center justify-center gap-2 rounded-lg border border-navy-200 bg-white px-4 py-2.5 text-sm font-bold text-navy-900"
+          className="flex w-full items-center justify-center gap-2 rounded-lg border border-navy-200 dark:border-navy-700 bg-white dark:bg-navy-900 px-4 py-2.5 text-sm font-bold text-navy-900 dark:text-navy-100"
         >
-          <SlidersHorizontal className="h-4 w-4 text-gold-600" />
+          <SlidersHorizontal className="h-4 w-4 text-gold-600 dark:text-gold-500" />
           {hasActive ? "Filters active" : "Filters & sort"}
         </button>
         {mobileOpen && (
-          <div className="mt-3 rounded-xl border border-navy-100 bg-white p-5 shadow-lg dark:border-navy-800 dark:bg-navy-900">
+          <div className="mt-3 rounded-xl border border-navy-100 dark:border-navy-800 bg-white dark:bg-navy-900 p-5 shadow-lg dark:border-navy-800 dark:bg-navy-900">
             <div className="mb-4 flex items-center justify-between">
-              <p className="font-bold text-navy-900">Filters & sort</p>
+              <p className="font-bold text-navy-900 dark:text-navy-100">Filters & sort</p>
               <button
                 type="button"
                 onClick={() => setMobileOpen(false)}
                 aria-label="Close filters"
-                className="rounded-lg p-1 text-slate-soft hover:bg-navy-50"
+                className="rounded-lg p-1 text-slate-soft dark:text-navy-300 hover:bg-navy-50"
               >
                 <X className="h-4 w-4" />
               </button>

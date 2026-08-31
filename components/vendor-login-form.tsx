@@ -62,7 +62,7 @@ export function VendorLoginForm({ nextPath }: { nextPath: string }) {
 
   return (
     <form onSubmit={onSubmit} className="mt-6 space-y-4">
-      <div className="grid grid-cols-2 gap-1 rounded-lg bg-navy-50 p-1 text-sm font-semibold">
+      <div className="grid grid-cols-2 gap-1 rounded-lg bg-navy-50 dark:bg-navy-900/60 p-1 text-sm font-semibold">
         <button
           type="button"
           onClick={() => { setMode("login"); setError(""); }}
@@ -79,10 +79,10 @@ export function VendorLoginForm({ nextPath }: { nextPath: string }) {
         </button>
       </div>
 
-      {error && <p className="rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-700" role="alert">{error}</p>}
+      {error && <p className="rounded-lg border border-red-200 bg-red-50 dark:bg-red-900/30 px-3 py-2 text-sm text-red-700 dark:text-red-300" role="alert">{error}</p>}
 
       <label className="block">
-        <span className="mb-1 block text-sm font-semibold text-navy-900">Phone / WhatsApp</span>
+        <span className="mb-1 block text-sm font-semibold text-navy-900 dark:text-navy-100">Phone / WhatsApp</span>
         <input
           className={inputCls}
           value={phone}
@@ -96,7 +96,7 @@ export function VendorLoginForm({ nextPath }: { nextPath: string }) {
 
       {mode === "set" && (
         <label className="block">
-          <span className="mb-1 block text-sm font-semibold text-navy-900">Business name</span>
+          <span className="mb-1 block text-sm font-semibold text-navy-900 dark:text-navy-100">Business name</span>
           <input
             className={inputCls}
             value={businessName}
@@ -109,7 +109,7 @@ export function VendorLoginForm({ nextPath }: { nextPath: string }) {
       )}
 
       <label className="block">
-        <span className="mb-1 block text-sm font-semibold text-navy-900">Password</span>
+        <span className="mb-1 block text-sm font-semibold text-navy-900 dark:text-navy-100">Password</span>
         <input
           type="password"
           className={inputCls}
@@ -123,7 +123,7 @@ export function VendorLoginForm({ nextPath }: { nextPath: string }) {
 
       {mode === "set" && (
         <label className="block">
-          <span className="mb-1 block text-sm font-semibold text-navy-900">Confirm password</span>
+          <span className="mb-1 block text-sm font-semibold text-navy-900 dark:text-navy-100">Confirm password</span>
           <input
             type="password"
             className={inputCls}
@@ -144,11 +144,11 @@ export function VendorLoginForm({ nextPath }: { nextPath: string }) {
         {busy ? "Please wait…" : mode === "login" ? "Sign in" : "Create login & continue"}
       </button>
 
-      <p className="text-center text-xs text-slate-soft">
+      <p className="text-center text-xs text-slate-soft dark:text-navy-300">
         {mode === "set"
           ? "Only for shops that listed before dashboard login existed. New listings set a password on For vendors."
           : "No shop yet?"}{" "}
-        <Link href="/for-vendors" className="font-semibold text-navy-800 underline">List a product →</Link>
+        <Link href="/for-vendors" className="font-semibold text-navy-800 dark:text-navy-200 underline">List a product →</Link>
       </p>
     </form>
   );

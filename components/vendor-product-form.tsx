@@ -60,12 +60,12 @@ async function downscaleForUpload(file: File): Promise<File> {
 function Field({ label, required, error, children }: { label: string; required?: boolean; error?: string; children: React.ReactNode }) {
   return (
     <label className="block">
-      <span className="mb-1 block text-sm font-semibold text-navy-900">
-        {label} {required && <span className="text-gold-600">*</span>}
+      <span className="mb-1 block text-sm font-semibold text-navy-900 dark:text-navy-100">
+        {label} {required && <span className="text-gold-600 dark:text-gold-500">*</span>}
       </span>
       {children}
       {error && (
-        <span className="mt-1 flex items-center gap-1 text-xs font-medium text-red-700" role="alert">
+        <span className="mt-1 flex items-center gap-1 text-xs font-medium text-red-700 dark:text-red-300" role="alert">
           {error}
         </span>
       )}
@@ -150,9 +150,9 @@ export function VendorProductForm() {
 
   if (done) {
     return (
-      <div className="rounded-xl border border-emerald-200 bg-emerald-50 p-5" role="status">
-        <p className="font-bold text-emerald-800">Listing received — in the review queue.</p>
-        <p className="mt-1 text-sm text-emerald-800">It appears on your public shop after we approve it.</p>
+      <div className="rounded-xl border border-emerald-200 bg-emerald-50 dark:bg-emerald-900/30 p-5" role="status">
+        <p className="font-bold text-emerald-800 dark:text-emerald-200">Listing received — in the review queue.</p>
+        <p className="mt-1 text-sm text-emerald-800 dark:text-emerald-200">It appears on your public shop after we approve it.</p>
         <button
           type="button"
           onClick={() => {
@@ -183,7 +183,7 @@ export function VendorProductForm() {
   return (
     <form onSubmit={onSubmit} noValidate className="space-y-4">
       {serverError && (
-        <p className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm font-medium text-red-700" role="alert">
+        <p className="rounded-lg border border-red-200 bg-red-50 dark:bg-red-900/30 px-4 py-3 text-sm font-medium text-red-700 dark:text-red-300" role="alert">
           {serverError}{" "}
           {serverError.includes("Upgrade") && (
             <Link href="/for-vendors" className="underline">See plans →</Link>
@@ -233,7 +233,7 @@ export function VendorProductForm() {
           placeholder="Condition, warranty, colour options — what should buyers know before they message you?"
         />
       </Field>
-      <div className="rounded-xl border border-navy-100 bg-navy-50/40 p-4">
+      <div className="rounded-xl border border-navy-100 dark:border-navy-800 bg-navy-50/40 dark:bg-navy-900/50 p-4">
         <ProductImageUpload photos={photos} onChange={setPhotos} error={errors.photos} />
       </div>
       <button

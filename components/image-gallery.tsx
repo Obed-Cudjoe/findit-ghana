@@ -37,7 +37,7 @@ export function ImageGallery({ images, name, className = "" }: { images: string[
       <button
         type="button"
         onClick={() => setLightbox(true)}
-        className="group relative block aspect-square w-full cursor-zoom-in overflow-hidden rounded-2xl bg-white shadow-md"
+        className="group relative block aspect-square w-full cursor-zoom-in overflow-hidden rounded-2xl bg-white dark:bg-navy-900 shadow-md"
         aria-label={`Open photo ${active + 1} of ${count} of ${name} full screen`}
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -117,7 +117,7 @@ export function ImageGallery({ images, name, className = "" }: { images: string[
           <img
             src={images[active]}
             alt={`${name} — photo ${active + 1} of ${count}`}
-            className="max-h-[85vh] max-w-full rounded-xl bg-white object-contain"
+            className="max-h-[85vh] max-w-full rounded-xl bg-white dark:bg-navy-900 object-contain"
             onClick={(e) => e.stopPropagation()}
           />
         </div>

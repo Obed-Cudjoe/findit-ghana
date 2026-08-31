@@ -16,7 +16,7 @@ export function VendorLogOutButton() {
     <button
       onClick={logout}
       disabled={busy}
-      className="rounded-lg border border-navy-200 px-4 py-2 text-sm font-semibold text-navy-700 hover:border-red-300 hover:text-red-700 transition-colors"
+      className="rounded-lg border border-navy-200 dark:border-navy-700 px-4 py-2 text-sm font-semibold text-navy-700 dark:text-navy-300 hover:border-red-300 hover:text-red-700 transition-colors"
     >
       {busy ? "Signing out…" : "Sign out"}
     </button>

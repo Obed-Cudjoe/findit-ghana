@@ -75,8 +75,8 @@ export function ProductImageUpload({
   return (
     <div>
       <div className="mb-2 flex flex-wrap items-center justify-between gap-2">
-        <span className="text-sm font-semibold text-navy-900">
-          Product photos <span className="text-gold-600">*</span>
+        <span className="text-sm font-semibold text-navy-900 dark:text-navy-100">
+          Product photos <span className="text-gold-600 dark:text-gold-500">*</span>
         </span>
         <span
           className={`text-xs font-semibold ${photos.length >= MIN_PHOTOS ? "text-emerald-700" : "text-slate-soft"}`}
@@ -88,7 +88,7 @@ export function ProductImageUpload({
 
       <div className="grid grid-cols-3 gap-2 sm:grid-cols-6">
         {photos.map((file, i) => (
-          <div key={`${file.name}-${file.size}-${i}`} className="group relative aspect-square overflow-hidden rounded-lg border border-navy-200 bg-navy-50">
+          <div key={`${file.name}-${file.size}-${i}`} className="group relative aspect-square overflow-hidden rounded-lg border border-navy-200 dark:border-navy-700 bg-navy-50 dark:bg-navy-900/60">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={urlsRef.current.get(file)} alt={`Photo ${i + 1} of ${file.name}`} className="h-full w-full object-cover" />
             {i === 0 && (
@@ -100,16 +100,16 @@ export function ProductImageUpload({
               type="button"
               onClick={() => remove(file)}
               aria-label={`Remove photo ${i + 1}`}
-              className="absolute right-1 top-1 rounded-full bg-white/90 p-1 text-navy-900 shadow hover:bg-red-50 hover:text-red-600"
+              className="absolute right-1 top-1 rounded-full bg-white/90 p-1 text-navy-900 dark:text-navy-100 shadow hover:bg-red-50 hover:text-red-600"
             >
               <X className="h-3 w-3" />
             </button>
           </div>
         ))}
         {photos.length < MAX_PHOTOS && (
-          <label className="flex aspect-square cursor-pointer flex-col items-center justify-center gap-1 rounded-lg border-2 border-dashed border-navy-200 bg-navy-50/50 p-2 text-center transition-colors hover:border-gold-500 hover:bg-gold-500/5">
-            <Camera className="h-5 w-5 text-slate-soft" />
-            <span className="text-[11px] font-semibold leading-tight text-slate-soft">Add photo</span>
+          <label className="flex aspect-square cursor-pointer flex-col items-center justify-center gap-1 rounded-lg border-2 border-dashed border-navy-200 dark:border-navy-700 bg-navy-50/50 dark:bg-navy-900/50 p-2 text-center transition-colors hover:border-gold-500 hover:bg-gold-500/5">
+            <Camera className="h-5 w-5 text-slate-soft dark:text-navy-300" />
+            <span className="text-[11px] font-semibold leading-tight text-slate-soft dark:text-navy-300">Add photo</span>
             <input
               type="file"
               accept="image/jpeg,image/png,image/webp"
@@ -124,11 +124,11 @@ export function ProductImageUpload({
         )}
       </div>
 
-      <p className="mt-2 text-xs text-slate-soft">
+      <p className="mt-2 text-xs text-slate-soft dark:text-navy-300">
         Show the product from at least 3 angles — buyers view them before contacting you. JPG, PNG or WebP · max 3 MB each · auto-compressed on upload.
       </p>
       {shownError && (
-        <p className="mt-1.5 text-xs font-medium text-red-700" role="alert">
+        <p className="mt-1.5 text-xs font-medium text-red-700 dark:text-red-300" role="alert">
           {shownError}
         </p>
       )}

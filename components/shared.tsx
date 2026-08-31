@@ -52,14 +52,14 @@ export function ProductCard({ product, cheapest }: { product: Product; cheapest?
   return (
     <Link
       href={`/product/${product.slug}`}
-      className="hover-lift group flex min-w-0 flex-col overflow-hidden rounded-xl border border-navy-100 bg-white dark:border-navy-800 dark:bg-navy-900"
+      className="hover-lift group flex min-w-0 flex-col overflow-hidden rounded-xl border border-navy-100 dark:border-navy-800 bg-white dark:bg-navy-900 dark:border-navy-800 dark:bg-navy-900"
     >
       <ProductVisual product={product} className="aspect-[4/3] w-full" />
       <div className="flex flex-1 flex-col p-3">
-        <p className="flex flex-wrap items-center gap-1.5 text-[11px] font-semibold uppercase tracking-wide text-slate-soft">
+        <p className="flex flex-wrap items-center gap-1.5 text-[11px] font-semibold uppercase tracking-wide text-slate-soft dark:text-navy-300">
           <span className="truncate">{product.isVendorListing ? "New vendor · self-listed" : product.brand}</span>
           {!product.isVendorListing && vendorName && (
-            <span className="truncate font-medium normal-case tracking-normal text-navy-500">· {vendorName}</span>
+            <span className="truncate font-medium normal-case tracking-normal text-navy-500 dark:text-navy-400">· {vendorName}</span>
           )}
           {product.unlimited ? (
             <span className="rounded-full bg-navy-950 px-1.5 py-0.5 text-[10px] font-extrabold normal-case tracking-normal text-gold-400 ring-1 ring-gold-500/60">
@@ -74,29 +74,29 @@ export function ProductCard({ product, cheapest }: { product: Product; cheapest?
           )}
         </p>
         {/* line-clamp-2 keeps the pair layout even — Jiji-style compact cards */}
-        <h3 className="mt-0.5 line-clamp-2 break-words text-sm font-bold leading-snug text-navy-900 group-hover:text-navy-600 dark:text-navy-100 transition-colors">
+        <h3 className="mt-0.5 line-clamp-2 break-words text-sm font-bold leading-snug text-navy-900 dark:text-navy-100 group-hover:text-navy-600 dark:text-navy-100 transition-colors">
           {product.name}
         </h3>
         {cheapest ? (
           <>
             <p className="mt-1.5 text-lg font-extrabold text-navy-900 dark:text-white lg:text-xl">{formatGHS(cheapest.priceGhs)}</p>
-            <p className="mt-0.5 text-[11px] text-slate-soft">
+            <p className="mt-0.5 text-[11px] text-slate-soft dark:text-navy-300">
               {cheapest.stockCount !== null && cheapest.stockCount > 0 ? (
-                <span className="inline-flex items-center gap-1 text-emerald-700">
+                <span className="inline-flex items-center gap-1 text-emerald-700 dark:text-emerald-300">
                   <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" /> In stock · {cheapest.stockCount}
                 </span>
               ) : (
-                <span className="text-amber-700">Check stock with vendor</span>
+                <span className="text-amber-700 dark:text-amber-300">Check stock with vendor</span>
               )}
             </p>
-            <p className="mt-0.5 flex min-w-0 items-center gap-1 text-[11px] text-slate-soft">
+            <p className="mt-0.5 flex min-w-0 items-center gap-1 text-[11px] text-slate-soft dark:text-navy-300">
               <Truck className="h-3.5 w-3.5 shrink-0" /> <span className="truncate">{deliveryLabel(cheapest)}</span>
             </p>
           </>
         ) : (
-          <p className="mt-2 text-sm text-slate-soft">No live offers yet</p>
+          <p className="mt-2 text-sm text-slate-soft dark:text-navy-300">No live offers yet</p>
         )}
-        <span className="mt-2 inline-flex items-center gap-1 text-xs font-semibold text-gold-600 group-hover:gap-2 transition-all lg:text-sm">
+        <span className="mt-2 inline-flex items-center gap-1 text-xs font-semibold text-gold-600 dark:text-gold-500 group-hover:gap-2 transition-all lg:text-sm">
           View prices <ArrowRight className="h-4 w-4" />
         </span>
       </div>
@@ -125,7 +125,7 @@ export function PriceChart({ points }: { points: { priceGhs: number; capturedAt:
         <polyline points={line} fill="none" stroke="#F2B705" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
         <circle cx={last.x} cy={last.y} r="4" fill="#0F2A43" stroke="#F2B705" strokeWidth="2" />
       </svg>
-      <div className="mt-1 flex justify-between text-[11px] text-slate-soft">
+      <div className="mt-1 flex justify-between text-[11px] text-slate-soft dark:text-navy-300">
         <span>{new Date(points[0].capturedAt).toLocaleDateString("en-GB", { month: "short" })}</span>
         <span>12-week history</span>
         <span>{new Date(points[points.length - 1].capturedAt).toLocaleDateString("en-GB", { month: "short" })}</span>
@@ -150,10 +150,10 @@ export function TrustStrip() {
   });
 
   return (
-    <div className="border-y border-navy-100 bg-navy-50 dark:border-navy-800 dark:bg-navy-900">
-      <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-center gap-x-8 gap-y-2 px-4 py-3 text-sm text-navy-800">
+    <div className="border-y border-navy-100 dark:border-navy-800 bg-navy-50 dark:bg-navy-900/60 dark:border-navy-800 dark:bg-navy-900">
+      <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-center gap-x-8 gap-y-2 px-4 py-3 text-sm text-navy-800 dark:text-navy-200">
         <span className="inline-flex items-center gap-1.5">
-          <Package className="h-4 w-4 text-gold-600" />
+          <Package className="h-4 w-4 text-gold-600 dark:text-gold-500" />
           <strong>{productCount.toLocaleString("en-GH")}</strong>&nbsp;products compared
         </span>
         <span className="inline-flex items-center gap-1.5">
@@ -161,11 +161,11 @@ export function TrustStrip() {
           <strong>{shopCount}</strong>&nbsp;verified shops
         </span>
         <span className="inline-flex items-center gap-1.5">
-          <Clock className="h-4 w-4 text-gold-600" />
+          <Clock className="h-4 w-4 text-gold-600 dark:text-gold-500" />
           Catalogues checked&nbsp;<strong>{latestDate}</strong>
         </span>
         <span className="inline-flex items-center gap-1.5">
-          <Truck className="h-4 w-4 text-navy-500" />
+          <Truck className="h-4 w-4 text-navy-500 dark:text-navy-400" />
           Delivery shown upfront
         </span>
       </div>
@@ -182,8 +182,8 @@ export function OfficialSources({
   return (
     <section className="mx-auto max-w-6xl px-4 py-12">
       <div className="mb-6">
-        <h2 className="text-xl font-extrabold text-navy-900 md:text-2xl">Verified price sources</h2>
-        <p className="mt-1 text-sm text-slate-soft">
+        <h2 className="text-xl font-extrabold text-navy-900 dark:text-navy-100 md:text-2xl">Verified price sources</h2>
+        <p className="mt-1 text-sm text-slate-soft dark:text-navy-300">
           Every catalogue price comes from a named Ghanaian retailer. Deal buttons open that shop&apos;s own product page.
         </p>
       </div>
@@ -192,14 +192,14 @@ export function OfficialSources({
           <Link
             key={s.host}
             href={`/search?q=${encodeURIComponent(s.search)}`}
-            className="hover-lift group rounded-xl border border-navy-100 bg-white p-5"
+            className="hover-lift group rounded-xl border border-navy-100 dark:border-navy-800 bg-white dark:bg-navy-900 p-5"
           >
-            <p className="flex items-center gap-1.5 text-sm font-extrabold text-navy-900 group-hover:text-gold-700 transition-colors">
+            <p className="flex items-center gap-1.5 text-sm font-extrabold text-navy-900 dark:text-navy-100 group-hover:text-gold-700 transition-colors">
               <ShieldCheck className="h-4 w-4 text-emerald-600" /> {s.name}
             </p>
             <p className="mt-1 text-xs font-semibold uppercase tracking-wide text-slate-400">{s.host}</p>
-            <p className="mt-2 text-sm text-slate-soft">{s.blurb}</p>
-            <span className="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-gold-600 group-hover:gap-2 transition-all">
+            <p className="mt-2 text-sm text-slate-soft dark:text-navy-300">{s.blurb}</p>
+            <span className="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-gold-600 dark:text-gold-500 group-hover:gap-2 transition-all">
               See their prices <ArrowRight className="h-4 w-4" />
             </span>
           </Link>
@@ -212,12 +212,12 @@ export function OfficialSources({
 /* ---------- Empty state (COMP-15) — never a dead end ---------- */
 export function EmptyState({ title, hint }: { title: string; hint: string }) {
   return (
-    <div className="rounded-xl border border-dashed border-navy-200 bg-navy-50/60 p-10 text-center dark:border-navy-700 dark:bg-navy-900/60">
-      <p className="font-bold text-navy-900">{title}</p>
-      <p className="mx-auto mt-1 max-w-md text-sm text-slate-soft">{hint}</p>
+    <div className="rounded-xl border border-dashed border-navy-200 dark:border-navy-700 bg-navy-50/60 dark:bg-navy-900/50 p-10 text-center dark:border-navy-700 dark:bg-navy-900/60">
+      <p className="font-bold text-navy-900 dark:text-navy-100">{title}</p>
+      <p className="mx-auto mt-1 max-w-md text-sm text-slate-soft dark:text-navy-300">{hint}</p>
       <div className="mt-4 flex flex-wrap justify-center gap-2 text-sm">
         {["tecno", "smart tv", "ps5", "fridge"].map((s) => (
-          <Link key={s} href={`/search?q=${encodeURIComponent(s)}`} className="rounded-full border border-navy-200 bg-white px-3 py-1 text-navy-700 hover:border-gold-500 hover:text-gold-700 transition-colors">
+          <Link key={s} href={`/search?q=${encodeURIComponent(s)}`} className="rounded-full border border-navy-200 dark:border-navy-700 bg-white dark:bg-navy-900 px-3 py-1 text-navy-700 dark:text-navy-300 hover:border-gold-500 hover:text-gold-700 transition-colors">
             {s}
           </Link>
         ))}
@@ -250,7 +250,7 @@ export function PriceDropBadge({
   const drop = previous.priceGhs - latest.priceGhs;
   if (drop <= 0) return null;
   return (
-    <span className="inline-flex items-center gap-1 rounded-full bg-emerald-50 px-3 py-1 text-xs font-bold text-emerald-700 ring-1 ring-emerald-200">
+    <span className="inline-flex items-center gap-1 rounded-full bg-emerald-50 dark:bg-emerald-900/30 px-3 py-1 text-xs font-bold text-emerald-700 dark:text-emerald-300 ring-1 ring-emerald-200">
       <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" aria-hidden="true">
         <path d="M12 19V5M5 12l7-7 7 7" />
       </svg>

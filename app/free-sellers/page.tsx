@@ -12,20 +12,20 @@ export default function FreeSellersPage() {
   return (
     <div className="mx-auto max-w-4xl px-4 py-10">
       <header className="text-center">
-        <p className="text-xs font-bold uppercase tracking-widest text-gold-700">For vendors</p>
+        <p className="text-xs font-bold uppercase tracking-widest text-gold-700 dark:text-gold-500">For vendors</p>
         <h1 className="mt-2 text-3xl font-extrabold text-navy-900 dark:text-white">Free means free.</h1>
-        <p className="mx-auto mt-3 max-w-xl text-slate-soft">
+        <p className="mx-auto mt-3 max-w-xl text-slate-soft dark:text-navy-300">
           Other platforms charge you to list, then bury your ad unless you pay more. We don&apos;t play that game.
           Here&apos;s the whole story, in writing.
         </p>
       </header>
 
       <div className="mt-10 grid gap-4 md:grid-cols-2">
-        <div className="rounded-xl border border-navy-100 bg-white p-6 dark:border-navy-800 dark:bg-navy-900">
+        <div className="rounded-xl border border-navy-100 dark:border-navy-800 bg-white dark:bg-navy-900 p-6 dark:border-navy-800 dark:bg-navy-900">
           <p className="flex items-center gap-2 font-extrabold text-navy-900 dark:text-white">
             <XCircle className="h-5 w-5 text-red-500" /> What other platforms do
           </p>
-          <ul className="mt-4 space-y-3 text-sm text-slate-soft">
+          <ul className="mt-4 space-y-3 text-sm text-slate-soft dark:text-navy-300">
             <li>&quot;Free to post&quot; — then your ad stops showing unless you buy a package.</li>
             <li>Ads deliberately ranked below paid ones, so free listings get no views.</li>
             <li>Sales calls pushing higher packages every week.</li>
@@ -55,15 +55,15 @@ export default function FreeSellersPage() {
           { icon: ShieldCheck, title: "Unlimited — GH₵200/month", text: "Unlimited listings, ranked above every other vendor, ∞ badge everywhere.", yearly: true },
         ] as { icon: React.ComponentType<{ className?: string; strokeWidth?: number }>; title: string; text: string; yearly: boolean }[]).map((p) => (
           <div key={p.title} className={`rounded-xl border bg-white p-5 dark:bg-navy-900 ${p.yearly ? "border-gold-500 ring-1 ring-gold-500/40" : "border-navy-100 dark:border-navy-800"}`}>
-            <p.icon className="h-6 w-6 text-gold-600" strokeWidth={1.7} aria-hidden="true" />
+            <p.icon className="h-6 w-6 text-gold-600 dark:text-gold-500" strokeWidth={1.7} aria-hidden="true" />
             <p className="mt-2 font-bold text-navy-900 dark:text-white">{p.title}</p>
-            <p className="mt-1 text-sm text-slate-soft">{p.text}</p>
+            <p className="mt-1 text-sm text-slate-soft dark:text-navy-300">{p.text}</p>
             {p.yearly && (
               <div className="mt-3 rounded-lg bg-gold-500/15 px-3 py-2 text-center">
                 <p className="text-sm font-extrabold text-navy-900 dark:text-gold-400">
                   GH₵{VENDOR_PLANS.unlimited.yearlyPriceGhs}/year
                 </p>
-                <p className="text-xs font-semibold text-emerald-700 dark:text-emerald-400">
+                <p className="text-xs font-semibold text-emerald-700 dark:text-emerald-300 dark:text-emerald-400">
                   You save GH₵{yearlySavingsGhs(VENDOR_PLANS.unlimited).toLocaleString("en-GH")} ({yearlySavingsPct(VENDOR_PLANS.unlimited)}% off)
                 </p>
               </div>

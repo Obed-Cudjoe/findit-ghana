@@ -52,13 +52,13 @@ export default async function AdminVendorsPage() {
     <div>
       <div className="mb-4 flex flex-wrap gap-3 text-sm">
         <span className="rounded-full bg-navy-900 px-3 py-1 font-bold text-white">{profiles.length} shops</span>
-        <span className="rounded-full bg-emerald-100 px-3 py-1 font-semibold text-emerald-800">{live} approved</span>
-        <span className="rounded-full bg-amber-100 px-3 py-1 font-semibold text-amber-800">{pendingPay} awaiting MoMo</span>
+        <span className="rounded-full bg-emerald-100 px-3 py-1 font-semibold text-emerald-800 dark:text-emerald-200">{live} approved</span>
+        <span className="rounded-full bg-amber-100 px-3 py-1 font-semibold text-amber-800 dark:text-amber-200">{pendingPay} awaiting MoMo</span>
         <span className="rounded-full bg-slate-100 px-3 py-1 font-semibold text-slate-600">{listings.length} listings linked</span>
       </div>
 
       {profiles.length === 0 ? (
-        <p className="rounded-xl border border-dashed border-navy-200 bg-navy-50/50 p-8 text-center text-sm text-slate-soft">
+        <p className="rounded-xl border border-dashed border-navy-200 dark:border-navy-700 bg-navy-50/50 dark:bg-navy-900/50 p-8 text-center text-sm text-slate-soft dark:text-navy-300">
           No vendor shops yet — they appear here when someone submits the form on /for-vendors.
         </p>
       ) : (

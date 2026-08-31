@@ -118,10 +118,10 @@ export default async function ProductPage({ params }: Props) {
     <div className="mx-auto max-w-6xl px-4 py-8">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
 
-      <nav aria-label="Breadcrumb" className="break-words text-sm text-slate-soft">
+      <nav aria-label="Breadcrumb" className="break-words text-sm text-slate-soft dark:text-navy-300">
         <Link href="/" className="hover:text-navy-700">Home</Link> <span aria-hidden="true">›</span>{" "}
         <Link href={`/category/${product.category}`} className="hover:text-navy-700 capitalize">{product.category.replace("-", " & ")}</Link>{" "}
-        <span aria-hidden="true">›</span> <span className="text-navy-900">{product.name}</span>
+        <span aria-hidden="true">›</span> <span className="text-navy-900 dark:text-navy-100">{product.name}</span>
       </nav>
 
       <div className="mt-4 grid gap-6 lg:grid-cols-[320px_1fr]">
@@ -132,22 +132,22 @@ export default async function ProductPage({ params }: Props) {
         )}
         <div>
           {listingOnly && vListing ? (
-            <p className="inline-flex items-center gap-1.5 rounded-full bg-amber-50 px-3 py-1 text-xs font-semibold text-amber-700">
+            <p className="inline-flex items-center gap-1.5 rounded-full bg-amber-50 dark:bg-amber-900/30 px-3 py-1 text-xs font-semibold text-amber-700 dark:text-amber-300">
               <BadgeCheck className="h-3.5 w-3.5" />{" "}
               {listings.length > 1
                 ? `${listings.length} independent vendors · first listed ${formatDate(vListing.createdAt)}`
                 : `Self-listed by ${vListing.businessName} · added ${formatDate(vListing.createdAt)}`}
             </p>
           ) : (
-            <p className="text-sm font-semibold uppercase tracking-wide text-gold-700">{product.brand}</p>
+            <p className="text-sm font-semibold uppercase tracking-wide text-gold-700 dark:text-gold-500">{product.brand}</p>
           )}
-          <h1 className="mt-1 break-words text-2xl font-extrabold text-navy-900 md:text-3xl">{product.name}</h1>
+          <h1 className="mt-1 break-words text-2xl font-extrabold text-navy-900 dark:text-navy-100 md:text-3xl">{product.name}</h1>
           {product.unlimited && (
             <p className="mt-2 inline-flex items-center gap-1.5 rounded-full bg-navy-950 px-3 py-1 text-xs font-extrabold text-gold-400 ring-1 ring-gold-500/60">
               <InfinityIcon className="h-3.5 w-3.5" /> {UNLIMITED_BADGE} vendor
             </p>
           )}
-          <p className="mt-2 inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700">
+          <p className="mt-2 inline-flex items-center gap-1.5 rounded-full bg-emerald-50 dark:bg-emerald-900/30 px-3 py-1 text-xs font-semibold text-emerald-700 dark:text-emerald-300">
             <Clock className="h-3.5 w-3.5" /> Prices checked {timeAgo(listingOnly && vListing ? (vListing.updatedAt ?? vListing.createdAt) : product.updatedAt)}
           </p>
 
@@ -182,22 +182,22 @@ export default async function ProductPage({ params }: Props) {
           {listingOnly && vListing ? (
             /* vendor listing: description + contact instead of specs */
             <div className="mt-5 space-y-4">
-              <p className="text-sm leading-relaxed text-slate-soft">{vListing.description}</p>
+              <p className="text-sm leading-relaxed text-slate-soft dark:text-navy-300">{vListing.description}</p>
               <div className="grid gap-2 sm:grid-cols-3">
-                <div className="rounded-lg bg-navy-50 px-3 py-2">
-                  <p className="text-[11px] uppercase tracking-wide text-slate-soft">Category</p>
-                  <p className="text-sm font-semibold text-navy-900 capitalize">{vListing.category.replace("-", " & ")}</p>
+                <div className="rounded-lg bg-navy-50 dark:bg-navy-900/60 px-3 py-2">
+                  <p className="text-[11px] uppercase tracking-wide text-slate-soft dark:text-navy-300">Category</p>
+                  <p className="text-sm font-semibold text-navy-900 dark:text-navy-100 capitalize">{vListing.category.replace("-", " & ")}</p>
                 </div>
-                <div className="rounded-lg bg-navy-50 px-3 py-2">
-                  <p className="text-[11px] uppercase tracking-wide text-slate-soft">Stock</p>
-                  <p className="text-sm font-semibold text-navy-900">{vListing.stockCount ?? "Ask vendor"}</p>
+                <div className="rounded-lg bg-navy-50 dark:bg-navy-900/60 px-3 py-2">
+                  <p className="text-[11px] uppercase tracking-wide text-slate-soft dark:text-navy-300">Stock</p>
+                  <p className="text-sm font-semibold text-navy-900 dark:text-navy-100">{vListing.stockCount ?? "Ask vendor"}</p>
                 </div>
-                <div className="rounded-lg bg-navy-50 px-3 py-2">
-                  <p className="text-[11px] uppercase tracking-wide text-slate-soft">Vendors</p>
-                  <p className="text-sm font-semibold text-navy-900">{offers.length} live offer{offers.length === 1 ? "" : "s"}</p>
+                <div className="rounded-lg bg-navy-50 dark:bg-navy-900/60 px-3 py-2">
+                  <p className="text-[11px] uppercase tracking-wide text-slate-soft dark:text-navy-300">Vendors</p>
+                  <p className="text-sm font-semibold text-navy-900 dark:text-navy-100">{offers.length} live offer{offers.length === 1 ? "" : "s"}</p>
                 </div>
               </div>
-              <p className="flex items-center gap-1.5 text-xs text-slate-soft">
+              <p className="flex items-center gap-1.5 text-xs text-slate-soft dark:text-navy-300">
                 <MessageCircle className="h-4 w-4 text-emerald-600" /> The button opens WhatsApp straight to this vendor — the sale happens between you and them, never on FindIt Ghana.
               </p>
             </div>
@@ -205,17 +205,17 @@ export default async function ProductPage({ params }: Props) {
             <>
               <div className="mt-5 grid grid-cols-2 gap-2 sm:grid-cols-4">
                 {Object.entries(product.specs).map(([k, v]) => (
-                  <div key={k} className="rounded-lg bg-navy-50 px-3 py-2">
-                    <p className="text-[11px] uppercase tracking-wide text-slate-soft">{k}</p>
-                    <p className="text-sm font-semibold text-navy-900">{v}</p>
+                  <div key={k} className="rounded-lg bg-navy-50 dark:bg-navy-900/60 px-3 py-2">
+                    <p className="text-[11px] uppercase tracking-wide text-slate-soft dark:text-navy-300">{k}</p>
+                    <p className="text-sm font-semibold text-navy-900 dark:text-navy-100">{v}</p>
                   </div>
                 ))}
               </div>
               {chartPoints.length > 1 && (
-                <div className="mt-5 rounded-xl border border-navy-100 p-4">
+                <div className="mt-5 rounded-xl border border-navy-100 dark:border-navy-800 p-4">
                   <div className="mb-2 flex flex-wrap items-center justify-between gap-2">
-                    <p className="flex items-center gap-1.5 text-sm font-semibold text-navy-900">
-                      Price history <span className="text-xs font-normal text-slate-soft">(best offer)</span>
+                    <p className="flex items-center gap-1.5 text-sm font-semibold text-navy-900 dark:text-navy-100">
+                      Price history <span className="text-xs font-normal text-slate-soft dark:text-navy-300">(best offer)</span>
                     </p>
                     <PriceDropBadge points={chartPoints} />
                   </div>
@@ -229,12 +229,12 @@ export default async function ProductPage({ params }: Props) {
 
       <section className="mt-8">
         <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
-          <h2 className="text-lg font-extrabold text-navy-900">Vendor comparison — {offers.length} live offer{offers.length === 1 ? "" : "s"}</h2>
-          <p className="text-xs text-slate-soft">Sorted by total cost (price + delivery fee).</p>
+          <h2 className="text-lg font-extrabold text-navy-900 dark:text-navy-100">Vendor comparison — {offers.length} live offer{offers.length === 1 ? "" : "s"}</h2>
+          <p className="text-xs text-slate-soft dark:text-navy-300">Sorted by total cost (price + delivery fee).</p>
         </div>
         <VendorTable offers={offers} vendors={vendors} productSlug={product.slug} />
 
-        <div className="mt-4 flex flex-wrap items-center gap-x-6 gap-y-2 rounded-xl border border-navy-100 bg-navy-50/60 px-4 py-3 text-xs text-slate-soft">
+        <div className="mt-4 flex flex-wrap items-center gap-x-6 gap-y-2 rounded-xl border border-navy-100 dark:border-navy-800 bg-navy-50/60 dark:bg-navy-900/50 px-4 py-3 text-xs text-slate-soft dark:text-navy-300">
           <span className="inline-flex items-center gap-1.5"><ShieldCheck className="h-4 w-4 text-emerald-600" /> Only named vendors are listed — never anonymous sellers.</span>
           <span className="inline-flex items-center gap-1.5"><TriangleAlert className="h-4 w-4 text-amber-600" /> Total cost includes delivery, so nothing surprises you at the door.</span>
         </div>
@@ -260,17 +260,17 @@ export default async function ProductPage({ params }: Props) {
           slug={slug}
           socialUrl={vListing?.websiteUrl || undefined}
         />
-        <Link href={`/report/price?listing=${encodeURIComponent(`https://findit-ghana.vercel.app/product/${slug}`)}`} className="rounded-lg border border-navy-200 px-4 py-2 text-navy-700 hover:border-gold-500 hover:text-gold-700 transition-colors">
+        <Link href={`/report/price?listing=${encodeURIComponent(`https://findit-ghana.vercel.app/product/${slug}`)}`} className="rounded-lg border border-navy-200 dark:border-navy-700 px-4 py-2 text-navy-700 dark:text-navy-300 hover:border-gold-500 hover:text-gold-700 transition-colors">
           Report a price error
         </Link>
-        <Link href="/report/suspicious" className="rounded-lg border border-navy-200 px-4 py-2 text-navy-700 hover:border-gold-500 hover:text-gold-700 transition-colors">
+        <Link href="/report/suspicious" className="rounded-lg border border-navy-200 dark:border-navy-700 px-4 py-2 text-navy-700 dark:text-navy-300 hover:border-gold-500 hover:text-gold-700 transition-colors">
           Report a suspicious listing
         </Link>
       </div>
 
       {similar.length > 0 && (
         <section className="mt-10">
-          <h2 className="mb-4 text-lg font-extrabold text-navy-900">Shoppers also compared</h2>
+          <h2 className="mb-4 text-lg font-extrabold text-navy-900 dark:text-navy-100">Shoppers also compared</h2>
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
             {similar.map((p) => (
               <ProductCard key={p.id} product={p} cheapest={getOffersForProduct(p.slug)[0]} />

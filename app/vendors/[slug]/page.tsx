@@ -53,19 +53,19 @@ export default async function VendorShopPage({ params }: Props) {
     <div className="mx-auto max-w-6xl px-4 py-8">
       <ViewTracker productSlug={`vendor-view:${slug}`} vendorName={vendor.name} destinationUrl={`/vendors/${slug}`} />
 
-      <nav aria-label="Breadcrumb" className="text-sm text-slate-soft">
+      <nav aria-label="Breadcrumb" className="text-sm text-slate-soft dark:text-navy-300">
         <Link href="/" className="hover:text-navy-700">Home</Link> <span aria-hidden="true">›</span>{" "}
         <Link href="/vendors" className="hover:text-navy-700">Vendors</Link>{" "}
-        <span aria-hidden="true">›</span> <span className="text-navy-900">{vendor.name}</span>
+        <span aria-hidden="true">›</span> <span className="text-navy-900 dark:text-navy-100">{vendor.name}</span>
       </nav>
 
       <header className="mt-5 flex flex-wrap items-start gap-4">
         <VendorAvatar name={vendor.name} hue={vendor.logoHue} size="lg" />
         <div className="min-w-0 flex-1">
-          <h1 className="flex flex-wrap items-center gap-2 text-2xl font-extrabold text-navy-900 md:text-3xl">
+          <h1 className="flex flex-wrap items-center gap-2 text-2xl font-extrabold text-navy-900 dark:text-navy-100 md:text-3xl">
             {vendor.name}
             {vendor.verified && (
-              <span className="inline-flex items-center gap-1 rounded-full bg-emerald-50 px-2.5 py-1 text-xs font-semibold text-emerald-700">
+              <span className="inline-flex items-center gap-1 rounded-full bg-emerald-50 dark:bg-emerald-900/30 px-2.5 py-1 text-xs font-semibold text-emerald-700 dark:text-emerald-300">
                 <ShieldCheck className="h-3.5 w-3.5" /> Verified
               </span>
             )}
@@ -81,28 +81,28 @@ export default async function VendorShopPage({ params }: Props) {
               )
             )}
           </h1>
-          <p className="mt-1 text-sm text-slate-soft">
+          <p className="mt-1 text-sm text-slate-soft dark:text-navy-300">
             {listingCount} live listing{listingCount === 1 ? "" : "s"}
             {kind === "official" ? " · official price source" : " · independent shop on FindIt Ghana"}
           </p>
           {showStats && (
-            <p className="mt-2 inline-flex items-center gap-1.5 rounded-full bg-navy-50 px-3 py-1 text-xs font-semibold text-navy-800">
-              <MousePointerClick className="h-3.5 w-3.5 text-gold-600" />
+            <p className="mt-2 inline-flex items-center gap-1.5 rounded-full bg-navy-50 dark:bg-navy-900/60 px-3 py-1 text-xs font-semibold text-navy-800 dark:text-navy-200">
+              <MousePointerClick className="h-3.5 w-3.5 text-gold-600 dark:text-gold-500" />
               {views} shop view{views === 1 ? "" : "s"} · {outbound} outbound click{outbound === 1 ? "" : "s"}
             </p>
           )}
         </div>
       </header>
 
-      <p className="mt-4 text-xs text-slate-soft">
+      <p className="mt-4 text-xs text-slate-soft dark:text-navy-300">
         This is your shop?{" "}
-        <Link href="/vendor/login" className="font-semibold text-navy-800 underline">Log in to the dashboard →</Link>
+        <Link href="/vendor/login" className="font-semibold text-navy-800 dark:text-navy-200 underline">Log in to the dashboard →</Link>
       </p>
 
       <section className="mt-8">
-        <h2 className="text-lg font-extrabold text-navy-900">Listings</h2>
+        <h2 className="text-lg font-extrabold text-navy-900 dark:text-navy-100">Listings</h2>
         {products.length === 0 ? (
-          <p className="mt-4 rounded-xl border border-dashed border-navy-200 bg-navy-50/50 p-8 text-center text-sm text-slate-soft">
+          <p className="mt-4 rounded-xl border border-dashed border-navy-200 dark:border-navy-700 bg-navy-50/50 dark:bg-navy-900/50 p-8 text-center text-sm text-slate-soft dark:text-navy-300">
             No live listings from this shop yet.
           </p>
         ) : (

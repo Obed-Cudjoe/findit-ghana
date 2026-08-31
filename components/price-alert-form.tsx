@@ -57,11 +57,11 @@ export function PriceAlertForm({
 
   if (done) {
     return (
-      <div className="rounded-xl border border-emerald-200 bg-emerald-50 p-4" role="status">
-        <p className="flex items-center gap-2 text-sm font-bold text-emerald-800">
+      <div className="rounded-xl border border-emerald-200 bg-emerald-50 dark:bg-emerald-900/30 p-4" role="status">
+        <p className="flex items-center gap-2 text-sm font-bold text-emerald-800 dark:text-emerald-200">
           <BellRing className="h-4 w-4" /> Alert set!
         </p>
-        <p className="mt-1 text-xs leading-relaxed text-emerald-800">
+        <p className="mt-1 text-xs leading-relaxed text-emerald-800 dark:text-emerald-200">
           We&apos;ll message you on WhatsApp when {productName} reaches your target price.
           Prices are checked daily, so the message arrives the morning after a drop.
         </p>
@@ -71,11 +71,11 @@ export function PriceAlertForm({
 
   return (
     <div className="rounded-xl border border-gold-500/40 bg-gold-500/10 p-4">
-      <p className="flex items-center gap-2 text-sm font-bold text-navy-900">
-        <BellRing className="h-4 w-4 text-gold-700" />
+      <p className="flex items-center gap-2 text-sm font-bold text-navy-900 dark:text-navy-100">
+        <BellRing className="h-4 w-4 text-gold-700 dark:text-gold-500" />
         Price-drop alert
       </p>
-      <p className="mt-1 text-xs text-slate-soft">
+      <p className="mt-1 text-xs text-slate-soft dark:text-navy-300">
         {currentPrice ? `Today's best price is ${formatGHS(currentPrice)}. Set your target — we'll WhatsApp you when it drops.` : "Set your target price — we'll WhatsApp you when it drops."}
       </p>
       <form onSubmit={submit} noValidate className="mt-3 flex flex-col gap-2 sm:flex-row">
@@ -87,7 +87,7 @@ export function PriceAlertForm({
           value={phone}
           onChange={(e) => setPhone(e.target.value)}
           placeholder="WhatsApp number — 024 000 0000"
-          className="min-w-0 flex-1 rounded-lg border border-navy-200 bg-white px-3 py-2.5 text-base focus:border-gold-500 focus:outline-none focus:ring-2 focus:ring-gold-500/30 dark:border-navy-700 dark:bg-navy-800 dark:text-navy-100"
+          className="min-w-0 flex-1 rounded-lg border border-navy-200 dark:border-navy-700 bg-white dark:bg-navy-900 px-3 py-2.5 text-base focus:border-gold-500 focus:outline-none focus:ring-2 focus:ring-gold-500/30 dark:border-navy-700 dark:bg-navy-800 dark:text-navy-100"
         />
         <label className="sr-only" htmlFor={`alert-target-${productSlug}`}>Target price in cedis</label>
         <input
@@ -97,7 +97,7 @@ export function PriceAlertForm({
           value={target}
           onChange={(e) => setTarget(e.target.value)}
           placeholder="Target GH₵"
-          className="w-32 rounded-lg border border-navy-200 bg-white px-3 py-2.5 text-base focus:border-gold-500 focus:outline-none focus:ring-2 focus:ring-gold-500/30 dark:border-navy-700 dark:bg-navy-800 dark:text-navy-100"
+          className="w-32 rounded-lg border border-navy-200 dark:border-navy-700 bg-white dark:bg-navy-900 px-3 py-2.5 text-base focus:border-gold-500 focus:outline-none focus:ring-2 focus:ring-gold-500/30 dark:border-navy-700 dark:bg-navy-800 dark:text-navy-100"
         />
         <button
           type="submit"
@@ -107,7 +107,7 @@ export function PriceAlertForm({
           {busy ? "Setting…" : "Set alert"}
         </button>
       </form>
-      {error && <p className="mt-2 text-xs font-medium text-red-700" role="alert">{error}</p>}
+      {error && <p className="mt-2 text-xs font-medium text-red-700 dark:text-red-300" role="alert">{error}</p>}
     </div>
   );
 }

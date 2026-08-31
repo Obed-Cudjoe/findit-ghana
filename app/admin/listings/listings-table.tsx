@@ -65,12 +65,12 @@ export function ListingsTable({ listings }: { listings: ListingRow[] }) {
   }
 
   return (
-    <div className="overflow-hidden rounded-xl border border-navy-100 bg-white">
-      <p className="border-b border-navy-100 bg-navy-50/60 px-4 py-2 text-xs text-slate-400 lg:hidden">Swipe the table sideways to see all columns →</p>
+    <div className="overflow-hidden rounded-xl border border-navy-100 dark:border-navy-800 bg-white dark:bg-navy-900">
+      <p className="border-b border-navy-100 dark:border-navy-800 bg-navy-50/60 dark:bg-navy-900/50 px-4 py-2 text-xs text-slate-400 lg:hidden">Swipe the table sideways to see all columns →</p>
       <div className="overflow-x-auto">
         <table className="w-full min-w-[760px] text-sm">
           <thead>
-            <tr className="bg-navy-50 text-left text-xs uppercase tracking-wide text-slate-soft">
+            <tr className="bg-navy-50 dark:bg-navy-900/60 text-left text-xs uppercase tracking-wide text-slate-soft dark:text-navy-300">
               <th className="px-4 py-3">Product</th>
               <th className="px-4 py-3">Business / contact</th>
               <th className="px-4 py-3">Price</th>
@@ -92,44 +92,44 @@ export function ListingsTable({ listings }: { listings: ListingRow[] }) {
                             key={i}
                             src={src}
                             alt={`${l.productName} photo ${i + 1}`}
-                            className="h-11 w-11 rounded-md border border-navy-100 object-cover"
+                            className="h-11 w-11 rounded-md border border-navy-100 dark:border-navy-800 object-cover"
                             loading="lazy"
                           />
                         ))}
                         {(l.imageUrls!.length ?? 0) > 3 && (
-                          <span className="flex h-11 w-11 items-center justify-center rounded-md border border-navy-100 bg-navy-50 text-[10px] font-bold text-slate-soft">
+                          <span className="flex h-11 w-11 items-center justify-center rounded-md border border-navy-100 dark:border-navy-800 bg-navy-50 dark:bg-navy-900/60 text-[10px] font-bold text-slate-soft dark:text-navy-300">
                             +{l.imageUrls!.length - 3}
                           </span>
                         )}
                       </span>
                     ) : (
-                      <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-md border border-dashed border-navy-200 text-[10px] font-semibold text-slate-400">
+                      <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-md border border-dashed border-navy-200 dark:border-navy-700 text-[10px] font-semibold text-slate-400">
                         no photos
                       </span>
                     )}
                     <div className="min-w-0">
-                      <p className="font-semibold text-navy-900">{l.productName}</p>
-                      <p className="text-xs text-slate-soft capitalize">{l.category.replace("-", " & ")} · {l.stockCount ?? "no stock"} units</p>
+                      <p className="font-semibold text-navy-900 dark:text-navy-100">{l.productName}</p>
+                      <p className="text-xs text-slate-soft dark:text-navy-300 capitalize">{l.category.replace("-", " & ")} · {l.stockCount ?? "no stock"} units</p>
                     </div>
                   </div>
                 </td>
-                <td className="px-4 py-3 text-xs text-slate-soft">
-                  <p className="font-semibold text-navy-800">{l.businessName}</p>
+                <td className="px-4 py-3 text-xs text-slate-soft dark:text-navy-300">
+                  <p className="font-semibold text-navy-800 dark:text-navy-200">{l.businessName}</p>
                   <p>{l.contactName} · +{l.phone}</p>
                   <p>{l.email || "no email"}</p>
                 </td>
-                <td className="px-4 py-3 font-bold text-navy-900">
+                <td className="px-4 py-3 font-bold text-navy-900 dark:text-navy-100">
                   GH₵{l.priceGhs.toLocaleString("en-GH")}
-                  <p className="text-xs font-normal text-slate-soft">+ {l.deliveryFeeGhs} delivery · {l.deliveryZone}</p>
+                  <p className="text-xs font-normal text-slate-soft dark:text-navy-300">+ {l.deliveryFeeGhs} delivery · {l.deliveryZone}</p>
                 </td>
-                <td className="max-w-xs px-4 py-3 text-xs text-slate-soft">
+                <td className="max-w-xs px-4 py-3 text-xs text-slate-soft dark:text-navy-300">
                   <p className="line-clamp-2">{l.description}</p>
-                  {l.websiteUrl && <a href={l.websiteUrl} target="_blank" rel="noopener noreferrer" className="text-navy-500 underline">link ↗</a>}
+                  {l.websiteUrl && <a href={l.websiteUrl} target="_blank" rel="noopener noreferrer" className="text-navy-500 dark:text-navy-400 underline">link ↗</a>}
                 </td>
                 <td className="px-4 py-3">
                   <span className={`rounded-full px-2.5 py-1 text-xs font-bold ${BADGE[l.status] ?? "bg-slate-100 text-slate-600"}`}>{l.status}</span>
                   {l.requestedPlan && l.requestedPlan !== "free" && (
-                    <span className="ml-1.5 inline-block rounded-full bg-navy-100 px-2 py-1 text-[10px] font-bold text-navy-800">
+                    <span className="ml-1.5 inline-block rounded-full bg-navy-100 px-2 py-1 text-[10px] font-bold text-navy-800 dark:text-navy-200">
                       wants {l.requestedPlan}
                     </span>
                   )}
@@ -141,14 +141,14 @@ export function ListingsTable({ listings }: { listings: ListingRow[] }) {
                 </td>
                 <td className="px-4 py-3">
                   <div className="flex flex-wrap justify-end gap-1.5">
-                    <button disabled={pending} onClick={() => setStatus(l.id, "approved")} className="rounded-md border border-emerald-200 px-2.5 py-1 text-xs font-semibold text-emerald-700 hover:bg-emerald-50 transition-colors">
+                    <button disabled={pending} onClick={() => setStatus(l.id, "approved")} className="rounded-md border border-emerald-200 px-2.5 py-1 text-xs font-semibold text-emerald-700 dark:text-emerald-300 hover:bg-emerald-50 transition-colors">
                       Approve → live
                     </button>
-                    <button disabled={pending} onClick={() => setStatus(l.id, "rejected")} className="rounded-md border border-red-200 px-2.5 py-1 text-xs font-semibold text-red-600 hover:bg-red-50 transition-colors">
+                    <button disabled={pending} onClick={() => setStatus(l.id, "rejected")} className="rounded-md border border-red-200 px-2.5 py-1 text-xs font-semibold text-red-600 dark:text-red-400 hover:bg-red-50 transition-colors">
                       Reject
                     </button>
                     {isFeatured(l) ? (
-                      <button disabled={pending} onClick={() => setFeatured(l.id, null)} className="rounded-md border border-navy-200 px-2.5 py-1 text-xs font-semibold text-navy-700 hover:bg-navy-50 transition-colors">
+                      <button disabled={pending} onClick={() => setFeatured(l.id, null)} className="rounded-md border border-navy-200 dark:border-navy-700 px-2.5 py-1 text-xs font-semibold text-navy-700 dark:text-navy-300 hover:bg-navy-50 transition-colors">
                         Unfeature
                       </button>
                     ) : (
@@ -161,7 +161,7 @@ export function ListingsTable({ listings }: { listings: ListingRow[] }) {
                             setFeatured(l.id, d.toISOString());
                           }}
                           title={`Vendor paid GH₵${WEEKLY_FEATURED_PRICE_GHS}? Feature their listing for ${WEEKLY_FEATURED_DAYS} days.`}
-                          className="rounded-md border border-gold-600 bg-gold-500/10 px-2.5 py-1 text-xs font-bold text-gold-700 hover:bg-gold-500/20 transition-colors"
+                          className="rounded-md border border-gold-600 bg-gold-500/10 px-2.5 py-1 text-xs font-bold text-gold-700 dark:text-gold-500 hover:bg-gold-500/20 transition-colors"
                         >
                           ★ {WEEKLY_FEATURED_DAYS}d · GH₵{WEEKLY_FEATURED_PRICE_GHS}
                         </button>
@@ -173,7 +173,7 @@ export function ListingsTable({ listings }: { listings: ListingRow[] }) {
                             setFeatured(l.id, d.toISOString());
                           }}
                           title="Vendor paid for a monthly plan? Feature their listing at the top of the category for 30 days."
-                          className="rounded-md border border-gold-600 bg-gold-500/10 px-2.5 py-1 text-xs font-bold text-gold-700 hover:bg-gold-500/20 transition-colors"
+                          className="rounded-md border border-gold-600 bg-gold-500/10 px-2.5 py-1 text-xs font-bold text-gold-700 dark:text-gold-500 hover:bg-gold-500/20 transition-colors"
                         >
                           ★ Feature 30d
                         </button>

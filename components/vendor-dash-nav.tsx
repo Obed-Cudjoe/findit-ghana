@@ -12,8 +12,8 @@ export function VendorDashNav({
     <div className="mb-6">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
-          <p className="text-xs font-bold uppercase tracking-widest text-gold-700">FindIt Ghana · Shop</p>
-          <h1 className="text-2xl font-extrabold text-navy-900">{businessName}</h1>
+          <p className="text-xs font-bold uppercase tracking-widest text-gold-700 dark:text-gold-500">FindIt Ghana · Shop</p>
+          <h1 className="text-2xl font-extrabold text-navy-900 dark:text-navy-100">{businessName}</h1>
         </div>
         <VendorLogOutButton />
       </div>

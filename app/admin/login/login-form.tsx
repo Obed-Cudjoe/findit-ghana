@@ -34,14 +34,14 @@ export function LoginForm() {
 
   return (
     <form onSubmit={onSubmit} className="mt-6 space-y-4">
-      {error && <p className="rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-700" role="alert">{error}</p>}
+      {error && <p className="rounded-lg border border-red-200 bg-red-50 dark:bg-red-900/30 px-3 py-2 text-sm text-red-700 dark:text-red-300" role="alert">{error}</p>}
       <label className="block">
-        <span className="mb-1 block text-sm font-semibold text-navy-900">Password</span>
+        <span className="mb-1 block text-sm font-semibold text-navy-900 dark:text-navy-100">Password</span>
         <input
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className="w-full rounded-lg border border-navy-200 px-3 py-2.5 text-base focus:border-gold-500 focus:outline-none focus:ring-2 focus:ring-gold-500/30"
+          className="w-full rounded-lg border border-navy-200 dark:border-navy-700 px-3 py-2.5 text-base focus:border-gold-500 focus:outline-none focus:ring-2 focus:ring-gold-500/30"
           placeholder="••••••••"
           autoComplete="current-password"
         />

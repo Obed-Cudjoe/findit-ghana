@@ -11,10 +11,10 @@ import Link from "next/link";
 function Field({ label, error, children }: { label: string; error?: string; children: React.ReactNode }) {
   return (
     <label className="block">
-      <span className="mb-1 block text-sm font-semibold text-navy-900">{label}</span>
+      <span className="mb-1 block text-sm font-semibold text-navy-900 dark:text-navy-100">{label}</span>
       {children}
       {error && (
-        <span className="mt-1 flex items-center gap-1 text-xs font-medium text-red-700" role="alert">
+        <span className="mt-1 flex items-center gap-1 text-xs font-medium text-red-700 dark:text-red-300" role="alert">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><circle cx="12" cy="12" r="10" /><path d="M12 8v4M12 16h.01" /></svg>
           {error}
         </span>
@@ -46,12 +46,12 @@ function SubmitButton({ busy, label }: { busy: boolean; label: string }) {
 
 function SuccessPanel({ refCode, promise }: { refCode?: string; promise: string }) {
   return (
-    <div className="rounded-xl border border-emerald-200 bg-emerald-50 p-6" role="status">
-      <p className="flex items-center gap-2 font-bold text-emerald-800">
+    <div className="rounded-xl border border-emerald-200 bg-emerald-50 dark:bg-emerald-900/30 p-6" role="status">
+      <p className="flex items-center gap-2 font-bold text-emerald-800 dark:text-emerald-200">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M20 6L9 17l-5-5" /></svg>
         Report received{refCode ? ` — ref ${refCode}` : ""}
       </p>
-      <p className="mt-2 text-sm text-emerald-800">{promise}</p>
+      <p className="mt-2 text-sm text-emerald-800 dark:text-emerald-200">{promise}</p>
     </div>
   );
 }
@@ -104,7 +104,7 @@ export function ContactForm() {
   return (
     <form onSubmit={onSubmit} noValidate className="space-y-4">
       {serverError && (
-        <p className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm font-medium text-red-700" role="alert">{serverError}</p>
+        <p className="rounded-lg border border-red-200 bg-red-50 dark:bg-red-900/30 px-4 py-3 text-sm font-medium text-red-700 dark:text-red-300" role="alert">{serverError}</p>
       )}
       <div className="grid gap-4 sm:grid-cols-2">
         <Field label="Name *" error={errors.name}>
@@ -210,7 +210,7 @@ export function ReportForm({ kind, defaultListingUrl = "" }: { kind: "price" | "
   return (
     <form onSubmit={onSubmit} noValidate className="space-y-4">
       {serverError && (
-        <p className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm font-medium text-red-700" role="alert">{serverError}</p>
+        <p className="rounded-lg border border-red-200 bg-red-50 dark:bg-red-900/30 px-4 py-3 text-sm font-medium text-red-700 dark:text-red-300" role="alert">{serverError}</p>
       )}
       {kind === "suspicious" && (
         <Field label="Vendor name *" error={errors.vendorName}>
@@ -221,10 +221,10 @@ export function ReportForm({ kind, defaultListingUrl = "" }: { kind: "price" | "
         <input className={inputCls} value={form.listingUrl} onChange={(e) => setForm({ ...form, listingUrl: e.target.value })} placeholder="Paste the product or vendor page URL" />
       </Field>
       <fieldset>
-        <legend className="mb-1 block text-sm font-semibold text-navy-900">What&apos;s wrong? *</legend>
+        <legend className="mb-1 block text-sm font-semibold text-navy-900 dark:text-navy-100">What&apos;s wrong? *</legend>
         <div className="grid gap-2 sm:grid-cols-2">
           {kinds.map(([value, label], i) => (
-            <label key={i} className="flex cursor-pointer items-center gap-2 rounded-lg border border-navy-200 px-3 py-2.5 text-sm hover:border-gold-500 transition-colors">
+            <label key={i} className="flex cursor-pointer items-center gap-2 rounded-lg border border-navy-200 dark:border-navy-700 px-3 py-2.5 text-sm hover:border-gold-500 transition-colors">
               <input
                 type="radio"
                 name="kind"
@@ -248,8 +248,8 @@ export function ReportForm({ kind, defaultListingUrl = "" }: { kind: "price" | "
         <input className={inputCls} type="email" value={form.reporterEmail} onChange={(e) => setForm({ ...form, reporterEmail: e.target.value })} placeholder="you@example.com" autoComplete="email" />
       </Field>
       <SubmitButton busy={busy} label="Send report" />
-      <p className="text-xs text-slate-soft">
-        Prefer email? Write to <Link className="text-navy-700 underline" href="/contact">our contact page</Link> — reports land in the same checks queue.
+      <p className="text-xs text-slate-soft dark:text-navy-300">
+        Prefer email? Write to <Link className="text-navy-700 dark:text-navy-300 underline" href="/contact">our contact page</Link> — reports land in the same checks queue.
       </p>
     </form>
   );

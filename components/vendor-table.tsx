@@ -41,7 +41,7 @@ function BuyButton({ offer, vendorName, productSlug }: { offer: PriceOffer; vend
 
 export function VendorTable({ offers, vendors, productSlug }: { offers: PriceOffer[]; vendors: Vendor[]; productSlug: string }) {
   if (offers.length === 0) {
-    return <p className="text-sm text-slate-soft">No live offers for this product right now — check back after the next daily refresh.</p>;
+    return <p className="text-sm text-slate-soft dark:text-navy-300">No live offers for this product right now — check back after the next daily refresh.</p>;
   }
   const vendorOf = (id: string) => vendors.find((v) => v.id === id);
   return (
@@ -50,7 +50,7 @@ export function VendorTable({ offers, vendors, productSlug }: { offers: PriceOff
       <div className="overflow-x-auto">
         <table className="hidden w-full min-w-[860px] text-sm lg:table">
         <thead>
-          <tr className="bg-navy-50 text-left text-xs uppercase tracking-wide text-slate-soft">
+          <tr className="bg-navy-50 dark:bg-navy-900/60 text-left text-xs uppercase tracking-wide text-slate-soft dark:text-navy-300">
             <th className="px-4 py-3 font-semibold">Vendor</th>
             <th className="px-4 py-3 font-semibold">Price (GHS)</th>
             <th className="px-4 py-3 font-semibold">In stock</th>
@@ -66,14 +66,14 @@ export function VendorTable({ offers, vendors, productSlug }: { offers: PriceOff
             return (
               <tr key={o.id} className={i % 2 ? "bg-navy-50/50 dark:bg-navy-900/40" : "bg-white dark:bg-navy-900"}>
                 <td className="px-4 py-3">
-                  <p className="font-semibold text-navy-900 dark:text-navy-100">
+                  <p className="font-semibold text-navy-900 dark:text-navy-100 dark:text-navy-100">
                     {v?.slug ? (
                       <Link href={`/vendors/${v.slug}`} className="hover:text-gold-700 transition-colors">{v.name}</Link>
                     ) : (
                       v?.name ?? "Vendor"
                     )}
                   </p>
-                  <p className="flex items-center gap-1 text-xs text-slate-soft">
+                  <p className="flex items-center gap-1 text-xs text-slate-soft dark:text-navy-300">
                     {v?.verified ? (
                       <><ShieldCheck className="h-3.5 w-3.5 text-emerald-600" /> Verified</>
                     ) : (
@@ -85,13 +85,13 @@ export function VendorTable({ offers, vendors, productSlug }: { offers: PriceOff
                 <td className="px-4 py-3 font-bold text-navy-900 dark:text-white">{formatGHS(o.priceGhs)}</td>
                 <td className="px-4 py-3">
                   {o.stockCount !== null && o.stockCount > 0 ? (
-                    <span className="text-emerald-700">{o.stockCount} units</span>
+                    <span className="text-emerald-700 dark:text-emerald-300">{o.stockCount} units</span>
                   ) : (
-                    <span className="text-amber-700">Check with vendor</span>
+                    <span className="text-amber-700 dark:text-amber-300">Check with vendor</span>
                   )}
                 </td>
-                <td className="px-4 py-3 text-slate-soft">{deliveryLabel(o)}</td>
-                <td className="px-4 py-3 text-slate-soft">{formatGHS(o.deliveryFeeGhs)}</td>
+                <td className="px-4 py-3 text-slate-soft dark:text-navy-300">{deliveryLabel(o)}</td>
+                <td className="px-4 py-3 text-slate-soft dark:text-navy-300">{formatGHS(o.deliveryFeeGhs)}</td>
                 <td className="px-4 py-3 text-right font-extrabold text-navy-900 dark:text-white">{formatGHS(o.priceGhs + o.deliveryFeeGhs)}</td>
                 <td className="px-4 py-3 text-right">
                   <BuyButton offer={o} vendorName={v?.name ?? "vendor"} productSlug={productSlug} />
@@ -110,26 +110,26 @@ export function VendorTable({ offers, vendors, productSlug }: { offers: PriceOff
             <div key={o.id} className="p-4">
               <div className="flex items-start justify-between gap-3">
                 <div className="min-w-0">
-                  <p className="break-words font-semibold text-navy-900 dark:text-navy-100">
+                  <p className="break-words font-semibold text-navy-900 dark:text-navy-100 dark:text-navy-100">
                     {v?.slug ? (
                       <Link href={`/vendors/${v.slug}`} className="hover:text-gold-700 transition-colors">{v.name}</Link>
                     ) : (
                       v?.name ?? "Vendor"
                     )}
                   </p>
-                  <p className="flex min-w-0 flex-wrap items-center gap-1 text-xs text-slate-soft">
+                  <p className="flex min-w-0 flex-wrap items-center gap-1 text-xs text-slate-soft dark:text-navy-300">
                     {v?.verified && (
                       <><ShieldCheck className="h-3.5 w-3.5 shrink-0 text-emerald-600" /> Verified · </>
                     )}
                     checked {timeAgo(o.lastCheckedAt)}
                   </p>
                 </div>
-                <p className="shrink-0 text-right text-lg font-extrabold text-navy-900">{formatGHS(o.priceGhs)}</p>
+                <p className="shrink-0 text-right text-lg font-extrabold text-navy-900 dark:text-navy-100">{formatGHS(o.priceGhs)}</p>
               </div>
-              <div className="mt-3 grid grid-cols-1 gap-2 text-xs text-slate-soft min-[430px]:grid-cols-3">
-                <span className="rounded-lg bg-navy-50 px-2.5 py-2">{o.stockCount ? `${o.stockCount} in stock` : "Check with vendor"}</span>
-                <span className="rounded-lg bg-navy-50 px-2.5 py-2">{deliveryLabel(o)}</span>
-                <span className="rounded-lg bg-navy-50 px-2.5 py-2">Fee {formatGHS(o.deliveryFeeGhs)}</span>
+              <div className="mt-3 grid grid-cols-1 gap-2 text-xs text-slate-soft dark:text-navy-300 min-[430px]:grid-cols-3">
+                <span className="rounded-lg bg-navy-50 dark:bg-navy-900/60 px-2.5 py-2">{o.stockCount ? `${o.stockCount} in stock` : "Check with vendor"}</span>
+                <span className="rounded-lg bg-navy-50 dark:bg-navy-900/60 px-2.5 py-2">{deliveryLabel(o)}</span>
+                <span className="rounded-lg bg-navy-50 dark:bg-navy-900/60 px-2.5 py-2">Fee {formatGHS(o.deliveryFeeGhs)}</span>
               </div>
               <div className="mt-3 flex flex-col gap-2 min-[380px]:flex-row min-[380px]:items-center min-[380px]:justify-between">
                 <p className="text-sm font-bold text-navy-900 dark:text-white">Total {formatGHS(o.priceGhs + o.deliveryFeeGhs)}</p>

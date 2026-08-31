@@ -24,8 +24,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     <div className="mx-auto max-w-6xl px-4 py-8">
       <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
         <div>
-          <p className="text-xs font-bold uppercase tracking-widest text-gold-700">FindIt Ghana · Admin</p>
-          <h1 className="text-2xl font-extrabold text-navy-900">Dashboard</h1>
+          <p className="text-xs font-bold uppercase tracking-widest text-gold-700 dark:text-gold-500">FindIt Ghana · Admin</p>
+          <h1 className="text-2xl font-extrabold text-navy-900 dark:text-navy-100">Dashboard</h1>
         </div>
         <LogOutButton />
       </div>
@@ -45,12 +45,12 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             <Link
               key={href}
               href={href}
-              className="rounded-lg bg-navy-50 px-4 py-2.5 text-sm font-semibold text-navy-800 hover:bg-navy-100 hover:text-navy-900 transition-colors lg:block lg:bg-transparent lg:hover:bg-navy-50"
+              className="rounded-lg bg-navy-50 dark:bg-navy-900/60 px-4 py-2.5 text-sm font-semibold text-navy-800 dark:text-navy-200 hover:bg-navy-100 hover:text-navy-900 transition-colors lg:block lg:bg-transparent lg:hover:bg-navy-50"
             >
               {label}
             </Link>
           ))}
-          <p className="mt-6 hidden rounded-lg bg-navy-50 p-3 text-xs text-slate-soft lg:block">
+          <p className="mt-6 hidden rounded-lg bg-navy-50 dark:bg-navy-900/60 p-3 text-xs text-slate-soft dark:text-navy-300 lg:block">
             Prices and listings are managed by the data pipeline — static pages and guides are edited in the content editor.
           </p>
         </nav>

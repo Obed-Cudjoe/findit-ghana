@@ -12,21 +12,21 @@ export default async function ReportPricePage({ searchParams }: { searchParams: 
   return (
     <div className="mx-auto max-w-2xl px-4 py-10">
       <header>
-        <h1 className="text-2xl font-extrabold text-navy-900 sm:text-3xl">Report a price or stock error</h1>
-        <p className="mt-2 text-sm text-slate-soft">
+        <h1 className="text-2xl font-extrabold text-navy-900 dark:text-navy-100 sm:text-3xl">Report a price or stock error</h1>
+        <p className="mt-2 text-sm text-slate-soft dark:text-navy-300">
           Saw a wrong price, stock level or delivery detail? Tell us — we fix or remove it within 1 business day.
         </p>
-        <p className="mt-2 inline-flex items-center gap-1.5 rounded-full bg-navy-50 px-3 py-1 text-xs text-navy-700">
-          <Clock className="h-3.5 w-3.5 text-gold-600" /> The correction promise is a workflow, not a slogan.
+        <p className="mt-2 inline-flex items-center gap-1.5 rounded-full bg-navy-50 dark:bg-navy-900/60 px-3 py-1 text-xs text-navy-700 dark:text-navy-300">
+          <Clock className="h-3.5 w-3.5 text-gold-600 dark:text-gold-500" /> The correction promise is a workflow, not a slogan.
         </p>
       </header>
 
-      <div className="mt-6 rounded-2xl border border-navy-100 bg-white p-4 shadow-sm sm:p-6">
+      <div className="mt-6 rounded-2xl border border-navy-100 dark:border-navy-800 bg-white dark:bg-navy-900 p-4 shadow-sm sm:p-6">
         <ReportForm kind="price" defaultListingUrl={listing} />
       </div>
 
       {listing && (
-        <p className="mt-3 text-xs text-slate-soft">
+        <p className="mt-3 text-xs text-slate-soft dark:text-navy-300">
           Listing: <span className="font-mono break-all">{listing}</span>
         </p>
       )}

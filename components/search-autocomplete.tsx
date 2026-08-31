@@ -156,13 +156,13 @@ export function SearchAutocomplete({
         <ul
           role="listbox"
           aria-label="Search suggestions"
-          className="absolute inset-x-0 top-full z-[70] mt-2 max-h-[60vh] overflow-y-auto rounded-xl border border-navy-100 bg-white shadow-2xl"
+          className="absolute inset-x-0 top-full z-[70] mt-2 max-h-[60vh] overflow-y-auto rounded-xl border border-navy-100 dark:border-navy-800 bg-white dark:bg-navy-900 shadow-2xl"
         >
           {busy && suggestions.length === 0 && (
-            <li className="px-4 py-3 text-sm text-slate-soft">Searching…</li>
+            <li className="px-4 py-3 text-sm text-slate-soft dark:text-navy-300">Searching…</li>
           )}
           {!busy && suggestions.length === 0 && (
-            <li className="px-4 py-3 text-sm text-slate-soft">No matches — press Search to see all results.</li>
+            <li className="px-4 py-3 text-sm text-slate-soft dark:text-navy-300">No matches — press Search to see all results.</li>
           )}
           {suggestions.map((s, i) => (
             <li key={`${s.slug}-${i}`}>
@@ -176,13 +176,13 @@ export function SearchAutocomplete({
               >
                 <Smartphone className="h-4 w-4 shrink-0 text-navy-400" aria-hidden="true" />
                 <span className="min-w-0 flex-1">
-                  <span className="block truncate text-sm font-semibold text-navy-900">{s.name}</span>
-                  <span className="block truncate text-xs capitalize text-slate-soft">
+                  <span className="block truncate text-sm font-semibold text-navy-900 dark:text-navy-100">{s.name}</span>
+                  <span className="block truncate text-xs capitalize text-slate-soft dark:text-navy-300">
                     {s.vendorName ? `${s.vendorName} · ${s.category.replace("-", " & ")}` : s.category.replace("-", " & ")}
                   </span>
                 </span>
                 {s.minPriceGhs !== null && (
-                  <span className="shrink-0 text-sm font-bold text-gold-700">{formatGHS(s.minPriceGhs)}</span>
+                  <span className="shrink-0 text-sm font-bold text-gold-700 dark:text-gold-500">{formatGHS(s.minPriceGhs)}</span>
                 )}
                 <ArrowRight className="h-3.5 w-3.5 shrink-0 text-navy-300" aria-hidden="true" />
               </button>

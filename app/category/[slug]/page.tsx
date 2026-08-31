@@ -37,23 +37,23 @@ export default async function CategoryPage({ params }: Props) {
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-8">
-      <nav aria-label="Breadcrumb" className="text-sm text-slate-soft">
+      <nav aria-label="Breadcrumb" className="text-sm text-slate-soft dark:text-navy-300">
         <Link href="/" className="hover:text-navy-700">Home</Link> <span aria-hidden="true">›</span>{" "}
-        <span className="text-navy-900">{category.name}</span>
+        <span className="text-navy-900 dark:text-navy-100">{category.name}</span>
       </nav>
 
       <header className="mt-4">
-        <h1 className="break-words text-2xl font-extrabold text-navy-900 md:text-3xl">{category.name} in Ghana — live prices</h1>
-        <p className="mt-2 max-w-2xl text-sm text-slate-soft">{category.blurb}</p>
-        <p className="mt-2 inline-flex items-center gap-1.5 text-xs text-slate-soft">
-          <Clock className="h-3.5 w-3.5 text-gold-600" /> Prices checked within the last 24 hours · delivery fees shown per vendor
+        <h1 className="break-words text-2xl font-extrabold text-navy-900 dark:text-navy-100 md:text-3xl">{category.name} in Ghana — live prices</h1>
+        <p className="mt-2 max-w-2xl text-sm text-slate-soft dark:text-navy-300">{category.blurb}</p>
+        <p className="mt-2 inline-flex items-center gap-1.5 text-xs text-slate-soft dark:text-navy-300">
+          <Clock className="h-3.5 w-3.5 text-gold-600 dark:text-gold-500" /> Prices checked within the last 24 hours · delivery fees shown per vendor
         </p>
       </header>
 
       {/* sibling categories */}
       <nav aria-label="Other categories" className="mt-5 flex flex-wrap gap-2 text-sm">
         {others.map((c) => (
-          <Link key={c.slug} href={`/category/${c.slug}`} className="rounded-full border border-navy-200 px-3 py-1.5 text-navy-700 hover:border-gold-500 hover:text-gold-700 transition-colors">
+          <Link key={c.slug} href={`/category/${c.slug}`} className="rounded-full border border-navy-200 dark:border-navy-700 px-3 py-1.5 text-navy-700 dark:text-navy-300 hover:border-gold-500 hover:text-gold-700 transition-colors">
             {c.name}
           </Link>
         ))}

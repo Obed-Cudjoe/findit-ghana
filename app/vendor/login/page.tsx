@@ -23,11 +23,11 @@ export default async function VendorLoginPage({
   if (vendor) redirect(dest);
 
   return (
-    <div className="flex min-h-[60vh] items-center justify-center bg-navy-50/50 px-4 py-16">
-      <div className="w-full max-w-md rounded-2xl border border-navy-100 bg-white p-8 shadow-sm">
-        <p className="text-xs font-bold uppercase tracking-widest text-gold-700">FindIt Ghana · Shop login</p>
-        <h1 className="mt-2 text-xl font-extrabold text-navy-900">Your vendor dashboard</h1>
-        <p className="mt-1 text-sm text-slate-soft">
+    <div className="flex min-h-[60vh] items-center justify-center bg-navy-50/50 dark:bg-navy-900/50 px-4 py-16">
+      <div className="w-full max-w-md rounded-2xl border border-navy-100 dark:border-navy-800 bg-white dark:bg-navy-900 p-8 shadow-sm">
+        <p className="text-xs font-bold uppercase tracking-widest text-gold-700 dark:text-gold-500">FindIt Ghana · Shop login</p>
+        <h1 className="mt-2 text-xl font-extrabold text-navy-900 dark:text-navy-100">Your vendor dashboard</h1>
+        <p className="mt-1 text-sm text-slate-soft dark:text-navy-300">
           Sign in with the WhatsApp number on your listing. New shops set a password when they list on For vendors.
         </p>
         <VendorLoginForm nextPath={dest} />

@@ -48,9 +48,9 @@ export default async function VendorDashboardPage() {
       <VendorDashNav businessName={vendor.businessName} active="overview" />
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        <div className="rounded-xl border border-navy-100 bg-white p-4">
-          <p className="text-xs font-bold uppercase tracking-wide text-slate-soft">Plan</p>
-          <p className="mt-1 flex flex-wrap items-center gap-1.5 text-xl font-extrabold text-navy-900">
+        <div className="rounded-xl border border-navy-100 dark:border-navy-800 bg-white dark:bg-navy-900 p-4">
+          <p className="text-xs font-bold uppercase tracking-wide text-slate-soft dark:text-navy-300">Plan</p>
+          <p className="mt-1 flex flex-wrap items-center gap-1.5 text-xl font-extrabold text-navy-900 dark:text-navy-100">
             {VENDOR_PLANS[plan].name}
             {plan === "unlimited" && (
               <span className="rounded-full bg-navy-950 px-1.5 py-0.5 text-[10px] font-extrabold text-gold-400 ring-1 ring-gold-500/60">
@@ -58,7 +58,7 @@ export default async function VendorDashboardPage() {
               </span>
             )}
           </p>
-          <p className="mt-1 text-xs text-slate-soft">
+          <p className="mt-1 text-xs text-slate-soft dark:text-navy-300">
             {plan === "free"
               ? vendor.paymentStatus === "pending"
                 ? `Awaiting MoMo for ${VENDOR_PLANS[vendor.plan].name}`
@@ -66,32 +66,32 @@ export default async function VendorDashboardPage() {
               : expiryLabel(vendor.planExpiresAt)}
           </p>
         </div>
-        <div className="rounded-xl border border-navy-100 bg-white p-4">
-          <p className="text-xs font-bold uppercase tracking-wide text-slate-soft">Listings</p>
-          <p className="mt-1 text-xl font-extrabold text-navy-900">{used} / {listingLimitLabel(cap)}</p>
-          <p className="mt-1 text-xs text-slate-soft">{live} live · {pending} in review</p>
+        <div className="rounded-xl border border-navy-100 dark:border-navy-800 bg-white dark:bg-navy-900 p-4">
+          <p className="text-xs font-bold uppercase tracking-wide text-slate-soft dark:text-navy-300">Listings</p>
+          <p className="mt-1 text-xl font-extrabold text-navy-900 dark:text-navy-100">{used} / {listingLimitLabel(cap)}</p>
+          <p className="mt-1 text-xs text-slate-soft dark:text-navy-300">{live} live · {pending} in review</p>
         </div>
-        <div className="rounded-xl border border-navy-100 bg-white p-4">
-          <p className="text-xs font-bold uppercase tracking-wide text-slate-soft">Shop status</p>
-          <p className="mt-1 text-xl font-extrabold capitalize text-navy-900">{vendor.status}</p>
-          <p className="mt-1 text-xs text-slate-soft">{vendor.verified ? "Verified badge on" : "Not verified yet"}</p>
+        <div className="rounded-xl border border-navy-100 dark:border-navy-800 bg-white dark:bg-navy-900 p-4">
+          <p className="text-xs font-bold uppercase tracking-wide text-slate-soft dark:text-navy-300">Shop status</p>
+          <p className="mt-1 text-xl font-extrabold capitalize text-navy-900 dark:text-navy-100">{vendor.status}</p>
+          <p className="mt-1 text-xs text-slate-soft dark:text-navy-300">{vendor.verified ? "Verified badge on" : "Not verified yet"}</p>
         </div>
-        <div className="rounded-xl border border-navy-100 bg-white p-4">
-          <p className="text-xs font-bold uppercase tracking-wide text-slate-soft">Public shop</p>
-          <Link href={`/vendors/${vendor.slug}`} className="mt-2 inline-flex items-center gap-1.5 text-sm font-bold text-navy-900 underline hover:text-gold-700">
-            <Store className="h-4 w-4 text-gold-600" /> /vendors/{vendor.slug}
+        <div className="rounded-xl border border-navy-100 dark:border-navy-800 bg-white dark:bg-navy-900 p-4">
+          <p className="text-xs font-bold uppercase tracking-wide text-slate-soft dark:text-navy-300">Public shop</p>
+          <Link href={`/vendors/${vendor.slug}`} className="mt-2 inline-flex items-center gap-1.5 text-sm font-bold text-navy-900 dark:text-navy-100 underline hover:text-gold-700">
+            <Store className="h-4 w-4 text-gold-600 dark:text-gold-500" /> /vendors/{vendor.slug}
           </Link>
-          <p className="mt-1 text-xs text-slate-soft">Live after we approve the shop.</p>
+          <p className="mt-1 text-xs text-slate-soft dark:text-navy-300">Live after we approve the shop.</p>
         </div>
       </div>
 
       {vendor.paymentStatus === "pending" && vendor.plan !== "free" && (
         <div className="mt-6 rounded-xl border border-gold-600/40 bg-gold-500/10 p-5">
-          <p className="font-extrabold text-navy-900">Finish MoMo to activate {VENDOR_PLANS[vendor.plan].name}</p>
-          <p className="mt-1 text-sm text-slate-soft">
-            Send <strong className="text-navy-900">GH₵{VENDOR_PLANS[vendor.plan].priceGhs}</strong> to{" "}
-            <strong className="text-navy-900">{MOMO_NUMBER}</strong> ({MOMO_NAME}) with reference{" "}
-            <span className="rounded bg-white px-1.5 py-0.5 font-mono text-xs font-bold">{ref}</span>. Until we confirm, you still have Free limits ({VENDOR_PLANS.free.listingLimit} listings).
+          <p className="font-extrabold text-navy-900 dark:text-navy-100">Finish MoMo to activate {VENDOR_PLANS[vendor.plan].name}</p>
+          <p className="mt-1 text-sm text-slate-soft dark:text-navy-300">
+            Send <strong className="text-navy-900 dark:text-navy-100">GH₵{VENDOR_PLANS[vendor.plan].priceGhs}</strong> to{" "}
+            <strong className="text-navy-900 dark:text-navy-100">{MOMO_NUMBER}</strong> ({MOMO_NAME}) with reference{" "}
+            <span className="rounded bg-white dark:bg-navy-900 px-1.5 py-0.5 font-mono text-xs font-bold">{ref}</span>. Until we confirm, you still have Free limits ({VENDOR_PLANS.free.listingLimit} listings).
           </p>
           <a
             href={`https://wa.me/${MOMO_WHATSAPP}?text=${waText}`}
@@ -105,31 +105,31 @@ export default async function VendorDashboardPage() {
       )}
 
       {showStats ? (
-        <section className="mt-6 rounded-xl border border-navy-100 bg-white p-5">
-          <h2 className="flex items-center gap-2 font-extrabold text-navy-900">
-            <MousePointerClick className="h-5 w-5 text-gold-600" /> Shop stats
+        <section className="mt-6 rounded-xl border border-navy-100 dark:border-navy-800 bg-white dark:bg-navy-900 p-5">
+          <h2 className="flex items-center gap-2 font-extrabold text-navy-900 dark:text-navy-100">
+            <MousePointerClick className="h-5 w-5 text-gold-600 dark:text-gold-500" /> Shop stats
           </h2>
-          <p className="mt-1 text-sm text-slate-soft">Pro plan — views on your public shop and outbound Buy / WhatsApp clicks.</p>
+          <p className="mt-1 text-sm text-slate-soft dark:text-navy-300">Pro plan — views on your public shop and outbound Buy / WhatsApp clicks.</p>
           <div className="mt-4 grid gap-3 sm:grid-cols-2">
-            <div className="rounded-lg bg-navy-50 p-4">
-              <p className="text-3xl font-extrabold text-navy-900">{views}</p>
-              <p className="text-sm text-slate-soft">Shop views</p>
+            <div className="rounded-lg bg-navy-50 dark:bg-navy-900/60 p-4">
+              <p className="text-3xl font-extrabold text-navy-900 dark:text-navy-100">{views}</p>
+              <p className="text-sm text-slate-soft dark:text-navy-300">Shop views</p>
             </div>
-            <div className="rounded-lg bg-navy-50 p-4">
-              <p className="text-3xl font-extrabold text-navy-900">{outbound}</p>
-              <p className="text-sm text-slate-soft">Outbound clicks</p>
+            <div className="rounded-lg bg-navy-50 dark:bg-navy-900/60 p-4">
+              <p className="text-3xl font-extrabold text-navy-900 dark:text-navy-100">{outbound}</p>
+              <p className="text-sm text-slate-soft dark:text-navy-300">Outbound clicks</p>
             </div>
           </div>
         </section>
       ) : (
-        <section className="mt-6 rounded-xl border border-dashed border-navy-200 bg-navy-50/60 p-5">
-          <h2 className="flex items-center gap-2 font-extrabold text-navy-900">
-            <Star className="h-5 w-5 text-gold-600" /> Stats are on Pro
+        <section className="mt-6 rounded-xl border border-dashed border-navy-200 dark:border-navy-700 bg-navy-50/60 dark:bg-navy-900/50 p-5">
+          <h2 className="flex items-center gap-2 font-extrabold text-navy-900 dark:text-navy-100">
+            <Star className="h-5 w-5 text-gold-600 dark:text-gold-500" /> Stats are on Pro
           </h2>
-          <p className="mt-1 text-sm text-slate-soft">
+          <p className="mt-1 text-sm text-slate-soft dark:text-navy-300">
             Upgrade to Pro (GH₵{VENDOR_PLANS.pro.priceGhs}/mo) for shop views, outbound clicks, {VENDOR_PLANS.pro.listingLimit} listings, and a homepage featured shop — or go {UNLIMITED_BADGE} (GH₵{VENDOR_PLANS.unlimited.priceGhs}/mo, or GH₵{VENDOR_PLANS.unlimited.yearlyPriceGhs}/year — save GH₵{yearlySavingsGhs(VENDOR_PLANS.unlimited).toLocaleString("en-GH")}) for unlimited listings and top ranking.
           </p>
-          <Link href="/for-vendors" className="mt-3 inline-block text-sm font-bold text-navy-900 underline">
+          <Link href="/for-vendors" className="mt-3 inline-block text-sm font-bold text-navy-900 dark:text-navy-100 underline">
             See plans on For vendors →
           </Link>
         </section>
@@ -139,7 +139,7 @@ export default async function VendorDashboardPage() {
         <Link href="/vendor/listings" className="inline-flex items-center justify-center rounded-xl bg-gold-500 px-5 py-3 text-sm font-bold text-navy-950 hover:bg-gold-400">
           Manage listings
         </Link>
-        <Link href="/for-vendors" className="inline-flex items-center justify-center rounded-xl border border-navy-200 px-5 py-3 text-sm font-bold text-navy-900 hover:border-gold-400">
+        <Link href="/for-vendors" className="inline-flex items-center justify-center rounded-xl border border-navy-200 dark:border-navy-700 px-5 py-3 text-sm font-bold text-navy-900 dark:text-navy-100 hover:border-gold-400">
           Change plan
         </Link>
       </div>

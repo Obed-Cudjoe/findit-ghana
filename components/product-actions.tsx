@@ -99,7 +99,7 @@ export function SocialLinkButton({ url }: { url: string }) {
       href={url}
       target="_blank"
       rel="noopener noreferrer"
-      className="inline-flex items-center gap-1.5 rounded-lg border border-navy-200 bg-white px-3.5 py-2 text-sm font-semibold text-navy-800 hover:border-gold-500 hover:text-gold-700 transition-colors"
+      className="inline-flex items-center gap-1.5 rounded-lg border border-navy-200 dark:border-navy-700 bg-white dark:bg-navy-900 px-3.5 py-2 text-sm font-semibold text-navy-800 dark:text-navy-200 hover:border-gold-500 hover:text-gold-700 transition-colors"
     >
       {icon}
       {platform.label}
@@ -121,19 +121,19 @@ export function VendorTrustSignals({
   return (
     <div className="flex flex-wrap items-center gap-2">
       {hasSocial && (
-        <span className="inline-flex items-center gap-1.5 rounded-full bg-navy-50 px-3 py-1 text-xs font-semibold text-navy-800 ring-1 ring-navy-100">
+        <span className="inline-flex items-center gap-1.5 rounded-full bg-navy-50 dark:bg-navy-900/60 px-3 py-1 text-xs font-semibold text-navy-800 dark:text-navy-200 ring-1 ring-navy-100">
           <ShieldCheck className="h-3.5 w-3.5 text-emerald-600" />
           Social presence linked — you can see the shop before paying
         </span>
       )}
       {reports.total > 0 &&
         (reports.unresolved === 0 ? (
-          <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700 ring-1 ring-emerald-200">
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 dark:bg-emerald-900/30 px-3 py-1 text-xs font-semibold text-emerald-700 dark:text-emerald-300 ring-1 ring-emerald-200">
             <CheckCircle2 className="h-3.5 w-3.5" />
             Report history clean — {reports.total} report{reports.total === 1 ? "" : "s"}, all resolved
           </span>
         ) : (
-          <span className="inline-flex items-center gap-1.5 rounded-full bg-amber-50 px-3 py-1 text-xs font-semibold text-amber-700 ring-1 ring-amber-200">
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-amber-50 dark:bg-amber-900/30 px-3 py-1 text-xs font-semibold text-amber-700 dark:text-amber-300 ring-1 ring-amber-200">
             <TriangleAlert className="h-3.5 w-3.5" />
             {reports.unresolved} open report{reports.unresolved === 1 ? "" : "s"} — check with the vendor before paying
           </span>
@@ -151,22 +151,22 @@ export function BeforeYouPayCard() {
     "What do other buyers say? Check reviews outside the vendor's own page.",
   ];
   return (
-    <section className="mt-8 rounded-xl border border-navy-100 bg-navy-50/50 p-5 dark:border-navy-800 dark:bg-navy-900/50">
-      <h2 className="flex items-center gap-1.5 text-sm font-extrabold text-navy-900">
-        <ShieldCheck className="h-4 w-4 text-gold-600" />
+    <section className="mt-8 rounded-xl border border-navy-100 dark:border-navy-800 bg-navy-50/50 dark:bg-navy-900/50 p-5 dark:border-navy-800 dark:bg-navy-900/50">
+      <h2 className="flex items-center gap-1.5 text-sm font-extrabold text-navy-900 dark:text-navy-100">
+        <ShieldCheck className="h-4 w-4 text-gold-600 dark:text-gold-500" />
         Before you pay — four quick checks
       </h2>
-      <ol className="mt-3 grid gap-2 text-xs text-slate-soft sm:grid-cols-2">
+      <ol className="mt-3 grid gap-2 text-xs text-slate-soft dark:text-navy-300 sm:grid-cols-2">
         {checks.map((c, i) => (
           <li key={i} className="flex gap-2">
-            <span className="shrink-0 font-bold text-gold-700">{i + 1}.</span>
+            <span className="shrink-0 font-bold text-gold-700 dark:text-gold-500">{i + 1}.</span>
             {c}
           </li>
         ))}
       </ol>
       <p className="mt-3 text-xs text-slate-400">
         Full guide:{" "}
-        <Link href="/guides/spot-a-fake-vendor" className="font-semibold text-navy-700 underline hover:text-gold-700">
+        <Link href="/guides/spot-a-fake-vendor" className="font-semibold text-navy-700 dark:text-navy-300 underline hover:text-gold-700">
           How to spot a fake vendor before you pay
         </Link>
       </p>

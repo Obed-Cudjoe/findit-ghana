@@ -87,17 +87,17 @@ export default async function SearchPage({ searchParams }: Props) {
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-8">
-      <nav aria-label="Breadcrumb" className="text-sm text-slate-soft">
+      <nav aria-label="Breadcrumb" className="text-sm text-slate-soft dark:text-navy-300">
         <a href="/" className="hover:text-navy-700">Home</a> <span aria-hidden="true">›</span>{" "}
-        <span className="text-navy-900">Search</span>
+        <span className="text-navy-900 dark:text-navy-100">Search</span>
       </nav>
 
       <div className="mt-4">
-        <h1 className="break-words text-2xl font-extrabold text-navy-900">
+        <h1 className="break-words text-2xl font-extrabold text-navy-900 dark:text-navy-100">
           {q ? `Results for “${q}”` : "Search prices in Ghana"}
         </h1>
-        <p className="mt-1 flex items-start gap-1.5 text-sm text-slate-soft">
-          <Clock className="mt-0.5 h-4 w-4 shrink-0 text-gold-600" aria-hidden="true" />
+        <p className="mt-1 flex items-start gap-1.5 text-sm text-slate-soft dark:text-navy-300">
+          <Clock className="mt-0.5 h-4 w-4 shrink-0 text-gold-600 dark:text-gold-500" aria-hidden="true" />
           {results.length > 0
             ? `${results.length} result${results.length === 1 ? "" : "s"} · prices checked ${checkedAt} UTC`
             : "Try a product name, brand or category"}
@@ -112,7 +112,7 @@ export default async function SearchPage({ searchParams }: Props) {
       {/* active filter chips */}
       {activeChips.length > 0 && (
         <div className="mt-4 flex flex-wrap items-center gap-2 text-sm">
-          <span className="text-xs font-semibold uppercase tracking-wide text-slate-soft">Active:</span>
+          <span className="text-xs font-semibold uppercase tracking-wide text-slate-soft dark:text-navy-300">Active:</span>
           {activeChips.map((c) => (
             <Link
               key={c.label}
@@ -138,10 +138,10 @@ export default async function SearchPage({ searchParams }: Props) {
               />
               {suggestion && (
                 <div className="mt-4 rounded-xl border border-gold-500/40 bg-gold-500/10 px-5 py-4 text-sm">
-                  <span className="text-slate-soft">Did you mean{" "}</span>
+                  <span className="text-slate-soft dark:text-navy-300">Did you mean{" "}</span>
                   <Link
                     href={`/search?q=${encodeURIComponent(suggestion)}`}
-                    className="font-bold text-gold-700 underline hover:text-gold-800"
+                    className="font-bold text-gold-700 dark:text-gold-500 underline hover:text-gold-800"
                   >
                     {suggestion}
                   </Link>
@@ -149,7 +149,7 @@ export default async function SearchPage({ searchParams }: Props) {
                 </div>
               )}
               {options.inStockOnly && (
-                <div className="mt-4 rounded-xl border border-navy-100 bg-navy-50/60 px-5 py-4 text-sm text-slate-soft">
+                <div className="mt-4 rounded-xl border border-navy-100 dark:border-navy-800 bg-navy-50/60 dark:bg-navy-900/50 px-5 py-4 text-sm text-slate-soft dark:text-navy-300">
                   Catalogue shops (Jumia, CompuGhana, Franko, Telefonika) don&apos;t publish live stock counts —
                   only marketplace vendors with the &quot;In stock&quot; badge do. Try removing the stock filter to see
                   everything, or check stock on the product page before buying.
@@ -165,7 +165,7 @@ export default async function SearchPage({ searchParams }: Props) {
           )}
 
           {results.length > 0 && (
-            <p className="mt-8 text-center text-xs text-slate-soft">
+            <p className="mt-8 text-center text-xs text-slate-soft dark:text-navy-300">
               Prices are indicative and re-checked daily. Total shown is the best offer&apos;s item price — delivery fees
               appear on each product page. Confirm the final price with the vendor before paying.
             </p>
