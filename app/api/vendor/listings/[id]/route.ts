@@ -11,6 +11,7 @@
 // touched, so there is no re-review.
 import { NextResponse, type NextRequest } from "next/server";
 import { revalidatePath } from "next/cache";
+import { cacheReset } from "@/lib/ttl-cache";
 import { clientIp, rateLimit } from "@/lib/ratelimit";
 import { readVendorListings, updateVendorListing, listingsForVendor } from "@/lib/store";
 import { getLoggedInVendor } from "@/lib/vendor-auth";
@@ -119,6 +120,7 @@ export async function PATCH(request: NextRequest, { params }: { params: Promise<
     revalidatePath(`/product/${listing.slug}`);
     revalidatePath("/vendors");
     revalidatePath(`/vendors/${vendor.slug}`);
+    cacheReset("marketplace-state");
   } catch {
     /* cache invalidation is best-effort */
   }

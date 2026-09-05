@@ -6,8 +6,12 @@ import { SearchAutocomplete } from "@/components/search-autocomplete";
 import { VendorAvatar } from "@/components/vendor-avatar";
 import { UNLIMITED_BADGE } from "@/lib/plans";
 
-// Marketplace Pro shops change when admin confirms MoMo — never serve a stale empty homepage.
-export const dynamic = "force-dynamic";
+// ISR: the homepage regenerates at most once an hour — featured shops and
+// approved listings change at admin pace, not visitor pace. Warm visitors
+// get static HTML from the CDN (~50ms) instead of a Supabase round-trip per
+// request (1.2s). Fallbacks in the data layer keep the page safe if a
+// regeneration hits a store outage.
+export const revalidate = 3600;
 
 export default async function HomePage() {
   const categories = getCategories();
@@ -54,6 +58,9 @@ export default async function HomePage() {
                 {s}
               </Link>
             ))}
+            <Link href="/best-value" className="rounded-full border border-gold-500/60 bg-gold-500/10 px-3 py-1 font-semibold text-gold-400 hover:bg-gold-500/20 transition-colors">
+              ★ Best value
+            </Link>
           </div>
         </div>
       </section>

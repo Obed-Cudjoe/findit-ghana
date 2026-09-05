@@ -173,3 +173,16 @@ export interface VendorListing {
   vendorId?: string | null;
   requestedPlan?: VendorPlanId;
 }
+
+/* Crowd-sourced "what people actually paid" submissions (COMP-19).
+   Shown on product pages only after admin approval — asking vs. actual
+   prices is the honesty feature no other African price site has. */
+export interface ActualPriceRow {
+  id: string;
+  productSlug: string;
+  pricePaidGhs: number;
+  shopName?: string;
+  paidAt: string;
+  status: "new" | "approved" | "hidden";
+  createdAt: string;
+}

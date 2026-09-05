@@ -8,7 +8,7 @@ const STOP = new Set([
   "bundle", "combo", "set", "only", "in", "on", "of", "to", "by", "a", "an",
 ]);
 
-function rawTokens(name: string): string[] {
+export function rawTokens(name: string): string[] {
   return name
     .toLowerCase()
     .replace(/[+/|,;]+/g, " ")

@@ -3,6 +3,7 @@
 // Like the other admin routes, auth is enforced by middleware for /api/admin/*.
 import { NextResponse, type NextRequest } from "next/server";
 import { revalidatePath } from "next/cache";
+import { cacheReset } from "@/lib/ttl-cache";
 import { readVendorProfiles, updateVendorProfile, readVendorListings, listingsForVendor, deleteVendorProfile } from "@/lib/store";
 import { daysFromNow, isPlanId } from "@/lib/plans";
 import type { VendorPaymentStatus, VendorProfileStatus } from "@/lib/types";
@@ -25,6 +26,10 @@ export async function PATCH(request: NextRequest, { params }: { params: Promise<
   const profiles = await readVendorProfiles();
   const existing = profiles.find((p) => p.id === id);
   if (!existing) return NextResponse.json({ error: "Vendor not found." }, { status: 404 });
+
+  // Any mutation below changes what the homepage strip / shop pages show —
+  // drop the TTL cache so it's visible immediately instead of in ≤30s.
+  cacheReset("marketplace-state");
 
   // One-click: confirm MoMo → grant plan for 30 days and approve the shop.
   if (body.action === "confirm-payment") {

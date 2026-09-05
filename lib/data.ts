@@ -8,7 +8,8 @@ import { compughanaProducts, compughanaOffers, compughanaVendor, compughanaCatal
 import { frankoProducts, frankoOffers, frankoVendor, frankoCatalogMeta } from "@/lib/feeds/franko";
 import { telefonikaProducts, telefonikaOffers, telefonikaVendor, telefonikaCatalogMeta } from "@/lib/feeds/telefonika";
 import type { Product, Vendor, PriceOffer, Category, Guide, VendorListing, VendorProfile } from "@/lib/types";
-import { namesLikelySame, findMatchingProduct } from "@/lib/product-match";
+import { namesLikelySame, findMatchingProduct, significantTokens, rawTokens } from "@/lib/product-match";
+import { cached } from "@/lib/ttl-cache";
 import { phoneKey, planHasCategoryFeatured, planHasHomepageFeatured, planHasStats, planHasUnlimited } from "@/lib/plans";
 
 const demoVendors = seedVendors as unknown as Vendor[];
@@ -165,19 +166,41 @@ function matchesAllTokens(text: string, q: string): boolean {
   return tokens.every((t) => lower.includes(t));
 }
 
-function vendorNamesFor(product: Product): string {
+// Per-process lowercase "hay" index: name + brand + category + vendor names
+// for every product, built in ONE pass (the old per-product vendorNamesFor
+// rebuilt the vendor and offer lists for every one of the 1,783 products —
+// that single call was 3+ seconds of every autocomplete request).
+const productHayKey = "__finditProductHay";
+function productHayIndex(): Map<string, string> {
+  const g = globalThis as unknown as Record<string, Map<string, string> | undefined>;
+  const existing = g[productHayKey];
+  if (existing) return existing;
+
   const vendors = getVendors();
-  return getOffers()
-    .filter((o) => o.productSlug === product.slug && o.active)
-    .map((o) => vendors.find((v) => v.id === o.vendorId)?.name ?? "")
-    .join(" ");
+  const offerVendors = new Map<string, string[]>();
+  for (const o of getOffers()) {
+    if (!o.active) continue;
+    const names = offerVendors.get(o.productSlug) ?? [];
+    names.push(vendors.find((v) => v.id === o.vendorId)?.name ?? "");
+    offerVendors.set(o.productSlug, names);
+  }
+  const index = new Map<string, string>();
+  for (const p of getProducts()) {
+    index.set(
+      p.slug,
+      `${p.name} ${p.brand} ${p.category} ${(offerVendors.get(p.slug) ?? []).join(" ")}`.toLowerCase(),
+    );
+  }
+  g[productHayKey] = index;
+  return index;
 }
 
 export function searchProducts(query: string): SearchResult[] {
   const q = query.toLowerCase().trim();
   if (!q) return [];
+  const hayIndex = productHayIndex();
   return getProducts()
-    .filter((p) => matchesAllTokens(`${p.name} ${p.brand} ${p.category} ${vendorNamesFor(p)}`, q))
+    .filter((p) => matchesAllTokens(hayIndex.get(p.slug) ?? `${p.name} ${p.brand} ${p.category}`, q))
     .map((p) => {
       const offers = getOffersForProduct(p.slug);
       return { product: p, offers, cheapest: offers[0] };
@@ -196,9 +219,10 @@ export function productsByCategory(categorySlug: string): SearchResult[] {
 export function searchSuggestions(query: string, limit = 6): { slug: string; name: string; category: string; minPriceGhs: number | null }[] {
   const q = query.toLowerCase().trim();
   if (!q) return [];
+  const hayIndex = productHayIndex();
   const results: { slug: string; name: string; category: string; minPriceGhs: number | null }[] = getProducts()
     .filter((p) => {
-      const hay = `${p.name} ${p.brand} ${p.category} ${vendorNamesFor(p)}`.toLowerCase();
+      const hay = hayIndex.get(p.slug) ?? `${p.name} ${p.brand} ${p.category}`.toLowerCase();
       return hay.includes(q) || matchesAllTokens(hay, q);
     })
     .slice(0, limit)
@@ -285,16 +309,21 @@ export async function getApprovedVendorListings(): Promise<VendorListing[]> {
 }
 
 export async function getMarketplaceState(): Promise<{ listings: VendorListing[]; profiles: VendorProfile[] }> {
-  try {
-    const { readVendorListings, readVendorProfiles } = await import("@/lib/store");
-    const [all, profiles] = await Promise.all([readVendorListings(), readVendorProfiles()]);
-    // Approved only, minus stale listings (vendors must re-confirm; after
-    // STALE_DAYS without a touch the listing drops out of public views —
-    // this is what keeps "call and be told it's sold" off FindIt Ghana).
-    return { listings: all.filter((l) => l.status === "approved" && !isListingStale(l)), profiles };
-  } catch {
-    return { listings: [], profiles: [] };
-  }
+  // 30s cross-request cache: this read runs on the homepage, every search
+  // page render and every autocomplete keystroke — without the cache each
+  // one pays 1–4 Supabase round-trips (the site's #1 latency cost).
+  return cached("marketplace-state", 30_000, async () => {
+    try {
+      const { readVendorListings, readVendorProfiles } = await import("@/lib/store");
+      const [all, profiles] = await Promise.all([readVendorListings(), readVendorProfiles()]);
+      // Approved only, minus stale listings (vendors must re-confirm; after
+      // STALE_DAYS without a touch the listing drops out of public views —
+      // this is what keeps "call and be told it's sold" off FindIt Ghana).
+      return { listings: all.filter((l) => l.status === "approved" && !isListingStale(l)), profiles };
+    } catch {
+      return { listings: [], profiles: [] };
+    }
+  });
 }
 
 // ------------------------------------------------------------------
@@ -621,7 +650,9 @@ export async function getMergedProductPage(slug: string): Promise<MergedProductP
     : listingToProduct(canonicalListing ?? listingBySlug!, featured, unlimited);
 
   const listingOffers = matchingListings.map((l) => offerForListing(l, profiles, product.slug).offer);
-  const catalogueOffers = catalogueMatch ? getOffersForProduct(catalogueMatch.slug) : [];
+  // Cross-shop merge: the same product listed by Jumia AND CompuGhana AND
+  // Telefonika shows every shop's offer on one page (COMP-18).
+  const catalogueOffers = catalogueMatch ? getMergedOffersFor(catalogueMatch.slug) : [];
   const offers = [...catalogueOffers, ...listingOffers].sort(byTotalCost);
 
   const extraVendors = matchingListings.map((l) => listingToVendor(l, profileForListing(l, profiles)));
@@ -936,4 +967,141 @@ export async function getShopBySlug(slug: string): Promise<{
     listingCount: shopListings.length,
     showStats: planHasStats(profile),
   };
+}
+
+// ------------------------------------------------------------------
+// Cross-shop matching index (COMP-18): the SAME product listed by two or
+// more official shops merges onto one comparison page. Built lazily once
+// per server process and cached on globalThis; lookups are O(cluster).
+// Strictness matters more than recall here — a missed merge is a missed
+// comparison, but a WRONG merge puts two different phones side by side.
+// ------------------------------------------------------------------
+
+// Variant words that distinguish models. If one title has one of these and
+// the other doesn't, they are NOT the same SKU ("Spark 20 Pro" ≠ "Spark 20").
+const VARIANT_TOKENS = new Set([
+  "pro", "plus", "ultra", "max", "mini", "lite", "se", "5g", "4g", "neo",
+  "prime", "air", "titanium", "turbo", "edge", "note", "zoom",
+]);
+
+function oneSidedVariant(a: Set<string>, b: Set<string>): boolean {
+  for (const t of a) if (VARIANT_TOKENS.has(t) && !b.has(t)) return true;
+  for (const t of b) if (VARIANT_TOKENS.has(t) && !a.has(t)) return true;
+  return false;
+}
+
+// Model identifiers: the tokens that pin a title to one SKU — words,
+// alphanumerics ("a54", "y21d") and pure integers ("15", "50", "43") — minus
+// units ("128gb"), screen-size decimals ("6.78") and the brand-first token.
+// "Spark 50" and "Pop 20" share the brand and a GB figure but no model token
+// — they must never merge.
+function modelTokens(name: string): string[] {
+  const toks = rawTokens(name);
+  const first = toks[0] ?? "";
+  return toks.filter(
+    (t) =>
+      t !== first &&
+      !VARIANT_TOKENS.has(t) &&
+      !/^\d+(gb|tb|mb)$/.test(t) &&
+      !/\.\d/.test(t),
+  );
+}
+
+/** Catalogue-grade match: namesLikelySame plus variant- and model-token guards. */
+export function catalogueNamesSame(a: string, b: string): boolean {
+  if (!namesLikelySame(a, b)) return false;
+  const sa = new Set(significantTokens(a));
+  const sb = new Set(significantTokens(b));
+  if (oneSidedVariant(sa, sb)) return false;
+
+  // Both titles carry model identifiers → they must share at least one.
+  const ma = modelTokens(a);
+  const mb = modelTokens(b);
+  if (ma.length > 0 || mb.length > 0) {
+    if (!ma.some((t) => mb.includes(t))) return false;
+  }
+
+  // Integer tokens ("43" TVs, "15" iPhones) define the exact size/generation:
+  // when both titles have them, at least one must match.
+  const ia = ma.filter((t) => /^\d+$/.test(t));
+  const ib = mb.filter((t) => /^\d+$/.test(t));
+  if (ia.length > 0 && ib.length > 0 && !ia.some((t) => ib.includes(t))) return false;
+
+  return true;
+}
+
+const matchIndexKey = "__finditMatchIndex";
+
+export function getMatchIndex(): Map<string, string[]> {
+  const g = globalThis as unknown as Record<string, Map<string, string[]> | undefined>;
+  const existing = g[matchIndexKey];
+  if (existing) return existing;
+
+  const byCat = new Map<string, { slug: string; name: string; toks: Set<string> }[]>();
+  for (const p of getProducts()) {
+    const toks = new Set(significantTokens(p.name));
+    if (toks.size === 0) continue;
+    const list = byCat.get(p.category) ?? [];
+    list.push({ slug: p.slug, name: p.name, toks });
+    byCat.set(p.category, list);
+  }
+
+  const index = new Map<string, string[]>();
+  for (const items of byCat.values()) {
+    for (let i = 0; i < items.length; i++) {
+      const A = items[i];
+      const arr: string[] = [];
+      for (let j = 0; j < items.length; j++) {
+        if (i === j) continue;
+        const B = items[j];
+        // Cheap prefilter: at least 2 shared significant tokens.
+        let ov = 0;
+        for (const t of A.toks) if (B.toks.has(t)) ov++;
+        if (ov < 2) continue;
+        if (catalogueNamesSame(A.name, B.name)) arr.push(B.slug);
+      }
+      index.set(A.slug, arr);
+    }
+  }
+  g[matchIndexKey] = index;
+  return index;
+}
+
+/** All slugs for the same product across shops (excluding the given slug). */
+export function matchedSlugs(slug: string): string[] {
+  return getMatchIndex().get(slug) ?? [];
+}
+
+/** The slug's comparison cluster, including itself. */
+export function matchCluster(slug: string): string[] {
+  return [slug, ...matchedSlugs(slug)];
+}
+
+/** Canonical slug for SEO: official-shop order, so duplicate pages point at one URL. */
+export function canonicalSlug(slug: string): string {
+  const cluster = matchCluster(slug);
+  const order: Record<string, number> = {};
+  officialSources.forEach((s, i) => {
+    const v = getVendors().find((x) => x.name === s.name);
+    if (v) order[v.slug] = i;
+  });
+  const ranked = cluster.map((s) => ({ s, o: order[s] ?? Number.MAX_SAFE_INTEGER }));
+  ranked.sort((a, b) => a.o - b.o || a.s.localeCompare(b.s));
+  return ranked[0].s;
+}
+
+/** Every offer for this product across all shops, sorted by total cost. */
+export function getMergedOffersFor(slug: string): PriceOffer[] {
+  const seen = new Set<string>();
+  const out: PriceOffer[] = [];
+  for (const s of matchCluster(slug)) {
+    for (const o of getOffersForProduct(s)) {
+      if (seen.has(o.id)) continue;
+      seen.add(o.id);
+      out.push(o);
+    }
+  }
+  return out.sort(
+    (a, b) => a.priceGhs + a.deliveryFeeGhs - (b.priceGhs + b.deliveryFeeGhs),
+  );
 }

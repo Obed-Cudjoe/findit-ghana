@@ -6,6 +6,7 @@
 // sit there forever.
 import { NextResponse, type NextRequest } from "next/server";
 import { revalidatePath } from "next/cache";
+import { cacheReset } from "@/lib/ttl-cache";
 import { updateVendorListingStatus, readVendorListings, setVendorListingFeatured, updateVendorProfile } from "@/lib/store";
 import { deleteVendorListingPhotos } from "@/lib/uploads";
 
@@ -24,6 +25,7 @@ export async function PATCH(request: NextRequest, { params }: { params: Promise<
     }
     const ok = await setVendorListingFeatured(id, until);
     if (!ok) return NextResponse.json({ error: "Listing not found or store unavailable." }, { status: 404 });
+    cacheReset("marketplace-state");
     return NextResponse.json({ ok: true, featuredUntil: until });
   }
 
@@ -55,5 +57,6 @@ export async function PATCH(request: NextRequest, { params }: { params: Promise<
   } catch {
     /* cache invalidation is best-effort */
   }
+  cacheReset("marketplace-state");
   return NextResponse.json({ ok: true });
 }

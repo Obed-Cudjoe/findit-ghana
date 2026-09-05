@@ -5,6 +5,7 @@ import { ShieldCheck, Clock, TriangleAlert, MessageCircle, BadgeCheck, Infinity 
 import {
   getMergedProductPage, getOffersForProduct, getSnapshotsForOffer, loadSnapshotsForOffer, getProducts,
   listingDaysSinceConfirm, vendorTrustScore, isListingFeatured, RECONFIRM_NUDGE_DAYS,
+  matchCluster, canonicalSlug,
 } from "@/lib/data";
 import { ProductVisual, PriceChart, ProductCard, PriceDropBadge } from "@/components/shared";
 import { ImageGallery } from "@/components/image-gallery";
@@ -17,6 +18,7 @@ import {
 import { readReports } from "@/lib/store";
 import { PriceAlertForm } from "@/components/price-alert-form";
 import { MarketplaceGapBadge } from "@/components/marketplace-gap";
+import { ActualPaidCard } from "@/components/actual-paid";
 import { formatGHS, timeAgo, formatDate } from "@/lib/utils";
 import { UNLIMITED_BADGE } from "@/lib/plans";
 
@@ -44,7 +46,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     ? `${product.name} Price in Ghana — from ${formatGHS(cheapest.priceGhs)}`
     : `${product.name} — Prices in Ghana`;
   const description = `Compare ${product.name} prices in cedis from named vendors in Ghana. Stock, delivery times and fees shown upfront. Prices checked regularly.`;
-  return { title, description, openGraph: { title, description, type: "website" } };
+  return {
+    title,
+    description,
+    openGraph: { title, description, type: "website" },
+    // Same-product pages across shops render the same comparison — point
+    // search engines at one canonical URL instead of N duplicates.
+    alternates: { canonical: `/product/${canonicalSlug(slug)}` },
+  };
 }
 
 export default async function ProductPage({ params }: Props) {
@@ -57,7 +66,12 @@ export default async function ProductPage({ params }: Props) {
   const chartPoints = isCatalogue && cheapest
     ? (await loadSnapshotsForOffer(cheapest.id)).map((s) => ({ priceGhs: s.priceGhs, capturedAt: s.capturedAt }))
     : [];
-  const similar = getProducts().filter((p) => p.category === product.category && p.slug !== slug).slice(0, 3);
+  // "Shoppers also compared" — same category, but never the same product's
+  // other shop pages (they all show the merged comparison now).
+  const clusterSet = new Set(matchCluster(slug));
+  const similar = getProducts()
+    .filter((p) => p.category === product.category && !clusterSet.has(p.slug))
+    .slice(0, 3);
   const listingOnly = !isCatalogue;
 
   // Trust signals: honest report history for THIS product. Reports match by
@@ -149,7 +163,7 @@ export default async function ProductPage({ params }: Props) {
             </p>
           )}
           <p className="mt-2 inline-flex items-center gap-1.5 rounded-full bg-emerald-50 dark:bg-emerald-900/30 px-3 py-1 text-xs font-semibold text-emerald-700 dark:text-emerald-300">
-            <Clock className="h-3.5 w-3.5" /> Prices checked {timeAgo(listingOnly && vListing ? (vListing.updatedAt ?? vListing.createdAt) : product.updatedAt)}
+            <Clock className="h-3.5 w-3.5" /> Prices checked {timeAgo(listingOnly && vListing ? (vListing.updatedAt ?? vListing.createdAt) : (cheapest?.lastCheckedAt ?? product.updatedAt))}
           </p>
 
           {/* Marketplace premium: is Jumia charging more than a named shop for the same product? */}
@@ -235,7 +249,13 @@ export default async function ProductPage({ params }: Props) {
 
       <section className="mt-8">
         <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
-          <h2 className="text-lg font-extrabold text-navy-900 dark:text-navy-100">Vendor comparison — {offers.length} live offer{offers.length === 1 ? "" : "s"}</h2>
+          <h2 className="text-lg font-extrabold text-navy-900 dark:text-navy-100">
+            Vendor comparison — {offers.length} live offer{offers.length === 1 ? "" : "s"}
+            {(() => {
+              const shopCount = new Set(offers.map((o) => o.vendorId)).size;
+              return shopCount > 1 ? <span className="ml-1 text-sm font-semibold text-slate-soft dark:text-navy-300">· {shopCount} shops</span> : null;
+            })()}
+          </h2>
           <p className="text-xs text-slate-soft dark:text-navy-300">Sorted by total cost (price + delivery fee).</p>
         </div>
         <VendorTable offers={offers} vendors={vendors} productSlug={product.slug} />
@@ -245,6 +265,9 @@ export default async function ProductPage({ params }: Props) {
           <span className="inline-flex items-center gap-1.5"><TriangleAlert className="h-4 w-4 text-amber-600" /> Total cost includes delivery, so nothing surprises you at the door.</span>
         </div>
       </section>
+
+      {/* What people actually paid (COMP-19): approved crowd-sourced aggregate */}
+      <ActualPaidCard productSlug={slug} askingPrice={cheapest ? cheapest.priceGhs + cheapest.deliveryFeeGhs : undefined} />
 
       {/* Price-drop alert — every product page. Subscribes the shopper's
           WhatsApp number; the daily refresh triggers it on a real drop. */}

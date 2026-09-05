@@ -48,7 +48,11 @@ function specsFor(entry: CatalogEntry): Record<string, string> {
   if (screen) specs.Screen = `${screen[1]}"`;
   const storage = entry.name.match(/(\d+(?:GB|TB))(?:\s*(?:ROM|SSD|HDD))?/i);
   if (storage) specs.Storage = storage[1];
-  const ram = entry.name.match(/(\d+)GB\s*(?:\+|RAM)/i);
+  // "128GB + 4GB" means 128 storage + 4 RAM — read the number AFTER the "+".
+  // Fallback: an explicit "N GB RAM" phrase.
+  const ram =
+    entry.name.match(/\d+(?:GB|TB)\s*\+\s*(\d+)\s*GB/i) ??
+    entry.name.match(/(\d+)\s*GB\s*RAM/i);
   if (ram) specs.RAM = `${ram[1]}GB`;
   return Object.fromEntries(Object.entries(specs).slice(0, 4));
 }

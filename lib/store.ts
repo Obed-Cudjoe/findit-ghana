@@ -18,9 +18,10 @@ import fs from "node:fs";
 import path from "node:path";
 import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 import { makeRefCode, slugify } from "@/lib/utils";
-import type { ReportRow, ContactRow, ClickRow, VendorListing, VendorProfile, VendorPlanId, VendorPaymentStatus, VendorProfileStatus, PriceAlert } from "@/lib/types";
+import type { ReportRow, ContactRow, ClickRow, VendorListing, VendorProfile, VendorPlanId, VendorPaymentStatus, VendorProfileStatus, PriceAlert, ActualPriceRow } from "@/lib/types";
 import { hueFromName, isPlanId, phoneKey } from "@/lib/plans";
 import { deleteVendorListingPhotos } from "@/lib/uploads";
+import { cached } from "@/lib/ttl-cache";
 
 let client: SupabaseClient | null = null;
 
@@ -133,6 +134,7 @@ interface RemoteState {
   vendorListings: VendorListing[];
   vendorProfiles: VendorProfile[];
   priceAlerts: PriceAlert[];
+  actualPrices: ActualPriceRow[];
 }
 
 async function readRemoteState(): Promise<RemoteState | null> {
@@ -149,6 +151,7 @@ async function readRemoteState(): Promise<RemoteState | null> {
       vendorListings: Array.isArray(data.vendorListings) ? data.vendorListings : [],
       vendorProfiles: Array.isArray(data.vendorProfiles) ? data.vendorProfiles : [],
       priceAlerts: Array.isArray(data.priceAlerts) ? data.priceAlerts : [],
+      actualPrices: Array.isArray(data.actualPrices) ? data.actualPrices : [],
     };
   } catch {
     return null;
@@ -183,6 +186,11 @@ const mapContact = (c: any): ContactRow => ({
 const mapClick = (c: any): ClickRow => ({
   id: String(c.id), productSlug: c.product_slug ?? "", vendorName: c.vendor_name ?? "",
   destinationUrl: c.destination_url, createdAt: c.created_at,
+});
+const mapActualPrice = (r: any): ActualPriceRow => ({
+  id: r.id, productSlug: r.product_slug ?? "", pricePaidGhs: Number(r.price_paid_ghs ?? 0),
+  shopName: r.shop_name ?? "", paidAt: r.paid_at ?? r.created_at,
+  status: r.status, createdAt: r.created_at,
 });
 /* eslint-enable @typescript-eslint/no-explicit-any */
 
@@ -349,16 +357,18 @@ export async function readContactMessages(): Promise<ContactRow[]> {
 }
 
 export async function readClicks(limit = 200): Promise<ClickRow[]> {
-  const supabase = getSupabase();
-  if (supabase) {
-    const { data, error } = await supabase.from("click_events").select("*").order("created_at", { ascending: false }).limit(limit);
-    if (!error && data) return (data as any[]).map(mapClick);
-    return [];
-  }
-  const local = readJson<ClickRow>("clicks.json");
-  if (local.length > 0) return local.sort((a, b) => b.createdAt.localeCompare(a.createdAt));
-  const state = await readRemoteState();
-  return (state?.clicks ?? []).sort((a, b) => b.createdAt.localeCompare(a.createdAt));
+  return cached(`clicks:${limit}`, 30_000, async () => {
+    const supabase = getSupabase();
+    if (supabase) {
+      const { data, error } = await supabase.from("click_events").select("*").order("created_at", { ascending: false }).limit(limit);
+      if (!error && data) return (data as any[]).map(mapClick);
+      return [];
+    }
+    const local = readJson<ClickRow>("clicks.json");
+    if (local.length > 0) return local.sort((a, b) => b.createdAt.localeCompare(a.createdAt));
+    const state = await readRemoteState();
+    return (state?.clicks ?? []).sort((a, b) => b.createdAt.localeCompare(a.createdAt));
+  });
 }
 
 export async function updateReportStatus(id: string, status: ReportRow["status"]): Promise<boolean> {
@@ -938,6 +948,68 @@ export async function updatePriceAlertStatus(id: string, status: PriceAlert["sta
   const state = await readRemoteState();
   if (!state) return false;
   const row = state.priceAlerts.find((a) => a.id === id);
+  if (!row) return false;
+  row.status = status;
+  return await writeRemoteState(state);
+}
+
+// ---------- actual prices paid (COMP-19: asking vs. paid honesty data) ----------
+export async function saveActualPrice(input: {
+  productSlug: string;
+  pricePaidGhs: number;
+  shopName?: string;
+}): Promise<boolean> {
+  const supabase = getSupabase();
+  if (supabase) {
+    const { error } = await supabase.from("actual_prices").insert({
+      product_slug: input.productSlug,
+      price_paid_ghs: input.pricePaidGhs,
+      shop_name: input.shopName || null,
+      status: "new",
+    });
+    return !error;
+  }
+  const row: ActualPriceRow = {
+    id: crypto.randomUUID(),
+    productSlug: input.productSlug,
+    pricePaidGhs: input.pricePaidGhs,
+    shopName: input.shopName,
+    paidAt: new Date().toISOString(),
+    status: "new",
+    createdAt: new Date().toISOString(),
+  };
+  if (appendJson<ActualPriceRow>("actual-prices.json", row)) return true;
+  const state = await readRemoteState();
+  if (state) {
+    state.actualPrices.push(row);
+    return await writeRemoteState(state);
+  }
+  return false;
+}
+
+export async function readActualPrices(): Promise<ActualPriceRow[]> {
+  const supabase = getSupabase();
+  if (supabase) {
+    const { data, error } = await supabase.from("actual_prices").select("*").order("created_at", { ascending: false });
+    if (!error && data) return (data as any[]).map(mapActualPrice);
+    return [];
+  }
+  const local = readJson<ActualPriceRow>("actual-prices.json");
+  if (local.length > 0) return local.sort((a, b) => b.createdAt.localeCompare(a.createdAt));
+  const state = await readRemoteState();
+  return (state?.actualPrices ?? []).sort((a, b) => b.createdAt.localeCompare(a.createdAt));
+}
+
+export async function updateActualPriceStatus(id: string, status: ActualPriceRow["status"]): Promise<boolean> {
+  const supabase = getSupabase();
+  if (supabase) {
+    const { error } = await supabase.from("actual_prices").update({ status }).eq("id", id);
+    return !error;
+  }
+  if (updateLocalJson<ActualPriceRow>("actual-prices.json", id, { status })) return true;
+  const state = await readRemoteState();
+  if (!state) return false;
+  const row = state.actualPrices.find((r) => r.id === id);
   if (!row) return false;
   row.status = status;
   return await writeRemoteState(state);

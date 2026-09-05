@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Inbox, ShieldAlert, MousePointerClick, Package, Store, ClipboardList } from "lucide-react";
 import { readReports, readContactMessages, readClicks, readVendorProfiles, readVendorListings, readPriceAlerts } from "@/lib/store";
 import { getProducts } from "@/lib/data";
+import { AdminActualPrices } from "@/components/admin-actual-prices";
 
 export const metadata: Metadata = { title: "Admin Dashboard", robots: { index: false } };
 export const dynamic = "force-dynamic";
@@ -96,6 +97,8 @@ export default async function AdminDashboardPage() {
           })}
         </ul>
       )}
+
+      <AdminActualPrices />
     </div>
   );
 }
