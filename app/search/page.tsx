@@ -166,7 +166,7 @@ export default async function SearchPage({ searchParams }: Props) {
 
           {results.length > 0 && (
             <p className="mt-8 text-center text-xs text-slate-soft dark:text-navy-300">
-              Prices are indicative and re-checked daily. Total shown is the best offer&apos;s item price — delivery fees
+              Prices are indicative and re-checked regularly. Total shown is the best offer&apos;s item price — delivery fees
               appear on each product page. Confirm the final price with the vendor before paying.
             </p>
           )}

@@ -41,7 +41,7 @@ function BuyButton({ offer, vendorName, productSlug }: { offer: PriceOffer; vend
 
 export function VendorTable({ offers, vendors, productSlug }: { offers: PriceOffer[]; vendors: Vendor[]; productSlug: string }) {
   if (offers.length === 0) {
-    return <p className="text-sm text-slate-soft dark:text-navy-300">No live offers for this product right now — check back after the next daily refresh.</p>;
+    return <p className="text-sm text-slate-soft dark:text-navy-300">No live offers for this product right now — check back after the next refresh.</p>;
   }
   const vendorOf = (id: string) => vendors.find((v) => v.id === id);
   return (

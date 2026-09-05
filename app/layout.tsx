@@ -161,7 +161,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 Some links are affiliate links; clicking them never changes the price you pay.
               </p>
               <p className="mt-2">
-                © {new Date().getFullYear()} FindIt Ghana · {siteConfig.tagline} · Named vendors · Prices checked daily · Delivery shown upfront
+                © {new Date().getFullYear()} FindIt Ghana · {siteConfig.tagline} · Named vendors · Prices checked regularly · Delivery shown upfront
               </p>
               <p className="mt-3">
                 Contact:{" "}

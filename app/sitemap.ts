@@ -21,7 +21,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const categoryRoutes = getCategories().map((c) => ({
     url: `${base}/category/${c.slug}`,
     lastModified: now,
-    changeFrequency: "daily" as const,
+    changeFrequency: "weekly" as const,
     priority: 0.8,
   }));
 

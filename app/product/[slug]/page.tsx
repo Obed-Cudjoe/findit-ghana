@@ -42,7 +42,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const title = cheapest
     ? `${product.name} Price in Ghana — from ${formatGHS(cheapest.priceGhs)}`
     : `${product.name} — Prices in Ghana`;
-  const description = `Compare ${product.name} prices in cedis from named vendors in Ghana. Stock, delivery times and fees shown upfront. Prices checked daily.`;
+  const description = `Compare ${product.name} prices in cedis from named vendors in Ghana. Stock, delivery times and fees shown upfront. Prices checked regularly.`;
   return { title, description, openGraph: { title, description, type: "website" } };
 }
 

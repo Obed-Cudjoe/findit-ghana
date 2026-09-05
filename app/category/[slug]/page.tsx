@@ -23,7 +23,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const category = getCategory(slug);
   if (!category) return { title: "Category not found" };
   const title = `${category.name} Prices in Ghana — Live Vendor Comparison`;
-  const description = `${category.blurb} Compare prices in cedis, stock levels and delivery costs. Checked daily.`;
+  const description = `${category.blurb} Compare prices in cedis, stock levels and delivery costs. Checked regularly.`;
   return { title, description, openGraph: { title, description, type: "website" } };
 }
 
@@ -61,7 +61,7 @@ export default async function CategoryPage({ params }: Props) {
 
       <div className="mt-6">
         {results.length === 0 ? (
-          <EmptyState title={`No live offers in ${category.name} yet`} hint="We add new products with every daily refresh — check back soon, or search for something else." />
+          <EmptyState title={`No live offers in ${category.name} yet`} hint="We add new products with every refresh — check back soon, or search for something else." />
         ) : (
           <div className="grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-4">
             {results.map(({ product, cheapest }) => (

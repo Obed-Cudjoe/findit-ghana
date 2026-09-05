@@ -4,7 +4,7 @@ import { ShieldCheck, Clock, Store, TriangleAlert, ArrowRight } from "lucide-rea
 
 export const metadata: Metadata = {
   title: "Trust & Methodology — How We Keep Prices Honest",
-  description: "How FindIt Ghana keeps prices honest: named vendors, daily checks, a public correction promise and a reports queue reviewed by a real team.",
+  description: "How FindIt Ghana keeps prices honest: named vendors, regular checks, a public correction promise and a reports queue reviewed by a real team.",
 };
 
 export default function TrustPage() {

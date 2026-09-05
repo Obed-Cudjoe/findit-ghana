@@ -63,7 +63,7 @@ export function PriceAlertForm({
         </p>
         <p className="mt-1 text-xs leading-relaxed text-emerald-800 dark:text-emerald-200">
           We&apos;ll message you on WhatsApp when {productName} reaches your target price.
-          Prices are checked daily, so the message arrives the morning after a drop.
+          Prices are checked regularly, so the alert arrives shortly after a drop.
         </p>
       </div>
     );
