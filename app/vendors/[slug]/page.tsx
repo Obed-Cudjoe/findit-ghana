@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { ShieldCheck, MousePointerClick } from "lucide-react";
 import { getShopBySlug, getVendors, officialSources } from "@/lib/data";
 import { VendorAvatar } from "@/components/vendor-avatar";
-import { ProductCard } from "@/components/shared";
+import ShopSearch from "@/components/shop-search";
 import { ViewTracker } from "@/components/view-tracker";
 import { readClicks } from "@/lib/store";
 import { effectivePlan, UNLIMITED_BADGE, VENDOR_PLANS } from "@/lib/plans";
@@ -106,11 +106,7 @@ export default async function VendorShopPage({ params }: Props) {
             No live listings from this shop yet.
           </p>
         ) : (
-          <div className="mt-4 grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-4">
-            {products.map(({ product, cheapest }) => (
-              <ProductCard key={product.id} product={product} cheapest={cheapest} />
-            ))}
-          </div>
+          <ShopSearch products={products} vendorName={vendor.name} />
         )}
       </section>
     </div>
