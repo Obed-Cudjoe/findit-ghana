@@ -16,6 +16,7 @@ import {
 } from "@/components/product-actions";
 import { readReports } from "@/lib/store";
 import { PriceAlertForm } from "@/components/price-alert-form";
+import { MarketplaceGapBadge } from "@/components/marketplace-gap";
 import { formatGHS, timeAgo, formatDate } from "@/lib/utils";
 import { UNLIMITED_BADGE } from "@/lib/plans";
 
@@ -150,6 +151,11 @@ export default async function ProductPage({ params }: Props) {
           <p className="mt-2 inline-flex items-center gap-1.5 rounded-full bg-emerald-50 dark:bg-emerald-900/30 px-3 py-1 text-xs font-semibold text-emerald-700 dark:text-emerald-300">
             <Clock className="h-3.5 w-3.5" /> Prices checked {timeAgo(listingOnly && vListing ? (vListing.updatedAt ?? vListing.createdAt) : product.updatedAt)}
           </p>
+
+          {/* Marketplace premium: is Jumia charging more than a named shop for the same product? */}
+          <div className="mt-2">
+            <MarketplaceGapBadge offers={offers} vendors={vendors} />
+          </div>
 
           {/* Social presence + report history + trust score (honest-data features) */}
           {vListing && (
