@@ -8,7 +8,7 @@ import { compughanaProducts, compughanaOffers, compughanaVendor, compughanaCatal
 import { frankoProducts, frankoOffers, frankoVendor, frankoCatalogMeta } from "@/lib/feeds/franko";
 import { telefonikaProducts, telefonikaOffers, telefonikaVendor, telefonikaCatalogMeta } from "@/lib/feeds/telefonika";
 import type { Product, Vendor, PriceOffer, Category, Guide, VendorListing, VendorProfile } from "@/lib/types";
-import { namesLikelySame, findMatchingProduct, significantTokens, rawTokens } from "@/lib/product-match";
+import { namesLikelySame, findMatchingProduct, significantTokens, rawTokens, effectiveStorageGb } from "@/lib/product-match";
 import { cached } from "@/lib/ttl-cache";
 import { phoneKey, planHasCategoryFeatured, planHasHomepageFeatured, planHasStats, planHasUnlimited } from "@/lib/plans";
 
@@ -1007,12 +1007,20 @@ function modelTokens(name: string): string[] {
   );
 }
 
-/** Catalogue-grade match: namesLikelySame plus variant- and model-token guards. */
+/** Catalogue-grade match: namesLikelySame plus variant-, storage- and
+ *  model-token guards. */
 export function catalogueNamesSame(a: string, b: string): boolean {
   if (!namesLikelySame(a, b)) return false;
   const sa = new Set(significantTokens(a));
   const sb = new Set(significantTokens(b));
   if (oneSidedVariant(sa, sb)) return false;
+
+  // Real storage must agree: "Pop 20 (128GB + 4GB)" is not the same SKU as
+  // "Pop 20 64GB", even though both mention "4GB" (RAM). The largest
+  // capacity in each title is the storage.
+  const ea = effectiveStorageGb(a);
+  const eb = effectiveStorageGb(b);
+  if (ea !== null && eb !== null && ea !== eb) return false;
 
   // Both titles carry model identifiers → they must share at least one.
   const ma = modelTokens(a);
@@ -1090,18 +1098,25 @@ export function canonicalSlug(slug: string): string {
   return ranked[0].s;
 }
 
-/** Every offer for this product across all shops, sorted by total cost. */
+/** Every offer for this product across all shops, sorted by total cost.
+ *  One row per vendor — where a shop lists the same phone twice (colour
+ *  variants, duplicate feed rows), only its cheapest total is shown, which
+ *  is exactly the row a price shopper wants. */
 export function getMergedOffersFor(slug: string): PriceOffer[] {
   const seen = new Set<string>();
-  const out: PriceOffer[] = [];
+  const byVendor = new Map<string, PriceOffer>();
   for (const s of matchCluster(slug)) {
     for (const o of getOffersForProduct(s)) {
       if (seen.has(o.id)) continue;
       seen.add(o.id);
-      out.push(o);
+      const total = o.priceGhs + o.deliveryFeeGhs;
+      const existing = byVendor.get(o.vendorId);
+      if (!existing || total < existing.priceGhs + existing.deliveryFeeGhs) {
+        byVendor.set(o.vendorId, o);
+      }
     }
   }
-  return out.sort(
+  return [...byVendor.values()].sort(
     (a, b) => a.priceGhs + a.deliveryFeeGhs - (b.priceGhs + b.deliveryFeeGhs),
   );
 }

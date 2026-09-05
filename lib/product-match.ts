@@ -30,6 +30,25 @@ export function storageTokens(name: string): string[] {
   return [...found];
 }
 
+/**
+ * The storage capacity a title really refers to, in GB. Titles like
+ * "128GB + 4GB" or "4GB/64GB" carry a RAM figure beside the storage figure —
+ * the LARGEST capacity is the storage, the small one is RAM. Returns null
+ * when the title mentions no capacity at all.
+ */
+export function effectiveStorageGb(name: string): number | null {
+  const re = /(\d+(?:\.\d+)?)\s*(tb|gb|mb)\b/gi;
+  let best: number | null = null;
+  let m: RegExpExecArray | null;
+  while ((m = re.exec(name))) {
+    const n = parseFloat(m[1]);
+    const u = m[2].toLowerCase();
+    const gb = u === "tb" ? n * 1024 : u === "mb" ? n / 1024 : n;
+    if (best === null || gb > best) best = gb;
+  }
+  return best;
+}
+
 export function significantTokens(name: string): string[] {
   return rawTokens(name).filter((t) => t.length > 1 && !STOP.has(t) && !/^\d+$/.test(t));
 }
