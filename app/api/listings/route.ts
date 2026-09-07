@@ -6,8 +6,11 @@
 // (POST /api/vendor/listings), which is the only place listings are created.
 import { NextResponse, type NextRequest } from "next/server";
 import { clientIp, rateLimit } from "@/lib/ratelimit";
-import { upsertVendorProfile, findVendorProfileByPhone } from "@/lib/store";
+import { upsertVendorProfile, findVendorProfileByPhone, saveVendorListing } from "@/lib/store";
 import { isPlanId, type PlanId } from "@/lib/plans";
+import { categories } from "@/data/seed";
+import { slugify } from "@/lib/utils";
+import { collectImageFiles, saveListingImages, MIN_LISTING_IMAGES } from "@/lib/uploads";
 import {
   hashVendorPassword,
   MIN_VENDOR_PASSWORD,
@@ -21,7 +24,10 @@ import {
 // accepted so older clients keep working.
 async function readBody(
   request: NextRequest,
-): Promise<{ fields: Record<string, string> } | { error: string }> {
+): Promise<
+  | { fields: Record<string, string>; images: { name: string; contentType: string; size: number; buffer: Buffer }[] }
+  | { error: string }
+> {
   const contentType = request.headers.get("content-type") ?? "";
   if (contentType.includes("multipart/form-data")) {
     let form: FormData;
@@ -34,7 +40,8 @@ async function readBody(
     for (const [key, value] of form.entries()) {
       if (typeof value === "string" && !(key in fields)) fields[key] = value;
     }
-    return { fields };
+    const images = await collectImageFiles(form);
+    return { fields, images };
   }
   try {
     const json = (await request.json()) as Record<string, unknown>;
@@ -44,7 +51,7 @@ async function readBody(
       else if (v === null) fields[k] = "";
       else fields[k] = String(v);
     }
-    return { fields };
+    return { fields, images: [] };
   } catch {
     return { error: "Invalid JSON body." };
   }
@@ -60,6 +67,7 @@ export async function POST(request: NextRequest) {
   const parsed = await readBody(request);
   if ("error" in parsed) return NextResponse.json({ error: parsed.error }, { status: 400 });
   const body = parsed.fields;
+  const images = parsed.images;
 
   const str = (v: string | undefined) => (v ?? "").trim();
 
@@ -77,16 +85,16 @@ export async function POST(request: NextRequest) {
   if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return NextResponse.json({ error: "Enter a valid email address." }, { status: 400 });
 
   const existing = await findVendorProfileByPhone(digits);
+  // Password is OPTIONAL: small vendors list products and manage by phone /
+  // WhatsApp. If they set one, it must be strong and is hashed; a vendor who
+  // skips it simply has no dashboard login until they add one (they can
+  // re-register with a password later — the profile upserts by phone).
   let passwordHash: string | undefined;
   if (password) {
     if (password.length < MIN_VENDOR_PASSWORD) {
       return NextResponse.json({ error: `Password must be at least ${MIN_VENDOR_PASSWORD} characters.` }, { status: 400 });
     }
     if (!existing?.passwordHash) passwordHash = await hashVendorPassword(password);
-  } else if (!existing) {
-    return NextResponse.json({ error: "Set a password (at least 8 characters) so you can log in to your shop dashboard." }, { status: 400 });
-  } else if (!existing.passwordHash) {
-    return NextResponse.json({ error: "This shop has no dashboard login yet. Set a password (at least 8 characters) to continue." }, { status: 400 });
   }
 
   const profile = await upsertVendorProfile({
@@ -101,6 +109,48 @@ export async function POST(request: NextRequest) {
   });
 
   if (!profile) return NextResponse.json({ error: "Could not register your shop. Please try again." }, { status: 500 });
+
+  // First product in the SAME form (the whole point: a WhatsApp vendor should
+  // go from "hello" to "listed" in one sitting — no dashboard login, no
+  // second form). Creates a pending listing reviewed like every other.
+  let firstListing = false;
+  const productName = str(body.productName);
+  const priceGhs = Number(body.priceGhs);
+  const category = str(body.category);
+  if (
+    productName.length >= 3 &&
+    Number.isFinite(priceGhs) &&
+    priceGhs > 0 &&
+    categories.some((c) => c.slug === category)
+  ) {
+    const slug = `${slugify(productName)}-${Math.random().toString(36).slice(2, 8)}`;
+    let imageUrls: string[] = [];
+    if (images.length >= MIN_LISTING_IMAGES) {
+      const saved = await saveListingImages(slug, images);
+      if (saved.ok) imageUrls = saved.urls;
+    }
+    const ok = await saveVendorListing({
+      businessName,
+      contactName,
+      phone: digits,
+      email,
+      productName,
+      slug,
+      category,
+      priceGhs,
+      stockCount: Number(body.stockCount) > 0 ? Number(body.stockCount) : null,
+      deliveryZone: str(body.deliveryZone) || "Ghana",
+      deliveryDaysMin: Number(body.deliveryDaysMin) > 0 ? Number(body.deliveryDaysMin) : 1,
+      deliveryDaysMax: Number(body.deliveryDaysMax) > 0 ? Number(body.deliveryDaysMax) : 3,
+      deliveryFeeGhs: Number(body.deliveryFeeGhs) >= 0 ? Number(body.deliveryFeeGhs) : 0,
+      description: str(body.description),
+      websiteUrl,
+      imageUrls,
+      vendorId: profile.id,
+      requestedPlan,
+    });
+    firstListing = ok;
+  }
 
   const paymentRequired = requestedPlan !== "free" && profile.paymentStatus !== "confirmed";
 
@@ -123,6 +173,7 @@ export async function POST(request: NextRequest) {
     paymentRequired,
     vendorSlug: profile.slug,
     loggedIn,
+    firstListing,
   });
   if (token) res.cookies.set(VENDOR_COOKIE, token, vendorCookieOptions());
   return res;

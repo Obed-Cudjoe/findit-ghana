@@ -1,15 +1,26 @@
 "use client";
 
-// "Register your shop" form (For Vendors page).
-// Shop signup only — no product fields. Submits to /api/listings, which upserts
-// the vendor profile (pending in /admin/vendors) and sets the dashboard cookie.
-// Products are added afterwards from /vendor/listings (3–6 photos each).
-// Paid plans show MoMo instructions after submit; admin confirms in /admin/vendors.
+// "Register your shop" form (For Vendors page) — ONE form, ONE submit:
+// shop signup + optional first product in the same step (a WhatsApp vendor
+// goes from "hello" to "listed" in one sitting). Password is optional.
+// Submits to /api/listings, which upserts the vendor profile (pending in
+// /admin/vendors), optionally creates the first pending listing, and sets
+// the dashboard cookie when a password was provided.
 import { useState } from "react";
 import Link from "next/link";
 import { PLAN_LIST, MOMO_NUMBER, MOMO_NAME, MOMO_WHATSAPP, UNLIMITED_BADGE, VENDOR_PLANS, isPlanId, listingLimitLabel, type PlanId } from "@/lib/plans";
 import { MIN_VENDOR_PASSWORD } from "@/lib/vendor-auth-client";
 import { MIN_PHOTOS } from "@/components/image-upload-field";
+
+// Mirrors the seed categories (client-safe — no server imports here).
+const PRODUCT_CATEGORIES = [
+  { slug: "phones", label: "Phones" },
+  { slug: "laptops", label: "Laptops" },
+  { slug: "tv-audio", label: "TVs & Audio" },
+  { slug: "appliances", label: "Appliances" },
+  { slug: "gaming", label: "Gaming" },
+  { slug: "fashion", label: "Fashion" },
+];
 
 const inputCls =
   "w-full rounded-lg border border-navy-200 bg-white px-3 py-2.5 text-base text-ink placeholder:text-slate-400 focus:border-gold-500 focus:outline-none focus:ring-2 focus:ring-gold-500/30 transition-shadow";
@@ -41,10 +52,15 @@ export function VendorListingForm() {
     websiteUrl: "",
     password: "",
     passwordConfirm: "",
+    productName: "",
+    priceGhs: "",
+    category: "",
+    description: "",
   });
+  const [photos, setPhotos] = useState<File[]>([]);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [busy, setBusy] = useState(false);
-  const [done, setDone] = useState<{ paymentRequired: boolean; plan: PlanId; vendorSlug: string | null; loggedIn: boolean } | null>(null);
+  const [done, setDone] = useState<{ paymentRequired: boolean; plan: PlanId; vendorSlug: string | null; loggedIn: boolean; firstListing: boolean } | null>(null);
   const [serverError, setServerError] = useState("");
 
   function set<K extends keyof typeof form>(key: K, value: string) {
@@ -61,6 +77,13 @@ export function VendorListingForm() {
       if (form.password.length < MIN_VENDOR_PASSWORD) e.password = `At least ${MIN_VENDOR_PASSWORD} characters`;
       if (form.password !== form.passwordConfirm) e.passwordConfirm = "Passwords do not match";
     }
+    const wantsProduct = form.productName.trim() !== "" || form.priceGhs.trim() !== "" || form.category !== "";
+    if (wantsProduct) {
+      if (form.productName.trim().length < 3) e.productName = "Enter the product name (e.g. iPhone 13 128GB)";
+      const priceNum = Number(form.priceGhs);
+      if (!Number.isFinite(priceNum) || priceNum <= 0) e.priceGhs = "Enter the price in cedis";
+      if (!PRODUCT_CATEGORIES.some((c) => c.slug === form.category)) e.category = "Pick a category";
+    }
     setErrors(e);
     return Object.keys(e).length === 0;
   }
@@ -71,11 +94,20 @@ export function VendorListingForm() {
     if (!validate()) return;
     setBusy(true);
     try {
-      const res = await fetch("/api/listings", {
-        method: "POST",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify({ ...form, plan }),
-      });
+      const wantsProduct = form.productName.trim() !== "" && form.priceGhs.trim() !== "" && form.category !== "";
+      let res: Response;
+      if (wantsProduct) {
+        const fd = new FormData();
+        for (const [k, v] of Object.entries({ ...form, plan })) fd.append(k, v);
+        for (const f of photos) fd.append("images", f);
+        res = await fetch("/api/listings", { method: "POST", body: fd });
+      } else {
+        res = await fetch("/api/listings", {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify({ ...form, plan }),
+        });
+      }
       const data = await res.json().catch(() => ({}));
       if (res.ok) {
         setDone({
@@ -83,6 +115,7 @@ export function VendorListingForm() {
           plan: isPlanId(data.plan) && data.plan !== "free" ? data.plan : "free",
           vendorSlug: typeof data.vendorSlug === "string" ? data.vendorSlug : null,
           loggedIn: !!data.loggedIn,
+          firstListing: !!data.firstListing,
         });
         setErrors({});
       } else {
@@ -144,9 +177,11 @@ export function VendorListingForm() {
           You&apos;re all set — your shop is registered!
         </p>
         <p className="mt-2 text-sm leading-relaxed text-emerald-800 dark:text-emerald-200">
-          Next step: <strong>sign in to your dashboard</strong> to add your first product (you&apos;ll upload at least {MIN_PHOTOS} photos per product).
-          Every product goes to our checks team — usually reviewed within 1 business day — then appears in search and category pages with a WhatsApp
-          button straight to you.
+          {done.firstListing ? (
+            <>Your first product is already queued for review — our checks team usually approves within 1 business day, then it appears in search and category pages with a WhatsApp button straight to you. Add more products any time from your dashboard.</>
+          ) : (
+            <>Next step: <strong>sign in to your dashboard</strong> to add your first product (you&apos;ll upload at least {MIN_PHOTOS} photos per product). Every product goes to our checks team — usually reviewed within 1 business day — then appears in search and category pages with a WhatsApp button straight to you.</>
+          )}
         </p>
         <p className="mt-3 text-sm">
           <Link href={dashboardHref} className="font-bold text-emerald-900 underline">{dashboardLabel}</Link>
@@ -158,8 +193,9 @@ export function VendorListingForm() {
     );
   }
 
+  const hasProduct = form.productName.trim() !== "" && form.priceGhs.trim() !== "" && form.category !== "";
   const submitLabel = plan === "free"
-    ? "Register my shop — it's free"
+    ? hasProduct ? "Register & list my product — it's free" : "Register my shop — it's free"
     : `Register & pay GH₵${VENDOR_PLANS[plan].priceGhs} via MoMo`;
 
   return (
@@ -230,10 +266,52 @@ export function VendorListingForm() {
         </div>
       </div>
 
-      <div className="rounded-xl bg-navy-50/70 dark:bg-navy-900/50 p-4">
-        <p className="text-sm font-bold text-navy-900 dark:text-navy-100">2 · Your dashboard login</p>
+      <div className="rounded-xl bg-gold-500/10 p-4 ring-1 ring-gold-500/30">
+        <p className="text-sm font-bold text-navy-900 dark:text-navy-100">
+          2 · List your first product <span className="font-normal text-slate-soft dark:text-navy-300">(optional, but takes 2 minutes — get found today)</span>
+        </p>
         <div className="mt-3 grid gap-4 sm:grid-cols-2">
-          <Field label="Dashboard password" error={errors.password}>
+          <Field label="Product name" error={errors.productName}>
+            <input className={inputCls} value={form.productName} onChange={(e) => set("productName", e.target.value)} placeholder="e.g. iPhone 13 128GB, UK used" />
+          </Field>
+          <Field label="Price in cedis" error={errors.priceGhs}>
+            <input className={inputCls} inputMode="decimal" value={form.priceGhs} onChange={(e) => set("priceGhs", e.target.value)} placeholder="e.g. 5500" />
+          </Field>
+          <Field label="Category" error={errors.category}>
+            <select className={inputCls} value={form.category} onChange={(e) => set("category", e.target.value)}>
+              <option value="">Pick a category</option>
+              {PRODUCT_CATEGORIES.map((c) => (
+                <option key={c.slug} value={c.slug}>{c.label}</option>
+              ))}
+            </select>
+          </Field>
+          <Field label={`Photos (${photos.length} selected)`}>
+            <input
+              className="block w-full text-sm text-slate-soft dark:text-navy-300 file:mr-3 file:rounded-lg file:border-0 file:bg-navy-900 file:px-3 file:py-2 file:text-xs file:font-bold file:text-white"
+              type="file"
+              accept="image/*"
+              multiple
+              onChange={(e) => setPhotos(Array.from(e.target.files ?? []))}
+            />
+            <span className="mt-1 block text-[11px] text-slate-soft dark:text-navy-300">
+              {MIN_PHOTOS}+ photos sell best — but even 1 gets you live. More photos = more buyer trust.
+            </span>
+          </Field>
+          <Field label="Short description (optional)">
+            <input className={inputCls} value={form.description} onChange={(e) => set("description", e.target.value)} placeholder="e.g. Clean UK used, battery 92%, free delivery in Accra" />
+          </Field>
+        </div>
+        <p className="mt-3 text-xs text-slate-soft dark:text-navy-300">
+          Skip this and you can add products later from your dashboard. Every product is reviewed before it goes live — usually within 1 business day.
+        </p>
+      </div>
+
+      <div className="rounded-xl bg-navy-50/70 dark:bg-navy-900/50 p-4">
+        <p className="text-sm font-bold text-navy-900 dark:text-navy-100">
+          3 · Dashboard login <span className="font-normal text-slate-soft dark:text-navy-300">(optional)</span>
+        </p>
+        <div className="mt-3 grid gap-4 sm:grid-cols-2">
+          <Field label="Dashboard password (optional)" error={errors.password}>
             <input className={inputCls} type="password" value={form.password} onChange={(e) => set("password", e.target.value)} placeholder={`At least ${MIN_VENDOR_PASSWORD} characters`} autoComplete="new-password" />
           </Field>
           <Field label="Confirm password" error={errors.passwordConfirm}>
@@ -241,8 +319,8 @@ export function VendorListingForm() {
           </Field>
         </div>
         <p className="mt-3 text-xs text-slate-soft dark:text-navy-300">
-          New shops need a password to open <Link href="/vendor/login" className="font-semibold underline">/vendor</Link> — that&apos;s where you add products and their photos.
-          Returning shops can skip this if they already have a login.
+          Setting a password lets you open <Link href="/vendor/login" className="font-semibold underline">/vendor</Link> to add more products, see your shop&apos;s views and manage your plan.
+          <strong>No password? No problem</strong> — your shop still goes live, and you can message us any time to update your products.
         </p>
       </div>
 
@@ -254,7 +332,9 @@ export function VendorListingForm() {
         {busy ? "Registering…" : submitLabel}
       </button>
       <p className="text-center text-xs text-slate-soft dark:text-navy-300">
-        After registering, sign in to your dashboard to list products — {MIN_PHOTOS} photos minimum each. Your WhatsApp number appears on every listing so buyers reach you directly.
+        {hasProduct
+          ? "Your first product goes to review with your shop — once approved, buyers see it with a WhatsApp button straight to you."
+          : `You can also list products later from your dashboard — ${MIN_PHOTOS} photos minimum each. Your WhatsApp number appears on every listing so buyers reach you directly.`}
         {plan !== "free" && ` Paid plans start after we confirm your MoMo payment to ${MOMO_NUMBER}.`}
       </p>
     </form>
