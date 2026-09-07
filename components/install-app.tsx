@@ -64,8 +64,8 @@ export function InstallAppBanner() {
   if (!deferred && !showIosHint) return null;
 
   return (
-    <div className="fixed inset-x-0 bottom-4 z-50 flex justify-center px-4">
-      <div className="flex items-center gap-3 rounded-2xl bg-navy-900 px-4 py-3 text-white shadow-2xl ring-1 ring-navy-700">
+    <div className="pointer-events-none fixed inset-x-0 bottom-4 z-50 flex justify-center px-4">
+      <div className="pointer-events-auto flex items-center gap-3 rounded-2xl bg-navy-900 px-4 py-3 text-white shadow-2xl ring-1 ring-navy-700">
         {deferred ? (
           <>
             <Download className="h-4 w-4 shrink-0 text-gold-500" aria-hidden="true" />
