@@ -61,6 +61,7 @@ export function VendorListingForm() {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [busy, setBusy] = useState(false);
   const [done, setDone] = useState<{ paymentRequired: boolean; plan: PlanId; vendorSlug: string | null; loggedIn: boolean; firstListing: boolean } | null>(null);
+  const [needsVerification, setNeedsVerification] = useState<string | null>(null);
   const [serverError, setServerError] = useState("");
 
   function set<K extends keyof typeof form>(key: K, value: string) {
@@ -109,6 +110,11 @@ export function VendorListingForm() {
         });
       }
       const data = await res.json().catch(() => ({}));
+      if (res.ok && data.needsVerification) {
+        setNeedsVerification(typeof data.message === "string" ? data.message : "This shop is already registered. WhatsApp us to activate your dashboard login.");
+        setErrors({});
+        return;
+      }
       if (res.ok) {
         setDone({
           paymentRequired: !!data.paymentRequired,
@@ -126,6 +132,23 @@ export function VendorListingForm() {
     } finally {
       setBusy(false);
     }
+  }
+
+  if (needsVerification) {
+    return (
+      <div className="rounded-xl border border-amber-300 bg-amber-50 p-6 dark:border-amber-700 dark:bg-amber-900/30" role="status">
+        <p className="font-extrabold text-amber-900 dark:text-amber-200">We know this shop 👋</p>
+        <p className="mt-2 text-sm leading-relaxed text-amber-900 dark:text-amber-200">{needsVerification}</p>
+        <a
+          href={`https://wa.me/${MOMO_WHATSAPP}?text=${encodeURIComponent("Hi, I want to activate my dashboard login on FindIt Ghana. Business: " + form.businessName + " · Phone: " + form.phone)}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mt-4 inline-flex items-center justify-center rounded-xl bg-amber-600 px-5 py-3 text-sm font-bold text-white hover:bg-amber-500 transition-colors"
+        >
+          WhatsApp us now
+        </a>
+      </div>
+    );
   }
 
   if (done) {

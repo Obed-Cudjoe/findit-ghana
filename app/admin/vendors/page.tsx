@@ -42,6 +42,7 @@ export default async function AdminVendorsPage() {
       clicks: vendorClicks.length,
       views: vendorViews.length,
       createdAt: p.createdAt,
+      hasLogin: Boolean(p.passwordHash),
     };
   });
 

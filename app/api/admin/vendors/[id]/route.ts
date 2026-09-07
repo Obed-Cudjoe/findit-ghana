@@ -6,6 +6,7 @@ import { revalidatePath } from "next/cache";
 import { cacheReset } from "@/lib/ttl-cache";
 import { readVendorProfiles, updateVendorProfile, readVendorListings, listingsForVendor, deleteVendorProfile } from "@/lib/store";
 import { daysFromNow, isPlanId } from "@/lib/plans";
+import { hashVendorPassword, MIN_VENDOR_PASSWORD } from "@/lib/vendor-auth";
 import type { VendorPaymentStatus, VendorProfileStatus } from "@/lib/types";
 
 const VALID_STATUS: VendorProfileStatus[] = ["pending", "approved", "rejected"];
@@ -21,6 +22,7 @@ export async function PATCH(request: NextRequest, { params }: { params: Promise<
     verified?: boolean;
     status?: string;
     momoReference?: string;
+    password?: string;
   };
 
   const profiles = await readVendorProfiles();
@@ -30,6 +32,21 @@ export async function PATCH(request: NextRequest, { params }: { params: Promise<
   // Any mutation below changes what the homepage strip / shop pages show —
   // drop the TTL cache so it's visible immediately instead of in ≤30s.
   cacheReset("marketplace-state");
+
+  // Activate a shop's dashboard login. Admin-only because the vendor's phone
+  // number is public — a password must never be accepted from the public
+  // form for an existing passwordless shop (takeover guard in /api/listings).
+  // Flow: vendor WhatsApps the admin from their number → admin verifies the
+  // incoming number → admin sets the password here.
+  if (body.action === "set-password") {
+    const pwd = typeof body.password === "string" ? body.password : "";
+    if (pwd.length < MIN_VENDOR_PASSWORD) {
+      return NextResponse.json({ error: `Password must be at least ${MIN_VENDOR_PASSWORD} characters.` }, { status: 400 });
+    }
+    const ok = await updateVendorProfile(id, { passwordHash: await hashVendorPassword(pwd) });
+    if (!ok) return NextResponse.json({ error: "Could not set the password." }, { status: 500 });
+    return NextResponse.json({ ok: true });
+  }
 
   // One-click: confirm MoMo → grant plan for 30 days and approve the shop.
   if (body.action === "confirm-payment") {

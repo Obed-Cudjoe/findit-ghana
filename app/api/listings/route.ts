@@ -87,12 +87,27 @@ export async function POST(request: NextRequest) {
   const existing = await findVendorProfileByPhone(digits);
   // Password is OPTIONAL: small vendors list products and manage by phone /
   // WhatsApp. If they set one, it must be strong and is hashed; a vendor who
-  // skips it simply has no dashboard login until they add one (they can
-  // re-register with a password later — the profile upserts by phone).
+  // skips it simply has no dashboard login until one is activated by the
+  // admin (takeover guard below).
   let passwordHash: string | undefined;
   if (password) {
     if (password.length < MIN_VENDOR_PASSWORD) {
       return NextResponse.json({ error: `Password must be at least ${MIN_VENDOR_PASSWORD} characters.` }, { status: 400 });
+    }
+    // TAKEOVER GUARD: a vendor's phone number is PUBLIC (it's on their TikTok
+    // ads). If a shop already exists without a password, anyone who knows the
+    // number could submit the form and claim the dashboard — including
+    // changing prices to scam buyers. So an existing passwordless shop can
+    // only get a login through the admin, who verifies the number by WhatsApp
+    // before activating it.
+    if (existing && !existing.passwordHash) {
+      return NextResponse.json({
+        ok: true,
+        needsVerification: true,
+        vendorSlug: existing.slug,
+        message:
+          "This shop is already registered without a dashboard login. To activate yours, WhatsApp 053 126 2424 from the shop's number — we verify it's really you, then set your login within a business day.",
+      });
     }
     if (!existing?.passwordHash) passwordHash = await hashVendorPassword(password);
   }

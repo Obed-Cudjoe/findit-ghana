@@ -25,6 +25,7 @@ export interface AdminVendorRow {
   clicks: number;
   views: number;
   createdAt: string;
+  hasLogin: boolean;
 }
 
 const PLAN_BADGE: Record<string, string> = {
@@ -86,6 +87,19 @@ export function VendorsTable({ vendors }: { vendors: AdminVendorRow[] }) {
         ),
       );
     }
+  }
+
+  /** Activate a shop's dashboard login (admin-verified, see API route). */
+  async function setLogin(id: string, businessName: string) {
+    // eslint-disable-next-line no-alert
+    const pwd = window.prompt(`New dashboard password for ${businessName} (min 8 chars). Only set this AFTER the shop WhatsApps you from their number:`);
+    if (!pwd) return;
+    if (pwd.length < 8) {
+      // eslint-disable-next-line no-alert
+      window.alert("Password must be at least 8 characters.");
+      return;
+    }
+    await patch(id, { action: "set-password", password: pwd }, { hasLogin: true });
   }
 
   /** Second step of the confirm dialog — actually deletes the shop. */
@@ -155,6 +169,18 @@ export function VendorsTable({ vendors }: { vendors: AdminVendorRow[] }) {
                   </td>
                   <td className="px-4 py-3">
                     <div className="flex flex-wrap justify-end gap-1.5">
+                      <button
+                        disabled={pending}
+                        onClick={() => setLogin(v.id, v.businessName)}
+                        title={v.hasLogin ? "Shop has a dashboard login. Reset it only after the vendor verifies via WhatsApp." : "No dashboard login yet — set one after the vendor verifies via WhatsApp."}
+                        className={`rounded-md border px-2.5 py-1 text-xs font-semibold transition-colors ${
+                          v.hasLogin
+                            ? "border-navy-200 text-slate-soft dark:text-navy-300 hover:bg-navy-50"
+                            : "border-amber-400 bg-amber-400/10 text-amber-700 dark:text-amber-300 hover:bg-amber-400/20"
+                        }`}
+                      >
+                        {v.hasLogin ? "🔑 Login set" : "🔑 Set login"}
+                      </button>
                       {v.status !== "approved" && (
                         <button
                           disabled={pending}

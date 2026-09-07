@@ -30,7 +30,11 @@ export async function POST(request: NextRequest) {
   }
   if (!profile.passwordHash) {
     return NextResponse.json(
-      { error: "This shop has no login yet. Create one with the form below.", code: "no_password" },
+      {
+        error:
+          "This shop has no dashboard login yet. To keep your shop safe we only activate logins after verifying your number — WhatsApp 053 126 2424 from this shop's number and we'll set your login within a business day.",
+        code: "no_password",
+      },
       { status: 403 },
     );
   }
