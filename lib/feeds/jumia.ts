@@ -25,6 +25,9 @@ interface CatalogEntry {
   discountPct?: number;
   rating?: number;
   reviews?: number;
+  // "Only N left" captured by scripts/fetch-jumia.mjs when Jumia's card
+  // shows it; absent when the marketplace doesn't state stock on the card.
+  stockCount?: number;
 }
 
 interface CatalogDoc {
@@ -181,7 +184,10 @@ export function jumiaOffers(): PriceOffer[] {
     productSlug: slugFor(entry.url),
     vendorId: jumiaVendor.id,
     priceGhs: entry.priceGhs,
-    stockCount: null, // marketplace stock varies by seller; Jumia confirms at checkout
+    // Captured "Only N left" when Jumia's card states it; null = Jumia
+    // didn't show stock on the card (marketplace stock varies by seller,
+    // confirmed at checkout) — the site then says "Check stock with vendor".
+    stockCount: entry.stockCount ?? null,
     deliveryZone: "Jumia delivery",
     deliveryDaysMin: 2,
     deliveryDaysMax: 5,

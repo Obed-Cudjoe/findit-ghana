@@ -104,8 +104,13 @@ function mapShopifyProduct(p, host) {
   const category = categoryFor(title, p.product_type ?? "");
   if (!category) return { skipped: true };
 
-  const variant = (p.variants ?? []).find((v) => v.available) ?? (p.variants ?? [])[0];
-  if (!variant) return { skipped: true };
+  const variants = p.variants ?? [];
+  if (variants.length === 0) return { skipped: true };
+  // Out-of-stock: Shopify's per-variant `available` flag is authoritative.
+  // When no variant is available, skip the product entirely — FindIt should
+  // never send a shopper to a page that just says "sold out".
+  if (!variants.some((v) => v.available)) return { skipped: true, outOfStock: true };
+  const variant = variants.find((v) => v.available);
   const priceGhs = parsePrice(variant.price);
   if (priceGhs === null) return { skipped: true };
 
@@ -174,9 +179,15 @@ async function main() {
     // Map + classify
     const entries = [];
     let skipped = 0;
+    let outOfStock = 0;
     for (const p of shopify) {
       const mapped = mapShopifyProduct(p, partner.host);
-      if (!mapped || mapped.skipped) { skipped++; continue; }
+      if (!mapped) { skipped++; continue; }
+      if (mapped.skipped) {
+        if (mapped.outOfStock) outOfStock++;
+        else skipped++;
+        continue;
+      }
       entries.push(mapped.entry);
     }
 
@@ -199,7 +210,9 @@ async function main() {
     };
     saveCatalog(partner.file, doc);
     refreshed++;
-    console.log(`  → wrote ${products.length} products (${skipped} skipped — no matching category)`);
+    console.log(
+      `  → wrote ${products.length} products (${skipped} skipped — no matching category; ${outOfStock} out of stock — removed so shoppers never land on sold-out pages)`,
+    );
   }
 
   console.log(`\nDone. Refreshed ${refreshed} of ${targets.length} partner catalogue(s).`);

@@ -108,6 +108,14 @@ function extractProducts(html, fallbackCategory) {
     const oldPriceGhs = oldRaw ? parseGhs(decodeEntities(oldRaw)) : undefined;
     const discountPct = Number(tail.match(/_dsct[^>]*>\s*(\d{1,2})%/)?.[1]) || undefined;
 
+    // Availability: skip cards Jumia marks sold out (never link shoppers to a
+    // page that just says "sold out"), and capture "Only N left" as real
+    // stock. Scoped to the first 2,000 chars of the card so a neighbouring
+    // card's ribbon can't false-positive this one.
+    const cardScope = tail.slice(0, 2000);
+    if (/(?:sold[\s-]*out|out of stock)/i.test(cardScope)) continue;
+    const stockCount = Number(cardScope.match(/only\s+(\d+)\s+left/i)?.[1]) || undefined;
+
     const ratingMatch = tail.match(ratingRe);
     const rating = ratingMatch ? Number(ratingMatch[1]) : undefined;
     const reviews = ratingMatch ? Number(tail.match(reviewsRe)?.[1]) || undefined : undefined;
@@ -126,6 +134,7 @@ function extractProducts(html, fallbackCategory) {
       ...(oldPriceGhs ? { oldPriceGhs } : {}),
       ...(discountPct ? { discountPct } : {}),
       ...(rating ? { rating, reviews } : {}),
+      ...(stockCount ? { stockCount } : {}),
     });
   }
   return products;

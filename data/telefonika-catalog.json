@@ -1,10 +1,690 @@
 {
   "source": "telefonika.com",
   "description": "Telefonika Ghana showcase catalogue — real products and live GH₵ prices captured from telefonika.com public listings on the fetchedAt date. Proof-of-partnership listings: buy buttons go directly to Telefonika product pages. Refresh prices from their website.",
-  "fetchedAt": "2026-08-31T22:18:49.367Z",
+  "fetchedAt": "2026-09-07T17:23:16.623Z",
   "currency": "GHS",
   "deliveryModel": "Telefonika offers free delivery within Accra and ships nationwide from its store network. Modelled as GH₵0 fee, 1–3 days.",
   "products": [
+    {
+      "name": "Uniq Hybrid MagClick Charging LifePro Xtreme for iPhone 17 Pro Max - Frost",
+      "brand": "Uniq",
+      "category": "phones",
+      "url": "https://telefonika.com/products/uniq-hybrid-magclick-charging-lifepro-xtreme-for-iphone-17-pro-max-frost",
+      "priceGhs": 170,
+      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/UNIQ-IP6.9P-LXAFMCLRW.png?v=1763988996"
+    },
+    {
+      "name": "Uniq Hybrid MagClick Charging LifePro Xtreme for iPhone 17 Pro Max - Frost Smoke",
+      "brand": "Uniq",
+      "category": "phones",
+      "url": "https://telefonika.com/products/uniq-hybrid-magclick-charging-lifepro-xtreme-for-iphone-17-pro-max-frost-smoke",
+      "priceGhs": 170,
+      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/UNIQ-IP6.9P-LXAFMFSMK.png?v=1763989244"
+    },
+    {
+      "name": "Uniq Hybrid Swivix with 360 Rotating KickStand for iPhone 17 Pro Max - Carbon Black",
+      "brand": "Uniq",
+      "category": "phones",
+      "url": "https://telefonika.com/products/uniq-hybrid-swivix-with-360-rotating-kickstand-for-iphone-17-pro-max-carbon-black",
+      "priceGhs": 290,
+      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/UNIQ-IP6.9P-SWVCBLK.png?v=1763989517"
+    },
+    {
+      "name": "Uniq Stockholm Protective Nylon Laptop Bag (Up to 16'') - Abyss Blue",
+      "brand": "Uniq",
+      "category": "laptops",
+      "url": "https://telefonika.com/products/uniq-stockholm-protective-nylon-laptop-bag-up-to-16-abyss-blue",
+      "priceGhs": 590,
+      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/UNIQ-STOCKHOLM16-ABSBLUE.jpg?v=1769522408"
+    },
+    {
+      "name": "Uniq Revix Evo Reversible Strap For Apple Watch 49/46/45/44mm - Crepe Pink / Ivory",
+      "brand": "Uniq",
+      "category": "fashion",
+      "url": "https://telefonika.com/products/uniq-revix-evo-reversible-strap-for-apple-watch-49-45-44mm-crepe-pink-ivory",
+      "priceGhs": 440,
+      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/UNIQ-49MM-REVECPNKIVY.jpg?v=1758033279"
+    },
+    {
+      "name": "Green Lion 360° Anti-Shock Creative Magnetic Case iPhone 14 - Clear",
+      "brand": "Green Lion",
+      "category": "phones",
+      "url": "https://telefonika.com/products/green-lion-360-anti-shock-creative-magnetic-case-iphone-14-clear",
+      "priceGhs": 180,
+      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/GreenGN360MAG14CL.jpg?v=1761745259"
+    },
+    {
+      "name": "Apple iPhone 14 Pro Max Leather Case with MagSafe",
+      "brand": "Apple",
+      "category": "phones",
+      "url": "https://telefonika.com/products/apple-iphone-14-pro-max-leather-case-with-magsafe",
+      "priceGhs": 1520,
+      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/Apple-iPhone-14-Pro-Leather-Case-with-MagSafe-Ink.jpg?v=1769522949"
+    },
+    {
+      "name": "Apple iPhone 14 Pro Leather Case with MagSafe",
+      "brand": "Apple",
+      "category": "phones",
+      "url": "https://telefonika.com/products/apple-iphone-14-pro-leather-case-with-magsafe",
+      "priceGhs": 1520,
+      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/Apple-iPhone-14-Pro-Leather-Case-with-MagSafe-Ink.jpg?v=1769522949"
+    },
+    {
+      "name": "Mortal Shell II - PlayStation 5",
+      "brand": "Playstations",
+      "category": "gaming",
+      "url": "https://telefonika.com/products/mortal-shell-ii-playstation-5",
+      "priceGhs": 890,
+      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/PS5MORTALSHELLII.jpg?v=1788470288"
+    },
+    {
+      "name": "007 First Light - PlayStation 5",
+      "brand": "Playstations",
+      "category": "gaming",
+      "url": "https://telefonika.com/products/007-first-light-playstation-5",
+      "priceGhs": 1190,
+      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/PS5007FIRSTLIGHT.jpg?v=1788470345"
+    },
+    {
+      "name": "Ghost of Yotei - Playstation 5",
+      "brand": "Playstations",
+      "category": "gaming",
+      "url": "https://telefonika.com/products/ghost-of-yotei-playstation-5",
+      "priceGhs": 1090,
+      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/PS5GHOSTOFYOTEI.jpg?v=1788470286"
+    },
+    {
+      "name": "Resident Evil Requiem - PlayStation 5",
+      "brand": "Playstations",
+      "category": "gaming",
+      "url": "https://telefonika.com/products/resident-evil-requiem-playstation-5",
+      "priceGhs": 1190,
+      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/PS5RESIDENTEVILREQ.jpg?v=1788469986"
+    },
+    {
+      "name": "MOUSE: P.I. For Hire - PlayStation 5",
+      "brand": "Playstations",
+      "category": "gaming",
+      "url": "https://telefonika.com/products/mouse-p-i-for-hire-playstation-5",
+      "priceGhs": 690,
+      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/PS5MOUSEP.I.FORHIR.jpg?v=1788469869"
+    },
+    {
+      "name": "MOUSE: P.I. For Hire - Nintendo Switch 2",
+      "brand": "Nintendo Switch",
+      "category": "gaming",
+      "url": "https://telefonika.com/products/mouse-p-i-for-hire-nintendo-switch-2",
+      "priceGhs": 890,
+      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/NINTENDOMOUSEP.I.FO.jpg?v=1788469387"
+    },
+    {
+      "name": "SnowRunner - Nintendo Switch 2",
+      "brand": "Nintendo Switch",
+      "category": "gaming",
+      "url": "https://telefonika.com/products/snowrunner-nintendo-switch-2",
+      "priceGhs": 690,
+      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/NINTENDOSNOWRUNNER.jpg?v=1788469387"
+    },
+    {
+      "name": "Fitbit Google Air - Screenless Activity Tracker",
+      "brand": "Fitbit",
+      "category": "fashion",
+      "url": "https://telefonika.com/products/fitbit-google-air-screenless-activity-tracker",
+      "priceGhs": 1990,
+      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/GoogleFitbitAirBerry.jpg?v=1788469387"
+    },
+    {
+      "name": "Splatoon™ Raiders - Nintendo Switch 2",
+      "brand": "Nintendo Switch",
+      "category": "gaming",
+      "url": "https://telefonika.com/products/splatoon™-raiders-nintendo-switch-2",
+      "priceGhs": 1290,
+      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/816iP-1HyJL._SL1500.jpg?v=1788444046"
+    },
+    {
+      "name": "Nintendo Switch™ 2 Pro Controller - Regular Edition",
+      "brand": "Nintendo Switch",
+      "category": "gaming",
+      "url": "https://telefonika.com/products/nintendo-switch™-2-pro-controller-regular-edition",
+      "priceGhs": 1590,
+      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/NINTENDOSWITCH2PRO.jpg?v=1788443861"
+    },
+    {
+      "name": "Carbon Magnet Case Black for Samsung Galaxy Z Fold 8 Series - Carbon Magnetic Armor",
+      "brand": "Samsung",
+      "category": "phones",
+      "url": "https://telefonika.com/products/carbon-magnet-case-black-for-samsung-galaxy-z-fold-8-series-carbon-magnetic-armor",
+      "priceGhs": 1190,
+      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/SAMZFOLD8CARBNMAG.jpg?v=1788443593"
+    },
+    {
+      "name": "Silicone Magnet Case for Galaxy Z Fold 8 Series",
+      "brand": "Samsung",
+      "category": "phones",
+      "url": "https://telefonika.com/products/silicone-magnet-case-for-galaxy-z-fold-8-series",
+      "priceGhs": 890,
+      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/SAMZFOLD8SILMBLAC.jpg?v=1788469148"
+    },
+    {
+      "name": "Samsung Galaxy Z Fold8 Ultra Clear Magnet Phone Case",
+      "brand": "Samsung",
+      "category": "phones",
+      "url": "https://telefonika.com/products/samsung-galaxy-z-fold8-ultra-clear-magnet-phone-case",
+      "priceGhs": 590,
+      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/SAMZFOLD8CLEARMAN.jpg?v=1788468907"
+    },
+    {
+      "name": "Samsung Book Cover for Galaxy Tab A11 - Black",
+      "brand": "Samsung",
+      "category": "phones",
+      "url": "https://telefonika.com/products/samsung-book-cover-for-galaxy-tab-a11-black",
+      "priceGhs": 470,
+      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/SAMTABA11BCBLK.jpg?v=1788442166"
+    },
+    {
+      "name": "Green Lion HD Plus Camera Lens For iPhone 17 6.3 - HD Clear Lens Protectio",
+      "brand": "Green Lion",
+      "category": "phones",
+      "url": "https://telefonika.com/products/green-lion-hd-plus-camera-lens-for-iphone-17-6-3-hd-clear-lens-protectio",
+      "priceGhs": 120,
+      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/GreenGNCMHDP17BK.jpg?v=1788435174"
+    },
+    {
+      "name": "Samsung SM-L715 Galaxy Watch Ultra 2 LTE - The Ultimate Rugged LTE Smartwatch",
+      "brand": "Samsung",
+      "category": "phones",
+      "url": "https://telefonika.com/products/samsung-sm-l715-galaxy-watch-ultra-2-lte-the-ultimate-rugged-lte-smartwatch",
+      "priceGhs": 9999,
+      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/L715Gray.jpg?v=1788468907"
+    },
+    {
+      "name": "Samsung SM-L350 Galaxy Watch9 (44mm LTE)",
+      "brand": "Samsung",
+      "category": "phones",
+      "url": "https://telefonika.com/products/samsung-sm-l350-galaxy-watch9-44mm-lte",
+      "priceGhs": 5599,
+      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/SM-L340GRAPHITE_0f7655f8-15c2-488e-a4d1-f16338853323.jpg?v=1788468907"
+    },
+    {
+      "name": "Samsung SM-L340 Galaxy Watch 9 (40mm LTE)",
+      "brand": "Samsung",
+      "category": "phones",
+      "url": "https://telefonika.com/products/samsung-galaxy-watch-9-40mm-lte",
+      "priceGhs": 4999,
+      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/SM-L340CREAM.jpg?v=1788433644"
+    },
+    {
+      "name": "Green Lion Headrest Mount Tablet and Phone Holder - Black",
+      "brand": "Green Lion",
+      "category": "phones",
+      "url": "https://telefonika.com/products/green-lion-headrest-mount-tablet-and-phone-holder-black",
+      "priceGhs": 140,
+      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/GreenGNHDTABHDRBK525.jpg?v=1788469868"
+    },
+    {
+      "name": "Green Lion GX-74  Suction Phone Holder 4.7inch - 6.9inch Devices - Black",
+      "brand": "Green Lion",
+      "category": "phones",
+      "url": "https://telefonika.com/products/green-lion-gx-74-suction-phone-holder-4-7inch-6-9inch-devices-black",
+      "priceGhs": 170,
+      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/GreenGNGX74SUPHBK.jpg?v=1788469868"
+    },
+    {
+      "name": "Green Lion Dash Force Magnetic Car Phone Holder - Black",
+      "brand": "Green Lion",
+      "category": "phones",
+      "url": "https://telefonika.com/products/green-lion-dash-force-magnetic-car-phone-holder-black",
+      "priceGhs": 70,
+      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/GreenGNDHFRCMGPHBK.jpg?v=1788432667"
+    },
+    {
+      "name": "Green Lion Tough Guard Anti-Scratch PC Magsafe Case iPhone 15Pro - Black",
+      "brand": "Green Lion",
+      "category": "phones",
+      "url": "https://telefonika.com/products/green-lion-tough-guard-anti-scratch-pc-magsafe-case-iphone-15pro-black",
+      "priceGhs": 220,
+      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/GreenGNTPUMMG15PBK.jpg?v=1788431594"
+    },
+    {
+      "name": "Green Tempered Glass Screen Protector for Macbook 16 Pro 2021 - Clear",
+      "brand": "Green Lion",
+      "category": "laptops",
+      "url": "https://telefonika.com/products/green-tempered-glass-screen-protector-for-macbook-16-pro-2021-clear",
+      "priceGhs": 185,
+      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/GreenGNTGM14PRO20212525.jpg?v=1788469388"
+    },
+    {
+      "name": "Green Tempered Glass Screen Protector for Macbook 14 Pro 2021 - Clear",
+      "brand": "Green Lion",
+      "category": "laptops",
+      "url": "https://telefonika.com/products/green-tempered-glass-screen-protector-for-macbook-14-pro-2021-clear",
+      "priceGhs": 290,
+      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/GreenGNTGM14PRO20213454.jpg?v=1788469387"
+    },
+    {
+      "name": "Green Lion Stand Magsafe Case for iPhone 15 Pro - Clear",
+      "brand": "Green Lion",
+      "category": "phones",
+      "url": "https://telefonika.com/products/green-lion-stand-magsafe-case-for-iphone-15-pro-clear",
+      "priceGhs": 125,
+      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/GreenGNSTMGC15PCL.jpg?v=1788430492"
+    },
+    {
+      "name": "Green Berlin Series Silicone Case for Airpods 3 - Black",
+      "brand": "Green Lion",
+      "category": "tv-audio",
+      "url": "https://telefonika.com/products/green-berlin-series-silicone-case-for-airpods-3-black",
+      "priceGhs": 90,
+      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/GreenGNSILAIR3BK.jpg?v=1788430183"
+    },
+    {
+      "name": "Green Lion Regal Magsafe Case For iPhone 17 Pro - Silver",
+      "brand": "Green Lion",
+      "category": "phones",
+      "url": "https://telefonika.com/products/green-lion-regal-magsafe-case-for-iphone-17-pro-silver",
+      "priceGhs": 170,
+      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/GreenGNRLMG17PSL.jpg?v=1788430005"
+    },
+    {
+      "name": "Green Lion Magsafe Silicone Ultra Soft Case for iPhone 15Pro - Green",
+      "brand": "Green Lion",
+      "category": "phones",
+      "url": "https://telefonika.com/products/green-lion-magsafe-silicone-ultra-soft-case-for-iphone-15pro-green",
+      "priceGhs": 100,
+      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/GreenGNMGSIL15PGN.jpg?v=1788469385"
+    },
+    {
+      "name": "Green Lion Delgado PC Case for  iPhone 15 Pro - Clear",
+      "brand": "Green Lion",
+      "category": "phones",
+      "url": "https://telefonika.com/products/green-lion-delgado-pc-case-for-iphone-15-pro-clear",
+      "priceGhs": 45,
+      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/GREENGNDPC15PCL.jpg?v=1788427665"
+    },
+    {
+      "name": "Green Delgado PC Case for iPhone 14 Series - Clear",
+      "brand": "Green Lion",
+      "category": "phones",
+      "url": "https://telefonika.com/products/green-delgado-pc-case-for-iphone-14-6-1-clear",
+      "priceGhs": 110,
+      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/GreenGNDPC14CL.jpg?v=1788426709"
+    },
+    {
+      "name": "Green Lion Delgado Plus with Camera Protection Case for iPhone 15Pro  - Clear",
+      "brand": "Green Lion",
+      "category": "phones",
+      "url": "https://telefonika.com/products/green-lion-delgado-plus-with-camera-protection-case-for-iphone-15pro-clear",
+      "priceGhs": 160,
+      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/GreenGNDLGPM15PCL.jpg?v=1788384426"
+    },
+    {
+      "name": "Green Lion Crystal Clear Case for Samsung Galaxy S24 - Clear",
+      "brand": "Green Lion",
+      "category": "phones",
+      "url": "https://telefonika.com/products/green-lion-crystal-clear-case-for-samsung-galaxy-s24-clear",
+      "priceGhs": 100,
+      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/GREENGNCRCCS24CLEAR.jpg?v=1788367524"
+    },
+    {
+      "name": "Green Lion Camguard Magsafe Case iPhone 16 Pro Max - Beige",
+      "brand": "Green Lion",
+      "category": "phones",
+      "url": "https://telefonika.com/products/green-lion-camguard-magsafe-case-iphone-16-pro-max-beige",
+      "priceGhs": 125,
+      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/GreenGNCMGR16PMBG.jpg?v=1788384426"
+    },
+    {
+      "name": "Green Lion Anti-Shock Case for iPhone 16 6.1 - Clear",
+      "brand": "Green Lion",
+      "category": "phones",
+      "url": "https://telefonika.com/products/green-lion-anti-shock-case-for-iphone-16-6-1-clear",
+      "priceGhs": 45,
+      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/GreenGNASC16CL.jpg?v=1788384308"
+    },
+    {
+      "name": "Green Lion Anti-Shock Case for iPhone 15 Pro ( 6.1\" ) - Clear",
+      "brand": "Green Lion",
+      "category": "phones",
+      "url": "https://telefonika.com/products/green-lion-anti-shock-case-for-iphone-15-pro-6-1-clear",
+      "priceGhs": 35,
+      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/GreenGNASC15PCL.jpg?v=1788384426"
+    },
+    {
+      "name": "Green Rocky Series 360° Anti-Shock Case for iPhone 14 Pro ( 6.1\" ) - Clear",
+      "brand": "Green Lion",
+      "category": "phones",
+      "url": "https://telefonika.com/products/green-rocky-series-360-anti-shock-case-for-iphone-14-pro-6-1-clear",
+      "priceGhs": 90,
+      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/GreenGNAS36014PCL.jpg?v=1788365071"
+    },
+    {
+      "name": "Green Lion 9H UV Glass Screen Protector for Samsung Galaxy S23 Series- Clear",
+      "brand": "Green Lion",
+      "category": "phones",
+      "url": "https://telefonika.com/products/green-lion-9h-uv-glass-screen-protector-for-samsung-galaxy-s23-series-clear",
+      "priceGhs": 140,
+      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/GreenGN9HUVGLS23CL.jpg?v=1788384426"
+    },
+    {
+      "name": "Green Lion 9H Steve Privacy Anti-Peeping Glass for iPhone 17 Series - Black",
+      "brand": "Green Lion",
+      "category": "phones",
+      "url": "https://telefonika.com/products/green-lion-9h-steve-privacy-anti-peeping-glass-for-iphone-17-series-black",
+      "priceGhs": 140,
+      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/GreenGN9HSPY17BK.jpg?v=1788385146"
+    },
+    {
+      "name": "Green Lion 9H Steve Privacy Screen Protector for iPhone 15 Pro Max - Black",
+      "brand": "Green Lion",
+      "category": "phones",
+      "url": "https://telefonika.com/products/green-lion-9h-steve-privacy-screen-protector-for-iphone-15-pro-max-black",
+      "priceGhs": 130,
+      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/GreenGN9HSPY15PMBK.jpg?v=1788385513"
+    },
+    {
+      "name": "Green Lion 9H Steve HD Screen Protector for iPhone 17 Series - Clear",
+      "brand": "Green Lion",
+      "category": "phones",
+      "url": "https://telefonika.com/products/green-lion-9h-steve-hd-screen-protector-for-iphone-17-series-clear",
+      "priceGhs": 100,
+      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/GreenGN9HSGL17ACL.jpg?v=1788384426"
+    },
+    {
+      "name": "Green Lion 9H Steve HD Screen Protector for iPhone 15 Pro Max - Clear",
+      "brand": "Green Lion",
+      "category": "phones",
+      "url": "https://telefonika.com/products/green-lion-9h-steve-hd-screen-protector-for-iphone-15-pro-max-clear",
+      "priceGhs": 120,
+      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/GreenGN9HSGL15PMCL.jpg?v=1788384308"
+    },
+    {
+      "name": "Green Lion 4 in 1 Defender Pack Privacy for iPhone 16 Pro - Transparent",
+      "brand": "Green Lion",
+      "category": "phones",
+      "url": "https://telefonika.com/products/green-lion-4-in-1-defender-pack-privacy-for-iphone-16-pro-transparent",
+      "priceGhs": 370,
+      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/GreenGN4N1DP16PPY.jpg?v=1788362635"
+    },
+    {
+      "name": "Green Lion 4 In 1 Defender Pack iPhone 16 Pro Max",
+      "brand": "Green Lion",
+      "category": "phones",
+      "url": "https://telefonika.com/products/green-lion-4-in-1-defender-pack-iphone-16-pro-max",
+      "priceGhs": 320,
+      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/GREENGN4N1DE16PMBK.jpg?v=1788361890"
+    },
+    {
+      "name": "Green 4 in 1 360° Privacy Protection Pack for iPhone 14 Pro ( 6.1\" ) - Gold",
+      "brand": "Green Lion",
+      "category": "phones",
+      "url": "https://telefonika.com/products/green-4-in-1-360-privacy-protection-pack-for-iphone-14-pro-6-1-gold",
+      "priceGhs": 390,
+      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/GreenGN4IN1PY14PGD.jpg?v=1788383946"
+    },
+    {
+      "name": "Green Lion 4 in 1 Protection Pack for iPhone 15 Pro - Transparent",
+      "brand": "Green Lion",
+      "category": "phones",
+      "url": "https://telefonika.com/products/green-lion-4-in-1-protection-pack-for-iphone-15-pro-transparent",
+      "priceGhs": 490,
+      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/GreenGN4IN1P15PCL.jpg?v=1788361421"
+    },
+    {
+      "name": "Green 4 in 1 360°  HD Protection Pack for iPhone 14 Pro ( 6.1\" ) - Black",
+      "brand": "Green Lion",
+      "category": "phones",
+      "url": "https://telefonika.com/products/green-4-in-1-360-hd-protection-pack-for-iphone-14-pro-6-1-black",
+      "priceGhs": 340,
+      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/GreenGN4IN1HD14PBK.jpg?v=1788383946"
+    },
+    {
+      "name": "Green Lion 4in 1 Combo For iPhone 17Pro Max - Clear",
+      "brand": "Green Lion",
+      "category": "phones",
+      "url": "https://telefonika.com/products/green-lion-4in-1-combo-for-iphone-17pro-max-clear",
+      "priceGhs": 450,
+      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/GreenGN454N1C17PMCL.jpg?v=1788383946"
+    },
+    {
+      "name": "Green Lion TIMEX 4G 2.07 inch Smart Watch  - Black",
+      "brand": "Green Lion",
+      "category": "fashion",
+      "url": "https://telefonika.com/products/green-lion-timex-4g-2-07-inch-smart-watch-black",
+      "priceGhs": 1290,
+      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/GreenGNTMX4GSWBK.jpg?v=1788383766"
+    },
+    {
+      "name": "Green Lion 4G Kids Watch Pro 1.85inch Smart Watch",
+      "brand": "Green Lion",
+      "category": "fashion",
+      "url": "https://telefonika.com/products/green-lion-4g-kids-watch-pro-1-85inch-smart-watch",
+      "priceGhs": 1190,
+      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/GreenGN4GKDPROBL.jpg?v=1788383766"
+    },
+    {
+      "name": "Green Lion 2G kids smart watch series 5",
+      "brand": "Green Lion",
+      "category": "fashion",
+      "url": "https://telefonika.com/products/green-lion-2g-kids-smart-watch-series-5",
+      "priceGhs": 270,
+      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/GreenGN2GKDS5SWBL.jpg?v=1788383766"
+    },
+    {
+      "name": "Green Lion Sunstone Headphone",
+      "brand": "Green Lion",
+      "category": "phones",
+      "url": "https://telefonika.com/products/green-lion-sunstone-wireless-headphone-orange",
+      "priceGhs": 240,
+      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/Black_Orangs_GL_sunstone.png?v=1780953253"
+    },
+    {
+      "name": "Green Lion Denmark Wireless Headphone  - Black",
+      "brand": "Green Lion",
+      "category": "phones",
+      "url": "https://telefonika.com/products/green-lion-denmark-wireless-headphone-black",
+      "priceGhs": 220,
+      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/GreenGNDNMRKWHPBK.jpg?v=1788355164"
+    },
+    {
+      "name": "Green Acero Correa Link Bracelet for Apple Watch 42 / 44 / 45mm",
+      "brand": "Green Lion",
+      "category": "fashion",
+      "url": "https://telefonika.com/products/green-acero-correa-link-bracelet-for-apple-watch-42-44-45mm",
+      "priceGhs": 490,
+      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/GreenGNLBW45BLU.jpg?v=1788385514"
+    },
+    {
+      "name": "Apple MacBook Pro 16 Inch M5 24GB/1TB Silver - Ultimate Power with M5",
+      "brand": "Apple",
+      "category": "laptops",
+      "url": "https://telefonika.com/products/apple-macbook-pro-16-inch-m5-24gb-1tb-silver-ultimate-power-with-m5",
+      "priceGhs": 41899,
+      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/AppleMacbookPro16inch_M5_24GB.jpg?v=1788385516"
+    },
+    {
+      "name": "Apple MacBook Air M5 15 Inch 16GB/512GB Midnight - Super Thin, Super Powerful",
+      "brand": "Apple",
+      "category": "laptops",
+      "url": "https://telefonika.com/products/apple-macbook-air-m5-15-inch-16gb-512gb-midnight-super-thin-super-powerful",
+      "priceGhs": 21900,
+      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/AppleMacbookAirMidnight.jpg?v=1788385516"
+    },
+    {
+      "name": "Apple MacBook Air M5 13 Inch 16GB RAM 512GB /1TB - Supercharged by M5",
+      "brand": "Apple",
+      "category": "laptops",
+      "url": "https://telefonika.com/products/apple-macbook-air-m5-13-inch-16gb-ram-512gb-1tb-supercharged-by-m5",
+      "priceGhs": 18900,
+      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/AppleMacbookAirMidnight.jpg?v=1788385516"
+    },
+    {
+      "name": "Apple MacBook Pro 14 Inch M5 16GB/1TB Black - Supercharged by M5 Chip",
+      "brand": "Apple",
+      "category": "laptops",
+      "url": "https://telefonika.com/products/apple-macbook-pro-14-inch-m5-16gb-1tb-black-supercharged-by-m5-chip",
+      "priceGhs": 27000,
+      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/MDE14LLA.jpg?v=1788343838"
+    },
+    {
+      "name": "ASUS VivoBook A1502VA-NJ1304 Core i7-13620H 13th Gen 8GB RAM 512GB SSD 15.6\" FHD Display",
+      "brand": "Telefonika",
+      "category": "phones",
+      "url": "https://telefonika.com/products/asus-vivobook-a1502va-nj1304-corei-i7-13620h-13th-gen-8gb-ram-512gb-ssd-15-6inch-fhd-display",
+      "priceGhs": 12500,
+      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/ASUSA1502VQBLUE34.jpg?v=1788385629"
+    },
+    {
+      "name": "Samsung Galaxy Tab S10 Lite",
+      "brand": "Samsung",
+      "category": "phones",
+      "url": "https://telefonika.com/products/samsung-galaxy-tab-s10-lite",
+      "priceGhs": 6799,
+      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/SM-X406_8_256GB_GRY.jpg?v=1775121432"
+    },
+    {
+      "name": "Samsung Galaxy Tab A11 Plus",
+      "brand": "Samsung",
+      "category": "phones",
+      "url": "https://telefonika.com/products/samsung-galaxy-tab-a11-plus",
+      "priceGhs": 3899,
+      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/SM-X236TABA11_6_128G_7cb0ad8c-3415-40e4-a563-59b56ccd73ba.png?v=1788302895"
+    },
+    {
+      "name": "Apple iPhone 17 (1SIM)",
+      "brand": "Apple",
+      "category": "phones",
+      "url": "https://telefonika.com/products/apple-iphone-17",
+      "priceGhs": 12390,
+      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/iPhone17Lavender.jpg?v=1769523309"
+    },
+    {
+      "name": "Portal Remote Controller for Players - PlayStation 5",
+      "brand": "Playstations",
+      "category": "gaming",
+      "url": "https://telefonika.com/products/portal-remote-controller-for-players-playstation-5",
+      "priceGhs": 4890,
+      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/PlayStation-Portal-Remote-Player-PlayStation-5.jpg?v=1769522411"
+    },
+    {
+      "name": "DualSense Edge Wireless Controller - PlayStation 5",
+      "brand": "Playstations",
+      "category": "gaming",
+      "url": "https://telefonika.com/products/dualsense-edge-wireless-controller-playstation-5",
+      "priceGhs": 3990,
+      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/DualSense-Edge-Wireless-Controller-PlayStation-5.jpg?v=1788305346"
+    },
+    {
+      "name": "NBA 2K22 - Xbox One",
+      "brand": "Xbox One",
+      "category": "gaming",
+      "url": "https://telefonika.com/products/nba-2k22-xbox-one",
+      "priceGhs": 760,
+      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/NBA-2K22-Xbox-One.jpg?v=1788305766"
+    },
+    {
+      "name": "Xenoblade Chronicles: Definitive Edition - Nintendo Switch",
+      "brand": "Nintendo Switch",
+      "category": "gaming",
+      "url": "https://telefonika.com/products/xenoblade-chronicles-definitive-edition-nintendo-switch",
+      "priceGhs": 790,
+      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/Xenoblade-Chronicles-Definitive-Edition.jpg?v=1769523067"
+    },
+    {
+      "name": "Pokemon Sword - Nintendo Switch",
+      "brand": "Nintendo Switch",
+      "category": "gaming",
+      "url": "https://telefonika.com/products/pokemon-sword-nintendo-switch",
+      "priceGhs": 350,
+      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/NINTENDO-POKEMON-SWORd.jpg?v=1769524265"
+    },
+    {
+      "name": "Pokemon Mystery Dungeon: Rescue Team Dx - Nintendo Switch",
+      "brand": "Nintendo Switch",
+      "category": "gaming",
+      "url": "https://telefonika.com/products/pokemon-mystery-dungeon-rescue-team-dx-nintendo-switch",
+      "priceGhs": 350,
+      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/imageService.jpg?v=1769524866"
+    },
+    {
+      "name": "Nintendo Switch: Pokémon: Let's Go, Evoli!",
+      "brand": "Nintendo Switch",
+      "category": "gaming",
+      "url": "https://telefonika.com/products/nintendo-switch-pokemon-lets-go-evoli",
+      "priceGhs": 350,
+      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/Pokemon-Lets-Go-Evoli.jpg?v=1769523067"
+    },
+    {
+      "name": "Uniq Strova Mag Apple Watch Self-Adjustable Steel Link Band 49/46/45/44mm - Midnight",
+      "brand": "Uniq",
+      "category": "fashion",
+      "url": "https://telefonika.com/products/uniq-strova-mag-apple-watch-self-adjustable-steel-link-band-49-46-45-44mm-midnight",
+      "priceGhs": 690,
+      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/UNIQ-49MM-STRVMBLK.jpg?v=1758023166"
+    },
+    {
+      "name": "Logitech G432 7.1 Surround Sound Wired Gaming Headset",
+      "brand": "Logitech",
+      "category": "tv-audio",
+      "url": "https://telefonika.com/products/logitech-g432-7-1-surround-sound-wired-gaming-headset",
+      "priceGhs": 1690,
+      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/Logitech-G432-7.1-Surround-Sound-Wired-Gaming-Headset.jpg?v=1769523193"
+    },
+    {
+      "name": "Apple MA6A4 iPhone 16 Clear Case with MagSafe",
+      "brand": "Apple",
+      "category": "phones",
+      "url": "https://telefonika.com/products/apple-iphone-16-clear-case-with-magsafe",
+      "priceGhs": 745,
+      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/MA6A4-Apple-iPhone-16-Clear-Case-with-MagSafe.jpg?v=1769522948"
+    },
+    {
+      "name": "Samsung TV 65inch Q70C QLED FLAT 4K Smart TV QA65Q70CAUXKE",
+      "brand": "Samsung",
+      "category": "tv-audio",
+      "url": "https://telefonika.com/products/samsung-tv-65inch-q70c-qled-flat-4k-smart-tv-qa65q70cauxke",
+      "priceGhs": 16900,
+      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/SAMSUNG-TV-65inch-Q70C-QLED-FLAT-4K-SMART-TV-QA65Q70CAUXKE.jpg?v=1769524033"
+    },
+    {
+      "name": "Apple iPhone 14 Pro Max 1SIM 128GB - Gold",
+      "brand": "Apple",
+      "category": "phones",
+      "url": "https://telefonika.com/products/apple-iphone-14-pro-max-1sim-128gb-gold",
+      "priceGhs": 8990,
+      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/iPhone-14-Pro-Max-BROW.jpg?v=1788302898"
+    },
+    {
+      "name": "Apple iPhone 14 Pro Max 1SIM 128GB - Space Black",
+      "brand": "Apple",
+      "category": "phones",
+      "url": "https://telefonika.com/products/apple-iphone-14-pro-max-1sim-128gb-space-black",
+      "priceGhs": 8990,
+      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/iPhone-13-Pro-Max-SPACE_1cc7a428-b7f8-4d21-8aa7-fd4b37aed1dd.jpg?v=1788302898"
+    },
+    {
+      "name": "Apple AirPods 3rd Generation with Lightning Charging Case",
+      "brand": "Apple",
+      "category": "tv-audio",
+      "url": "https://telefonika.com/products/apple-air-pods-3rd-generation-with-lightning-charging-case",
+      "priceGhs": 3590,
+      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/Apple-Air-Pods-3rd-Generation-with-Lightning-Charging-Case.jpg?v=1758037733"
+    },
+    {
+      "name": "Apple AirPods Pro 3 MagSafe Charging Case (USB-C)",
+      "brand": "Apple",
+      "category": "tv-audio",
+      "url": "https://telefonika.com/products/apple-airpods-pro-3-magsafe-charging-case-usb-c",
+      "priceGhs": 3990,
+      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/MFHP4.jpg?v=1772725332"
+    },
+    {
+      "name": "Huawei Nova Y74 (8GB+256GB) Smartphone",
+      "brand": "Huawei",
+      "category": "phones",
+      "url": "https://telefonika.com/products/huawei-nova-y74-8gb-256gb-smartphone",
+      "priceGhs": 2899,
+      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/HUAWEI_Y74_8_256_BLK.png?v=1788382387"
+    },
     {
       "name": "Samsung Galaxy Buds Core ANC Earphones",
       "brand": "Samsung",
@@ -19,39 +699,7 @@
       "category": "phones",
       "url": "https://telefonika.com/products/samsung-galaxy-s26-fe",
       "priceGhs": 8399,
-      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/Samsung_Galaxy_S26_FE_black.jpg?v=1787873586"
-    },
-    {
-      "name": "Soundcore Motion Speaker 100 A313303 Compact-Sized Hi-Res Sound",
-      "brand": "Anker",
-      "category": "tv-audio",
-      "url": "https://telefonika.com/products/anker-soundcore-motion-speaker-100-a313303-compact-sized-hi-res-sound-blue",
-      "priceGhs": 1140,
-      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/Anker-Soundcore-Motion-Speaker-100-A313303-Compact-Sized-Hi-Res-Sound-Blue.jpg?v=1769523546"
-    },
-    {
-      "name": "Soundcore Glow | Portable Speaker with Synchronized Light Show",
-      "brand": "Anker",
-      "category": "tv-audio",
-      "url": "https://telefonika.com/products/anker-soundcore-glow-a3166011-b2c-360-degree-sound-with-radiant-loght-show-black",
-      "priceGhs": 1590,
-      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/Anker-Soundcore-Glow-A3166011-B2C-360-degree-Sound-With-Radiant-Loght-Show-Black.jpg?v=1769524449"
-    },
-    {
-      "name": "Soundcore Boom 2 SE | Portable Bluetooth Speaker",
-      "brand": "Anker",
-      "category": "tv-audio",
-      "url": "https://telefonika.com/products/anker-soundcore-boom-2-se-outdoor-speaker-30w-bassup-waterpr",
-      "priceGhs": 1790,
-      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/Anker-Soundcore-BOOM-2-SE-Outdoor-Speaker-30W-Bassup-Waterpr.jpg?v=1772008622"
-    },
-    {
-      "name": "Soundcore BOOM 2 Portable Bluetooth Speaker for Bass",
-      "brand": "Anker",
-      "category": "tv-audio",
-      "url": "https://telefonika.com/products/anker-soundcore-boom-2-portable-bluetooth-speaker-80w",
-      "priceGhs": 1590,
-      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/Anker-Soundcore-BOOM-2-Portable-Bluetooth-Speaker-80W.jpg?v=1772008660"
+      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/S741_S26FE_8_128GB_GR_b3623944-806c-4374-9869-ac5d6eb0e90b.png?v=1788382392"
     },
     {
       "name": "SoundCore Space 2 Noise Cancelling Headphone",
@@ -60,22 +708,6 @@
       "url": "https://telefonika.com/products/soundcore-space-2-noise-cancelling-headphone",
       "priceGhs": 1590,
       "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/AnkerSpace2BLACK.jpg?v=1787821019"
-    },
-    {
-      "name": "Soundcore R50i TWS Earbuds With Powerful Sound",
-      "brand": "Anker",
-      "category": "tv-audio",
-      "url": "https://telefonika.com/products/anker-soundcore-r50i-a3949h22-b2b-tws-earbuds-with-powerful-sound-white",
-      "priceGhs": 280,
-      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/Anker_R50i_TWS_BLUE.jpg?v=1769522649"
-    },
-    {
-      "name": "Soundcore H30I Wireless On-Ear-Headphone",
-      "brand": "Anker",
-      "category": "phones",
-      "url": "https://telefonika.com/products/anker-soundcore-h30i-w-l-on-ear-headphone-black",
-      "priceGhs": 479,
-      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/Anker-Soundcore-H30I-WL-On-Ear-Headphone-Black.jpg?v=1758037972"
     },
     {
       "name": "Soundcore C50i D1101HQ1 open-ear Earbuds - Purple",
@@ -94,28 +726,12 @@
       "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/LOGITECHH340Headset.jpg?v=1787820260"
     },
     {
-      "name": "Anker PowerCore iPhone Battery Case 2200mAh - Black",
-      "brand": "Anker",
-      "category": "phones",
-      "url": "https://telefonika.com/products/anker-powercore-iphone-battery-case-2200mah-black",
-      "priceGhs": 1390,
-      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/ANKERBATTERYCSE220.jpg?v=1787742993"
-    },
-    {
       "name": "Uniq Optix Covex Glass Screen Protector for Samsung Galaxy Z Fold 8",
       "brand": "Uniq",
       "category": "phones",
       "url": "https://telefonika.com/products/uniq-optix-covex-glass-screen-protector-for-samsung-galaxy-z-fold-8",
       "priceGhs": 150,
       "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/images_a3af22e4-9a31-4ccc-98ba-66454b090bb9.jpg?v=1787742369"
-    },
-    {
-      "name": "Anker Easy Fit Screen Protector Kit (HD, 2-Pack) for iPhone 16 Pro Max",
-      "brand": "Anker",
-      "category": "phones",
-      "url": "https://telefonika.com/products/anker-easy-fit-screen-protector-kit-hd-2-pack-for-iphone-16-pro-max",
-      "priceGhs": 150,
-      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/Anker-Easy-Fit-Screen-Protector-Kit-HD-2-Pack-for-iPhone-16-Pro-Max.jpg?v=1769525829"
     },
     {
       "name": "Sony SRS-XG500 Wireless Portable Speaker",
@@ -155,7 +771,7 @@
       "category": "phones",
       "url": "https://telefonika.com/products/samsung-galaxy-z-fold-8-ultra",
       "priceGhs": 24999,
-      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/FOLD8ULTRACREAM.jpg?v=1787181188"
+      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/F976B_FOLD_8U_256_CRM.png?v=1788302889"
     },
     {
       "name": "Samsung Galaxy Z Fold 8 – from 12GB/256GB",
@@ -163,7 +779,7 @@
       "category": "phones",
       "url": "https://telefonika.com/products/samsung-galaxy-z-fold-8",
       "priceGhs": 22499,
-      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/FOLD_8_GRAPHITE.jpg?v=1787181188"
+      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/F971B_FOLD_8_256_LAV.png?v=1788302894"
     },
     {
       "name": "Apple iPhone 17 Pro (1SIM)",
@@ -274,7 +890,7 @@
       "brand": "Playstations",
       "category": "gaming",
       "url": "https://telefonika.com/products/black-myth-wukong-playstation-5",
-      "priceGhs": 1190,
+      "priceGhs": 1390,
       "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/PS5WUKONG.jpg?v=1786067410"
     },
     {
@@ -563,7 +1179,7 @@
       "category": "phones",
       "url": "https://telefonika.com/products/tecno-camon-slim-5g",
       "priceGhs": 4199,
-      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/CamonSlim5Gblack.jpg?v=1783639626"
+      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/TECHNO_CAMSLIM_256_BK.png?v=1788469093"
     },
     {
       "name": "Samsung Galaxy A27 5G",
@@ -571,7 +1187,7 @@
       "category": "phones",
       "url": "https://telefonika.com/products/samsung-galaxy-a27-5g",
       "priceGhs": 3699,
-      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/GalaxyA27black.jpg?v=1783119965",
+      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/A27_6_128GB_LGRN.png?v=1788304867",
       "oldPriceGhs": 3999,
       "discountPct": 8
     },
@@ -636,7 +1252,7 @@
       "brand": "LG",
       "category": "tv-audio",
       "url": "https://telefonika.com/products/lg-tv-43-full-hd-hdr-smart-led-tv-43lm6370pva",
-      "priceGhs": 4490,
+      "priceGhs": 3990,
       "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/lgtv43ledsmart.jpg?v=1781473866"
     },
     {
@@ -644,7 +1260,7 @@
       "brand": "LG",
       "category": "tv-audio",
       "url": "https://telefonika.com/products/lg-tv-ur81-65-4k-smart-uhd-2023",
-      "priceGhs": 9790,
+      "priceGhs": 8490,
       "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/lgtvur8165inch4ksmartuhd2023.jpg?v=1781473445"
     },
     {
@@ -760,14 +1376,6 @@
       "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/Sony-HT-S100F-2.0ch-Soundbar-Speaker.jpg?v=1758030355"
     },
     {
-      "name": "Sony HT-RT40 600 Watt Real 5.1 Channel Wireless Bluetooth Soundbar",
-      "brand": "Sony",
-      "category": "tv-audio",
-      "url": "https://telefonika.com/products/sony-ht-rt40-600-watt-real-5-1-channel-wireless-bluetooth-soundbar",
-      "priceGhs": 3990,
-      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/Sony-HT-RT40-600-Watt-Real-5.1-Channel-Wireless-Bluetooth-Soundbar.jpg?v=1758051415"
-    },
-    {
       "name": "Sony WH-G900WZE/H9 Wireless Noise Cancelling Gaming Headset",
       "brand": "Sony",
       "category": "tv-audio",
@@ -831,7 +1439,7 @@
       "category": "phones",
       "url": "https://telefonika.com/products/oppo-a6-5g",
       "priceGhs": 2399,
-      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/Oppo_A6.jpg?v=1780692546"
+      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/OPPO_A6_4_128GB_GOLD.png?v=1788468907"
     },
     {
       "name": "Samsung Galaxy A26",
@@ -842,14 +1450,6 @@
       "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/A26.jpg?v=1784681105",
       "oldPriceGhs": 4299,
       "discountPct": 9
-    },
-    {
-      "name": "Xiaomi Mi Box S 3rd Gen",
-      "brand": "Xiaomi",
-      "category": "phones",
-      "url": "https://telefonika.com/products/xiaomi-mi-box-s-3rd-gen",
-      "priceGhs": 990,
-      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/2.jpg?v=1778965266"
     },
     {
       "name": "VR2 Sense - PlayStation 5",
@@ -873,9 +1473,7 @@
       "category": "phones",
       "url": "https://telefonika.com/products/amazingthing-minimal-air-mag-case-for-iphone-17-pro-max",
       "priceGhs": 240,
-      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/WB_iPhone17ProMax_P_minimalAir_Orange-1.webp?v=1778880491",
-      "oldPriceGhs": 5490,
-      "discountPct": 96
+      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/WB_iPhone17ProMax_P_minimalAir_Orange-1.webp?v=1778880491"
     },
     {
       "name": "AMAZINGTHING Titan Grip Set For iPhone 17 Series",
@@ -910,28 +1508,12 @@
       "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/WB_iPhone17Pro_MINIMALLensGuardBlue_1_1da43527-012c-48d3-aae4-2af1e5605f3c.webp?v=1778880491"
     },
     {
-      "name": "AMAZINGTHING Minimal Lens Case For iPhone 17 Pro Max 6.9inch- Clear",
-      "brand": "Amazing Thing",
-      "category": "phones",
-      "url": "https://telefonika.com/products/amazing-thing-minimal-lens-case-for-iphone-17-promax-6-9inch-clear",
-      "priceGhs": 240,
-      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/WB_iPhone17Pro_MINIMALLensGuardClear.webp?v=1778851890"
-    },
-    {
       "name": "Realme Note 60x",
       "brand": "RealMe",
       "category": "phones",
       "url": "https://telefonika.com/products/realme-note-60x",
       "priceGhs": 1239,
       "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/RealmeNote60X64.jpg?v=1769522526"
-    },
-    {
-      "name": "AMAZINGTHING Minimal Case For AirPods 4",
-      "brand": "Amazing Thing",
-      "category": "tv-audio",
-      "url": "https://telefonika.com/products/amazing-thing-minimal-case-for-airpods-4",
-      "priceGhs": 150,
-      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/WB_AirPods4_Minimal_Click-Case_Placid-Blue_W1161_01_971b99b5-2bb9-4e9b-9b27-a96e2a44ad4b.webp?v=1778880492"
     },
     {
       "name": "AMAZINGTHING Minimal Case For Watch 46mm",
@@ -1010,7 +1592,7 @@
       "brand": "JBL",
       "category": "phones",
       "url": "https://telefonika.com/products/jbl-tune-780-nc-wireless-over-ear-bluetooth-headphones",
-      "priceGhs": 1590,
+      "priceGhs": 1490,
       "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/JBLTUNE780NCBLACK.jpg?v=1777998326"
     },
     {
@@ -1038,14 +1620,6 @@
       "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/SONY_SRS-XB23_WL_BLK.jpg?v=1778100086"
     },
     {
-      "name": "Harman Kardon Luna Elegant Portable Bluetooth Speaker - Grey",
-      "brand": "Harman Kardon",
-      "category": "tv-audio",
-      "url": "https://telefonika.com/products/harman-kardon-luna-elegant-portable-bluetooth-speaker-grey",
-      "priceGhs": 2190,
-      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/HARMAN-KARDON-LUNA-ELEGANT-PORTABLE-BLUETOOTH-SPEKAER-GREY.jpg?v=1758035708"
-    },
-    {
       "name": "Sony SRS-XB13 Extra BASS Wireless Portable Speaker",
       "brand": "Sony",
       "category": "tv-audio",
@@ -1062,20 +1636,12 @@
       "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/SAMSUNG-55-inch-4K-TV-QLED-Q70C-Smart-TV.jpg?v=1769523789"
     },
     {
-      "name": "JBL Live Flex In-Ear Bluetooth Earphones",
-      "brand": "JBL",
-      "category": "phones",
-      "url": "https://telefonika.com/products/jbl-live-flex-in-ear-bluetooth-earphones",
-      "priceGhs": 1990,
-      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/JBLLIVEFLEXBLK.jpg?v=1777913293"
-    },
-    {
       "name": "Tecno Spark 50",
       "brand": "Tecno",
       "category": "phones",
       "url": "https://telefonika.com/products/tecno-spark-50",
       "priceGhs": 1999,
-      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/Spark50Black.jpg?v=1777932314"
+      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/TECHNO_SPARK50_128BK.png?v=1788469093"
     },
     {
       "name": "JBL Tune 235BT - Wireless Earbud Headphones",
@@ -1147,7 +1713,7 @@
       "category": "phones",
       "url": "https://telefonika.com/products/samsung-galaxy-a57",
       "priceGhs": 6099,
-      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/A57Navy.jpg?v=1776817087",
+      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/A57_8_256GB_NAVY_2258e0c8-9194-43d1-adab-db8efed57523.png?v=1788306487",
       "oldPriceGhs": 6499,
       "discountPct": 6
     },
@@ -1157,7 +1723,7 @@
       "category": "phones",
       "url": "https://telefonika.com/products/samsung-galaxy-a37",
       "priceGhs": 5399,
-      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/A37Charcoal.jpg?v=1776813967",
+      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/A37_8_256GB_CHARCOL_1820b453-36c3-4458-9ae4-21f2f8a09429.png?v=1788304687",
       "oldPriceGhs": 5799,
       "discountPct": 7
     },
@@ -1238,7 +1804,7 @@
       "brand": "Playstations",
       "category": "gaming",
       "url": "https://telefonika.com/products/nba-2k26-playstation-5",
-      "priceGhs": 790,
+      "priceGhs": 590,
       "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/PS5NBA2K26.jpg?v=1776119532"
     },
     {
@@ -1248,14 +1814,6 @@
       "url": "https://telefonika.com/products/samsung-galaxy-z-fold-7-clear-grip-case",
       "priceGhs": 690,
       "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/SAMZFOLD7SILCLEAR.jpg?v=1776119172"
-    },
-    {
-      "name": "Samsung Galaxy Z Fold 7 Silicon Grip Case Black",
-      "brand": "Samsung",
-      "category": "phones",
-      "url": "https://telefonika.com/products/samsung-galaxy-z-fold-7-silicon-grip-case-black",
-      "priceGhs": 1090,
-      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/SAMZFOLD7SILBLK.jpg?v=1776119167"
     },
     {
       "name": "Samsung Galaxy Z Fold 7 Carbon Sheild Case",
@@ -1303,7 +1861,7 @@
       "category": "phones",
       "url": "https://telefonika.com/products/samsung-galaxy-s26-ultra",
       "priceGhs": 14899,
-      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/S26Ultrablack.jpg?v=1778619306",
+      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/S948_S26U_12_256GB_BU_1800eb27-e40f-4479-a8c5-afe3c398dea8.png?v=1788302894",
       "oldPriceGhs": 16399,
       "discountPct": 9
     },
@@ -1313,7 +1871,7 @@
       "category": "phones",
       "url": "https://telefonika.com/products/samsung-galaxy-s26-plus",
       "priceGhs": 12799,
-      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/S26Plusblue.jpg?v=1778619306",
+      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/S947_S26_12_256GB_BU_ecb28613-7ad1-420c-b229-0c86a5e34dc3.png?v=1788302894",
       "oldPriceGhs": 13799,
       "discountPct": 7
     },
@@ -1323,7 +1881,7 @@
       "category": "phones",
       "url": "https://telefonika.com/products/samsung-galaxy-s26",
       "priceGhs": 10599,
-      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/S26blue.jpg?v=1778619305",
+      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/S942_S26_12_256GB_BLK_8f03e1a6-37e5-448f-946a-4ce35b732df7.png?v=1788302894",
       "oldPriceGhs": 11599,
       "discountPct": 9
     },
@@ -1332,7 +1890,7 @@
       "brand": "Apple",
       "category": "laptops",
       "url": "https://telefonika.com/products/apple-macbook-neo-6c-cpu-5c-gpu-13-inch-8gb-256gb-silver",
-      "priceGhs": 10900,
+      "priceGhs": 10399,
       "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/AppleMacbookNeo.jpg?v=1774992127"
     },
     {
@@ -1388,8 +1946,8 @@
       "brand": "Oppo",
       "category": "phones",
       "url": "https://telefonika.com/products/oppo-a6x",
-      "priceGhs": 1599,
-      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/A6x.jpg?v=1784680267"
+      "priceGhs": 1799,
+      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/OPPO_A6X_4_64GB_BLUE_de1db813-8d7b-472b-82e7-af61d83f7c8f.png?v=1788469147"
     },
     {
       "name": "Xiaomi Redmi Note 15 Pro",
@@ -1405,7 +1963,7 @@
       "category": "phones",
       "url": "https://telefonika.com/products/oppo-reno15-f",
       "priceGhs": 5499,
-      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/TwilightBlue.jpg?v=1774385165"
+      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/OPPO_Reno15F12_256_TB.png?v=1788468907"
     },
     {
       "name": "Green Lion Crystal Shield Case For iPhone 17 Pro Max- Clear",
@@ -1421,7 +1979,7 @@
       "category": "phones",
       "url": "https://telefonika.com/products/tecno-camon-50-pro",
       "priceGhs": 4569,
-      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/TecnoCamon50ProBlack.jpg?v=1773865145"
+      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/TECHNO_CAM50P8_256_BK.png?v=1788469092"
     },
     {
       "name": "Tecno Camon 50",
@@ -1429,7 +1987,7 @@
       "category": "phones",
       "url": "https://telefonika.com/products/tecno-camon-50",
       "priceGhs": 3999,
-      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/TecnoCamon50Black.jpg?v=1773865145"
+      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/TECHNO_CAM50_8_256_BK.png?v=1788469093"
     },
     {
       "name": "Green Lion GLH-10 MagSafe Car Phone Holder - Black",
@@ -1469,22 +2027,14 @@
       "category": "phones",
       "url": "https://telefonika.com/products/tecno-pop-20",
       "priceGhs": 1479,
-      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/KN3Black.jpg?v=1773518120"
-    },
-    {
-      "name": "Apple MC6U4LL/A Macbook Air (M4) 13inch 16GB/512GB Sky Blue",
-      "brand": "Apple",
-      "category": "laptops",
-      "url": "https://telefonika.com/products/apple-mc6u4ll-a-macbook-air-m4-13inch-16gb-512gb-sky-blue",
-      "priceGhs": 19900,
-      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/MC6U4.jpg?v=1773430925"
+      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/TECHNO_POP20_4_64_BK.png?v=1788469091"
     },
     {
       "name": "Samsung SM-L330 Galaxy Smart Watch 8 44mm",
       "brand": "Samsung",
       "category": "phones",
       "url": "https://telefonika.com/products/samsung-sm-l330-galaxy-smart-watch-8-44mm-silver",
-      "priceGhs": 5199,
+      "priceGhs": 3990,
       "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/sm-l330_graphite.jpg?v=1772737770"
     },
     {
@@ -1492,7 +2042,7 @@
       "brand": "Samsung",
       "category": "phones",
       "url": "https://telefonika.com/products/samsung-galaxy-watch8-bluetooth-40mm-sm-l320-graphite",
-      "priceGhs": 4699,
+      "priceGhs": 3890,
       "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/watch-8-Graphite.jpg?v=1772737861"
     },
     {
@@ -1541,15 +2091,7 @@
       "category": "phones",
       "url": "https://telefonika.com/products/oppo-a6-pro",
       "priceGhs": 3990,
-      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/OppoA6ProBlue.jpg?v=1771073145"
-    },
-    {
-      "name": "JBL PartyBox 720 - Loudest Battery-Powered Party Speaker",
-      "brand": "JBL",
-      "category": "tv-audio",
-      "url": "https://telefonika.com/products/jbl-partybox-720-loudest-battery-powered-party-speaker",
-      "priceGhs": 11900,
-      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/JBLPARTYBOX720.jpg?v=1769522173"
+      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/OPPO_A6PRO_8_256GB_BL.png?v=1788469147"
     },
     {
       "name": "Apple MT203 iPhone 15 Clear Case with MagSafe",
@@ -1758,14 +2300,6 @@
       "url": "https://telefonika.com/products/samsung-55-inch-crystal-uhd-du8000-4k-smart-tv",
       "priceGhs": 10990,
       "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/SAMSUNG-UA55DU8000UXZN_7cb69643-fdf7-4a78-a446-1b1101d50e8c.jpg?v=1769525045"
-    },
-    {
-      "name": "Sony SRS-XE200 X-Series Wireless Ultra Portable-Bluetooth-Speaker",
-      "brand": "Sony",
-      "category": "tv-audio",
-      "url": "https://telefonika.com/products/sony-srs-xe200-x-series-wireless-ultra-portable-bluetooth-speaker",
-      "priceGhs": 1990,
-      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/Sony-SRS-XE200-X-Series-Wireless-Ultra-Portable-Bluetooth-Speaker.jpg?v=1758035149"
     },
     {
       "name": "Uniq Vero MacBook Air 15\" (M2 - M4) - Crystal Clear",
@@ -2152,14 +2686,6 @@
       "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/IOSIDBPCMS-I2461-517.jpg?v=1763035704"
     },
     {
-      "name": "Ideal of Sweden Bumper Case MagSafe iPhone 16 Series - Blush Pink",
-      "brand": "Ideal of Sweden",
-      "category": "phones",
-      "url": "https://telefonika.com/products/ideal-of-sweden-bumper-case-magsafe-iphone-16-series-blush-pink",
-      "priceGhs": 250,
-      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/IOSIDBPCMS-I2461-408.jpg?v=1769522650"
-    },
-    {
       "name": "Ideal Of Sweden Bumper Case MagSafe iPhone 16 Series - Black",
       "brand": "Ideal of Sweden",
       "category": "phones",
@@ -2340,7 +2866,7 @@
       "brand": "JBL",
       "category": "phones",
       "url": "https://telefonika.com/products/jbl-tune-310c-usb-c-wired-hi-res-in-ear-headphones",
-      "priceGhs": 240,
+      "priceGhs": 250,
       "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/JBLT310CWIREDBLACK.jpg?v=1762949823"
     },
     {
@@ -2485,7 +3011,7 @@
       "category": "phones",
       "url": "https://telefonika.com/products/samsung-galaxy-tab-a11",
       "priceGhs": 1999,
-      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/SM-X135TABA11_4_64_G.jpg?v=1775121034"
+      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/SM-X135_TABA11_4_64_G_e0fb6998-ef08-48dc-8466-02aa66851ebb.png?v=1788302894"
     },
     {
       "name": "Samsung Galaxy A17 – from 4GB/128GB",
@@ -2493,7 +3019,7 @@
       "category": "phones",
       "url": "https://telefonika.com/products/samsung-galaxy-a17",
       "priceGhs": 2249,
-      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/A17_Black.jpg?v=1775118091"
+      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/A17_4_128GB_BLACK_a865ac5a-e4eb-4900-8099-4e9d4a04d08b.png?v=1788302896"
     },
     {
       "name": "Green Lion S24 9H High Definition Finger Print Unlock Tempered Glass for Galaxy S24 Ultra - Clear",
@@ -2572,7 +3098,7 @@
       "brand": "Green Lion",
       "category": "phones",
       "url": "https://telefonika.com/products/green-lion-comfort-plus-headphones-black",
-      "priceGhs": 190,
+      "priceGhs": 220,
       "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/GreenGNCOMPLHPBL.jpg?v=1769524685"
     },
     {
@@ -2646,14 +3172,6 @@
       "url": "https://telefonika.com/products/ideal-of-sweden-slim-laptop-sleeve-14inch-black",
       "priceGhs": 840,
       "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/IOSIDSLS14-01.jpg?v=1769523366"
-    },
-    {
-      "name": "Porodo Lucid True Wireless Earbuds",
-      "brand": "Porodo",
-      "category": "tv-audio",
-      "url": "https://telefonika.com/products/porodo-lucid-true-wireless-earbuds",
-      "priceGhs": 190,
-      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/PORODOPD-STF08TP-PK.jpg?v=1769523006"
     },
     {
       "name": "Porodo Smart Watch Ultra Ultimo 1*Alpine Band & 1*Ocean Band",
@@ -2740,7 +3258,7 @@
       "brand": "LG",
       "category": "tv-audio",
       "url": "https://telefonika.com/products/lg-tv-ur81-55-inch-4k-smart-uhd-2023",
-      "priceGhs": 6990,
+      "priceGhs": 6390,
       "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/LG-55UR81006LK.jpg?v=1769522409"
     },
     {
@@ -2750,14 +3268,6 @@
       "url": "https://telefonika.com/products/oppo-pad-se-case-blue",
       "priceGhs": 390,
       "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/OppoPadSECase_Blue.jpg?v=1769522238"
-    },
-    {
-      "name": "Oppo Enco Buds 3 Pro True Wireless Earbuds",
-      "brand": "Oppo",
-      "category": "phones",
-      "url": "https://telefonika.com/products/oppo-enco-buds-3-pro-true-wireless-earbuds",
-      "priceGhs": 390,
-      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/OppoEncoBuds3Pro.jpg?v=1760026221"
     },
     {
       "name": "Oppo Pad SE 4GB+128GB",
@@ -2781,7 +3291,7 @@
       "category": "phones",
       "url": "https://telefonika.com/products/samsung-galaxy-a07-lte",
       "priceGhs": 1499,
-      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/1.jpg?v=1775117825"
+      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/A07_4_64GB_BLACK_b5c65eb6-7a05-4a3a-8b2d-d143f7723c9a.png?v=1788302898"
     },
     {
       "name": "Apple Watch S10 Ultra 2 49MM Natural Titanium Navy Ocean Band",
@@ -2952,28 +3462,12 @@
       "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/GREEN_GNACV46AWJBK.jpg?v=1761728195"
     },
     {
-      "name": "Uniq Claro MacBook Air 13 (M2 - M4) Dove (Matte Clear)",
-      "brand": "Uniq",
-      "category": "laptops",
-      "url": "https://telefonika.com/products/uniq-claro-macbook-air-13-m2-m4-dove-matte-clear",
-      "priceGhs": 290,
-      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/UNIQ-CLARO-MACBOOK-PRO-16-2021-2023_834931a1-e0e8-46f4-bbea-9940896e74fa.jpg?v=1758051839"
-    },
-    {
       "name": "Uniq Claro MacBook Air 13 (M2 - M4) Smoke (Matte Grey)",
       "brand": "Uniq",
       "category": "laptops",
       "url": "https://telefonika.com/products/uniq-claro-macbook-air-13-m2-m4-smoke-matte-grey",
       "priceGhs": 290,
       "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/UNIQ-MA132022-CLAROMGRY.jpg?v=1758051787"
-    },
-    {
-      "name": "Uniq Claro MacBook Pro 14 (2021 – 2023) Dove (Matte Clear)",
-      "brand": "Uniq",
-      "category": "laptops",
-      "url": "https://telefonika.com/products/uniq-claro-macbook-pro-14-2021-2023-dove-matte-clear",
-      "priceGhs": 340,
-      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/UNIQ-CLARO-MACBOOK-PRO-16-2021-2023_2ad5c2dd-b081-47d6-b864-975c560a4909.jpg?v=1758051743"
     },
     {
       "name": "Green Lion Mini Muscle Speaker - Black",
@@ -3088,14 +3582,6 @@
       "url": "https://telefonika.com/products/overcooked-all-you-can-eat-nintendo-switch",
       "priceGhs": 690,
       "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/NINTENDO-OVERCOOKED-ALL-U-CAN-EAT.png?v=1769522587"
-    },
-    {
-      "name": "Apple Watch 41mm Lavender Blue Modern Buckle",
-      "brand": "Apple",
-      "category": "fashion",
-      "url": "https://telefonika.com/products/apple-watch-41mm-lavender-blue-modern-buckle",
-      "priceGhs": 3290,
-      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/APPLE-WATCH-41mm-LAVENDER-BLUE-MODERN-BUCKLE-S.jpg?v=1758050195"
     },
     {
       "name": "Samsung Q60B 85″ 4K HDR QLED Smart TV QA85Q60BAUXGH",
@@ -3228,14 +3714,6 @@
       "url": "https://telefonika.com/products/uniq-stride-fkm-rubber-strap-for-apple-watch-42-41-40mm-pale-pink",
       "priceGhs": 590,
       "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/UNIQ-41MM-STRIPPNK.jpg?v=1769522830"
-    },
-    {
-      "name": "Uniq Dante Pro Apple Watch Self Adjustable Mesh Steel Band 49/46/45/44mm - Metallic Rose",
-      "brand": "Uniq",
-      "category": "fashion",
-      "url": "https://telefonika.com/products/uniq-dante-pro-apple-watch-self-adjustable-mesh-steel-band-49-46-45-44mm-metallic-rose",
-      "priceGhs": 390,
-      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/UNIQ-DANTE-PRO-APPLE-WATCH-SELF-ADJUSTABLE-MESH-STEEL-BAND-424140MM-METALLIC-ROSE-METALLIC-ROSE_0f169a05-b6ba-457b-85c3-d9d4b972db5b.jpg?v=1769522830"
     },
     {
       "name": "Njord Vindur Case for iPhone 13 Pro SL14150",
@@ -3382,14 +3860,6 @@
       "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/LVLPRISMAC136-Levelo-AirShield-Air-Adsorption-Privacy-Screen-Protector-For-MacBook-Air-13.6-Black_e3c5c675-78e7-4073-82ad-cf0ced9ef43c.jpg?v=1769523006"
     },
     {
-      "name": "Monster Cycle Plus Bluetooth Speaker",
-      "brand": "Monster",
-      "category": "tv-audio",
-      "url": "https://telefonika.com/products/monster-cycle-plus-bluetooth-speaker",
-      "priceGhs": 4900,
-      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/MONSTER-CYCLE-PLUS.jpg?v=1769523006"
-    },
-    {
       "name": "Monster Cycle Bluetooth Party Speaker",
       "brand": "Monster",
       "category": "tv-audio",
@@ -3436,14 +3906,6 @@
       "url": "https://telefonika.com/products/observer-system-redux-day-one-edition-ps5",
       "priceGhs": 749,
       "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/Observer-System-Redux-Day-One-Edition-PS5.jpg?v=1769523066"
-    },
-    {
-      "name": "LG Nano 8 Series 55 inch 4K TV 55NAN080VNA",
-      "brand": "LG",
-      "category": "tv-audio",
-      "url": "https://telefonika.com/products/lg-nano-8-series-55-inch-4k-tv",
-      "priceGhs": 11990,
-      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/LG-NANO-8-SERIES-55inch-4K-TV-55NAN080VNA.jpg?v=1772012314"
     },
     {
       "name": "JBL Live PRO+ TWS True Wireless in-Ear Noise Cancelling Bluetooth Headphones",
@@ -3598,22 +4060,6 @@
       "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/Yakuza-Like-a-Dragon-PlayStation-5.jpg?v=1769523126"
     },
     {
-      "name": "LG XBOOM XL7S Party Speaker with Bluetooth",
-      "brand": "LG",
-      "category": "tv-audio",
-      "url": "https://telefonika.com/products/lg-xboom-xl7s-party-speaker-with-bluetooth",
-      "priceGhs": 9900,
-      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/LG-Xboom-XL7S-Party-Speaker-with-Bluetooth.jpg?v=1772012131"
-    },
-    {
-      "name": "Apple MJFN3 TV Remote 2nd Generation",
-      "brand": "Apple",
-      "category": "tv-audio",
-      "url": "https://telefonika.com/products/apple-mjfn3-tv-remote",
-      "priceGhs": 2290,
-      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/Apple-TV-Remote-MJFN3.jpg?v=1758044769"
-    },
-    {
       "name": "Subnautica: Below Zero - PlayStation 5",
       "brand": "Playstations",
       "category": "gaming",
@@ -3682,7 +4128,7 @@
       "brand": "Samsung",
       "category": "tv-audio",
       "url": "https://telefonika.com/products/samsung-75inch-tv-uhd4ksmart-crystal-8-series",
-      "priceGhs": 24990,
+      "priceGhs": 17990,
       "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/SAMSUNG-75-inch-4K-TV-Crystal-UHD.jpg?v=1769523246"
     },
     {
@@ -3840,14 +4286,6 @@
       "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/UNIQ-STOCKHOLM16-MNBLACK.jpg?v=1758042359"
     },
     {
-      "name": "Uniq Cyprus Water-Resistant Neoprene Laptop Sleeve (Up to 14'') - Steel Blue",
-      "brand": "Uniq",
-      "category": "laptops",
-      "url": "https://telefonika.com/products/uniq-cyprus-water-resistant-neoprene-laptop-sleeve-up-to-14-steel-blue",
-      "priceGhs": 290,
-      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/UNIQ-CYPRUS14-STBLU.jpg?v=1769523366"
-    },
-    {
       "name": "VR Skater - PlayStation 5",
       "brand": "Playstations",
       "category": "gaming",
@@ -3996,7 +4434,7 @@
       "brand": "Apple",
       "category": "phones",
       "url": "https://telefonika.com/products/apple-iphone-14-plus-clear-case-with-magsafe",
-      "priceGhs": 750,
+      "priceGhs": 710,
       "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/Apple-iPhone-14-Plus-Clear-Case-with-Magsafe.jpg?v=1769523486"
     },
     {
@@ -4004,7 +4442,7 @@
       "brand": "Samsung",
       "category": "tv-audio",
       "url": "https://telefonika.com/products/samsung-43-inch-crystal-uhd-du7000-4k-smart-tv",
-      "priceGhs": 6990,
+      "priceGhs": 4990,
       "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/SAMSUNG-UA43DU7000UXTW.jpg?v=1769523486"
     },
     {
@@ -4014,14 +4452,6 @@
       "url": "https://telefonika.com/products/dicota-d31102-ultra-skin-plus-pro-13-13-3-notebook-case",
       "priceGhs": 790,
       "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/DICOTA-ULTRA-SKIN-PLUS-PRO-13-13.3-NOTEBOOK-CASE-BLACK-D31102.jpg?v=1758040482"
-    },
-    {
-      "name": "PlayStation 5 Slim Carry Bag",
-      "brand": "Playstations",
-      "category": "gaming",
-      "url": "https://telefonika.com/products/playstation-5-slim-carry-bag",
-      "priceGhs": 440,
-      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/PS5-SLIM-RED-CARRY-BAG.jpg?v=1769523486"
     },
     {
       "name": "LG XBOOM XL5S Party Speaker with Bluetooth",
@@ -4064,19 +4494,11 @@
       "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/UNIQ-OSLO14-JETBLACK.jpg?v=1758039759"
     },
     {
-      "name": "Apple Watch 41mm Tan Modern Buckle",
-      "brand": "Apple",
-      "category": "fashion",
-      "url": "https://telefonika.com/products/apple-watch-41mm-tan-modern-buckle",
-      "priceGhs": 3290,
-      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/APPLE-WATCH-41mm-TAN-MODERN-BUCKLE-S.jpg?v=1758039732"
-    },
-    {
       "name": "Razer Hammerhead HyperSpeed Wireless Multi-Platform Gaming Earbuds for Playstation 5",
       "brand": "Razer",
       "category": "tv-audio",
       "url": "https://telefonika.com/products/razer-hammerhead-hyperspeed-wireless-multi-platform-gaming-earbuds-for-playstation-5",
-      "priceGhs": 4190,
+      "priceGhs": 2095,
       "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/Razer-Hammerhead-HyperSpeed-Wireless-Multi-Platform-Gaming-Earbuds-for-Playstation-5.jpg?v=1769523546"
     },
     {
@@ -4086,14 +4508,6 @@
       "url": "https://telefonika.com/products/samsung-tv-43-inch-led-smart-full-hd-flat",
       "priceGhs": 6299,
       "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/Samsung-TV-43-inch-LED-Smart-Full-HD-Flat.jpg?v=1769523546"
-    },
-    {
-      "name": "Xiaomi Mi Router 4A Giga Version",
-      "brand": "MI",
-      "category": "phones",
-      "url": "https://telefonika.com/products/xiaomi-mi-router-4a-gigabit-edition",
-      "priceGhs": 650,
-      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/MI-Router-4A.jpg?v=1758039558"
     },
     {
       "name": "Sony LCD KD-75X81J CEP LCD TV 75inch",
@@ -4160,19 +4574,11 @@
       "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/Apple-Watch-41mm-Case-EVD-Iced-Silver-WC-EVDI41-SL.jpg?v=1758039076"
     },
     {
-      "name": "Soundcore Strike 1 Gaming Headset",
-      "brand": "Anker",
-      "category": "tv-audio",
-      "url": "https://telefonika.com/products/anker-soundcore-strike-1",
-      "priceGhs": 720,
-      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/Anker-SoundCore-Strike-1.jpg?v=1769523605"
-    },
-    {
       "name": "Apple iPhone 15 Pro FineWoven Case with MagSafe - Black",
       "brand": "Apple",
       "category": "phones",
       "url": "https://telefonika.com/products/apple-iphone-15-pro-finewoven-case-with-magsafe-black",
-      "priceGhs": 1790,
+      "priceGhs": 895,
       "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/MT4H3-Apple-iPhone-15-Pro-FineWoven-Case-with-MagSafe-Blac.jpg?v=1769523605"
     },
     {
@@ -4230,14 +4636,6 @@
       "url": "https://telefonika.com/products/belkin-boostcharge-magnetic-wireless-car-charger-for-iphone",
       "priceGhs": 690,
       "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/Belkin-BOOSTCHARGE-Magnetic-Wireless-Car-Charger-for-iPhone.jpg?v=1758038437"
-    },
-    {
-      "name": "Asus ROG Phone 5s",
-      "brand": "OnePlus",
-      "category": "phones",
-      "url": "https://telefonika.com/products/asus-rog-phone-5s",
-      "priceGhs": 11500,
-      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/ROG5-S-16256GB-SNAPDRAGON-888-BLACK.jpg?v=1769523666"
     },
     {
       "name": "Apple Watch 45mm Case - SP - Rose Gold WC-SP45-RG-BK",
@@ -4328,14 +4726,6 @@
       "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/MD818ZMA-APPLE-I-PHONE-CABLE-MQUE2ZMA.jpg?v=1758037133"
     },
     {
-      "name": "Razer Quick Charging Stand for PlayStation 5",
-      "brand": "Razer",
-      "category": "gaming",
-      "url": "https://telefonika.com/products/razer-quick-charging-stand-for-playstation-5",
-      "priceGhs": 1150,
-      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/Razer-Quick-Charging-Stand-for-PlayStation-5.png?v=1769523790"
-    },
-    {
       "name": "Samsung Q60C 55″ 4K HDR QLED Smart TV QA55Q60CAUXGH",
       "brand": "Samsung",
       "category": "tv-audio",
@@ -4350,14 +4740,6 @@
       "url": "https://telefonika.com/products/death-stranding-directors-cut-playstation-5",
       "priceGhs": 750,
       "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/Death-Stranding-Directors-Cut-Playstation-5.jpg?v=1769523790"
-    },
-    {
-      "name": "Uniq Claro MacBook Pro 14 (2021 - 2023) Smoke (Matte Grey)",
-      "brand": "Uniq",
-      "category": "laptops",
-      "url": "https://telefonika.com/products/uniq-claro-macbook-pro-14-2021-2023-smoke-matte-grey",
-      "priceGhs": 340,
-      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/Uniq-Claro-MacBook-Pro-16-2021-2023-Smoke-Matte-Grey.jpg?v=1758036626"
     },
     {
       "name": "Apple iPhone 14 Leather Case with MagSafe - Forest Green",
@@ -4464,14 +4846,6 @@
       "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/Realme-12-Pro.jpg?v=1772466597"
     },
     {
-      "name": "Apple iPhone 15 Pro Max FineWoven Case with MagSafe - Black",
-      "brand": "Apple",
-      "category": "phones",
-      "url": "https://telefonika.com/products/apple-iphone-15-pro-max-finewoven-case-with-magsafe-black",
-      "priceGhs": 1790,
-      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/MT4V3-Apple-iPhone-15-Pro-Max-FineWoven-Case-with-MagSafe.jpg?v=1769523970"
-    },
-    {
       "name": "RockStar Headphone with USB-C Connector",
       "brand": "Belkin",
       "category": "phones",
@@ -4486,14 +4860,6 @@
       "url": "https://telefonika.com/products/uniq-vienna-protective-nylon-laptop-sleeve-up-to-14-indigo-blue",
       "priceGhs": 390,
       "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/UNIQ-VIENNA14-INDBLUE.jpg?v=1769523970"
-    },
-    {
-      "name": "Apple MMX62 Lightning Headphone Jack Adapter",
-      "brand": "Apple",
-      "category": "phones",
-      "url": "https://telefonika.com/products/apple-mmx62-lightning-headphone-jack-adapter",
-      "priceGhs": 250,
-      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/Apple-MMX62-Lightning-Headphone-Jack-Adapter.jpg?v=1758034783"
     },
     {
       "name": "Green Mini Speaker - Black",
@@ -4676,7 +5042,7 @@
       "brand": "Sony",
       "category": "tv-audio",
       "url": "https://telefonika.com/products/sony-85-inch-4k-ultra-hd-tv-x85k-series-led-smart-google-tv",
-      "priceGhs": 33900,
+      "priceGhs": 18700,
       "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/SONY-LCD-KD-85X85K.jpg?v=1772535169"
     },
     {
@@ -4702,14 +5068,6 @@
       "url": "https://telefonika.com/products/uniq-stride-de-rubber-strap-for-apple-watch-49-46-45-44mm-charcoal-rosso-red",
       "priceGhs": 590,
       "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/UNIQ-49MM-STRDECHRRD.jpg?v=1769524145"
-    },
-    {
-      "name": "Uniq Lyden Airpods 4th Gen Hang Case - Dallas Black",
-      "brand": "Uniq",
-      "category": "tv-audio",
-      "url": "https://telefonika.com/products/uniq-lyden-airpods-4th-gen-hang-case-dallas-black-black",
-      "priceGhs": 190,
-      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/UNIQ-LYDEN-AIRPODS-4TH-GEN-HANG-CASE-DALLAS-BLACK-BLACK.jpg?v=1758032524"
     },
     {
       "name": "Sony WH-CH520 Wireless Headphones Bluetooth On-Ear Headset",
@@ -4892,7 +5250,7 @@
       "brand": "Samsung",
       "category": "phones",
       "url": "https://telefonika.com/products/samsung-galaxy-watch-ultra-sm-l705-47mm-lte-smart",
-      "priceGhs": 8999,
+      "priceGhs": 6690,
       "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/watch-8-blue.jpg?v=1772737597"
     },
     {
@@ -4940,7 +5298,7 @@
       "brand": "JBL",
       "category": "tv-audio",
       "url": "https://telefonika.com/products/jbl-tune-flex-2",
-      "priceGhs": 1390,
+      "priceGhs": 1290,
       "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/JBL-Tune-Flex-2-Black.jpg?v=1758029812"
     },
     {
@@ -4956,7 +5314,7 @@
       "brand": "Apple",
       "category": "phones",
       "url": "https://telefonika.com/products/apple-iphone-15-pro-silicone-case-with-magsafe-storm-blue",
-      "priceGhs": 1490,
+      "priceGhs": 745,
       "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/MT1D3-Apple-iPhone-15-Pro-Silicone-Case-with-MagSafe-Storm.jpg?v=1769524450"
     },
     {
@@ -4992,28 +5350,12 @@
       "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/NUTRIBULLET-PORTABLE-BLENDER-WHITE.jpg?v=1769524506"
     },
     {
-      "name": "Uniq Iridescia Airpods Pro 2nd Gen Hang Case - Pink Prism",
-      "brand": "Uniq",
-      "category": "tv-audio",
-      "url": "https://telefonika.com/products/uniq-iridescia-airpods-pro-2nd-gen-hang-case-pink-prism",
-      "priceGhs": 170,
-      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/UNIQ-AIRPODSPRO2-IRDPPRS.jpg?v=1769524506"
-    },
-    {
       "name": "Sony WH-1000XM6 Headphones",
       "brand": "Sony",
       "category": "phones",
       "url": "https://telefonika.com/products/sony-wh-1000xm6-headphones",
       "priceGhs": 5490,
       "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/1000xm6.jpg?v=1772701277"
-    },
-    {
-      "name": "Amazon Echo Dot 5th Gen Speaker",
-      "brand": "Amazon",
-      "category": "tv-audio",
-      "url": "https://telefonika.com/products/amazon-echo-dot-5th-gen-speaker",
-      "priceGhs": 990,
-      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/Amazon-Echo-Dot-5th-Gen-Speaker.jpg?v=1758029146"
     },
     {
       "name": "Samsung 65\" Crystal UHD 4K Smart Television",
@@ -5060,7 +5402,7 @@
       "brand": "Apple",
       "category": "phones",
       "url": "https://telefonika.com/products/apple-iphone-16-pro-silicone-case-with-magsafe-black",
-      "priceGhs": 1390,
+      "priceGhs": 795,
       "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/MYYJ3-Apple-iPhone-16-Pro-Silicone-Case-with-MagSafe-BLACK.jpg?v=1769524566"
     },
     {
@@ -5132,7 +5474,7 @@
       "brand": "Apple",
       "category": "laptops",
       "url": "https://telefonika.com/products/apple-45w-magsafe-power-adapter",
-      "priceGhs": 1650,
+      "priceGhs": 1250,
       "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/Apple-45W-MagSafe-Power-Adapter.png?v=1769524626"
     },
     {
@@ -5172,7 +5514,7 @@
       "brand": "Sony",
       "category": "tv-audio",
       "url": "https://telefonika.com/products/sony-wf-c510-truly-wireless-earbuds",
-      "priceGhs": 950,
+      "priceGhs": 890,
       "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/SONY-WF-C510-BLACK.jpg?v=1772702969"
     },
     {
@@ -5316,7 +5658,7 @@
       "brand": "Green Lion",
       "category": "phones",
       "url": "https://telefonika.com/products/green-wireless-magnetic-charger-15w-for-iphone-12",
-      "priceGhs": 340,
+      "priceGhs": 370,
       "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/1653654594.jpg?v=1758026010"
     },
     {
@@ -5404,7 +5746,7 @@
       "brand": "Samsung",
       "category": "phones",
       "url": "https://telefonika.com/products/samsung-sm-r630-galaxy-buds-3-pro-earbuds",
-      "priceGhs": 2899,
+      "priceGhs": 2290,
       "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/sm-R630.jpg?v=1758025317"
     },
     {
@@ -5576,14 +5918,6 @@
       "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/GNSOLOBUDSPK-Green-Lion-Solo-Wireless-Earbuds-Pink.jpg?v=1769525045"
     },
     {
-      "name": "JBL Free II True Wireless in-Ear Headphones",
-      "brand": "JBL",
-      "category": "phones",
-      "url": "https://telefonika.com/products/jbl-free-ii-true-wireless-in-ear-headphones",
-      "priceGhs": 1190,
-      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/JBL_FREE_II_TWS_WHITE.jpg?v=1772723512"
-    },
-    {
       "name": "Nintendo Switch Pokemon Wired Controller - Oran Berry Pikachu",
       "brand": "Nintendo Switch",
       "category": "gaming",
@@ -5636,7 +5970,7 @@
       "brand": "Apple",
       "category": "phones",
       "url": "https://telefonika.com/products/apple-md819zm-a-iphone-5-cable",
-      "priceGhs": 740,
+      "priceGhs": 370,
       "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/Apple-MD819ZMA-iPhone-5-Cable.jpg?v=1769525105"
     },
     {
@@ -5692,7 +6026,7 @@
       "brand": "Apple",
       "category": "phones",
       "url": "https://telefonika.com/products/apple-iphone-15-pro-clear-case-with-magsafe",
-      "priceGhs": 1590,
+      "priceGhs": 795,
       "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/MT223-Apple-iPhone-15-Pro-Clear-Case-with-MagSafe.jpg?v=1769525166"
     },
     {
@@ -5742,14 +6076,6 @@
       "url": "https://telefonika.com/products/persona-5-strikers-nintendo-switch",
       "priceGhs": 530,
       "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/Persona-5-Strikers-Nintendo-Switch.jpg?v=1769525226"
-    },
-    {
-      "name": "Uniq Cyprus Water Resistant Neoprene 14-Inch Laptop Sleeve - Onyx",
-      "brand": "Uniq",
-      "category": "laptops",
-      "url": "https://telefonika.com/products/uniq-cyprus-water-resistant-neoprene-14-inch-laptop-sleeve-onyx",
-      "priceGhs": 270,
-      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/UNIQ-CYPRUS16-ONYX_d77c290e-2c42-458b-a4ae-998207a853d0.jpg?v=1758021689"
     },
     {
       "name": "Soundcore Motion X600 | High-Quality Sound Wireless Speaker",
@@ -5840,14 +6166,6 @@
       "url": "https://telefonika.com/products/clicks-keyboard-for-apple-iphone-16-promax-onyx-ck-6200-4",
       "priceGhs": 890,
       "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/Clicks-Keyboard-for-Apple-iPhone-16-Promax-Onyx-CK-6200-4.jpg?v=1758020908"
-    },
-    {
-      "name": "Uniq Cyprus Water Resistant Neoprene 16-Inch Laptop Sleeve - Onyx",
-      "brand": "Uniq",
-      "category": "laptops",
-      "url": "https://telefonika.com/products/uniq-cyprus-water-resistant-neoprene-16-inch-laptop-sleeve-onyx",
-      "priceGhs": 290,
-      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/UNIQ-CYPRUS16-ONYX.jpg?v=1758020848"
     },
     {
       "name": "Porodo Soundtec Vibe Portable Bluetooth Speaker",
@@ -5982,7 +6300,7 @@
       "brand": "Playstations",
       "category": "gaming",
       "url": "https://telefonika.com/products/spider-man-2-playstation-5",
-      "priceGhs": 850,
+      "priceGhs": 790,
       "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/Spider-Man-2-Playstation-5.jpg?v=1769525410"
     },
     {
@@ -6038,7 +6356,7 @@
       "brand": "Apple",
       "category": "tv-audio",
       "url": "https://telefonika.com/products/apple-mhy93-tv-hd-32gb",
-      "priceGhs": 4490,
+      "priceGhs": 2245,
       "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/Apple-TV-HD-32GB.jpg?v=1758019082"
     },
     {
@@ -6114,14 +6432,6 @@
       "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/Beats-Fit-Pro-True-Wireless-NC-Earbuds-MK2H3CHAStone-Purple.jpg?v=1769525534"
     },
     {
-      "name": "Sony SRS-XV900 X-Series Wireless Portable Speaker",
-      "brand": "Sony",
-      "category": "tv-audio",
-      "url": "https://telefonika.com/products/sony-srs-xv900-x-series-wireless-portable",
-      "priceGhs": 13990,
-      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/Sony-SRS-XV900-X-Series-Wireless-Portable.jpg?v=1772699887"
-    },
-    {
       "name": "Porodo Blue ENC Neckband In-Ear Earphones - Black",
       "brand": "Porodo",
       "category": "phones",
@@ -6146,14 +6456,6 @@
       "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/Viva-Madrid-Shimmer-Case-for-Airpods-3-White.jpg?v=1769525535"
     },
     {
-      "name": "Sony WF-1000XM5 - The Best True Wireless Noise-Canceling Earbuds",
-      "brand": "Sony",
-      "category": "tv-audio",
-      "url": "https://telefonika.com/products/sony-wf-1000xm5-the-best-true-wireless-noise-canceling-earbuds",
-      "priceGhs": 4990,
-      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/Sony-WF-1000XM5-The-Best-True-Wireless-Noise-Canceling-Earbuds.jpg?v=1772703462"
-    },
-    {
       "name": "Green Lion Grand Smart Watch with Black Case - Yellow",
       "brand": "Green Lion",
       "category": "fashion",
@@ -6166,7 +6468,7 @@
       "brand": "Apple",
       "category": "laptops",
       "url": "https://telefonika.com/products/apple-85w-magsafe-macbook-pro-adapter",
-      "priceGhs": 1650,
+      "priceGhs": 1250,
       "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/Apple-85W-MagSafe-Power-Adapter-MacBook-Pro.jpg?v=1769525535"
     },
     {
@@ -6182,7 +6484,7 @@
       "brand": "Samsung",
       "category": "phones",
       "url": "https://telefonika.com/products/samsung-sm-l500-46mm-galaxy-watch-8-classic-black",
-      "priceGhs": 6899,
+      "priceGhs": 4990,
       "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/watch-8-classic-black.jpg?v=1772737698"
     },
     {
@@ -6306,14 +6608,6 @@
       "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/Little-Nightmares-II-PlayStation-4.jpg?v=1769525649"
     },
     {
-      "name": "Uniq Cyprus Water Resistant Neoprene 14-Inch Laptop Sleeve - Cloud Blue",
-      "brand": "Uniq",
-      "category": "laptops",
-      "url": "https://telefonika.com/products/uniq-cyprus-water-resistant-neoprene-14-inch-laptop-sleeve-cloud-blue",
-      "priceGhs": 270,
-      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/UNIQ-CYPRUS14-CBLUE.jpg?v=1758016571"
-    },
-    {
       "name": "PlayStation 5 Just Dance 2021",
       "brand": "Playstations",
       "category": "gaming",
@@ -6426,14 +6720,6 @@
       "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/Green_GNXFOLDASGY.jpg?v=1759941578"
     },
     {
-      "name": "Razer Kraken Tournament Edition Wired Gaming Headset - Black - RZ04",
-      "brand": "Razer",
-      "category": "tv-audio",
-      "url": "https://telefonika.com/products/razer-kraken-tournament-edition-wired-gaming-headset-black-rz04-02051000-r3m1",
-      "priceGhs": 1990,
-      "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/Razer-Kraken-Wired-Gaming-Headset-with-USB-Audio-Controller-THX.jpg?v=1757647165"
-    },
-    {
       "name": "JBL JR470 NC Wireless Over-Ear Bluetooth Headphones",
       "brand": "JBL",
       "category": "phones",
@@ -6478,7 +6764,7 @@
       "brand": "Samsung",
       "category": "phones",
       "url": "https://telefonika.com/products/samsung-galaxy-buds-3",
-      "priceGhs": 2029,
+      "priceGhs": 1690,
       "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/Galaxy-Buds3.jpg?v=1757646698"
     },
     {
@@ -6502,7 +6788,7 @@
       "brand": "Razer",
       "category": "tv-audio",
       "url": "https://telefonika.com/products/razer-thresher-7-1-wireless-surround-gaming-headset-for-playstation-4",
-      "priceGhs": 3690,
+      "priceGhs": 1845,
       "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/PS4-RAZERTHRESHER-7.1.jpg?v=1769525891"
     },
     {
@@ -6518,7 +6804,7 @@
       "brand": "Apple",
       "category": "phones",
       "url": "https://telefonika.com/products/apple-iphone-15-plus-clear-case-with-magsafe",
-      "priceGhs": 1590,
+      "priceGhs": 795,
       "image": "https://cdn.shopify.com/s/files/1/0952/4147/0228/files/MT213-Apple-iPhone-15-Plus-Clear-Case-with-MagSafe.jpg?v=1769525946"
     },
     {
