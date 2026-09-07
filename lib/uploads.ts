@@ -174,8 +174,9 @@ export async function saveVendorImage(
 export async function saveListingImages(
   slug: string,
   files: CollectedImage[],
+  opts: { requireMin?: boolean } = {},
 ): Promise<{ ok: true; urls: string[] } | { ok: false; error: string }> {
-  if (files.length > 0 && files.length < MIN_LISTING_IMAGES) {
+  if (opts.requireMin !== false && files.length > 0 && files.length < MIN_LISTING_IMAGES) {
     return {
       ok: false,
       error: `Add at least ${MIN_LISTING_IMAGES} photos of the product — buyers look at them before contacting you.`,

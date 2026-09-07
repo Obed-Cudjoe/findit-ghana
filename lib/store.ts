@@ -409,6 +409,9 @@ export interface SaveListingInput {
   imageUrls?: string[];
   vendorId?: string | null;
   requestedPlan?: VendorPlanId;
+  /** Admin-created listings ship pre-approved (the admin IS the checks
+   *  team). Omit for the normal pending-review flow. */
+  status?: "pending" | "approved";
 }
 
 export async function saveVendorListing(input: SaveListingInput): Promise<boolean> {
@@ -430,7 +433,7 @@ export async function saveVendorListing(input: SaveListingInput): Promise<boolea
       delivery_fee_ghs: input.deliveryFeeGhs,
       description: input.description,
       website_url: input.websiteUrl || null,
-      status: "pending",
+      status: input.status ?? "pending",
     };
     const imageUrls = (input.imageUrls ?? []).filter((u) => typeof u === "string" && u.length > 0);
     const withPlan = {
@@ -453,7 +456,7 @@ export async function saveVendorListing(input: SaveListingInput): Promise<boolea
     ...input,
     vendorId: input.vendorId ?? null,
     requestedPlan: input.requestedPlan ?? "free",
-    status: "pending",
+    status: input.status ?? "pending",
     createdAt: new Date().toISOString(),
   };
   if (appendJson<VendorListing>("vendor-listings.json", row)) return true;
