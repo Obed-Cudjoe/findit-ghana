@@ -3,7 +3,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { getLoggedInVendor } from "@/lib/vendor-auth";
 import { readVendorListings, listingsForVendor, countActiveListingsForVendor } from "@/lib/store";
-import { listingLimitFor, listingLimitLabel, nextPlanAfter, VENDOR_PLANS } from "@/lib/plans";
+import { listingLimitFor, listingLimitLabel, nextPlanAfter, effectivePlan, VENDOR_PLANS } from "@/lib/plans";
 import { VendorDashNav } from "@/components/vendor-dash-nav";
 import { VendorProductForm } from "@/components/vendor-product-form";
 import { VendorListingsTable } from "@/components/vendor-listings-table";
@@ -19,7 +19,13 @@ export default async function VendorListingsPage() {
   const mine = listingsForVendor(listings, vendor);
   const used = countActiveListingsForVendor(listings, vendor);
   const cap = listingLimitFor(vendor);
+  const capIsFinite = Number.isFinite(cap);
+  // Two different situations, two different messages:
+  //   atCap   — used exactly the cap: normal, upgrade unlocks more slots
+  //   overCap — used MORE than the cap (downgraded from a bigger plan):
+  //             existing listings stay live, new ones are blocked
   const atCap = used >= cap;
+  const overCap = capIsFinite && used > cap;
   const next = nextPlanAfter(vendor);
   const nextPlan = next ? VENDOR_PLANS[next] : null;
 
@@ -47,17 +53,33 @@ export default async function VendorListingsPage() {
           Uses your current plan cap ({listingLimitLabel(cap)}). New products go to review before they appear in search.
         </p>
         {atCap ? (
-          <div className="rounded-xl border border-gold-600/40 bg-gold-500/10 p-5">
-            <p className="font-bold text-navy-900 dark:text-navy-100">You&apos;ve used all {listingLimitLabel(cap)} listing{cap === 1 ? "" : "s"} on this plan.</p>
-            <p className="mt-1 text-sm text-slate-soft dark:text-navy-300">
-              {nextPlan
-                ? <>Upgrade to {nextPlan.name} (GH₵{nextPlan.priceGhs}/mo) on For vendors, pay via MoMo, and we unlock the extra slots.</>
-                : <>You are on the top plan — contact us if you still cannot add listings.</>}
-            </p>
-            <Link href="/for-vendors" className="mt-3 inline-block text-sm font-bold text-navy-900 dark:text-navy-100 underline">
-              Upgrade on For vendors →
-            </Link>
-          </div>
+          overCap ? (
+            <div className="rounded-xl border border-amber-500/50 bg-amber-500/10 p-5">
+              <p className="font-bold text-navy-900 dark:text-navy-100">
+                You have {used} listings — your {VENDOR_PLANS[effectivePlan(vendor)].name} plan covers {cap}.
+              </p>
+              <p className="mt-1 text-sm text-slate-soft dark:text-navy-300">
+                Good news: every listing you already have stays live — nothing is hidden. But you
+                can&apos;t add new products until you&apos;re back under {cap} (new ones are blocked by your
+                current plan), or until you upgrade again.
+              </p>
+              <Link href="/for-vendors" className="mt-3 inline-block text-sm font-bold text-navy-900 dark:text-navy-100 underline">
+                See plans on For vendors →
+              </Link>
+            </div>
+          ) : (
+            <div className="rounded-xl border border-gold-600/40 bg-gold-500/10 p-5">
+              <p className="font-bold text-navy-900 dark:text-navy-100">You&apos;ve used all {listingLimitLabel(cap)} listing{cap === 1 ? "" : "s"} on this plan.</p>
+              <p className="mt-1 text-sm text-slate-soft dark:text-navy-300">
+                {nextPlan
+                  ? <>Upgrade to {nextPlan.name} (GH₵{nextPlan.priceGhs}/mo) on For vendors, pay via MoMo, and we unlock the extra slots.</>
+                  : <>You are on the top plan — contact us if you still cannot add listings.</>}
+              </p>
+              <Link href="/for-vendors" className="mt-3 inline-block text-sm font-bold text-navy-900 dark:text-navy-100 underline">
+                Upgrade on For vendors →
+              </Link>
+            </div>
+          )
         ) : (
           <VendorProductForm />
         )}

@@ -97,12 +97,17 @@ export async function POST(request: NextRequest) {
   const cap = listingLimitFor(vendor);
   if (used >= cap) {
     const next = nextPlanAfter(vendor);
+    const overQuota = Number.isFinite(cap) && used > cap;
     const nextCopy = next
       ? `Upgrade to ${VENDOR_PLANS[next].name} (GH₵${VENDOR_PLANS[next].priceGhs}/mo) on For vendors to add more.`
       : "You are on the Unlimited plan — contact us if you still cannot add listings.";
     return NextResponse.json(
       {
-        error: `Your plan allows ${Number.isFinite(cap) ? `${cap} listing${cap === 1 ? "" : "s"}` : "unlimited listings"}. ${nextCopy}`,
+        error: overQuota
+          ? `You have ${used} listings but your current plan covers ${cap}. Your existing listings stay live — upgrade or remove ${
+              used - cap
+            } listing${used - cap === 1 ? "" : "s"} to add new ones. ${nextCopy}`
+          : `Your plan allows ${Number.isFinite(cap) ? `${cap} listing${cap === 1 ? "" : "s"}` : "unlimited listings"}. ${nextCopy}`,
         code: "listing_limit",
         limit: cap,
         used,

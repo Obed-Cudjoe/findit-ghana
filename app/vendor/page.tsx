@@ -70,6 +70,11 @@ export default async function VendorDashboardPage() {
           <p className="text-xs font-bold uppercase tracking-wide text-slate-soft dark:text-navy-300">Listings</p>
           <p className="mt-1 text-xl font-extrabold text-navy-900 dark:text-navy-100">{used} / {listingLimitLabel(cap)}</p>
           <p className="mt-1 text-xs text-slate-soft dark:text-navy-300">{live} live · {pending} in review</p>
+          {Number.isFinite(cap) && used > cap && (
+            <p className="mt-2 rounded-lg bg-amber-500/10 px-2 py-1.5 text-[11px] font-semibold text-amber-700 dark:text-amber-300">
+              Above your plan cap — your {used} listings stay live, but new ones are blocked until you&apos;re under {cap} or upgrade.
+            </p>
+          )}
         </div>
         <div className="rounded-xl border border-navy-100 dark:border-navy-800 bg-white dark:bg-navy-900 p-4">
           <p className="text-xs font-bold uppercase tracking-wide text-slate-soft dark:text-navy-300">Shop status</p>
