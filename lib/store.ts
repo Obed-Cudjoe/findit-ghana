@@ -558,6 +558,45 @@ export async function updateVendorListing(id: string, patch: VendorListingPatch)
   return await writeRemoteState(state);
 }
 
+/** Admin: attach a listing to a (different) vendor shop — e.g. a listing the
+ *  admin created on the vendor's behalf that must move onto the vendor's own
+ *  registered profile (they registered with a different number, or the
+ *  admin initially filed it under a placeholder). */
+export interface ReassignListingPatch {
+  vendorId: string | null;
+  businessName: string;
+  contactName: string;
+  phone: string;
+  email: string;
+  websiteUrl: string;
+}
+
+export async function reassignVendorListing(id: string, patch: ReassignListingPatch): Promise<boolean> {
+  const supabase = getSupabase();
+  if (supabase) {
+    const { error } = await supabase
+      .from("vendor_listings")
+      .update({
+        vendor_id: patch.vendorId,
+        business_name: patch.businessName,
+        contact_name: patch.contactName || null,
+        phone: patch.phone,
+        email: patch.email || null,
+        website_url: patch.websiteUrl || null,
+        updated_at: new Date().toISOString(),
+      })
+      .eq("id", id);
+    return !error;
+  }
+  if (updateLocalJson<VendorListing>("vendor-listings.json", id, { ...patch, updatedAt: new Date().toISOString() })) return true;
+  const state = await readRemoteState();
+  if (!state) return false;
+  const row = state.vendorListings.find((l) => l.id === id);
+  if (!row) return false;
+  Object.assign(row, patch, { updatedAt: new Date().toISOString() });
+  return await writeRemoteState(state);
+}
+
 // ---------- featured placements (paid) ----------
 // Featured until a future ISO timestamp => pinned first in its category and
 // badged with ★. The admin sets/clears this after receiving the vendor's

@@ -64,6 +64,50 @@ export function ListingsTable({ listings }: { listings: ListingRow[] }) {
     return !!r.featuredUntil && new Date(r.featuredUntil).getTime() > Date.now();
   }
 
+  // Move this listing onto a vendor's own shop — matched by their WhatsApp
+  // number. Used when the admin listed on the vendor's behalf and the vendor
+  // later registered with a different number.
+  async function reassign(r: ListingRow) {
+    // eslint-disable-next-line no-alert
+    const phone = window.prompt(
+      `Reassign "${r.productName}" (${r.businessName}) to a vendor's own shop.\n\nEnter the vendor's WhatsApp number (their REGISTERED number):`,
+      r.phone,
+    );
+    if (!phone) return;
+    if (phone === r.phone) {
+      // eslint-disable-next-line no-alert
+      window.alert("That's the number already on this listing — nothing to change.");
+      return;
+    }
+    const prev = rows;
+    const res = await fetch(`/api/admin/listings/${r.id}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ action: "reassign", phone }),
+    });
+    if (!res.ok) {
+      const data = await res.json().catch(() => ({}));
+      // eslint-disable-next-line no-alert
+      window.alert(data.error || "Could not reassign the listing.");
+      setRows(prev);
+      return;
+    }
+    const data = await res.json().catch(() => ({}));
+    startTransition(() =>
+      setRows((cur) =>
+        cur.map((row) =>
+          row.id === r.id
+            ? {
+                ...row,
+                businessName: (data.businessName as string) ?? row.businessName,
+                phone,
+              }
+            : row,
+        ),
+      ),
+    );
+  }
+
   return (
     <div className="overflow-hidden rounded-xl border border-navy-100 dark:border-navy-800 bg-white dark:bg-navy-900">
       <p className="border-b border-navy-100 dark:border-navy-800 bg-navy-50/60 dark:bg-navy-900/50 px-4 py-2 text-xs text-slate-400 lg:hidden">Swipe the table sideways to see all columns →</p>
@@ -146,6 +190,14 @@ export function ListingsTable({ listings }: { listings: ListingRow[] }) {
                     </button>
                     <button disabled={pending} onClick={() => setStatus(l.id, "rejected")} className="rounded-md border border-red-200 px-2.5 py-1 text-xs font-semibold text-red-600 dark:text-red-400 hover:bg-red-50 transition-colors">
                       Reject
+                    </button>
+                    <button
+                      disabled={pending}
+                      onClick={() => reassign(l)}
+                      title="Attach this listing to a vendor's own shop (matched by their registered WhatsApp number) — use when you listed on their behalf and they later registered with a different number."
+                      className="rounded-md border border-navy-200 px-2.5 py-1 text-xs font-semibold text-navy-700 dark:text-navy-300 hover:bg-navy-50 transition-colors"
+                    >
+                      🔀 Reassign
                     </button>
                     {isFeatured(l) ? (
                       <button disabled={pending} onClick={() => setFeatured(l.id, null)} className="rounded-md border border-navy-200 dark:border-navy-700 px-2.5 py-1 text-xs font-semibold text-navy-700 dark:text-navy-300 hover:bg-navy-50 transition-colors">

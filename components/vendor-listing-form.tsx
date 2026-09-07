@@ -58,6 +58,7 @@ export function VendorListingForm() {
     description: "",
   });
   const [photos, setPhotos] = useState<File[]>([]);
+  const [showProduct, setShowProduct] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [busy, setBusy] = useState(false);
   const [done, setDone] = useState<{ paymentRequired: boolean; plan: PlanId; vendorSlug: string | null; loggedIn: boolean; firstListing: boolean } | null>(null);
@@ -202,13 +203,26 @@ export function VendorListingForm() {
         <p className="mt-2 text-sm leading-relaxed text-emerald-800 dark:text-emerald-200">
           {done.firstListing ? (
             <>Your first product is already queued for review — our checks team usually approves within 1 business day, then it appears in search and category pages with a WhatsApp button straight to you. Add more products any time from your dashboard.</>
-          ) : (
+          ) : done.loggedIn ? (
             <>Next step: <strong>sign in to your dashboard</strong> to add your first product (you&apos;ll upload at least {MIN_PHOTOS} photos per product). Every product goes to our checks team — usually reviewed within 1 business day — then appears in search and category pages with a WhatsApp button straight to you.</>
+          ) : (
+            <>Your shop is registered — no login needed yet. When you&apos;re ready to add products (or want a dashboard login), just WhatsApp us from this shop&apos;s number: we verify it&apos;s really you and set you up within a business day. No form-filling needed.</>
           )}
         </p>
-        <p className="mt-3 text-sm">
-          <Link href={dashboardHref} className="font-bold text-emerald-900 underline">{dashboardLabel}</Link>
-        </p>
+        {done.loggedIn ? (
+          <p className="mt-3 text-sm">
+            <Link href={dashboardHref} className="font-bold text-emerald-900 underline">{dashboardLabel}</Link>
+          </p>
+        ) : (
+          <a
+            href={`https://wa.me/${MOMO_WHATSAPP}?text=${encodeURIComponent("Hi, I just registered my shop on FindIt Ghana and want to add products / activate my dashboard login. Business: " + form.businessName + " · Phone: " + form.phone)}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-3 inline-flex items-center justify-center rounded-xl bg-emerald-600 px-5 py-2.5 text-sm font-bold text-white hover:bg-emerald-500 transition-colors"
+          >
+            WhatsApp us — we&apos;ll set you up
+          </a>
+        )}
         <p className="mt-2 text-sm">
           <Link href="/" className="font-semibold text-emerald-900 underline">Browse the site while you wait →</Link>
         </p>
@@ -290,9 +304,32 @@ export function VendorListingForm() {
       </div>
 
       <div className="rounded-xl bg-gold-500/10 p-4 ring-1 ring-gold-500/30">
-        <p className="text-sm font-bold text-navy-900 dark:text-navy-100">
-          2 · List your first product <span className="font-normal text-slate-soft dark:text-navy-300">(optional, but takes 2 minutes — get found today)</span>
-        </p>
+        {!showProduct ? (
+          <button
+            type="button"
+            onClick={() => setShowProduct(true)}
+            className="flex w-full items-center justify-between gap-3 rounded-lg px-1 py-1 text-left transition-colors"
+          >
+            <span>
+              <span className="block text-sm font-bold text-navy-900 dark:text-navy-100">
+                ➕ List my first product now <span className="font-normal text-slate-soft dark:text-navy-300">(optional)</span>
+              </span>
+              <span className="mt-0.5 block text-xs text-slate-soft dark:text-navy-300">
+                2 minutes — your product goes live in one sitting, no dashboard needed.
+              </span>
+            </span>
+            <span className="shrink-0 rounded-lg bg-gold-500 px-3 py-2 text-xs font-bold text-navy-950">Add product</span>
+          </button>
+        ) : (
+        <>
+        <div className="flex items-center justify-between gap-3">
+          <p className="text-sm font-bold text-navy-900 dark:text-navy-100">
+            2 · List your first product <span className="font-normal text-slate-soft dark:text-navy-300">(optional)</span>
+          </p>
+          <button type="button" onClick={() => setShowProduct(false)} className="text-xs font-semibold text-slate-soft underline hover:text-navy-700 dark:text-navy-300">
+            Hide
+          </button>
+        </div>
         <div className="mt-3 grid gap-4 sm:grid-cols-2">
           <Field label="Product name" error={errors.productName}>
             <input className={inputCls} value={form.productName} onChange={(e) => set("productName", e.target.value)} placeholder="e.g. iPhone 13 128GB, UK used" />
@@ -327,6 +364,8 @@ export function VendorListingForm() {
         <p className="mt-3 text-xs text-slate-soft dark:text-navy-300">
           Skip this and you can add products later from your dashboard. Every product is reviewed before it goes live — usually within 1 business day.
         </p>
+        </>
+        )}
       </div>
 
       <div className="rounded-xl bg-navy-50/70 dark:bg-navy-900/50 p-4">
