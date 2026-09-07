@@ -1,87 +1,1769 @@
 {
   "source": "frankotrading.com",
-  "description": "Franko Trading showcase catalogue — real products and live GH₵ prices captured from frankotrading.com public listings on the fetchedAt date. Proof-of-partnership listings: buy buttons go directly to Franko Trading product pages. Refresh prices from their website.",
-  "fetchedAt": "2026-08-27T18:00:00Z",
+  "description": "Franko Trading live catalogue — real products and GH₵ prices fetched from the same API franko's own website uses. Sold-out buckets are excluded at fetch time.",
+  "fetchedAt": "2026-09-07T18:31:17.179Z",
   "currency": "GHS",
-  "deliveryModel": "Franko Trading advertises free delivery within Accra and Kumasi, and ships nationwide. Modelled as GH₵0 fee, 1–3 days.",
+  "deliveryModel": "Franko Trading advertises free delivery within Accra and Kumasi, and ships nationwide.",
   "products": [
     {
-      "name": "Samsung Galaxy A26 (256GB + 8GB) 5G – Plus Free Voucher",
-      "brand": "Samsung",
-      "category": "phones",
-      "url": "https://www.frankotrading.com/product/a59d19db-a8e7-480c-9422-c4878ca81dea",
-      "image": "https://testing.frankotrading.com/Media/Products_Images/0ff36cad-80ca-4464-a619-e139c95ed394_sam%20A26.webp",
-      "priceGhs": 3730
+      "name": "Lenovo I5 (8/512ssd) V15 G4 Iru - Infinix Xwatch 3GT Plus Free Franko Bag",
+      "brand": "Lenovo",
+      "category": "laptops",
+      "url": "https://www.frankotrading.com/product/00ec3baf-5b5b-468d-b93c-6ff26f8ab9ba",
+      "priceGhs": 8000,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/97a4efda-3ab0-4114-afb3-ad6d179b2af9_WhatsApp%20Image%202026-08-26%20at%205.36.13%20PM.jpeg"
     },
     {
-      "name": "Tecno Pop 20 (128GB + 4GB) – Plus Free Voucher",
-      "brand": "Tecno",
-      "category": "phones",
-      "url": "https://www.frankotrading.com/product/2a3ae38a-9278-4554-9922-0103adeabe38",
-      "image": "https://testing.frankotrading.com/Media/Products_Images/71557183-1c3f-4a0c-9c95-d431cb3b4de7_Pop%2020%202.webp",
-      "priceGhs": 1610
+      "name": "Asus i3 Vivobook | 8GB RAM | 256GB SSD | E1404G | 14\" Display -Plus Infinix Xwatch 3GT",
+      "brand": "Asus",
+      "category": "laptops",
+      "url": "https://www.frankotrading.com/product/3c507747-14a8-46fd-83f7-ffbc8ac6bcc7",
+      "priceGhs": 6000,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/fe032da4-a49b-4204-bdc6-eec92f081191_WhatsApp%20Image%202026-08-27%20at%2010.59.05%20AM.jpeg"
     },
     {
-      "name": "Tecno Spark 40 Pro (128GB + 8GB) – Plus Free Voucher",
-      "brand": "Tecno",
-      "category": "phones",
-      "url": "https://www.frankotrading.com/product/4ad452ad-437e-4c3c-9e6d-f9824c9372fc",
-      "image": "https://testing.frankotrading.com/Media/Products_Images/c63fda1c-835f-4f13-a2f2-a21183324233_300.png",
-      "priceGhs": 2300
-    },
-    {
-      "name": "Tecno Spark 40 Pro+ (256GB + 8GB) – Plus Free Voucher",
-      "brand": "Tecno",
-      "category": "phones",
-      "url": "https://www.frankotrading.com/product/5ed799ea-5a04-4474-9ddf-d7d6c92d7faf",
-      "image": "https://testing.frankotrading.com/Media/Products_Images/02825c19-7557-42cb-a5f4-39b971a8e895_2%2C829.png",
-      "priceGhs": 2829
-    },
-    {
-      "name": "Itel P65c (128GB + 4GB)",
-      "brand": "Itel",
-      "category": "phones",
-      "url": "https://www.frankotrading.com/product/74a793c2-0d16-4617-b06b-0ea4b963229f",
-      "image": "https://testing.frankotrading.com/Media/Products_Images/bd391542-2dfb-461e-8e66-c6ff015069b2_image%20-%202025-10-30T102346.806.jpg",
-      "priceGhs": 790,
-      "oldPriceGhs": 850,
-      "discountPct": 7
-    },
-    {
-      "name": "Itel City 100 (128GB + 4GB)",
-      "brand": "Itel",
-      "category": "phones",
-      "url": "https://www.frankotrading.com/product/5db3b674-c9f4-408a-b083-42e004c855cc",
-      "image": "https://testing.frankotrading.com/Media/Products_Images/0f500112-98d2-457a-ba19-c49d6193778e_itel11-removebg-preview.png",
-      "priceGhs": 1030,
-      "oldPriceGhs": 1090,
-      "discountPct": 6
-    },
-    {
-      "name": "HP Pavilion i3 (256GB + 8GB) x360 14-ek0013dx 12th Gen – 14\" Touchscreen",
+      "name": "HP Celeron | 4GB RAM | 256 SSD | 250 G9 -Plus Infinix Xwatch 3GT",
       "brand": "HP",
       "category": "laptops",
-      "url": "https://www.frankotrading.com/product/d43dcc21-03a1-43fa-bfe3-808e83fe304c",
-      "image": "https://testing.frankotrading.com/Media/Products_Images/a5c5edbd-0d91-42ae-a69b-d1630e5758c4_0013.jpg",
-      "priceGhs": 7500
+      "url": "https://www.frankotrading.com/product/926f18b1-33e2-4084-bef2-e028eb9de0c8",
+      "priceGhs": 4900,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/e4a60dc8-c47a-477f-bcaa-43dd74eeda6a_WhatsApp%20Image%202026-08-27%20at%2010.59.06%20AM.jpeg"
     },
     {
-      "name": "HP Victus Ryzen 5 (8GB + 512GB SSD) 15-Fb2063Dx (RX 6550M) – 15.6\" 144Hz",
+      "name": "Dell Vostro | i3 | 8GB RAM | 512GB SSD | 3520-Plus Redmi Earbuds",
+      "brand": "Dell",
+      "category": "laptops",
+      "url": "https://www.frankotrading.com/product/a9f50b8b-1464-48bc-8f4d-a3173b9bb89b",
+      "priceGhs": 6500,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/1a67bb7b-c5d2-491c-a7bc-a7a2798abbf3_WhatsApp%20Image%202026-08-27%20at%2010.59.08%20AM.jpeg"
+    },
+    {
+      "name": "HP Spectre | Ultra 7 | 16GB RAM | 1TB SSD |  14\" Display | 14-EU0013Dx",
       "brand": "HP",
       "category": "laptops",
-      "url": "https://www.frankotrading.com/product/984f63c3-e811-4a55-a79d-7bd5924eb4dc",
-      "image": "https://testing.frankotrading.com/Media/Products_Images/fdeae3ff-73d8-4365-9cf4-ac34c5ca866c_9f60e704-86ca-470f-ad4c-270a1560ca6e_has_14-removebg-preview.png",
-      "priceGhs": 8290,
-      "oldPriceGhs": 10190,
-      "discountPct": 19
+      "url": "https://www.frankotrading.com/product/e2304d6f-ebb1-4701-b86d-3d542f03da7a",
+      "priceGhs": 23000,
+      "oldPriceGhs": 25000,
+      "discountPct": 8,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/64acd71c-70ad-4ecb-8ccd-7f7a630c58c1_8juhnb.png"
+    },
+    {
+      "name": "Lenovo Amd Ryzen 3 | 8GB | 256GB SSD | 15.6\" Display | Ideapad 1-15amn7 - Plus Free Kora Smart Watch (neo)",
+      "brand": "Lenovo",
+      "category": "laptops",
+      "url": "https://www.frankotrading.com/product/f25391ac-f5e7-48b0-93cd-216390c02dc3",
+      "priceGhs": 5490,
+      "oldPriceGhs": 6290,
+      "discountPct": 13,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/4af861b6-8ca6-4e4d-a6db-7aebf033038b_WhatsApp%20Image%202026-04-10%20at%2009.26.06.jpeg"
+    },
+    {
+      "name": "HP Envy | i7 | 16GB | 1TB SSD  16\" Display | Nvidea GeForce RTX Touchscreen Gaming Laptop | 16-H1053Dx -  Free Kora Smart Watch (Neo)",
+      "brand": "HP",
+      "category": "laptops",
+      "url": "https://www.frankotrading.com/product/a5806263-87bf-4b5e-9064-e07d16ddf0c1",
+      "priceGhs": 24990,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/2c259712-e60f-48b9-9f74-92bf19f31583_c3f2c083-4b6a-4270-aa76-365f2ead0ed3_lapp_5-removebg-preview.png"
+    },
+    {
+      "name": "HP i5 | Ultra 5 | 8GB RAM | 512GB SSD | 15-Fd2050wm | Touchscreen |15.6\" Display-Infinix Xwatch 3GT Plus Free Franko Bag",
+      "brand": "HP",
+      "category": "laptops",
+      "url": "https://www.frankotrading.com/product/56ed1f03-f97e-4031-bd75-48abd52ae5ce",
+      "priceGhs": 8100,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/1f5c3f81-ea2c-4e7c-9964-f824e6a3d074_WhatsApp%20Image%202026-08-27%20at%2010.03.42%20AM%20(3).jpeg"
+    },
+    {
+      "name": "HP Omnibook 5 | Ultra 7 | 16GB RAM | 1TB SSD | 16-Af1017wm | 16\" Display-Infinix Xwatch 3GT Plus Free Franko Bag",
+      "brand": "HP",
+      "category": "laptops",
+      "url": "https://www.frankotrading.com/product/5e370375-2fa2-49d6-9fe5-d731332325e9",
+      "priceGhs": 12300,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/778f2322-74ee-4dbc-853f-5f3c012043fd_WhatsApp%20Image%202026-08-26%20at%205.36.14%20PM.jpeg"
+    },
+    {
+      "name": "HP Ryzen Victus Nvidea | i5 | 512ssd | 8gb | 15.6\" Display | 15-Fb1013dx -  Free Kora Smart Watch (Neo) &  Franko Bag",
+      "brand": "HP",
+      "category": "laptops",
+      "url": "https://www.frankotrading.com/product/39df3786-6240-4853-8cf3-428604c626ff",
+      "priceGhs": 13290,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/74a40f3f-602d-4006-a498-91d782f2317d_WhatsApp%20Image%202026-08-28%20at%2010.19.44%20AM%20(3).jpeg"
+    },
+    {
+      "name": "Huawei D15 | Matebook | i3 | 8GB RAM | 256GB SSD |  15.6\" Display - Free Kora Smart Watch (Neo)",
+      "brand": "Huawei laptops",
+      "category": "laptops",
+      "url": "https://www.frankotrading.com/product/3a0d538c-0b2a-45de-80ba-b1f18644c97a",
+      "priceGhs": 5790,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/3832f430-211e-4265-b3dc-49ab0e6931bd_matebook%202.jpg"
+    },
+    {
+      "name": "HP Omnibook | 5 Flip | Core 5 | 8GB RAM | 512GB SSD | 14-FP0013dx-Infinix Xwatch 3GT Plus Free Franko Bag",
+      "brand": "HP",
+      "category": "laptops",
+      "url": "https://www.frankotrading.com/product/3a19075b-fe4a-403b-8c59-bd8d339e8458",
+      "priceGhs": 10880,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/eb6aa3ac-1e8c-44ce-9872-5e1df6ab5276_WhatsApp%20Image%202026-08-26%20at%205.36.18%20PM.jpeg"
+    },
+    {
+      "name": "Dell i5 | 1334u | 8GB RAM | 512GB SSD | Dc 15250 -Plus Redmi Earbuds",
+      "brand": "Dell",
+      "category": "laptops",
+      "url": "https://www.frankotrading.com/product/a307c896-6329-476a-b994-9acb78646841",
+      "priceGhs": 7200,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/7f25e0d0-18f2-42c0-abec-c02f8d3b5be6_WhatsApp%20Image%202026-08-27%20at%2010.59.09%20AM.jpeg"
+    },
+    {
+      "name": "HP Envy | Core 5 | 14-Es1013 | 8GB RAM | 512SSD | 14\" Touchscreen -Infinix Xwatch 3GT Plus Free Franko Bag",
+      "brand": "HP",
+      "category": "laptops",
+      "url": "https://www.frankotrading.com/product/ce7b5da9-c102-4318-b183-8b3db2f0e599",
+      "priceGhs": 10500,
+      "oldPriceGhs": 12090,
+      "discountPct": 13,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/5dbbb137-af96-4c42-8ff7-827268e1a84c_WhatsApp%20Image%202026-08-27%20at%2010.59.04%20AM.jpeg"
+    },
+    {
+      "name": "Acer | Aspire 3 | i3 | 8GB RAM | 512SSD | 15.6\" Display - A325-53",
+      "brand": "Acer",
+      "category": "laptops",
+      "url": "https://www.frankotrading.com/product/466524c1-a12a-4207-92e3-8ea76979ea97",
+      "priceGhs": 6500,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/86d60996-55c5-4e93-98fd-c502e4046f68_a32522.png"
+    },
+    {
+      "name": "Lenovo V15 G4 | Ryzen 5 | 8GB RAM | 512 SSD | 15.6\" Display |  7520",
+      "brand": "Lenovo",
+      "category": "laptops",
+      "url": "https://www.frankotrading.com/product/6ad7ab89-817b-43fe-ad32-61222f5a7bb8",
+      "priceGhs": 6600,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/1dd30596-963c-438e-b6bb-391b906fb2df_(8512ssd)%20V15%20G4%20Iru.png"
+    },
+    {
+      "name": "Lenovo Cel | Ideapad | 4GB RAM | 128GB SSD | 141JL7",
+      "brand": "Lenovo",
+      "category": "laptops",
+      "url": "https://www.frankotrading.com/product/b827b3e2-0344-4222-9c35-cc66ea588709",
+      "priceGhs": 4100,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/d08bf098-adb2-4da5-bca4-1ddfc35f9323_14ijl7%202.jpg"
+    },
+    {
+      "name": "Asus Core | Ultra 5 | 8GB RAM | 512SSD | Q415MA - Free Kora Smart Watch (Neo)",
+      "brand": "Asus",
+      "category": "laptops",
+      "url": "https://www.frankotrading.com/product/728249c9-66a6-4f3b-807c-ae0f98700607",
+      "priceGhs": 10740,
+      "oldPriceGhs": 13590,
+      "discountPct": 21,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/04d3e3d1-a49c-4aa7-b5ac-97e78c73f3e2_3336d54e-a092-4c6c-a33b-dae0eb6fcd8f_fghnnnnnnn__1_-removebg-preview.png"
+    },
+    {
+      "name": "HP Printer (2875) All-In-One",
+      "brand": "Printers",
+      "category": "laptops",
+      "url": "https://www.frankotrading.com/product/b4415331-d173-4759-8bb0-38bd01f05927",
+      "priceGhs": 1100,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/09f1722e-62dd-43c8-a247-014eaacfca40_2875.png"
+    },
+    {
+      "name": "HP Ryzen 5 | 16GB RAM | 512GB SSD |  Fc0046NQ 7th | 15.6\" Display",
+      "brand": "HP",
+      "category": "laptops",
+      "url": "https://www.frankotrading.com/product/c6ad8478-21e9-4dfd-83ef-1ebf0290df36",
+      "priceGhs": 7300,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/f05a5d83-0ba7-42fe-8d39-4f8e15341d5f_fc00.png"
+    },
+    {
+      "name": "Lenovo | Flex 5 | i7 | 8GB RAM | 512GB SSD | 16” Touchscreen | x360-16iau7 - Free Kora Smart Watch (Neo)",
+      "brand": "Lenovo",
+      "category": "laptops",
+      "url": "https://www.frankotrading.com/product/9923ed30-cbda-4c49-a1d3-4751e7140405",
+      "priceGhs": 11490,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/d85d6b74-1a94-4e67-a9c0-66f8b9bb5c6d_6231c116-3648-4623-b1e3-579d49a5ed56_lapp_15-removebg-preview.png"
+    },
+    {
+      "name": "HP Omnibook 5 | Core 7 Flip | 16GB RAM | 512GB SSD | 14-FP0023Dx -Infinix Xwatch 3GT Plus Free Franko Bag",
+      "brand": "HP",
+      "category": "laptops",
+      "url": "https://www.frankotrading.com/product/ea302776-1636-4f36-a01c-b2c1b5adffd0",
+      "priceGhs": 13900,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/91e80714-d14c-4b4e-8c69-42b51658cf42_WhatsApp%20Image%202026-08-27%20at%2010.59.02%20AM.jpeg"
+    },
+    {
+      "name": "HP i3 | 8GB RAM | 512 SSD | 15-EP0143Nia",
+      "brand": "HP",
+      "category": "laptops",
+      "url": "https://www.frankotrading.com/product/c4431c6b-b5f2-4964-9249-097411fb32ad",
+      "priceGhs": 6200,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/9fbada4e-3d39-4f70-88ac-76adfa661dd6_Ep0143.jpg"
+    },
+    {
+      "name": "Lenovo Yoga 7 | 16GB RAM | 1TB SSD | 14' Display | Amd Ryzen-14APQ\" - Free Kora Smart Watch (Neo)",
+      "brand": "Lenovo",
+      "category": "laptops",
+      "url": "https://www.frankotrading.com/product/6bc071fe-b116-433c-a0f7-d16d4c7fc5e7",
+      "priceGhs": 15590,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/f80209a9-e54b-4fb2-a39f-ea4a76a4ff97_yoga%207%204.png"
+    },
+    {
+      "name": "HP Printer (141w) Wifi",
+      "brand": "Printers",
+      "category": "laptops",
+      "url": "https://www.frankotrading.com/product/f0a2fd7a-5dcf-4170-b5ad-bc8bd8e7bee0",
+      "priceGhs": 1900,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/c8db7023-28e7-4b2d-a392-3cb1f02a6639_laserjet.png"
+    },
+    {
+      "name": "HP Cel | 128GB SSD | 4GB RAM | 14-Dq6011dx | 14\" Display",
+      "brand": "HP",
+      "category": "laptops",
+      "url": "https://www.frankotrading.com/product/5c302757-ab8e-4dfb-9179-6f24e03b00b4",
+      "priceGhs": 3900,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/82baaed2-b19d-4dc9-abca-9df75cf82329_N150.jpg"
+    },
+    {
+      "name": "HP i5 | 8GB RAM | 512GB SSD | Touchscreen | 15-Fd0154wm-Infinix Xwatch 3GT Plus Free Franko Bag",
+      "brand": "HP",
+      "category": "laptops",
+      "url": "https://www.frankotrading.com/product/5c53d7c3-aeb5-48bb-bbd8-a4eb6d713dad",
+      "priceGhs": 9300,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/2d891137-4b70-482d-a5da-68ec7568c46e_WhatsApp%20Image%202026-08-26%20at%205.36.16%20PM%20(2).jpeg"
+    },
+    {
+      "name": "Lenovo i5 | Ideapad Slim 3 | 8GB RAM | 512GB SSD | 141RH10 | 14\" Display Plus Free Infinix Xwatch 3GT Plus Free Franko Bag",
+      "brand": "Lenovo",
+      "category": "laptops",
+      "url": "https://www.frankotrading.com/product/93788114-ad1d-4a1f-bbfe-a23e63230bbe",
+      "priceGhs": 8500,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/a0f24a63-2fe4-46cc-ad13-d31d37e6bdf0_WhatsApp%20Image%202026-08-26%20at%205.36.12%20PM.jpeg"
+    },
+    {
+      "name": "HP i3 (4GB RAM/1TB)15-Dw1197nia 15\" -Plus Redmi Earbuds",
+      "brand": "HP",
+      "category": "laptops",
+      "url": "https://www.frankotrading.com/product/94c65cd7-151b-4a42-afa9-d7d211000e13",
+      "priceGhs": 4500,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/8500e38b-20ab-436d-a037-f3117e410f4e_WhatsApp%20Image%202026-08-28%20at%2010.19.44%20AM%20(2).jpeg"
+    },
+    {
+      "name": "Lenovo Ideapad | i3 | Slim 3 | 8GB RAM | 256GB SSD | 15iAN8",
+      "brand": "Lenovo",
+      "category": "laptops",
+      "url": "https://www.frankotrading.com/product/8cc18ca2-8f6f-4d66-819f-07ae47dc13bd",
+      "priceGhs": 5500,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/be31c9c8-a1a7-4525-bbbe-897ed1cefd67_67666.png"
+    },
+    {
+      "name": "HP Omnibook | Ultra 7 | 8GB RAM | 512GB SSD | 15-Fd1310tu | 15.6\" Display-Infinix Xwatch 3GT Plus Free Franko Bag",
+      "brand": "HP",
+      "category": "laptops",
+      "url": "https://www.frankotrading.com/product/8df6f715-4aa5-4b7d-8a57-765082a9af14",
+      "priceGhs": 10000,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/a6bf02c1-11cd-4767-bc17-439d6a1ff72d_WhatsApp%20Image%202026-08-27%20at%2010.59.04%20AM%20(1).jpeg"
+    },
+    {
+      "name": "Lenovo Celeron | 8GB RAM | 256GB SSD | 15iJL7 | 15.6\" Display",
+      "brand": "Lenovo",
+      "category": "laptops",
+      "url": "https://www.frankotrading.com/product/ac7c6345-8a62-44e2-8b6f-1d2a43d70646",
+      "priceGhs": 4500,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/7c3bb0ab-a119-4ae9-8ba6-5aa5e4e2a50f_15ij.png"
+    },
+    {
+      "name": "HP Ryzen 5 | 16GB RAM | 512GB SSD | 15\" Display | 255 G10 15\" 7th -Plus Infinix Xwatch 3GT",
+      "brand": "HP",
+      "category": "laptops",
+      "url": "https://www.frankotrading.com/product/de9a3124-eaa1-4345-ab41-09439d2d5f88",
+      "priceGhs": 7400,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/a3ed0eb9-7a56-4008-8dd6-ec059b4bb96f_WhatsApp%20Image%202026-08-27%20at%2010.59.07%20AM.jpeg"
+    },
+    {
+      "name": "HP i3 | 8GB RAM | 256GB SSD | 15-Fd0133wm",
+      "brand": "HP",
+      "category": "laptops",
+      "url": "https://www.frankotrading.com/product/1178dea2-375b-4ec2-b87d-2476218e34ea",
+      "priceGhs": 5600,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/95fd96ea-299c-405e-9f1f-4c134e3a6514_do1333.png"
+    },
+    {
+      "name": "Asus Cel | 4GB RAM | 128GB SSD | E410k | 14\" Display-Plus Infinix Xwatch 3GT",
+      "brand": "Asus",
+      "category": "laptops",
+      "url": "https://www.frankotrading.com/product/b9586729-4b42-44a2-b6e9-db5a70138886",
+      "priceGhs": 4000,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/9ea10ec3-63de-4a29-81aa-a7c4e5262bde_WhatsApp%20Image%202026-08-27%20at%2010.59.05%20AM%20(1).jpeg"
+    },
+    {
+      "name": "HP i5 | 250R G9 | 16GB RAM | 512GB SSD | 15.6\" Display-Infinix Xwatch 3GT Plus Free Franko Bag",
+      "brand": "HP",
+      "category": "laptops",
+      "url": "https://www.frankotrading.com/product/733c5ae6-99ab-4be1-9af4-563824c976e7",
+      "priceGhs": 8900,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/f3347cda-e217-48c7-8f04-649cd1339871_WhatsApp%20Image%202026-08-26%20at%205.36.16%20PM.jpeg"
+    },
+    {
+      "name": "HP Celeron | Desktop | 4GB RAM | 1TB | 290 G4 Pentg6400",
+      "brand": "Desktop",
+      "category": "laptops",
+      "url": "https://www.frankotrading.com/product/f23a690a-9fe2-4848-b28b-692dea27ccf8",
+      "priceGhs": 6000,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/9f217411-f134-4184-9bf1-79662f59673a_c902e1e1-8768-4229-be8d-1489967d5459_G41.jpg"
+    },
+    {
+      "name": "HP | i3 | 8GB RAM | 256GB SSD | 15.6' Display | 15s-Fq5340TU- Free Kora Smart Watch (Neo) & Redmi Earbuds",
+      "brand": "HP",
+      "category": "laptops",
+      "url": "https://www.frankotrading.com/product/c78033d4-4967-49a6-8b18-35f9c84ea4e8",
+      "priceGhs": 6890,
+      "oldPriceGhs": 7290,
+      "discountPct": 5,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/34852bbe-d955-4bb1-a028-7837a8caa12b_WhatsApp%20Image%202026-08-27%20at%2011.12.49%20AM.jpeg"
+    },
+    {
+      "name": "HP Core 5 | 16GB RAM | 512GB SSD | 15-Fd0071nq | 15.6\" Display-Infinix Xwatch 3GT Plus Free Franko Bag",
+      "brand": "HP",
+      "category": "laptops",
+      "url": "https://www.frankotrading.com/product/6d22d8ad-be17-42a2-a8b7-b0058cb1e768",
+      "priceGhs": 8900,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/d436bf64-4646-4a56-87c2-0de927ddee41_WhatsApp%20Image%202026-08-27%20at%2010.19.43%20AM.jpeg"
     },
     {
       "name": "Dell Inspiron 3530 i5 (8GB + 512GB SSD) – 15.6\" Touchscreen + Free Infinix Xwatch 3GT & Franko Bag",
       "brand": "Dell",
       "category": "laptops",
       "url": "https://www.frankotrading.com/product/1670f705-7096-4a8c-8547-0953c10bcde1",
-      "image": "https://testing.frankotrading.com/Media/Products_Images/7bdd9438-d91c-4098-934e-3ee7e784507e_WhatsApp%20Image%202026-08-26%20at%205.35.51%20PM.jpeg",
-      "priceGhs": 8500
+      "priceGhs": 8500,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/7bdd9438-d91c-4098-934e-3ee7e784507e_WhatsApp%20Image%202026-08-26%20at%205.35.51%20PM.jpeg"
+    },
+    {
+      "name": "HP Amd | Ryzen 7 | 16GB RAM | 1TB SSD | 15-Fc0048nq | 15.6\" Display-Infinix Xwatch 3GT Plus Free Franko Bag",
+      "brand": "HP",
+      "category": "laptops",
+      "url": "https://www.frankotrading.com/product/16e81c35-139f-428a-a3f1-c2b20dc03a4d",
+      "priceGhs": 9300,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/e8844ac3-f004-4a5f-aa26-e2905adb6703_WhatsApp%20Image%202026-08-26%20at%205.36.16%20PM%20(1).jpeg"
+    },
+    {
+      "name": "HP Omni Studio | x32 | 1TB SSD Memory | 32GB RAM | 32\" Display | All-In-One Pc",
+      "brand": "Desktop",
+      "category": "laptops",
+      "url": "https://www.frankotrading.com/product/979f422e-8c1f-44a6-a5f9-fb86ed49c17e",
+      "priceGhs": 35000,
+      "oldPriceGhs": 40000,
+      "discountPct": 13,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/f6f74150-f573-48c4-8c5b-07a9b3e12aba_c09011696.png"
+    },
+    {
+      "name": "HP i7 | 8GB RAM | 512GB SSD | 15.6\" Display | 15 - FD0229Nia",
+      "brand": "HP",
+      "category": "laptops",
+      "url": "https://www.frankotrading.com/product/3ea4762f-9f0c-45e6-9afb-8c1c744e4164",
+      "priceGhs": 8300,
+      "oldPriceGhs": 11000,
+      "discountPct": 25,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/40e084fd-7963-4ba3-832f-457c87158a4b_fd022.png"
+    },
+    {
+      "name": "Dell i3 | 8GB RAM | 512GB SSD | Pv15250 | 15.6\" Display-Plus Infinix Xwatch 3GT",
+      "brand": "Dell",
+      "category": "laptops",
+      "url": "https://www.frankotrading.com/product/1d212654-0c42-4631-83a3-67cad902f1d8",
+      "priceGhs": 7000,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/a9fbb21c-51f7-46ae-86e1-613d9773a998_WhatsApp%20Image%202026-08-27%20at%2010.59.07%20AM%20(1).jpeg"
+    },
+    {
+      "name": "HP i5 | Ultra 5 | 512GB RAM | 8GB SSD | 16-Bu0305dx | 16\" Display Touchscreen-Infinix Xwatch 3GT Plus Free Franko Bag",
+      "brand": "HP",
+      "category": "laptops",
+      "url": "https://www.frankotrading.com/product/03178480-1a34-4cbb-a43b-01a88cf02f7a",
+      "priceGhs": 11100,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/b9137037-f817-429a-bf30-68ec9f63242b_WhatsApp%20Image%202026-08-27%20at%2010.03.42%20AM.jpeg"
+    },
+    {
+      "name": "Franko Twin Tub Washing Machine 8kg (F856tbw)",
+      "brand": "Franko Washing Machine",
+      "category": "appliances",
+      "url": "https://www.frankotrading.com/product/20915507-7b6f-4e01-9768-1c27db38eaef",
+      "priceGhs": 2100,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/31a655f2-134e-4467-99ae-8566bf4fb961_WhatsApp%20Image%202026-09-03%20at%2014.21.04.jpeg"
+    },
+    {
+      "name": "Franko Washing Machine (F80w) Front Loader",
+      "brand": "Franko Washing Machine",
+      "category": "appliances",
+      "url": "https://www.frankotrading.com/product/2da589d3-a085-4582-96d8-19edd370a4b5",
+      "priceGhs": 2900,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/78486402-a3ce-415e-9823-3158a7810e8f_WhatsApp%20Image%202026-03-03%20at%2007.54.46.jpeg"
+    },
+    {
+      "name": "Franko Twin Tub Washing Machine 10kg (F1065tbw)",
+      "brand": "Franko Washing Machine",
+      "category": "appliances",
+      "url": "https://www.frankotrading.com/product/b6c4a1c7-4bb7-4fc1-8e2d-ae7eb300c343",
+      "priceGhs": 2500,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/aa25383c-f27d-4e14-879b-ce6cf536d5b8_WhatsApp%20Image%202026-09-03%20at%2010.40.35.jpeg"
+    },
+    {
+      "name": "Franko Twin Tub Washing Machine 6kg (F635tbw)",
+      "brand": "Franko Washing Machine",
+      "category": "appliances",
+      "url": "https://www.frankotrading.com/product/37ebb4a7-82d4-41e5-8c46-fc58f909cf7d",
+      "priceGhs": 1600,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/d86fd176-05f6-4f3a-8a76-128df888f6a4_WhatsApp%20Image%202026-09-03%20at%2014.21.04(1).jpeg"
+    },
+    {
+      "name": "Franko Washing Machine (F90w) Front Loader",
+      "brand": "Franko Washing Machine",
+      "category": "appliances",
+      "url": "https://www.frankotrading.com/product/acd4d5ad-29d0-413c-9917-37188e9d1279",
+      "priceGhs": 3400,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/4a8a96a0-dbf9-404c-a60d-ff334979a663_WhatsApp%20Image%202026-03-03%20at%2007.54.47.jpeg"
+    },
+    {
+      "name": "Asano Speaker (Tk-115)",
+      "brand": "Asano speakers",
+      "category": "tv-audio",
+      "url": "https://www.frankotrading.com/product/2015e691-6e48-480c-8d8d-dc34f0da642c",
+      "priceGhs": 1350,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/089dc1f2-2bc9-4741-9655-d74a3c324a29_b3cd2532-dfe9-4137-a667-dede0cb7aab8_jl-removebg-preview.png"
+    },
+    {
+      "name": "Franko Speaker FK 1201 (5.1)",
+      "brand": "Franko speaker",
+      "category": "tv-audio",
+      "url": "https://www.frankotrading.com/product/7e233aaf-273b-4202-bfb8-bfd7a66a4aff",
+      "priceGhs": 1000,
+      "oldPriceGhs": 1050,
+      "discountPct": 5,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/4f3774ec-0453-498e-8e62-78379242f4b7_WhatsApp%20Image%202026-07-17%20at%2015.24.30.jpeg"
+    },
+    {
+      "name": "Microdigit Mini Portable Speaker (Md660ps)",
+      "brand": "Radio",
+      "category": "tv-audio",
+      "url": "https://www.frankotrading.com/product/abf3e56c-529f-404b-bf72-a5a24c47c47c",
+      "priceGhs": 400,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/cb14e188-2c51-4137-a190-fb1b4dabff24_bcvcgdfgd-removebg-preview.png"
+    },
+    {
+      "name": "Asano Speaker (Tk-116)",
+      "brand": "Asano speakers",
+      "category": "tv-audio",
+      "url": "https://www.frankotrading.com/product/75465c53-74a4-45fa-95e3-fb1ee683c59b",
+      "priceGhs": 1350,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/dd157b66-e18f-4a85-9f27-9c7f288183e1_573c34ae-19c1-40f1-86e0-b3a3c9d51cbc_9800000-removebg-preview.png"
+    },
+    {
+      "name": "Remax Bt Speaker(Rb-M18)",
+      "brand": "Remax speakers",
+      "category": "tv-audio",
+      "url": "https://www.frankotrading.com/product/39f3fbfd-014f-404c-bf88-461c7ffb547f",
+      "priceGhs": 600,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/16bca663-5a68-47d1-a676-456015674ee8_233232-removebg-preview.png"
+    },
+    {
+      "name": "Franko Soundbar Speaker (f480s) Tcl",
+      "brand": "Franko speaker",
+      "category": "tv-audio",
+      "url": "https://www.frankotrading.com/product/298ef699-ff1f-44fc-a179-ab07b007c41f",
+      "priceGhs": 1050,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/1b808778-1ca2-4f60-a321-b77040bd5ef7_F480s-Photoroom%20copy.png"
+    },
+    {
+      "name": "Tonemac Wireless Speaker B5",
+      "brand": "Radio",
+      "category": "tv-audio",
+      "url": "https://www.frankotrading.com/product/18e62b51-a47f-4441-ae56-1420c6db1fe0",
+      "priceGhs": 200,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/fcfee503-86e3-4012-86b7-73749f7dfe06_B55%202.jpg"
+    },
+    {
+      "name": "Franko Speaker 906 (5.1)",
+      "brand": "Franko speaker",
+      "category": "tv-audio",
+      "url": "https://www.frankotrading.com/product/963f0dd4-7e04-4798-a2a7-24d9d978318c",
+      "priceGhs": 1000,
+      "oldPriceGhs": 1250,
+      "discountPct": 20,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/9edb311a-0836-4963-80e1-6cc0981f1042_WhatsApp%20Image%202026-07-17%20at%2014.43.00(1).jpeg"
+    },
+    {
+      "name": "Franko Speaker 906 (3.1)",
+      "brand": "Franko speaker",
+      "category": "tv-audio",
+      "url": "https://www.frankotrading.com/product/610f02c3-b9b0-40a3-916a-f02e24ff8972",
+      "priceGhs": 750,
+      "oldPriceGhs": 800,
+      "discountPct": 6,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/bcbedc9f-adeb-49b2-84a8-db0a37bf923a_WhatsApp%20Image%202026-07-17%20at%2014.43.00(2).jpeg"
+    },
+    {
+      "name": "Franko Soundbar Speaker (F360s) Tcl",
+      "brand": "Franko speaker",
+      "category": "tv-audio",
+      "url": "https://www.frankotrading.com/product/fdb4d5e2-8269-4427-b1e4-70aafbf75a5d",
+      "priceGhs": 970,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/172fc03e-e5af-4c6f-90b0-f64740b1b443_F480s-Photoroom.png"
+    },
+    {
+      "name": "Itel Wireless Sound Bar (ibs-51)",
+      "brand": "Itel speaker",
+      "category": "tv-audio",
+      "url": "https://www.frankotrading.com/product/711ff438-30e7-4dab-b17d-4838303e24dd",
+      "priceGhs": 235,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/e703ad11-f7d7-47f1-b499-52185016c423_WhatsApp%20Image%202026-04-29%20at%2012.39.03.jpeg"
+    },
+    {
+      "name": "Franko Speaker 2031",
+      "brand": "Franko speaker",
+      "category": "tv-audio",
+      "url": "https://www.frankotrading.com/product/5724b299-bfe3-45ec-9579-f16bd7f57f63",
+      "priceGhs": 750,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/efbf27ac-cc8a-4d95-92a7-7f0dcd218413_WhatsApp%20Image%202026-07-17%20at%2014.43.00(3).jpeg"
+    },
+    {
+      "name": "Franko Table Top Fridge (F90rt)",
+      "brand": "Franko fridge",
+      "category": "appliances",
+      "url": "https://www.frankotrading.com/product/6566b5c3-1e82-4e57-8185-34b565c22dfa",
+      "priceGhs": 1300,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/ac104592-f846-4f78-b386-aff6bede723d_F90rt.jpg"
+    },
+    {
+      "name": "Asano Chest Freezer (As-400) 48kg",
+      "brand": "Asano fridge",
+      "category": "appliances",
+      "url": "https://www.frankotrading.com/product/7aaa7657-4bfc-4132-af79-a4610a44daf4",
+      "priceGhs": 4400,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/42a3e5ff-45fd-4686-bcc1-42003c576843_as-400.jpg"
+    },
+    {
+      "name": "Asano Chest Freezer (As-320) 44kg",
+      "brand": "Asano fridge",
+      "category": "appliances",
+      "url": "https://www.frankotrading.com/product/254b4b99-3d01-4fb8-b23b-88a16f5bcd0b",
+      "priceGhs": 3500,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/4f4cd8c9-6936-4287-acf1-1feb44d38ccc_as-400.jpg"
+    },
+    {
+      "name": "Itel Chest Freezer (Frz418l)",
+      "brand": "Itel fridge/freezers",
+      "category": "appliances",
+      "url": "https://www.frankotrading.com/product/3dfb8afc-617b-4b9d-90e9-88ae9e70a099",
+      "priceGhs": 5200,
+      "oldPriceGhs": 5690,
+      "discountPct": 9,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/9b9807c2-7513-47dc-95ee-03be59626ca0_WhatsApp%20Image%202026-08-11%20at%2015.38.04.jpeg"
+    },
+    {
+      "name": "Asano Chest Freezer (As-500) 48kg",
+      "brand": "Asano fridge",
+      "category": "appliances",
+      "url": "https://www.frankotrading.com/product/bf44c52b-c781-4c3e-9488-c540b5ad8040",
+      "priceGhs": 5000,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/7c8d19bd-d1e4-47b2-b7eb-f63c555cbac7_as-400.jpg"
+    },
+    {
+      "name": "Asano Fridge (As-358d) Bottom Freezer (49kg)",
+      "brand": "Asano fridge",
+      "category": "appliances",
+      "url": "https://www.frankotrading.com/product/c85c3289-f4be-41ad-b5c6-7e617ccda515",
+      "priceGhs": 4300,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/92c86cc3-0d45-4302-ac4c-10dcc0ffb760_AS-358D.webp"
+    },
+    {
+      "name": "Franko Chest Freezer (F400cf) 370l",
+      "brand": "Franko fridge",
+      "category": "appliances",
+      "url": "https://www.frankotrading.com/product/59016e4e-146b-4573-8274-75945afc02d8",
+      "priceGhs": 4100,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/5d31d0d4-b2ce-449d-9326-04ac6de18341_WhatsApp%20Image%202026-08-26%20at%202.28.49%20PM.jpeg"
+    },
+    {
+      "name": "Itel Chest Freezer (Frz358l)",
+      "brand": "Itel fridge/freezers",
+      "category": "appliances",
+      "url": "https://www.frankotrading.com/product/c45c1fcc-b3c9-48f8-a6fb-957819d88e7e",
+      "priceGhs": 4600,
+      "oldPriceGhs": 4990,
+      "discountPct": 8,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/59c77c7b-c6cc-4a44-b836-639c8b8f12e6_WhatsApp%20Image%202026-08-11%20at%2014.09.03.jpeg"
+    },
+    {
+      "name": "Asano Table Top Fridge (As-D90) 17kg 83 Litres",
+      "brand": "Asano fridge",
+      "category": "appliances",
+      "url": "https://www.frankotrading.com/product/4ce5db1e-76cc-4691-862f-30f73e8f23dd",
+      "priceGhs": 1350,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/67a76110-f5d9-4870-b407-81869f976d29_F90rt.jpg"
+    },
+    {
+      "name": "itel 5600 new",
+      "brand": "Itel",
+      "category": "phones",
+      "url": "https://www.frankotrading.com/product/ f4f29be2-e84a-4c75-b53f-082c7e20567s",
+      "priceGhs": 112,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/c5d60547-2d8f-4978-8355-eb9d28349976_WhatsApp%20Image%202026-03-23%20at%2015.37.47.jpeg"
+    },
+    {
+      "name": "Samsung Galaxy Tab A11 (64GB + 4GB) - Plus Phone Cover & Free Voucher",
+      "brand": "Tablets ",
+      "category": "phones",
+      "url": "https://www.frankotrading.com/product/433b4300-09ad-4a0a-8c6c-71a4954ec18f",
+      "priceGhs": 1999,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/55bcffa4-0547-42e8-a8a5-a049495c4679_WhatsApp%20Image%202026-09-01%20at%2011.40.38(1).jpeg"
+    },
+    {
+      "name": "Samsung Galaxy Z Fold 7 (12GB + 256GB) - Plus Free Voucher",
+      "brand": "Samsung",
+      "category": "phones",
+      "url": "https://www.frankotrading.com/product/51c705ec-6d8e-4859-8c15-06342e3e1d43",
+      "priceGhs": 19999,
+      "oldPriceGhs": 21499,
+      "discountPct": 7,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/0a6ef03d-7379-4141-bcba-189a58481fa5_Fold%207%202.jpg"
+    },
+    {
+      "name": "Samsung A27 (128GB + 6GB) 5G - Travel Adapter Plus Free Voucher",
+      "brand": "Samsung",
+      "category": "phones",
+      "url": "https://www.frankotrading.com/product/5a60871c-b5f8-4387-855d-c85c89b60c00",
+      "priceGhs": 3699,
+      "oldPriceGhs": 3999,
+      "discountPct": 8,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/5fe36475-e539-499c-8a1c-b322c63a5774_WhatsApp%20Image%202026-09-01%20at%2011.40.37(1).jpeg"
+    },
+    {
+      "name": "Hmd Arc (64GB + 4GB)",
+      "brand": "Nokia/HMD",
+      "category": "phones",
+      "url": "https://www.frankotrading.com/product/7a9a24fe-aca6-423e-bfd0-9f198f95cf5c",
+      "priceGhs": 895,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/78b129bf-4ad8-4b62-96e1-21cb15e58246_Hmd%20Arc%20iii.png"
+    },
+    {
+      "name": "Samsung Fold 8 (512GB + 12GB)",
+      "brand": "Samsung",
+      "category": "phones",
+      "url": "https://www.frankotrading.com/product/921f33e2-fb2d-4c39-9f45-82072cea54a4",
+      "priceGhs": 24999,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/6d8db2bd-8175-4af8-a685-3ef745995ab4_Fold%208%20ii.png"
+    },
+    {
+      "name": "Tecno Camon 50 (256GB + 8GB) - Plus Free Voucher",
+      "brand": "Tecno",
+      "category": "phones",
+      "url": "https://www.frankotrading.com/product/aa07cbd7-c69d-49f5-b16b-ab60ec21f576",
+      "priceGhs": 3990,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/8425b8a4-51cd-4946-bf7c-50b1c28ad337_camon%2050%202i%20copy.webp"
+    },
+    {
+      "name": "Nokia 150 Classic Feature Phone",
+      "brand": "Nokia/HMD",
+      "category": "phones",
+      "url": "https://www.frankotrading.com/product/bd57970e-2394-4a8d-afde-f828c0b0ef66",
+      "priceGhs": 240,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/3aec3f0b-a0b8-4bfb-8538-901cf651eb72_432111-removebg-preview.png"
+    },
+    {
+      "name": "Tecno Spark 50 Pro (128GB + 6GB) - Plus Free Voucher",
+      "brand": "Tecno",
+      "category": "phones",
+      "url": "https://www.frankotrading.com/product/e27d15d1-ff2c-432f-a34e-e9a78c1b0419",
+      "priceGhs": 2945,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/89da6be6-fc3d-4cbe-954f-df334c99942f_spark%2050%20pro%20copy.png"
+    },
+    {
+      "name": "Samsung A07 (128GB + 4GB) - Plus Free Voucher",
+      "brand": "Samsung",
+      "category": "phones",
+      "url": "https://www.frankotrading.com/product/f2a36cd6-caae-49cd-915d-bb951808d2ed",
+      "priceGhs": 1829,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/a5138bf8-d991-48cc-9a58-3df84153f825_sam%20A07%204.jpg"
+    },
+    {
+      "name": "Itel Super 26 Ultra (256GB+ 8GB)",
+      "brand": "Itel",
+      "category": "phones",
+      "url": "https://www.frankotrading.com/product/f3082b77-eebd-4a12-82cf-a48199223687",
+      "priceGhs": 2199,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/a85318ff-720a-4eb1-9e6f-7f0ad24bf765_itel%20super%2026%20ultra%204.png"
+    },
+    {
+      "name": "HMD Luma (128GB + 4GB)- Plus Free Smart Watch",
+      "brand": "Nokia/HMD",
+      "category": "phones",
+      "url": "https://www.frankotrading.com/product/f30eced3-ce48-42ec-83af-a9d4ab36dfc0",
+      "priceGhs": 1360,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/e2d0839c-95df-4e4e-8a17-0c9785117c3b_WhatsApp%20Image%202026-08-27%20at%2012.29.41%20PM.jpeg"
+    },
+    {
+      "name": "Samsung Galaxy S26+ (256GB + 12GB) - Travel Adapter Plus Free Voucher",
+      "brand": "Samsung",
+      "category": "phones",
+      "url": "https://www.frankotrading.com/product/ddd6a859-d712-4750-8a10-7e18db00cba8",
+      "priceGhs": 12799,
+      "oldPriceGhs": 13799,
+      "discountPct": 7,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/cc611d4c-fa1b-40f1-a574-97a987410562_WhatsApp%20Image%202026-09-01%20at%2011.40.26.jpeg"
+    },
+    {
+      "name": "iPhone 17 Pro (1TB) Silver",
+      "brand": "iPhones",
+      "category": "phones",
+      "url": "https://www.frankotrading.com/product/ddfb7ee8-2ac4-4eee-b045-dd0e6509db98",
+      "priceGhs": 20840,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/4c7287af-0244-4c01-ba57-9741a0db43c6_iphone%2017%20pro%20kk.jpg"
+    },
+    {
+      "name": "Itel 2167 (Type C)",
+      "brand": "Itel",
+      "category": "phones",
+      "url": "https://www.frankotrading.com/product/6205a38a-0eb3-41e7-84c8-836dca4e458c",
+      "priceGhs": 101,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/a2221f3e-61b1-4c62-8ab4-5402b729e0a5_2167-ezremove%20copy.png"
+    },
+    {
+      "name": "Tecno Phantom V Fold 2 (512GB + 12GB)",
+      "brand": "Tecno",
+      "category": "phones",
+      "url": "https://www.frankotrading.com/product/2528eff2-2176-435e-8559-a90c6e66e55b",
+      "priceGhs": 8200,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/956c473b-d8d6-4452-93c0-c38b83484b89_ChatGPT%20Image%20Aug%204%2C%202026%2C%2009_10_10%20AM.png"
+    },
+    {
+      "name": "Itel 5627 Metal",
+      "brand": "Itel",
+      "category": "phones",
+      "url": "https://www.frankotrading.com/product/259f8f09-8ff8-4547-b610-1885d70b4322",
+      "priceGhs": 170,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/6294f39e-35aa-45bb-b7ee-0edc7fc61391_Itel%205627%203.jpg"
+    },
+    {
+      "name": "SQ 93 Mini",
+      "brand": "SQL",
+      "category": "phones",
+      "url": "https://www.frankotrading.com/product/a59cc494-286b-463c-830e-39f83371743c",
+      "priceGhs": 150,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/389208d5-f4fc-48bf-9e6a-5def97055aa2_21QA-removebg-preview.png"
+    },
+    {
+      "name": "Samsung Galaxy A26 (256GB + 8GB) 5G – Plus Free Voucher",
+      "brand": "Samsung",
+      "category": "phones",
+      "url": "https://www.frankotrading.com/product/a59d19db-a8e7-480c-9422-c4878ca81dea",
+      "priceGhs": 3730,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/0ff36cad-80ca-4464-a619-e139c95ed394_sam%20A26.webp"
+    },
+    {
+      "name": "Tecno T102",
+      "brand": "Tecno",
+      "category": "phones",
+      "url": "https://www.frankotrading.com/product/56daa0a4-bf08-4dfe-ae04-cfad2fe0d457",
+      "priceGhs": 115,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/8496400b-67fa-4a8e-9c08-328ebe872c32_t102.png"
+    },
+    {
+      "name": "Itel 5606 - Classic Feature Phone",
+      "brand": "Itel",
+      "category": "phones",
+      "url": "https://www.frankotrading.com/product/801e039b-7903-452a-b973-542a91b24ec0",
+      "priceGhs": 125,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/5915f329-df4c-49b6-abe3-c1367f7d29ad_nmik-removebg-preview.png"
+    },
+    {
+      "name": "Infinix Note 60 Ultra (512GB+12GB) 5G",
+      "brand": "Infinix",
+      "category": "phones",
+      "url": "https://www.frankotrading.com/product/8135e790-3856-4c1d-8a03-a3c05faef057",
+      "priceGhs": 8931,
+      "oldPriceGhs": 9995,
+      "discountPct": 11,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/1ad6b859-06c2-48ea-8dce-09921dbfc00b_Note%2060%20ultra%20ii.jpg"
+    },
+    {
+      "name": "Tecno T352 Classic Feature Phone",
+      "brand": "Tecno",
+      "category": "phones",
+      "url": "https://www.frankotrading.com/product/87f46117-cd61-4774-b706-49c9d95ef7c4",
+      "priceGhs": 160,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/9fcf1797-5eea-4078-82b8-55b733e00c09_T352.jpg"
+    },
+    {
+      "name": "Samsung S24+ (512GB + 12GB) - Plus Free Voucher",
+      "brand": "Samsung",
+      "category": "phones",
+      "url": "https://www.frankotrading.com/product/0cda362d-f47c-45c9-abee-b51c55e78f95",
+      "priceGhs": 10700,
+      "oldPriceGhs": 17999,
+      "discountPct": 41,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/8af98d62-beab-4fb9-92f5-d5ec6df0befa_sam%20s24%20plus%20iii.jpg"
+    },
+    {
+      "name": "Samsung A27 (256GB + 8GB) 5G - Free Voucher",
+      "brand": "Samsung",
+      "category": "phones",
+      "url": "https://www.frankotrading.com/product/40204290-1d43-4b96-a61e-48a69696585d",
+      "priceGhs": 4999,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/8f035282-8054-483b-9dc3-9b377d93cd3a_6be21c89-ad07-443b-90be-ff96507e78e3_sam%20A27%203.jpg"
+    },
+    {
+      "name": "Samsung Tab S10 Ultra 5G (256GB + 12GB)",
+      "brand": "Tablets ",
+      "category": "phones",
+      "url": "https://www.frankotrading.com/product/b89082bf-d94e-4032-9793-3de0692de33f",
+      "priceGhs": 21999,
+      "oldPriceGhs": 25999,
+      "discountPct": 15,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/52f40602-7194-4ac5-a441-38a70385baaf_dqw2-removebg-preview.png"
+    },
+    {
+      "name": "Samsung Galaxy S26+ (512GB + 12GB) - Plus Free Voucher",
+      "brand": "Samsung",
+      "category": "phones",
+      "url": "https://www.frankotrading.com/product/b8a6481b-c20d-4d0b-9044-deecea6450a9",
+      "priceGhs": 16199,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/fbe32aa4-cf81-4d9b-b460-63d9efd4e140_AMMB.png"
+    },
+    {
+      "name": "Itel City 200 (128GB + 4GB)",
+      "brand": "Itel",
+      "category": "phones",
+      "url": "https://www.frankotrading.com/product/b8b61254-26a2-4adf-9865-d95fa678da74",
+      "priceGhs": 1349,
+      "oldPriceGhs": 1425,
+      "discountPct": 5,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/66d2422e-73a8-4081-a5c0-fbaef871f190_itel%20city%20200%205.jpg"
+    },
+    {
+      "name": "Samsung Galaxy Tab A11+ (256GB + 8GB)",
+      "brand": "Tablets ",
+      "category": "phones",
+      "url": "https://www.frankotrading.com/product/6d7603b1-843e-4b36-a8ce-eba9de964edd",
+      "priceGhs": 3686,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/963c59c0-51b3-413c-8ad6-24b77fb816e5_sam%20A11%20plus.jpg"
+    },
+    {
+      "name": "Tecno Pop 20 (64GB + 4GB)  - Plus Free Voucher",
+      "brand": "Tecno",
+      "category": "phones",
+      "url": "https://www.frankotrading.com/product/78dcfbdf-8bb4-4706-b1aa-0ec2447213d3",
+      "priceGhs": 1470,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/49c27c3e-adc4-47c5-853c-49dde0e8ac80_Pop%2020%202.webp"
+    },
+    {
+      "name": "Samsung Galaxy S26 Ultra (512GB+12GB) - Plus Free Voucher",
+      "brand": "Samsung",
+      "category": "phones",
+      "url": "https://www.frankotrading.com/product/78fd5bb7-a73a-4d3c-b670-7ec786a447d2",
+      "priceGhs": 18799,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/24364c9c-d31f-4b4a-b26b-4d5b408da65a_sam%20s26%20ultra%20copy.jpg"
+    },
+    {
+      "name": "Infinix Hot 70 (256GB + 6GB)",
+      "brand": "Infinix",
+      "category": "phones",
+      "url": "https://www.frankotrading.com/product/58202bb1-f452-4110-ab68-b73ae9eb9b65",
+      "priceGhs": 2682,
+      "oldPriceGhs": 2950,
+      "discountPct": 9,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/5e33b5d1-135c-43b5-a5bb-486fbda8c470_6ukk.png"
+    },
+    {
+      "name": "Nokia 106",
+      "brand": "Nokia/HMD",
+      "category": "phones",
+      "url": "https://www.frankotrading.com/product/afd2c1b8-ef01-45e0-bf95-e8c3340a5ed6",
+      "priceGhs": 135,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/4471bfb0-1144-4da8-a1de-e2668662a16f_nokia_122-removebg-preview.png"
+    },
+    {
+      "name": "Itel A200 (64Gb+3GB)",
+      "brand": "Itel",
+      "category": "phones",
+      "url": "https://www.frankotrading.com/product/45a1f9ff-d09a-406e-b0ad-0e06a0da375b",
+      "priceGhs": 1025,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/75435b5e-1725-49ed-996c-d5d5029a6c3d_Itel%20a200%202.jpg"
+    },
+    {
+      "name": "Tecno Spark 50 (128GB + 4GB) -  Plus Free Voucher",
+      "brand": "Tecno",
+      "category": "phones",
+      "url": "https://www.frankotrading.com/product/7e9de17f-fd5a-49bf-9393-8e8e5db84682",
+      "priceGhs": 1990,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/f2351228-d523-499b-9df9-4e8d4c507d13_spark%2050%20i.jpg"
+    },
+    {
+      "name": "Samsung Galaxy Flip 7 (12GB + 512GB) - Plus Free Voucher",
+      "brand": "Samsung",
+      "category": "phones",
+      "url": "https://www.frankotrading.com/product/fa9dac26-a5a2-415f-9bb6-a639903aa058",
+      "priceGhs": 13499,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/980ea184-c47e-47da-b61e-c5b885a86304_Flip%207.jpg"
+    },
+    {
+      "name": "Samsung Galaxy S26 Ultra (1TB + 16GB) - Plus Free Voucher",
+      "brand": "Samsung",
+      "category": "phones",
+      "url": "https://www.frankotrading.com/product/4fa507d6-a43f-45dd-8912-5aa834bda671",
+      "priceGhs": 22499,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/e5c485e4-d139-45ac-bbc9-e7061b6ddccd_sam%20s26%20ultra%20copy.jpg"
+    },
+    {
+      "name": "Samsung Galaxy Tab A11 (128GB + 8GB)",
+      "brand": "Tablets ",
+      "category": "phones",
+      "url": "https://www.frankotrading.com/product/d355c446-48a7-42fe-a4ca-dbb1591980f3",
+      "priceGhs": 2095,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/b4ca28d8-2818-4684-947c-6aaf942d83f4_sam%20tab%20a11%202.png"
+    },
+    {
+      "name": "Huawei Nova Y74 (256GB + 8GB)",
+      "brand": "Huawei",
+      "category": "phones",
+      "url": "https://www.frankotrading.com/product/7c982d01-65b6-4134-907e-5a75193e8609",
+      "priceGhs": 2660,
+      "oldPriceGhs": 2895,
+      "discountPct": 8,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/b00ae93f-02e6-479c-b7a1-60a51945feec_Nova%20Y74%203.webp"
+    },
+    {
+      "name": "Samsung A17 (256GB + 8GB) - Plus Free Voucher",
+      "brand": "Samsung",
+      "category": "phones",
+      "url": "https://www.frankotrading.com/product/7cdb3e4d-03f4-44df-a550-25231693f638",
+      "priceGhs": 3299,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/df00a9e0-4665-40d9-992c-646b3ea8f4ea_sam%20A17%20dd.jpg"
+    },
+    {
+      "name": "Samsung A07 (64GB + 4GB) - Plus Free Phone Cover",
+      "brand": "Samsung",
+      "category": "phones",
+      "url": "https://www.frankotrading.com/product/d858cc0b-ecaa-4ae4-9181-f57fc4698594",
+      "priceGhs": 1499,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/9c106c74-2904-4c39-a3c8-af4fe21e29ec_WhatsApp%20Image%202026-09-01%20at%2011.40.39(2).jpeg"
+    },
+    {
+      "name": "Samsung Galaxy Flip 7 (12GB + 512GB) - Plus Free Voucher",
+      "brand": "Ai Enabled",
+      "category": "phones",
+      "url": "https://www.frankotrading.com/product/ef398ee7-9bcf-48a4-b965-3a3865f3583d",
+      "priceGhs": 13499,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/c0abcd57-6869-4d27-b830-e8db8da66815_Flip%207.jpg"
+    },
+    {
+      "name": "Tecno Pop 20 (128GB + 4GB) – Plus Free Voucher",
+      "brand": "Tecno",
+      "category": "phones",
+      "url": "https://www.frankotrading.com/product/2a3ae38a-9278-4554-9922-0103adeabe38",
+      "priceGhs": 1610,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/71557183-1c3f-4a0c-9c95-d431cb3b4de7_Pop%2020%202.webp"
+    },
+    {
+      "name": "Itel A06 (64GB + 2GB)",
+      "brand": "Itel",
+      "category": "phones",
+      "url": "https://www.frankotrading.com/product/2a3cb281-fd69-4f94-af08-93722896005c",
+      "priceGhs": 785,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/7ee570ce-8f5f-4b50-8001-baee0391418a_Itel%20A06%20copy.png"
+    },
+    {
+      "name": "Tecno T101",
+      "brand": "Tecno",
+      "category": "phones",
+      "url": "https://www.frankotrading.com/product/1e0e90ea-5aea-4743-99c0-2d503acba3ea",
+      "priceGhs": 115,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/6224f024-a1d0-4fc9-bdae-f05bdac8da3b_T101.jpg"
+    },
+    {
+      "name": "Infinix Note 60 Pro 5G (256GB +8GB)",
+      "brand": "Infinix",
+      "category": "phones",
+      "url": "https://www.frankotrading.com/product/65d1ac72-cc8c-40f7-b607-58ee06ac5abc",
+      "priceGhs": 4714,
+      "oldPriceGhs": 5195,
+      "discountPct": 9,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/e012c1de-a195-42f4-85b2-877607aaccc4_note%2060%20pro%20cc-ezremove.png"
+    },
+    {
+      "name": "iPhone 14 Pro Max (256GB) E.Sim Pre-owned",
+      "brand": "iPhones",
+      "category": "phones",
+      "url": "https://www.frankotrading.com/product/b3d7c916-e630-4d17-9a67-7a98828015fa",
+      "priceGhs": 7500,
+      "oldPriceGhs": 9000,
+      "discountPct": 17,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/0b0450ce-9c0b-49d4-9404-781f9d69ae0d_iPhone%2014%20Pro%20Max%20Purple.jpg"
+    },
+    {
+      "name": "Samsung Galaxy S26 Ultra (256GB+12GB) - Phone Cover, Travel Adapter Plus Free Voucher",
+      "brand": "Samsung",
+      "category": "phones",
+      "url": "https://www.frankotrading.com/product/965cadd3-533a-4090-ac36-4ec6d0fb33e1",
+      "priceGhs": 14899,
+      "oldPriceGhs": 16399,
+      "discountPct": 9,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/911f4bba-7efc-4df7-ba77-cccc84d7d65f_WhatsApp%20Image%202026-09-01%20at%2011.40.25(1).jpeg"
+    },
+    {
+      "name": "Infinix Note Edge 5G (256GB + 8GB)",
+      "brand": "Infinix",
+      "category": "phones",
+      "url": "https://www.frankotrading.com/product/7d40d5a8-802f-4f23-ae6a-5a87f955b269",
+      "priceGhs": 3759,
+      "oldPriceGhs": 3995,
+      "discountPct": 6,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/70231ae0-db9f-4cca-b5fb-45f57c2a8483_note%20edge%20ccc.png"
+    },
+    {
+      "name": "SQ 7700",
+      "brand": "SQL",
+      "category": "phones",
+      "url": "https://www.frankotrading.com/product/0688613b-5791-414a-856c-4c6095ce4bf0",
+      "priceGhs": 180,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/ec2769c5-77a9-4539-b95b-56b5fd845b97_ew1-removebg-preview.png"
+    },
+    {
+      "name": "Itel Vista Tab 11 (128gb+4gb)- Free Keyboard",
+      "brand": "Tablets ",
+      "category": "phones",
+      "url": "https://www.frankotrading.com/product/0851c398-a23b-41bb-9157-881fba112cae",
+      "priceGhs": 1230,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/7ca25bd4-3d63-40f7-86df-6fcc10a67c30_9898ML-removebg-preview.png"
+    },
+    {
+      "name": "Samsung A17 (128GB + 4GB) - Plus Free Phone Cover",
+      "brand": "Samsung",
+      "category": "phones",
+      "url": "https://www.frankotrading.com/product/60bbb7bb-c927-49e3-b8b0-7a017dad7b89",
+      "priceGhs": 2249,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/221afa6f-1e9f-4d89-b126-04e4d220dad5_WhatsApp%20Image%202026-09-02%20at%2008.59.43.jpeg"
+    },
+    {
+      "name": "Samsung A16 (128GB + 4GB) - Plus Free Phone Cover",
+      "brand": "Samsung",
+      "category": "phones",
+      "url": "https://www.frankotrading.com/product/6109e633-090f-4759-8319-d89c4104df0c",
+      "priceGhs": 1799,
+      "oldPriceGhs": 2099,
+      "discountPct": 14,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/91e72d69-37a0-4d44-8c7e-db2a4b4ea73b_WhatsApp%20Image%202026-09-01%20at%2011.40.39.jpeg"
+    },
+    {
+      "name": "Alcatel A62 (64GB+4GB)",
+      "brand": "Nokia/HMD",
+      "category": "phones",
+      "url": "https://www.frankotrading.com/product/395c9945-2077-4f1c-8f72-372bd30b1aa2",
+      "priceGhs": 850,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/89162402-0381-4a21-9231-923bbd7c47c2_Alcatel%20A62%20kk.jpg"
+    },
+    {
+      "name": "Samsung Galaxy Flip 7 (12GB + 256GB)",
+      "brand": "Samsung",
+      "category": "phones",
+      "url": "https://www.frankotrading.com/product/cdaabff4-4be3-4504-a17b-0e6235ba4062",
+      "priceGhs": 10750,
+      "oldPriceGhs": 12199,
+      "discountPct": 12,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/469ea69e-eaba-4a44-ad4f-56d38a222183_Flip%207.jpg"
+    },
+    {
+      "name": "Tecno T528 New Classic Feature Phone",
+      "brand": "Tecno",
+      "category": "phones",
+      "url": "https://www.frankotrading.com/product/46b3c0da-1597-4060-a1a6-682364eda2ea",
+      "priceGhs": 200,
+      "oldPriceGhs": 250,
+      "discountPct": 20,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/793898ab-3fc4-4bcc-a908-730fb3e590d6_T528new.jpg"
+    },
+    {
+      "name": "Franko Kids 18 Pro Tablet (128GB + 8GB) 10\" With Free Protective Case",
+      "brand": "Tablets ",
+      "category": "phones",
+      "url": "https://www.frankotrading.com/product/6bc8863d-0bbe-4721-9884-268d9c6232e2",
+      "priceGhs": 973,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/1fe7c6a9-f40e-4dbe-8e85-a06a1e49c6f5_WhatsApp%20Image%202026-09-03%20at%2010.40.35(1).jpeg"
+    },
+    {
+      "name": "Samsung Galaxy Flip 7 (12GB + 256GB)",
+      "brand": "Ai Enabled",
+      "category": "phones",
+      "url": "https://www.frankotrading.com/product/6bdf6413-c3c9-40a4-b3d3-c89aeaed8d7f",
+      "priceGhs": 10750,
+      "oldPriceGhs": 12199,
+      "discountPct": 12,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/ad5a9550-aa52-42b1-91d2-9ccfc249e793_Flip%207.jpg"
+    },
+    {
+      "name": "Tecno Spark 50 (256GB + 4GB) - Plus Free Voucher",
+      "brand": "Tecno",
+      "category": "phones",
+      "url": "https://www.frankotrading.com/product/75d8bd68-a363-492c-9d00-8598befbf368",
+      "priceGhs": 2495,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/d741d2b3-a690-4ca6-9dbd-087cacfa9292_spark%2050%20i.jpg"
+    },
+    {
+      "name": "Tecno  S302",
+      "brand": "Tecno",
+      "category": "phones",
+      "url": "https://www.frankotrading.com/product/f60ea1e6-5dd7-46e2-bc92-113607ee0572",
+      "priceGhs": 190,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/3577d9ed-7c08-40b3-a743-2eb832c02bc5_s302.png"
+    },
+    {
+      "name": "Oale A529 Classic Feature Phone",
+      "brand": "Oale",
+      "category": "phones",
+      "url": "https://www.frankotrading.com/product/efe24141-73b8-4992-b758-e0c65132dcb7",
+      "priceGhs": 153,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/02c55d42-9602-4f26-98cb-1c1d6a8fecc3_A529.jpg"
+    },
+    {
+      "name": "Samsung Galaxy S26 (256GB+12GB) - Travel Adapter Plus Free Voucher",
+      "brand": "Samsung",
+      "category": "phones",
+      "url": "https://www.frankotrading.com/product/f03f564b-6972-40b9-a3fa-db9411274d2a",
+      "priceGhs": 10599,
+      "oldPriceGhs": 11599,
+      "discountPct": 9,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/a1f5aab9-6317-4cd5-ae69-982eae292446_WhatsApp%20Image%202026-09-01%20at%2011.40.26(1).jpeg"
+    },
+    {
+      "name": "Samsung Galaxy Tab A11+ (128GB + 6GB) - Plus Free Voucher",
+      "brand": "Tablets ",
+      "category": "phones",
+      "url": "https://www.frankotrading.com/product/fd1665b3-b846-4981-a636-2ccc9d90f36a",
+      "priceGhs": 3799,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/310aac69-2750-4e21-837f-50142249ade3_WhatsApp%20Image%202026-09-01%20at%2011.40.25.jpeg"
+    },
+    {
+      "name": "Samsung Galaxy A26 (128GB + 6GB) 5G - Plus Free Voucher",
+      "brand": "Samsung",
+      "category": "phones",
+      "url": "https://www.frankotrading.com/product/e40d865c-efc7-407b-9182-f990b359801a",
+      "priceGhs": 3299,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/1119ef1e-0e1a-4688-869b-4649e32c4777_sam%20A26.webp"
+    },
+    {
+      "name": "iPhone 16 Pro Max (256GB)",
+      "brand": "iPhones",
+      "category": "phones",
+      "url": "https://www.frankotrading.com/product/e424f8c1-101a-4c42-97a2-27da3dbf1c0d",
+      "priceGhs": 13500,
+      "oldPriceGhs": 16300,
+      "discountPct": 17,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/822e6a06-2996-4b5c-8124-c4a2e8589fd3_iPhone%2016%20pro%20max.jpg"
+    },
+    {
+      "name": "Tecno Camon Slim (256GB + 8GB) - Plus Free Voucher",
+      "brand": "Tecno",
+      "category": "phones",
+      "url": "https://www.frankotrading.com/product/409da03b-8757-4252-94ee-e7a0922919ae",
+      "priceGhs": 4195,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/9ac8a9f0-2809-4ee8-b6a4-a00a91a638ca_camon%20slim%202%20copy.jpg"
+    },
+    {
+      "name": "Itel 2160 - Classic Feature Phone",
+      "brand": "Itel",
+      "category": "phones",
+      "url": "https://www.frankotrading.com/product/9373d60a-1cd3-406d-9d6c-5a9e361d20e0",
+      "priceGhs": 109,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/48344d72-6616-47aa-a998-904e9dac7ebe_mnt.png"
+    },
+    {
+      "name": "Franko Kids 15 Pro Tablet (128GB + 8GB) 10\" With Free Protective Case",
+      "brand": "Tablets ",
+      "category": "phones",
+      "url": "https://www.frankotrading.com/product/9442f3c9-db60-4661-af91-93a2c6678ca8",
+      "priceGhs": 973,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/eb93a946-117a-48a9-8d0d-68bd4eef5998_WhatsApp%20Image%202026-09-03%20at%2010.40.35(2).jpeg"
+    },
+    {
+      "name": "Samsung Fold 8 Ultra (1TB + 16GB)",
+      "brand": "Samsung",
+      "category": "phones",
+      "url": "https://www.frankotrading.com/product/4834121c-35fb-4798-ba78-70716a512435",
+      "priceGhs": 30999,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/9e23b935-2a2c-4508-90b0-1763fe9a8aa2_Fold%208%20ultra%20ii.png"
+    },
+    {
+      "name": "iPhone 17 Pro (256GB) Silver",
+      "brand": "iPhones",
+      "category": "phones",
+      "url": "https://www.frankotrading.com/product/a40f2c20-b556-4bb3-982e-9f00f28e0018",
+      "priceGhs": 15420,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/ac46b0a2-b18d-4116-9adf-f58b4aa27bf6_iphone%2017%20pro%201-Photoroom.png"
+    },
+    {
+      "name": "SQ 90",
+      "brand": "SQL",
+      "category": "phones",
+      "url": "https://www.frankotrading.com/product/8ca049bd-860b-4fc0-86ec-692be26dba69",
+      "priceGhs": 160,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/c723bdf9-236e-4fa5-ad1c-c56d3e55c0f7_image%20-%202026-01-13T172615.594.jpg"
+    },
+    {
+      "name": "iPhone 15 Pro Max (256GB) - Pre-owned",
+      "brand": "iPhones",
+      "category": "phones",
+      "url": "https://www.frankotrading.com/product/8dbcbe9a-ff89-4ade-b39e-8a59041cc0c7",
+      "priceGhs": 9200,
+      "oldPriceGhs": 11400,
+      "discountPct": 19,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/d36dd700-9b05-46e5-98f2-8a49d9ab8f68_iphone%2015%20pro%20max.jpg"
+    },
+    {
+      "name": "Huawei Nova Y73 (256GB + 8GB)",
+      "brand": "Huawei",
+      "category": "phones",
+      "url": "https://www.frankotrading.com/product/4ece8736-033e-47fb-b996-1df9381be679",
+      "priceGhs": 2341,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/7c7c0213-1180-4658-ba3c-beaa71e3dad9_nova%20y73.png"
+    },
+    {
+      "name": "Huawei Nova Y63 (128GB + 6GB)",
+      "brand": "Huawei",
+      "category": "phones",
+      "url": "https://www.frankotrading.com/product/4f2da2eb-efbb-4939-8ddc-9276e4085bcd",
+      "priceGhs": 1486,
+      "oldPriceGhs": 1640,
+      "discountPct": 9,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/8e093150-00e1-412d-bfce-00bbe06575ff_y63%20ii.jpg"
+    },
+    {
+      "name": "Samsung A07s (64GB + 4GB) - Plus Free Voucher",
+      "brand": "Samsung",
+      "category": "phones",
+      "url": "https://www.frankotrading.com/product/4f3d7d07-1f94-4f3b-aafd-8d1a0c9150b8",
+      "priceGhs": 2199,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/0ea35098-4148-49ca-bf94-7f7aa0b1cf79_KAdRr.jpg"
+    },
+    {
+      "name": "Tecno T403",
+      "brand": "Tecno",
+      "category": "phones",
+      "url": "https://www.frankotrading.com/product/c2074f86-62ef-43e1-9f04-6a3d1697a0c6",
+      "priceGhs": 185,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/ddfb3250-25fc-44ab-b5d9-a4754b289b70_t403.png"
+    },
+    {
+      "name": "Tecno Camon 50 Ultra (512GB + 8GB) 5G - Plus Free Voucher",
+      "brand": "Tecno",
+      "category": "phones",
+      "url": "https://www.frankotrading.com/product/e1671888-ee8c-470c-ad94-335c4960308b",
+      "priceGhs": 6740,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/9d870199-0a7a-419d-bdcf-38c3f19a4ac9_camon%2050%20ultra%201%20copy%202.jpg"
+    },
+    {
+      "name": "Infinix Hot 70 (128GB + 4GB)",
+      "brand": "Infinix",
+      "category": "phones",
+      "url": "https://www.frankotrading.com/product/535c4825-32d2-4d52-a0b2-6892fac7cdcd",
+      "priceGhs": 1863,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/e72f34e9-060d-418f-8bae-9b39558f7de5_6ukk.png"
+    },
+    {
+      "name": "Tecno Camon 50 Pro (256GB+8GB) - Plus Free Voucher",
+      "brand": "Tecno",
+      "category": "phones",
+      "url": "https://www.frankotrading.com/product/5368ee39-4fea-4bc4-bacc-81aaf6a5f954",
+      "priceGhs": 4560,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/277f62c1-5ca5-4ebd-bf53-108ba954c6d9_camon%2050%20ultra%201%20copy%202.jpg"
+    },
+    {
+      "name": "Huawei Nova 14i (256GB + 8GB)",
+      "brand": "Huawei",
+      "category": "phones",
+      "url": "https://www.frankotrading.com/product/b0bed50b-9f78-49f2-98c9-dd47b25fe120",
+      "priceGhs": 2946,
+      "oldPriceGhs": 3290,
+      "discountPct": 10,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/6b2a7f7e-cd25-44ef-8138-df9e3a07ba9e_Nova%2014i%20k.webp"
+    },
+    {
+      "name": "Infinix Smart 20 (128GB + 4GB)",
+      "brand": "Infinix",
+      "category": "phones",
+      "url": "https://www.frankotrading.com/product/dc36420f-5cc4-43f4-a6f7-2dc5057dbb16",
+      "priceGhs": 1612,
+      "oldPriceGhs": 1745,
+      "discountPct": 8,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/7551bf7b-8f14-4d21-8dc5-5f8b2e311a46_Untitled%20design.png"
+    },
+    {
+      "name": "Samsung Fold 8 Ultra (512GB + 12GB)",
+      "brand": "Samsung",
+      "category": "phones",
+      "url": "https://www.frankotrading.com/product/d099e51d-099c-4ce3-88b6-ff4d087aede9",
+      "priceGhs": 27499,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/81cd1095-19f4-41db-83a6-38355016a4c5_Fold%208%20ultra%20ii.png"
+    },
+    {
+      "name": "Samsung Fold 8 (1TB + 16GB)",
+      "brand": "Samsung",
+      "category": "phones",
+      "url": "https://www.frankotrading.com/product/d1172d65-75fc-43b6-b10b-85d5a1950de2",
+      "priceGhs": 28599,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/44e2e75e-a1ab-4daa-a1ee-1bb11b1a22b2_Fold%208%20ii.png"
+    },
+    {
+      "name": "Infinix Smart 20 (64GB + 4GB)",
+      "brand": "Infinix",
+      "category": "phones",
+      "url": "https://www.frankotrading.com/product/d172dd7a-6632-4edb-8ba9-c8e2a922ed3b",
+      "priceGhs": 1354,
+      "oldPriceGhs": 1465,
+      "discountPct": 8,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/fd727157-3498-417f-b628-9656eb782333_Untitled%20design.png"
+    },
+    {
+      "name": "Itel A200 (128GB + 3GB)",
+      "brand": "Itel",
+      "category": "phones",
+      "url": "https://www.frankotrading.com/product/71539b34-6832-4f28-811c-c40b06bd8d03",
+      "priceGhs": 1175,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/68c29a77-f62f-449b-a2a4-e7f591440090_Itel%20a200%202.jpg"
+    },
+    {
+      "name": "Samsung S26 Fe  (128GB + 8GB) - Travel Adapter, 6 months Google Ai Pro Valued at (¢1,740) Plus Free Voucher",
+      "brand": "Samsung",
+      "category": "phones",
+      "url": "https://www.frankotrading.com/product/3c734243-4ece-45b6-b63e-c8d33791b68a",
+      "priceGhs": 8399,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/f1e27db7-a593-43b7-85d4-a48bbfd77402_sam%20s26%20fe%20iii.jpg"
+    },
+    {
+      "name": "Franko A03 (128GB + 4GB)",
+      "brand": "Franko Phones",
+      "category": "phones",
+      "url": "https://www.frankotrading.com/product/9c1c3824-a4aa-4cb7-91d9-383941eadbf0",
+      "priceGhs": 1020,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/c3109461-8fe2-4b76-bf1d-840014a778e5_Franko%20A03.jpg"
+    },
+    {
+      "name": "Huawei Nova 15 Max (256GB + 8GB)",
+      "brand": "Huawei",
+      "category": "phones",
+      "url": "https://www.frankotrading.com/product/9ccb9f17-d907-4ba2-a30a-20e36a2a3438",
+      "priceGhs": 3332,
+      "oldPriceGhs": 3690,
+      "discountPct": 10,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/c7d0d286-bb42-489d-a250-10c219a6df85_Nova%2015%20max%202-Photoroom%20copy.png"
+    },
+    {
+      "name": "Tecno T455 Classic Feature Phone",
+      "brand": "Tecno",
+      "category": "phones",
+      "url": "https://www.frankotrading.com/product/9d7ac35d-631f-4a0d-9881-5236ef1f8437",
+      "priceGhs": 210,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/582b2fc2-9938-48b1-941e-063a31f5dc5b_freeeeeeddd-removebg-preview.png"
+    },
+    {
+      "name": "Samsung Galaxy A57 (256GB + 8GB) - Phone Cover, Travel Adapter Plus Free Voucher",
+      "brand": "Samsung",
+      "category": "phones",
+      "url": "https://www.frankotrading.com/product/70ac1a90-1b58-4545-8a40-46a07efee0fa",
+      "priceGhs": 6199,
+      "oldPriceGhs": 6499,
+      "discountPct": 5,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/6d1acc5f-17ab-4548-854f-1d65412132b1_WhatsApp%20Image%202026-09-01%20at%2011.40.27(1).jpeg"
+    },
+    {
+      "name": "Samsung Galaxy A37 (256GB + 8GB) - Phone Cover, Travel Adapter Plus Free Voucher",
+      "brand": "Samsung",
+      "category": "phones",
+      "url": "https://www.frankotrading.com/product/70f6d659-d5ab-4e7e-b2fe-c4ebfa16375b",
+      "priceGhs": 5399,
+      "oldPriceGhs": 5799,
+      "discountPct": 7,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/90188d07-c1d6-40c0-87d3-f3ea4515a929_WhatsApp%20Image%202026-09-01%20at%2011.40.37.jpeg"
+    },
+    {
+      "name": "Franko Kids 9s Ultra Tablet (128GB + 8GB) 8\" With Free Protective Case",
+      "brand": "Tablets ",
+      "category": "phones",
+      "url": "https://www.frankotrading.com/product/ff9de595-7bad-43b0-98cb-79bb19443fe7",
+      "priceGhs": 877,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/e23679ec-c88a-476f-b189-cfa5e74dad6a_WhatsApp%20Image%202026-09-03%20at%2011.17.26(2).jpeg"
+    },
+    {
+      "name": "Samsung Fold 8 Ultra (256GB + 12GB) - Phone Cover, Travel Adapter Plus 6 Months Google Ai Pro Valued at GHc1,740",
+      "brand": "Samsung",
+      "category": "phones",
+      "url": "https://www.frankotrading.com/product/4af2a580-ed6e-47ab-bbe6-6880eabf9550",
+      "priceGhs": 24999,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/dd65c8f1-4494-4f26-99ec-9c20d2840940_WhatsApp%20Image%202026-09-01%20at%2011.40.26(2).jpeg"
+    },
+    {
+      "name": "Nokia 110 Classic Feature Phone",
+      "brand": "Nokia/HMD",
+      "category": "phones",
+      "url": "https://www.frankotrading.com/product/3f17e199-0b75-416d-bc87-ca4ed49e1601",
+      "priceGhs": 165,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/e5238926-5641-4766-84aa-11c839933b7b_nokia-removebg-preview%20(1).png"
+    },
+    {
+      "name": "Tecno T303",
+      "brand": "Tecno",
+      "category": "phones",
+      "url": "https://www.frankotrading.com/product/1cad4e00-b619-4351-8ea9-93c146590e29",
+      "priceGhs": 130,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/07036bcf-cdce-484b-ab3b-15292af3ab5f_t303.png"
+    },
+    {
+      "name": "Samsung Fold 8 (256GB + 12GB) - Phone Cover, Travel Adapter Plus 6 Months Google Ai Pro Valued at GHc1,740",
+      "brand": "Samsung",
+      "category": "phones",
+      "url": "https://www.frankotrading.com/product/02907571-9200-4367-9e6c-11f06269f2f6",
+      "priceGhs": 22499,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/23d2a264-6e51-4f55-a535-9d6d337d3f91_WhatsApp%20Image%202026-09-01%20at%2011.40.27.jpeg"
+    },
+    {
+      "name": "Samsung S24+ (512GB + 12GB) - Plus Free Voucher",
+      "brand": "Samsung",
+      "category": "phones",
+      "url": "https://www.frankotrading.com/product/21152ca3-53ee-4fea-bb25-05fa47f76bfe",
+      "priceGhs": 10700,
+      "oldPriceGhs": 17999,
+      "discountPct": 41,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/9a85be49-4362-4dae-8ba3-3ba9b916f7d1_sam%20s24%20plus%20iii.jpg"
+    },
+    {
+      "name": "Oraimo Smart Iron (OEI-801A)",
+      "brand": "Electric Iron",
+      "category": "appliances",
+      "url": "https://www.frankotrading.com/product/25253a7d-b3ac-414f-a578-bd452e01bedc",
+      "priceGhs": 460,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/e0d2a127-46b3-47e9-a42d-702d8a3adfaa_21qwwwwwwww.png"
+    },
+    {
+      "name": "Itel Fan (If-Ac16) 16\"",
+      "brand": "Itel fan",
+      "category": "appliances",
+      "url": "https://www.frankotrading.com/product/7764ea5f-8ac2-4d99-afb4-adc0bf5d652d",
+      "priceGhs": 300,
+      "oldPriceGhs": 400,
+      "discountPct": 25,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/a36e152e-70fc-4bf1-84ed-13a118a6ca38_WhatsApp%20Image%202026-08-11%20at%2015.50.02(1).jpeg"
+    },
+    {
+      "name": "Franko Microwave Oven (F25MSA4) 25L",
+      "brand": "Franko Microwave",
+      "category": "appliances",
+      "url": "https://www.frankotrading.com/product/791781df-0366-46c7-a1f7-fe8379c7e2bc",
+      "priceGhs": 850,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/90f3342a-fd3b-4d0f-8449-53daa63abb75_F25M%202.jpg"
+    },
+    {
+      "name": "Franko Microwave Oven With Grill (F23MGA5) 23L",
+      "brand": "Franko Microwave",
+      "category": "appliances",
+      "url": "https://www.frankotrading.com/product/62838a48-b497-473b-882a-5d2830d6d4bb",
+      "priceGhs": 820,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/6fe9b8a5-cc5b-418b-a71d-946137cd9c30_F23M-Photoroom%20copy%202.png"
+    },
+    {
+      "name": "Franko Electric Kettle 1.7L (F22k17bs)",
+      "brand": "Kettle",
+      "category": "appliances",
+      "url": "https://www.frankotrading.com/product/d1e071c1-05ad-4888-9185-4c1b6d74552d",
+      "priceGhs": 280,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/60b19b34-b1ec-409d-9e80-c9e508d4404c_WhatsApp%20Image%202026-09-04%20at%2013.07.29(1).jpeg"
+    },
+    {
+      "name": "Franko Steam Iron (F191525bb)",
+      "brand": "Electric Iron",
+      "category": "appliances",
+      "url": "https://www.frankotrading.com/product/589914c3-1af4-4974-bbc4-a6350498af79",
+      "priceGhs": 300,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/495923f3-4fca-45c9-92be-6efad9e83155_Franko%20iron.png"
+    },
+    {
+      "name": "Oriamo Hand-Held Iron",
+      "brand": "Electric Iron",
+      "category": "appliances",
+      "url": "https://www.frankotrading.com/product/9dbda481-f3ca-4d3c-ab86-a0cd2c87117f",
+      "priceGhs": 300,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/f55f0881-3f33-42d2-bfb7-0a2e2152d55a_iron-removebg-preview%20(1).png"
+    },
+    {
+      "name": "Franko Electric Kettle 1.7l (F15k17bs)",
+      "brand": "Kettle",
+      "category": "appliances",
+      "url": "https://www.frankotrading.com/product/da440ad8-0cab-433e-a081-894b1aaaaec3",
+      "priceGhs": 250,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/faa379ed-5e00-430e-9eff-3d65ebd63ab5_WhatsApp%20Image%202026-09-04%20at%2013.07.29.jpeg"
+    },
+    {
+      "name": "Franko 2 In 1 Blender (F1011bl)",
+      "brand": "Franko blender",
+      "category": "appliances",
+      "url": "https://www.frankotrading.com/product/631f0036-deb9-447c-995e-29d86f470b96",
+      "priceGhs": 240,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/f4c8a796-62b9-43f1-8b75-4918ddc3f7ac_ChatGPT%20Image%20Jul%2024%2C%202026%2C%2003_56_29%20PM.png"
+    },
+    {
+      "name": "Asano Electric Juicer (As-3028)",
+      "brand": "Asano blender",
+      "category": "appliances",
+      "url": "https://www.frankotrading.com/product/c0c8ac88-efe9-40f5-bba7-91228487f16f",
+      "priceGhs": 350,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/77efa920-cf50-452c-a3b3-b2eaa618e434_Untitled%20design.jpg"
+    },
+    {
+      "name": "Itel Smart Fan (If12-M002)",
+      "brand": "Itel fan",
+      "category": "appliances",
+      "url": "https://www.frankotrading.com/product/de06d321-e626-4c48-97fa-30a77464d9e3",
+      "priceGhs": 400,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/6f7a70e4-a188-4d8e-beee-8acd588e3644_WhatsApp%20Image%202026-04-29%20at%2012.39.02.jpeg"
+    },
+    {
+      "name": "Asano Slow Juicer (As-601)",
+      "brand": "Asano blender",
+      "category": "appliances",
+      "url": "https://www.frankotrading.com/product/e21ca20d-cdee-4649-9488-dd82cb27ef7b",
+      "priceGhs": 900,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/76931c6c-edd6-44fc-bb0f-56437b7c39bc_As-601.jpg"
+    },
+    {
+      "name": "Franko Gas Stove With Oven (F50C4G0E) 4 Burner",
+      "brand": "Gas Stove",
+      "category": "appliances",
+      "url": "https://www.frankotrading.com/product/d173fc97-a312-450b-b3b9-e6b51fe05eb2",
+      "priceGhs": 1570,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/75a3fbf0-b772-4825-8120-368a20a4ed87_gas%20stove.jpg"
+    },
+    {
+      "name": "Franko Gas Stove With Oven (F50C3G1E) 3 Burn 1 Electric Gas",
+      "brand": "Gas Stove",
+      "category": "appliances",
+      "url": "https://www.frankotrading.com/product/d18c339e-a7db-49ed-8c71-ae7e9dae7418",
+      "priceGhs": 2000,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/4718cc2c-103d-4cd7-a5b0-67df7801dfa9_gas%20stove.jpg"
+    },
+    {
+      "name": "Franko 2 In 1 Blender (F2068bl)",
+      "brand": "Franko blender",
+      "category": "appliances",
+      "url": "https://www.frankotrading.com/product/6819d868-709e-44ba-9b9e-d4ba0b690770",
+      "priceGhs": 220,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/4cba0580-ad33-4f54-848d-92b79948c54a_F2068bl.jpg"
+    },
+    {
+      "name": "Itel Microwave Oven (Imwo-M001h) 20l",
+      "brand": "Itel Microwave",
+      "category": "appliances",
+      "url": "https://www.frankotrading.com/product/1d09fa49-215d-4771-981d-c90a0c4e3328",
+      "priceGhs": 750,
+      "oldPriceGhs": 830,
+      "discountPct": 10,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/ca43b5d3-0977-4db2-9277-97f543615113_WhatsApp%20Image%202026-08-11%20at%2015.38.04(2).jpeg"
+    },
+    {
+      "name": "Franko Microwave Oven (F23M5A4) 23L",
+      "brand": "Franko Microwave",
+      "category": "appliances",
+      "url": "https://www.frankotrading.com/product/2147314c-04cf-4e90-b409-9e0c1fdb8019",
+      "priceGhs": 800,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/3749f500-f0a2-4ee0-bb20-bcbfd1cd7b19_F23M%203.jpg"
+    },
+    {
+      "name": "Skyworth 100\" Google Tv, QLED, 4K",
+      "brand": "Skyworth Tv",
+      "category": "tv-audio",
+      "url": "https://www.frankotrading.com/product/7b6124bf-bab4-4846-81f6-18e1d1d0fefe",
+      "priceGhs": 25000,
+      "oldPriceGhs": 30000,
+      "discountPct": 17,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/ab560808-5b8d-46a1-8998-9c4f965de1e8_WhatsApp%20Image%202026-05-25%20at%2014.38.43(1).jpeg"
+    },
+    {
+      "name": "Franko 43\" Tv",
+      "brand": "Franko Tv",
+      "category": "tv-audio",
+      "url": "https://www.frankotrading.com/product/91d2f7b4-1bf6-48e3-8a5f-ef70104809c0",
+      "priceGhs": 1800,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/268a2dd3-4e78-42da-8d0f-220b76035ba4_franko%20tv%2043-Photoroom.png"
+    },
+    {
+      "name": "Skyworth 32” Tv",
+      "brand": "Skyworth Tv",
+      "category": "tv-audio",
+      "url": "https://www.frankotrading.com/product/cb4f3919-1556-45c1-82f7-bfd10e2c6975",
+      "priceGhs": 1250,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/31e239f5-78c0-4909-9181-dacc1a6de74f_skyworth%20tv%2032%20iii.webp"
+    },
+    {
+      "name": "Skyworth 55\" Google Tv",
+      "brand": "Skyworth Tv",
+      "category": "tv-audio",
+      "url": "https://www.frankotrading.com/product/ecbeee17-cee5-49e2-8034-c8307bd86bdc",
+      "priceGhs": 4655,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/f1718a46-7131-4730-98ad-23d45c8081d1_sky%20tv%2055%202.jpg"
+    },
+    {
+      "name": "Skyworth 43\"  Tv",
+      "brand": "Skyworth Tv",
+      "category": "tv-audio",
+      "url": "https://www.frankotrading.com/product/b85e929a-7884-44d1-90b1-6661f97cbb3b",
+      "priceGhs": 2000,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/14c6d610-e157-4de8-b41d-b4e919ce55d0_skyworth%20tv%2043%20ii%20copy.webp"
+    },
+    {
+      "name": "Home Design Unv Tv WallMount  (14''-42'') HDL-117B",
+      "brand": "Skyworth Tv",
+      "category": "tv-audio",
+      "url": "https://www.frankotrading.com/product/d2b69752-3f56-4daf-9842-4e1de96c7edc",
+      "priceGhs": 85,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/503426ef-294b-44fd-b649-18856a790181_wallmount-removebg-preview.png"
+    },
+    {
+      "name": "Skyworth 40\" Google Tv",
+      "brand": "Skyworth Tv",
+      "category": "tv-audio",
+      "url": "https://www.frankotrading.com/product/466af7e7-5b8c-4432-a6b9-6270249d7b7c",
+      "priceGhs": 2250,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/0c0d0a17-9020-4f0d-9df1-0b5969ecb92a_skyworth%20tv%2040%20copy.png"
+    },
+    {
+      "name": "Franko Fridge/ Tv Guard",
+      "brand": "Skyworth Tv",
+      "category": "tv-audio",
+      "url": "https://www.frankotrading.com/product/2edcdd89-4483-4716-baef-663415f1bf16",
+      "priceGhs": 150,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/c633b29f-8ae8-47b8-9d16-bae73d690603_guard%201.png"
+    },
+    {
+      "name": "Franko Frameless 43\" Smart TV (F43TA) KLE",
+      "brand": "Franko Tv",
+      "category": "tv-audio",
+      "url": "https://www.frankotrading.com/product/96c56c2a-0b37-4014-a02d-5636fda64a63",
+      "priceGhs": 2100,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/ee633947-1633-498b-9220-0d6680f7ed88_franko%20tv%2043-Photoroom.png"
+    },
+    {
+      "name": "Skyworth 85\" (Google Tv, 4K, QLED+)",
+      "brand": "Skyworth Tv",
+      "category": "tv-audio",
+      "url": "https://www.frankotrading.com/product/ce35fa29-7827-45ac-ac23-d641d0cd66b7",
+      "priceGhs": 13500,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/db164898-89ac-4a4b-b115-ed7a5721c691_sky%2085.webp"
+    },
+    {
+      "name": "Skyworth 75\" Qled+ Google Tv",
+      "brand": "Skyworth Tv",
+      "category": "tv-audio",
+      "url": "https://www.frankotrading.com/product/6b843a6c-1121-453d-b4f6-8cc3418c67af",
+      "priceGhs": 8500,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/8f04be88-6462-48b9-8ed9-0490f3a0fc93_sky%20tv%2075%20qled%20plus%201.jpg"
+    },
+    {
+      "name": "Skyworth 65\" QLED+ Tv",
+      "brand": "Skyworth Tv",
+      "category": "tv-audio",
+      "url": "https://www.frankotrading.com/product/402479c8-dab5-467f-8b6e-277908d3c558",
+      "priceGhs": 7000,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/f5cc1acd-1958-40d9-b286-7d1d66cf58ef_sky%20tv%2065%20qled%20plus%202.jpg"
+    },
+    {
+      "name": "Skyworth 50\" 4K Google Tv",
+      "brand": "Skyworth Tv",
+      "category": "tv-audio",
+      "url": "https://www.frankotrading.com/product/7a0cb54a-928d-4318-bc69-a659db0a895b",
+      "priceGhs": 3900,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/478f8df0-045b-4fae-a4cc-d73ac1e4076c_sky%2050%203.jpg"
+    },
+    {
+      "name": "Skyworth 43\" (Google Tv) QLed+",
+      "brand": "Skyworth Tv",
+      "category": "tv-audio",
+      "url": "https://www.frankotrading.com/product/bb67200e-f94f-4792-8436-f37171ab7c55",
+      "priceGhs": 2600,
+      "oldPriceGhs": 2800,
+      "discountPct": 7,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/3aa6f9ea-6269-401c-9f2a-3ed572a1f5a3_skyworth%20tv%2043%20iii%20copy.webp"
+    },
+    {
+      "name": "Franko Fridge/Tv Guard (With USB Charger)",
+      "brand": "Skyworth Tv",
+      "category": "tv-audio",
+      "url": "https://www.frankotrading.com/product/979348b8-7164-4be4-8d60-a45098b98758",
+      "priceGhs": 200,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/74fb1299-196d-4200-a8b8-ca31e781f57e_guard.png"
+    },
+    {
+      "name": "Skyworth Air Condition (2.5hp) 24V",
+      "brand": "Skyworth Ac",
+      "category": "appliances",
+      "url": "https://www.frankotrading.com/product/2ce7e991-3b4c-4a6c-b59f-3b3f1406be49",
+      "priceGhs": 4200,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/762e6a96-ac49-4526-b7b4-cfc9f06eaeeb_sky%20ac.jpg"
+    },
+    {
+      "name": "Franko Ac (1.5hp) Tcl-Fr-12fsa",
+      "brand": "Franko Ac",
+      "category": "appliances",
+      "url": "https://www.frankotrading.com/product/d7b37f3d-c307-40f8-9a04-f540c60776c3",
+      "priceGhs": 2700,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/26d07d8e-ebe9-4e59-8cd4-4900cb99ab5d_ChatGPT%20Image%20Jul%2031%2C%202026%2C%2005_18_35%20PM.png"
+    },
+    {
+      "name": "Franko Air condition 1.5HP (SHB-01)",
+      "brand": "Franko Ac",
+      "category": "appliances",
+      "url": "https://www.frankotrading.com/product/6dd78962-9972-4c22-8c1e-0f98de459c49",
+      "priceGhs": 2700,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/c6902286-3bb8-4056-8aeb-41cf72e49793_franko%20ac.jpg"
+    },
+    {
+      "name": "Franko Ac (2.5hp) Tcl-F24as",
+      "brand": "Franko Ac",
+      "category": "appliances",
+      "url": "https://www.frankotrading.com/product/b939d2c8-64f5-41b9-bd6d-a731648dc34a",
+      "priceGhs": 4600,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/460cf644-60ea-48a1-97dd-836beacff4ac_ChatGPT%20Image%20Jul%2031%2C%202026%2C%2005_18_35%20PM.png"
+    },
+    {
+      "name": "Omniq Air Conditioning Guard",
+      "brand": "Skyworth Ac",
+      "category": "appliances",
+      "url": "https://www.frankotrading.com/product/9bc4d6d0-f6ae-4bc4-9dfa-323020e775a0",
+      "priceGhs": 200,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/8bab9d59-fe8e-43b1-b011-8e68a7256590_WhatsApp%20Image%202026-06-23%20at%208.24.22%20AM.jpeg"
+    },
+    {
+      "name": "Franko Floor Standing Ac (2.5hp) Tcl-F24af",
+      "brand": "Franko Ac",
+      "category": "appliances",
+      "url": "https://www.frankotrading.com/product/8723ae43-fc41-4294-8b65-b6f632acfdb1",
+      "priceGhs": 8750,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/fe7258ff-5c22-4887-987e-3ad91ab0b2a9_WhatsApp%20Image%202026-08-11%20at%2015.38.05(1).jpeg"
+    },
+    {
+      "name": "Franko Ac (2.0hp) Tcl-Fr-18fsa",
+      "brand": "Franko Ac",
+      "category": "appliances",
+      "url": "https://www.frankotrading.com/product/89dd5ee7-a70c-4376-b849-61fd9ef4caec",
+      "priceGhs": 3900,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/dbc47b0e-fe37-432c-a40d-3d684746f2f5_ChatGPT%20Image%20Jul%2031%2C%202026%2C%2005_18_35%20PM.png"
+    },
+    {
+      "name": "Franko Floor Standing Ac (5.0hp) Tcl-F48af",
+      "brand": "Franko Ac",
+      "category": "appliances",
+      "url": "https://www.frankotrading.com/product/8cbb2f92-2dde-40ae-9c55-f09e797a4424",
+      "priceGhs": 18000,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/ea58cfbc-59ac-448e-9ccf-87aa41717b57_WhatsApp%20Image%202026-08-11%20at%2015.38.05.jpeg"
+    },
+    {
+      "name": "Franko Air condition 2.0HP (SHB-02)",
+      "brand": "Franko Ac",
+      "category": "appliances",
+      "url": "https://www.frankotrading.com/product/3ee5b711-201d-4c41-95c2-3270ac38733d",
+      "priceGhs": 3900,
+      "image": "https://testing.frankotrading.com/Media/Products_Images/842665e8-6b7c-405a-98f0-a04bba963af1_franko%20ac.jpg"
     }
   ]
 }

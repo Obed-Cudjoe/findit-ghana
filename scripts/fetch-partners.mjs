@@ -11,11 +11,10 @@
 //     /products.json endpoint (250 products per page). We read that —
 //     far more robust than scraping listing HTML, and it carries real
 //     variant prices, availability and images.
-//   - Franko Trading serves a JavaScript SPA (its /products.json and
-//     product pages all return the same HTML shell), so there is nothing
-//     to parse. The script detects this and SKIPS Franko, leaving the
-//     committed snapshot untouched — same "never break what exists"
-//     rule as the Jumia script.
+//   - Franko Trading serves a JavaScript SPA over a WooCommerce backend; its
+//     real data comes from the same API its own website calls (see
+//     scripts/fetch-franko.mjs). This script delegates to that fetcher —
+//     no more "skip Franko".
 //
 // Output files (same shape lib/feeds/*.ts already consume):
 //   data/compughana-catalog.json · data/telefonika-catalog.json
@@ -163,6 +162,20 @@ async function main() {
   let refreshed = 0;
   for (const partner of targets) {
     console.log(`\n=== ${partner.label} (${partner.host}) ===`);
+
+    // Franko has no Shopify API — delegate to its dedicated fetcher, which
+    // reads the same backend API frankotrading.com's own website uses.
+    if (partner.id === "franko") {
+      const { execFileSync } = await import("node:child_process");
+      try {
+        execFileSync("node", [path.join(ROOT, "scripts", "fetch-franko.mjs")], { stdio: "inherit" });
+        refreshed++;
+      } catch {
+        console.log("  → Franko fetch failed; snapshot untouched.");
+      }
+      continue;
+    }
+
     const existing = loadExisting(partner.file);
 
     const shopify = await fetchShopifyProducts(partner.host, partner.label);
