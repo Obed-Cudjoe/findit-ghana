@@ -98,6 +98,10 @@ export default async function VendorShopPage({ params }: Props) {
         This is your shop?{" "}
         <Link href="/vendor/login" className="font-semibold text-navy-800 dark:text-navy-200 underline">Log in to the dashboard →</Link>
       </p>
+      <p className="mt-1 text-xs text-slate-soft dark:text-navy-300">
+        <Link href={`/vendors/${slug}/card`} className="font-semibold text-navy-800 dark:text-navy-200 underline">Get this shop&apos;s share card →</Link>{" "}
+        (QR code for WhatsApp groups, TikTok bio or shop window)
+      </p>
 
       <section className="mt-8">
         <h2 className="text-lg font-extrabold text-navy-900 dark:text-navy-100">Listings</h2>

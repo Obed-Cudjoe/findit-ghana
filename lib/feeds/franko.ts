@@ -77,6 +77,8 @@ export function frankoProducts(): Product[] {
     icon: CATEGORY_ICONS[entry.category] ?? "package",
     image: entry.image,
     canonicalUrl: entry.url,
+    ...(entry.oldPriceGhs ? { oldPriceGhs: entry.oldPriceGhs } : {}),
+    ...(entry.discountPct ? { discountPct: entry.discountPct } : {}),
     updatedAt: catalog.fetchedAt,
   }));
 }

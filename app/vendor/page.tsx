@@ -87,6 +87,10 @@ export default async function VendorDashboardPage() {
             <Store className="h-4 w-4 text-gold-600 dark:text-gold-500" /> /vendors/{vendor.slug}
           </Link>
           <p className="mt-1 text-xs text-slate-soft dark:text-navy-300">Live after we approve the shop.</p>
+          <Link href={`/vendors/${vendor.slug}/card`} className="mt-2 inline-flex items-center gap-1.5 text-sm font-bold text-gold-700 dark:text-gold-500 underline hover:text-gold-600">
+            🎴 Your share card (QR code) →
+          </Link>
+          <p className="mt-1 text-xs text-slate-soft dark:text-navy-300">Post it in your WhatsApp groups &amp; TikTok bio.</p>
         </div>
       </div>
 

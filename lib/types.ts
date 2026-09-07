@@ -23,6 +23,8 @@ export interface Product {
   featured?: boolean; // paid featured placement — sorted first, shown with a ★ badge
   unlimited?: boolean; // Unlimited plan (GH₵200/mo) — outranks featured, shown with an ∞ Unlimited badge
   image?: string; // product photo URL (served from the source CDN — tiles fall back to the gradient icon when absent)
+  oldPriceGhs?: number; // the shop's own "was" price (their declared discount baseline)
+  discountPct?: number; // shop-declared discount, 1–100
 }
 
 export interface PriceOffer {

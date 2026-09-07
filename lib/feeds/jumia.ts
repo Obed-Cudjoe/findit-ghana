@@ -168,6 +168,8 @@ export function jumiaProducts(): Product[] {
       icon: iconFor(entry),
       image: entry.image,
       canonicalUrl: entry.url,
+      ...(entry.oldPriceGhs ? { oldPriceGhs: entry.oldPriceGhs } : {}),
+      ...(entry.discountPct ? { discountPct: entry.discountPct } : {}),
       updatedAt: catalog.fetchedAt,
     };
   });

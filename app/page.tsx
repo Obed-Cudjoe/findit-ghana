@@ -61,6 +61,12 @@ export default async function HomePage() {
             <Link href="/best-value" className="rounded-full border border-gold-500/60 bg-gold-500/10 px-3 py-1 font-semibold text-gold-400 hover:bg-gold-500/20 transition-colors">
               ★ Best value
             </Link>
+            <Link href="/drops" className="rounded-full border border-gold-500/60 bg-gold-500/10 px-3 py-1 font-semibold text-gold-400 hover:bg-gold-500/20 transition-colors">
+              🔥 Price cuts
+            </Link>
+            <Link href="/compare" className="rounded-full border border-gold-500/60 bg-gold-500/10 px-3 py-1 font-semibold text-gold-400 hover:bg-gold-500/20 transition-colors">
+              ⚖️ Compare
+            </Link>
           </div>
         </div>
       </section>
