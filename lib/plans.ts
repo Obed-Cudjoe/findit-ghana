@@ -2,14 +2,11 @@
 // Paid plans stay active while paymentStatus === "confirmed" AND planExpiresAt is in the future.
 // After expiry (or before admin confirms MoMo) the vendor falls back to Free limits.
 //
-// Tiers: free (3) → starter (10, GH₵50/mo) → pro (25, GH₵100/mo) →
-// unlimited (∞, GH₵200/mo OR GH₵500/year — annual saves GH₵1,900).
-// Pricing is tuned for Ghana's 2026 reality: electricity tariffs jumped ~28%
-// and SMEs operate on thin margins, so every tier must pay for itself with
-// roughly one extra sale.
-// The Unlimited tier is the top of the ladder: its listings outrank every other
-// vendor (including featured / official catalogue results) and it carries the
-// "∞ Unlimited" badge across the site.
+// Launch tiers: Free (3) → Starter (10, GH₵30/mo) → Pro (25, GH₵50/mo) →
+// Growth (50, GH₵70/mo). These are introductory prices while FindIt grows its seller base.
+// The legacy database plan key "unlimited" is retained for the Growth tier to avoid
+// requiring a live database migration; the plan itself is capped at 50 listings and
+// does not receive unlimited placement or an infinity badge.
 
 export const PLAN_IDS = ["free", "starter", "pro", "unlimited"] as const;
 export type PlanId = (typeof PLAN_IDS)[number];
@@ -42,14 +39,14 @@ export interface PlanDef {
   priceGhs: number;
   /** Billing cadence shown to vendors: "week" | "month" (annual is a variant of the month plan). */
   billingPeriod: "week" | "month";
-  /** Annual option for this plan (Unlimited only). Vendors see the savings vs paying monthly. */
+  /** Optional annual price, if offered for a tier. */
   yearlyPriceGhs?: number;
-  /** Number.MAX-ish sentinel (UNLIMITED_LISTINGS) for the ∞ tier. */
+  /** Number.MAX-ish sentinel (UNLIMITED_LISTINGS) for a genuinely uncapped tier. */
   listingLimit: number;
   featuredRotation: boolean;
   homepageFeatured: boolean;
   stats: boolean;
-  /** ∞ tier: no listing cap, top of search, "∞ Unlimited" badge everywhere. */
+  /** True only for a genuinely uncapped tier with special placement/badge. */
   unlimited: boolean;
   perks: string[];
 }
@@ -83,8 +80,8 @@ export const VENDOR_PLANS: Record<PlanId, PlanDef> = {
   starter: {
     id: "starter",
     name: "Starter",
-    tagline: "Be seen first in your category",
-    priceGhs: 50,
+    tagline: "A low-cost step up for growing sellers",
+    priceGhs: 30,
     billingPeriod: "month",
     listingLimit: 10,
     featuredRotation: true,
@@ -96,34 +93,32 @@ export const VENDOR_PLANS: Record<PlanId, PlanDef> = {
   pro: {
     id: "pro",
     name: "Pro",
-    tagline: "Homepage shop + full stats",
-    priceGhs: 100,
+    tagline: "More listings, shop stats and homepage featuring",
+    priceGhs: 50,
     billingPeriod: "month",
     listingLimit: 25,
     featuredRotation: true,
     homepageFeatured: true,
     stats: true,
     unlimited: false,
-    perks: ["Up to 25 listings", "Homepage featured shop", "Per-vendor click & view stats", "★ Featured in every category you list"],
+    perks: ["Up to 25 listings", "Homepage featured shop", "Per-vendor click & view stats", "★ Featured rotation in your categories"],
   },
   unlimited: {
     id: "unlimited",
-    name: "Unlimited",
-    tagline: "Own the top of every search",
-    priceGhs: 200,
+    name: "Growth",
+    tagline: "More room for a growing product catalogue",
+    priceGhs: 70,
     billingPeriod: "month",
-    yearlyPriceGhs: 500,
-    listingLimit: UNLIMITED_LISTINGS,
+    listingLimit: 50,
     featuredRotation: true,
     homepageFeatured: true,
     stats: true,
-    unlimited: true,
+    unlimited: false,
     perks: [
-      "Unlimited listings",
-      "Ranked above every other vendor in search & categories",
-      "∞ Unlimited badge on your shop and every product",
+      "Up to 50 listings",
       "Homepage featured shop",
       "Per-vendor click & view stats",
+      "★ Featured rotation in your categories",
     ],
   },
 };
@@ -203,7 +198,7 @@ export function planHasStats(profile: {
   return VENDOR_PLANS[effectivePlan(profile)].stats;
 }
 
-/** True when the shop is on a live, confirmed, unexpired Unlimited plan. */
+/** True only for a live, confirmed, unexpired plan that grants uncapped placement. */
 export function planHasUnlimited(profile: {
   plan: PlanId;
   paymentStatus: PaymentStatus;
@@ -220,7 +215,7 @@ export function listingLimitLabel(limit: number): string {
 
 /**
  * The next paid tier up from what the vendor enjoys right now, or null when
- * they are already on Unlimited (nothing left to upgrade to).
+ * they are already on the highest paid tier (nothing left to upgrade to).
  */
 export function nextPlanAfter(profile: {
   plan: PlanId;
@@ -234,7 +229,7 @@ export function nextPlanAfter(profile: {
 }
 
 export function planBadgeLabel(plan: PlanId): string {
-  return plan === "unlimited" ? UNLIMITED_BADGE : VENDOR_PLANS[plan].name;
+  return VENDOR_PLANS[plan].name;
 }
 
 /** Last-9-digit key so 024… / 23324… / +233 24… all match the same Ghana number. */

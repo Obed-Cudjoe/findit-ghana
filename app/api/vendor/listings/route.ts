@@ -100,7 +100,7 @@ export async function POST(request: NextRequest) {
     const overQuota = Number.isFinite(cap) && used > cap;
     const nextCopy = next
       ? `Upgrade to ${VENDOR_PLANS[next].name} (GH₵${VENDOR_PLANS[next].priceGhs}/mo) on For vendors to add more.`
-      : "You are on the Unlimited plan — contact us if you still cannot add listings.";
+      : "Your plan has a higher listing limit. Contact us if you still cannot add listings.";
     return NextResponse.json(
       {
         error: overQuota

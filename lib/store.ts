@@ -600,7 +600,7 @@ export async function reassignVendorListing(id: string, patch: ReassignListingPa
 // ---------- featured placements (paid) ----------
 // Featured until a future ISO timestamp => pinned first in its category and
 // badged with ★. The admin sets/clears this after receiving the vendor's
-// MoMo payment (GH₵50/month at launch — see /for-vendors "Get featured").
+// MoMo payment for optional paid featured placement (see /for-vendors for current plan prices).
 export async function setVendorListingFeatured(id: string, featuredUntil: string | null): Promise<boolean> {
   const supabase = getSupabase();
   if (supabase) {

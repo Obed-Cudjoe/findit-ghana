@@ -375,7 +375,7 @@ export function vendorTrustScore(opts: {
 //    different products every day (stable within a day, no randomness).
 // 2. Up to 2 independent vendor listings — featured listings first,
 //    then the newest approved ones. Vendors earn homepage presence
-//    simply by being approved (and Pro/Unlimited get priority).
+//    simply by being approved (and paid featured plans may rotate into priority placements).
 // ------------------------------------------------------------------
 export async function getHomepagePicks(): Promise<SearchResult[]> {
   const day = Math.floor(Date.now() / 86_400_000);
@@ -424,7 +424,7 @@ export function profileForListing(l: VendorListing, profiles: VendorProfile[]): 
 }
 
 // A listing is featured while its paid window (featuredUntil) is in the future,
-// or while the shop's Starter/Pro/Unlimited plan is active (category rotation).
+// or while the shop's Starter/Pro/Growth plan is active (category rotation).
 export function isListingFeatured(l: { featuredUntil?: string | null }): boolean {
   return !!l.featuredUntil && new Date(l.featuredUntil).getTime() > Date.now();
 }
@@ -434,7 +434,7 @@ export function listingHasFeaturedPlacement(l: VendorListing, profile?: VendorPr
 }
 
 /**
- * Top of the ladder: the shop is on a live Unlimited plan (GH₵200/month, or GH₵500/year).
+ * Reserved for a genuinely uncapped plan. The current Growth tier has a 50-listing cap and does not qualify.
  * These listings outrank every other vendor — including ★ featured ones —
  * in search and category results.
  */
@@ -520,9 +520,9 @@ export function listingToOffer(
 }
 
 /**
- * Result order: Unlimited shops first (they outrank everything, including
- * featured/official results), then ★ featured listings on their daily rotation,
- * then everything else.
+ * Result order: any genuinely uncapped placement first, then ★ featured
+ * listings on their daily rotation, then everything else. The current Growth
+ * plan is capped at 50 listings and uses featured rotation only.
  */
 function rankResultsFirst(results: SearchResult[]): SearchResult[] {
   const unlimited = results.filter((r) => r.product.unlimited);
@@ -832,7 +832,7 @@ export interface DirectoryVendor {
   source: "official" | "marketplace";
   plan?: VendorProfile["plan"];
   featured?: boolean;
-  /** Unlimited plan — shown with the ∞ Unlimited badge, sorted to the top. */
+  /** Reserved for a genuinely uncapped plan with special placement. */
   unlimited?: boolean;
   blurb?: string;
 }
@@ -907,7 +907,7 @@ export async function getDirectoryVendors(): Promise<DirectoryVendor[]> {
 
 export async function getFeaturedProVendors(): Promise<DirectoryVendor[]> {
   const all = await getDirectoryVendors();
-  // Homepage strip: Unlimited shops lead, then Pro shops.
+  // Homepage strip includes active Pro and Growth shops with homepage featuring.
   return all
     .filter((v) => v.source === "marketplace" && (v.featured || v.unlimited))
     .sort((a, b) => Number(!!b.unlimited) - Number(!!a.unlimited) || b.listingCount - a.listingCount || a.name.localeCompare(b.name));

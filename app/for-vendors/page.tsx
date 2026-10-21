@@ -6,7 +6,7 @@ import { MOMO_NUMBER, MOMO_NAME, VENDOR_PLANS } from "@/lib/plans";
 
 export const metadata: Metadata = {
   title: "For Vendors — Register Your Shop Free",
-  description: "Register your shop on FindIt Ghana free, then list your products from your dashboard — Ghanaian shoppers find them, message you on WhatsApp, and buy directly from you. No commission on sales. Weekly boosts from GH₵10, Starter GH₵50/mo, Pro GH₵100/mo, Unlimited GH₵200/mo or GH₵500/year.",
+  description: "Register your shop on FindIt Ghana free, then list your products from your dashboard — Ghanaian shoppers can find them and contact you directly on WhatsApp. No commission on sales. Weekly boosts are GH₵10; optional monthly plans are GH₵30, GH₵50 and GH₵70.",
 };
 
 export default function ForVendorsPage() {
@@ -63,7 +63,7 @@ export default function ForVendorsPage() {
             <p className="mt-2">
               Sign in at{" "}
               <Link className="font-semibold text-navy-800 dark:text-navy-200 underline" href="/vendor/login">/vendor</Link>
-              {" "}to see your plan, add products, and (on Pro and Unlimited) shop views and outbound clicks.
+              {" "}to see your plan, add products, and (on Pro and Growth) shop views and outbound clicks.
             </p>
           </div>
           <div className="rounded-xl border border-navy-100 dark:border-navy-800 p-5 text-sm text-slate-soft dark:text-navy-300">

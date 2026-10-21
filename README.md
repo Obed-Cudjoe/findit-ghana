@@ -58,7 +58,7 @@ Visit **/admin** and sign in with the password from the `ADMIN_PASSWORD` environ
 - **Overview** — open corrections, suspicious reports, outbound clicks tracked
 - **Corrections & reports** — every form submission, with one-click actions (Check / Fixed / Dismiss)
 - **Vendor listings** — approve/reject self-listed products, optional ★ Feature 30d
-- **Vendors & plans** — confirm MoMo, set Free / Starter / Pro / Unlimited (30-day expiry), listing counts and click/view stats
+- **Vendors & plans** — confirm MoMo, set Free / Starter / Pro / Growth (30-day expiry), listing counts and click/view stats
 - **Content editor** — edit guide excerpts and bodies, saved instantly
 
 ### Where form submissions go
@@ -181,12 +181,12 @@ records price snapshots (which power the price-history chart and drop badges).
 
 Two steps: **register the shop**, then **list products from the dashboard**.
 
-1. A vendor opens **/for-vendors** and registers their shop only — business name, contact, phone/WhatsApp, email, optional website, a plan (Free / Starter GH₵50 / Pro GH₵150 / Unlimited GH₵300) and a dashboard password. No product fields here.
+1. A vendor opens **/for-vendors** and registers their shop — business name, contact, phone/WhatsApp, email, optional website, a plan (Free / Starter GH₵30 / Pro GH₵50 / Growth GH₵70) and a dashboard password. No product fields here.
 2. The shop lands in the admin **Vendors & plans** queue as *pending*. Nothing enters the listings queue at signup — no product is created yet.
-3. Paid plans: vendor pays MoMo to **053 126 2424**, WhatsApps the reference, admin clicks **MoMo → Starter 30d**, **MoMo → Pro 30d** or **MoMo → Unlimited 30d**. Until confirmed the shop runs on Free limits (3 listings).
-4. The vendor signs in at **/vendor** (phone + password — the signup already sets the login cookie) and adds products on **/vendor/listings** with **at least 3 product photos** (up to 6) each. That "Add a listing" form is the only place listings are created. The plan cap applies: Free = 3 listings, Starter = 10, Pro = 25, Unlimited = no cap — one past the cap and the form shows the upgrade prompt instead.
+3. Paid plans: vendor pays MoMo to **053 126 2424**, WhatsApps the reference, admin clicks **MoMo → Starter 30d**, **MoMo → Pro 30d** or **MoMo → Growth 30d**. Until confirmed the shop runs on Free limits (3 listings).
+4. The vendor signs in at **/vendor** (phone + password — the signup already sets the login cookie) and adds products on **/vendor/listings** with **at least 3 product photos** (up to 6) each. That "Add a listing" form is the only place listings are created. The plan cap applies: Free = 3 listings, Starter = 10, Pro = 25, Growth = 50 — one past the cap and the form shows the upgrade prompt instead.
 5. Each product lands in the admin **Vendor listings** queue as *pending* — nothing goes live unreviewed. Admin clicks **Approve → live**.
-6. Approved products appear in search, category pages and **/vendors/[slug]**, with a **photo gallery** (thumbnail strip + full-screen lightbox) and a **WhatsApp buy button** (no commission). Same-named products from different shops share one product page and pool all their photos. On Pro / Unlimited the dashboard also shows shop views and outbound clicks. Shops listed before login existed can create a password once (phone + matching business name).
+6. Approved products appear in search, category pages and **/vendors/[slug]**, with a **photo gallery** (thumbnail strip + full-screen lightbox) and a **WhatsApp buy button** (no commission). Same-named products from different shops share one product page and pool all their photos. On Pro / Growth the dashboard also shows shop views and outbound clicks. Shops listed before login existed can create a password once (phone + matching business name).
 
 **Vendors edit their own prices.** On **/vendor/listings** every row has an **Edit** button that expands an inline form — price, units in stock, delivery fee, delivery days and description, prefilled with the current values. Save and the row, the product page, the admin listings queue and the search results all pick up the new price immediately (no re-review — edits to approved listings go live right away). The product page's "Prices checked" timestamp switches to the edit time (`updated_at`, added by `007_vendor_listing_updates.sql`). Name, category, photos and status are not editable.
 

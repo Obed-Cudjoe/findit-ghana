@@ -4,7 +4,7 @@ import { redirect } from "next/navigation";
 import { MousePointerClick, Store, Star } from "lucide-react";
 import { getLoggedInVendor } from "@/lib/vendor-auth";
 import { readClicks, readVendorListings, listingsForVendor, countActiveListingsForVendor } from "@/lib/store";
-import { effectivePlan, listingLimitFor, listingLimitLabel, planHasStats, UNLIMITED_BADGE, VENDOR_PLANS, MOMO_NUMBER, MOMO_NAME, MOMO_WHATSAPP, yearlySavingsGhs } from "@/lib/plans";
+import { effectivePlan, listingLimitFor, listingLimitLabel, planHasStats, VENDOR_PLANS, MOMO_NUMBER, MOMO_NAME, MOMO_WHATSAPP } from "@/lib/plans";
 import { VendorDashNav } from "@/components/vendor-dash-nav";
 
 export const metadata: Metadata = { title: "Shop dashboard", robots: { index: false } };
@@ -52,11 +52,6 @@ export default async function VendorDashboardPage() {
           <p className="text-xs font-bold uppercase tracking-wide text-slate-soft dark:text-navy-300">Plan</p>
           <p className="mt-1 flex flex-wrap items-center gap-1.5 text-xl font-extrabold text-navy-900 dark:text-navy-100">
             {VENDOR_PLANS[plan].name}
-            {plan === "unlimited" && (
-              <span className="rounded-full bg-navy-950 px-1.5 py-0.5 text-[10px] font-extrabold text-gold-400 ring-1 ring-gold-500/60">
-                {UNLIMITED_BADGE}
-              </span>
-            )}
           </p>
           <p className="mt-1 text-xs text-slate-soft dark:text-navy-300">
             {plan === "free"
@@ -118,7 +113,7 @@ export default async function VendorDashboardPage() {
           <h2 className="flex items-center gap-2 font-extrabold text-navy-900 dark:text-navy-100">
             <MousePointerClick className="h-5 w-5 text-gold-600 dark:text-gold-500" /> Shop stats
           </h2>
-          <p className="mt-1 text-sm text-slate-soft dark:text-navy-300">Pro plan — views on your public shop and outbound Buy / WhatsApp clicks.</p>
+          <p className="mt-1 text-sm text-slate-soft dark:text-navy-300">Your plan includes public shop views and outbound Buy / WhatsApp click counts.</p>
           <div className="mt-4 grid gap-3 sm:grid-cols-2">
             <div className="rounded-lg bg-navy-50 dark:bg-navy-900/60 p-4">
               <p className="text-3xl font-extrabold text-navy-900 dark:text-navy-100">{views}</p>
@@ -133,10 +128,10 @@ export default async function VendorDashboardPage() {
       ) : (
         <section className="mt-6 rounded-xl border border-dashed border-navy-200 dark:border-navy-700 bg-navy-50/60 dark:bg-navy-900/50 p-5">
           <h2 className="flex items-center gap-2 font-extrabold text-navy-900 dark:text-navy-100">
-            <Star className="h-5 w-5 text-gold-600 dark:text-gold-500" /> Stats are on Pro
+            <Star className="h-5 w-5 text-gold-600 dark:text-gold-500" /> Stats are on Pro and Growth
           </h2>
           <p className="mt-1 text-sm text-slate-soft dark:text-navy-300">
-            Upgrade to Pro (GH₵{VENDOR_PLANS.pro.priceGhs}/mo) for shop views, outbound clicks, {VENDOR_PLANS.pro.listingLimit} listings, and a homepage featured shop — or go {UNLIMITED_BADGE} (GH₵{VENDOR_PLANS.unlimited.priceGhs}/mo, or GH₵{VENDOR_PLANS.unlimited.yearlyPriceGhs}/year — save GH₵{yearlySavingsGhs(VENDOR_PLANS.unlimited).toLocaleString("en-GH")}) for unlimited listings and top ranking.
+            Pro is GH₵{VENDOR_PLANS.pro.priceGhs}/month for up to {VENDOR_PLANS.pro.listingLimit} listings, shop views and outbound clicks. Growth is GH₵{VENDOR_PLANS.unlimited.priceGhs}/month for up to {VENDOR_PLANS.unlimited.listingLimit} listings with the same shop tools. Featured placement is labelled; paid plans do not guarantee sales.
           </p>
           <Link href="/for-vendors" className="mt-3 inline-block text-sm font-bold text-navy-900 dark:text-navy-100 underline">
             See plans on For vendors →

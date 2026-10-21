@@ -4,7 +4,7 @@ import { getCategories, getGuides, getProducts, getOffersForProduct, officialSou
 import { ProductCard, TrustStrip, OfficialSources } from "@/components/shared";
 import { SearchAutocomplete } from "@/components/search-autocomplete";
 import { VendorAvatar } from "@/components/vendor-avatar";
-import { UNLIMITED_BADGE } from "@/lib/plans";
+import { VENDOR_PLANS } from "@/lib/plans";
 
 // ISR: the homepage regenerates at most once an hour — featured shops and
 // approved listings change at admin pace, not visitor pace. Warm visitors
@@ -74,15 +74,15 @@ export default async function HomePage() {
       {/* ===== TRUST STRIP ===== */}
       <TrustStrip />
 
-      {/* ===== PRO / UNLIMITED FEATURED SHOPS (homepage placement — GH₵100 & GH₵200/mo) ===== */}
+      {/* ===== PAID FEATURED SHOPS (Pro and Growth plans) ===== */}
       {featuredShops.length > 0 && (
         <section className="border-b border-gold-500/30 bg-gold-500/15">
           <div className="mx-auto max-w-6xl px-4 py-10">
             <div className="mb-6 flex items-end justify-between gap-4">
               <div>
-                <p className="text-xs font-bold uppercase tracking-widest text-gold-700 dark:text-gold-500">Pro &amp; Unlimited · homepage</p>
+                <p className="text-xs font-bold uppercase tracking-widest text-gold-700 dark:text-gold-500">Paid vendor placement · homepage</p>
                 <h2 className="mt-1 text-xl font-extrabold text-navy-900 dark:text-navy-100 md:text-2xl">Featured shops</h2>
-                <p className="mt-1 text-sm text-slate-soft dark:text-navy-300">Independent Pro (GH₵100/month) and {UNLIMITED_BADGE} (GH₵200/month, or GH₵500/year) vendors — Unlimited shops lead this strip.</p>
+                <p className="mt-1 text-sm text-slate-soft dark:text-navy-300">Pro (GH₵{VENDOR_PLANS.pro.priceGhs}/month) and Growth (GH₵{VENDOR_PLANS.unlimited.priceGhs}/month) shops can appear here. Featuring does not guarantee views or sales.</p>
               </div>
               <Link href="/vendors" className="hidden items-center gap-1 text-sm font-semibold text-gold-700 dark:text-gold-500 hover:gap-2 transition-all sm:inline-flex">
                 All vendors <ArrowRight className="h-4 w-4" />
@@ -96,14 +96,12 @@ export default async function HomePage() {
                     <p className="flex flex-wrap items-center gap-1.5 font-extrabold text-navy-900 dark:text-navy-100">
                       {v.name}
                       {v.verified && <ShieldCheck className="h-3.5 w-3.5 text-emerald-600" />}
-                      {v.unlimited && (
-                        <span className="rounded-full bg-navy-950 px-1.5 py-0.5 text-[10px] font-extrabold text-gold-400 ring-1 ring-gold-500/60">
-                          {UNLIMITED_BADGE}
-                        </span>
+                      {v.featured && (
+                        <span className="rounded-full bg-gold-500 px-1.5 py-0.5 text-[10px] font-extrabold text-navy-950">★ Featured</span>
                       )}
                     </p>
                     <p className="text-xs text-slate-soft dark:text-navy-300">
-                      {v.listingCount} listing{v.listingCount === 1 ? "" : "s"} · {v.unlimited ? UNLIMITED_BADGE : "★ Pro"}
+                      {v.listingCount} listing{v.listingCount === 1 ? "" : "s"} · {v.plan ? VENDOR_PLANS[v.plan].name : "Featured"}
                     </p>
                   </div>
                 </Link>

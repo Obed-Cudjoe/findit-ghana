@@ -209,7 +209,7 @@ export function VendorsTable({ vendors }: { vendors: AdminVendorRow[] }) {
                         onClick={() => patch(v.id, { action: "confirm-payment", plan: "unlimited" }, { plan: "unlimited", paymentStatus: "confirmed", status: "approved" })}
                         className="rounded-md border border-navy-950 bg-navy-950 px-2.5 py-1 text-xs font-extrabold text-gold-400 hover:bg-navy-900 transition-colors"
                       >
-                        MoMo → Unlimited 30d
+                        MoMo → Growth 30d
                       </button>
                       {v.plan !== "free" && (
                         <button

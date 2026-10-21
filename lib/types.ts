@@ -21,7 +21,7 @@ export interface Product {
   updatedAt: string;
   isVendorListing?: boolean; // self-listed by a vendor (reviewed by admin before going live)
   featured?: boolean; // paid featured placement — sorted first, shown with a ★ badge
-  unlimited?: boolean; // Unlimited plan (GH₵200/mo) — outranks featured, shown with an ∞ Unlimited badge
+  unlimited?: boolean; // Reserved for a genuinely uncapped plan; current Growth tier is capped at 50
   image?: string; // product photo URL (served from the source CDN — tiles fall back to the gradient icon when absent)
   oldPriceGhs?: number; // the shop's own "was" price (their declared discount baseline)
   discountPct?: number; // shop-declared discount, 1–100

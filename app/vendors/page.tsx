@@ -81,7 +81,7 @@ function VendorCard({ vendor }: { vendor: Awaited<ReturnType<typeof getDirectory
             </span>
           ) : (
             vendor.featured && (
-              <span className="rounded-full bg-gold-500 px-1.5 py-0.5 text-[10px] font-extrabold text-navy-950">★ Pro</span>
+              <span className="rounded-full bg-gold-500 px-1.5 py-0.5 text-[10px] font-extrabold text-navy-950">★ Featured</span>
             )
           )}
         </p>
