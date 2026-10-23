@@ -88,6 +88,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 <Link href="/category/appliances" className="hover:text-white transition-colors">Appliances</Link>
                 <Link href="/guides" className="hover:text-white transition-colors">Guides</Link>
                 <Link href="/vendors" className="hover:text-white transition-colors">Vendors</Link>
+                <Link href="/community-market" className="hidden xl:inline hover:text-white transition-colors">Community Market</Link>
                 <Link href="/how-it-works" className="hidden xl:inline hover:text-white transition-colors">How it works</Link>
                 <Link href="/for-vendors" className="whitespace-nowrap font-semibold text-gold-400 hover:text-gold-300 transition-colors">For vendors</Link>
                 <Link href="/free-sellers" className="hidden xl:inline hover:text-white transition-colors">Free means free</Link>
@@ -141,6 +142,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   <li><Link className="hover:text-gold-400 transition-colors" href="/about">About</Link></li>
                   <li><Link className="hover:text-gold-400 transition-colors" href="/guides">Price guides</Link></li>
                   <li><Link className="hover:text-gold-400 transition-colors" href="/vendors">Vendor directory</Link></li>
+                  <li><Link className="hover:text-gold-400 transition-colors" href="/community-market">Community Market</Link></li>
                   <li><Link className="hover:text-gold-400 transition-colors" href="/for-vendors">For vendors — sell your products</Link></li>
                   <li><Link className="hover:text-gold-400 transition-colors" href="/free-sellers">Free means free</Link></li>
                   <li><Link className="hover:text-gold-400 transition-colors" href="/vendor/login">Vendor login</Link></li>

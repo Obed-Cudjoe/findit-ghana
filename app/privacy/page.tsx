@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = { title: "Privacy Policy", description: "FindIt Ghana privacy policy — what we collect, cookies, affiliate links and how long we keep data." };
 
 const SECTIONS = [
-  ["What we collect", "Basic visit analytics (pages viewed, country, device type) and the details you send in report and contact forms. We do not ask for payment details and never will — payments never pass through this site."],
+  ["What we collect", "Basic visit analytics and the details you submit in forms. Community Market submissions include seller name, WhatsApp number, item details, price, optional location and photos. Pending submissions are visible to admins; approved listings show those details to anyone with the page link. Community listings expire from public browsing after 30 days, but their records may remain for moderation and safety unless deletion is requested. Paid vendor plans are currently handled by MoMo outside the website; the site does not collect card details through an online checkout."],
   ["Cookies", "We use minimal cookies for analytics only. There are no tracking ads at launch."],
   ["Affiliate links", "Some vendor links are affiliate links — clicking them never changes your price; we may earn a small commission if you buy. We say so where it applies."],
   ["How long we keep data", "Report data is kept for 12 months, then anonymised. Contact messages are kept for 24 months."],
@@ -16,7 +16,7 @@ export default function PrivacyPage() {
     <div className="mx-auto max-w-3xl px-4 py-10">
       <header>
         <h1 className="text-3xl font-extrabold text-navy-900 dark:text-navy-100">Privacy Policy</h1>
-        <p className="mt-2 text-sm text-slate-soft dark:text-navy-300">Last updated: 24 August 2026</p>
+        <p className="mt-2 text-sm text-slate-soft dark:text-navy-300">Last updated: 21 October 2026</p>
       </header>
       <div className="mt-8 space-y-6">
         {SECTIONS.map(([title, body]) => (

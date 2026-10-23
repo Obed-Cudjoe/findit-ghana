@@ -702,6 +702,12 @@ export async function findVendorProfileById(id: string): Promise<VendorProfile |
   return all.find((p) => p.id === id);
 }
 
+export async function findVendorProfileBySlug(slug: string): Promise<VendorProfile | undefined> {
+  if (!slug) return undefined;
+  const all = await readVendorProfiles();
+  return all.find((p) => p.slug === slug);
+}
+
 export function listingsForVendor(listings: VendorListing[], profile: VendorProfile): VendorListing[] {
   const key = phoneKey(profile.phone);
   return listings.filter((l) => {

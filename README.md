@@ -58,7 +58,7 @@ Visit **/admin** and sign in with the password from the `ADMIN_PASSWORD` environ
 - **Overview** — open corrections, suspicious reports, outbound clicks tracked
 - **Corrections & reports** — every form submission, with one-click actions (Check / Fixed / Dismiss)
 - **Vendor listings** — approve/reject self-listed products, optional ★ Feature 30d
-- **Vendors & plans** — confirm MoMo, set Free / Starter / Pro / Growth (30-day expiry), listing counts and click/view stats
+- **Vendors & plans** — review shops, manually grant plans when needed, track 30-day expiry, listing counts and click/view stats
 - **Content editor** — edit guide excerpts and bodies, saved instantly
 
 ### Where form submissions go
@@ -114,13 +114,13 @@ It re-scrapes the Jumia GH category pages and rewrites the snapshot. Partner cat
 ### Connecting the free database (optional but recommended)
 
 1. Go to **supabase.com** → **New project** (free plan).
-2. Open **SQL Editor** → paste and run `supabase/migrations/001_init.sql`, then `002_featured_listings.sql`, then `003_vendor_plans.sql`, then `004_vendor_passwords.sql`, then `005_unlimited_plan.sql`, then `006_listing_images.sql` (adds the product-photo column and the public `vendor-images` storage bucket), then `007_vendor_listing_updates.sql` (adds `vendor_listings.updated_at`, which powers the "Prices checked" freshness after a vendor edits their price).
+2. Open **SQL Editor** → paste and run migrations `001_init.sql` through `009_actual_prices.sql` in numeric order, then `010_community_market.sql` (publicly approved community classifieds, separate from the comparison catalogue). Migrations `006_listing_images.sql` and `007_vendor_listing_updates.sql` add product photos and vendor price freshness respectively.
 3. Paste and run `supabase/seed.sql` (demo data — optional; live catalogue is the JSON snapshots).
 4. In Supabase **Settings → API**, copy `Project URL`, `anon public` key and `service_role` key.
 5. Add these as environment variables in Vercel (Project → Settings → Environment Variables):
-   `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY` — plus `CRON_SECRET` (any long random string) and `ADMIN_PASSWORD`.
+   `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY`, `NEXT_PUBLIC_SITE_URL` (production HTTPS URL), `CRON_SECRET` and `ADMIN_PASSWORD`.
 
-The site switches to database mode automatically.
+The site switches to database mode automatically. Paid vendor plans are currently confirmed manually by the admin after MoMo payment; there is no online payment gateway in this release.
 
 ### Attaching your custom domain (when you sell it)
 
@@ -183,7 +183,7 @@ Two steps: **register the shop**, then **list products from the dashboard**.
 
 1. A vendor opens **/for-vendors** and registers their shop — business name, contact, phone/WhatsApp, email, optional website, a plan (Free / Starter GH₵30 / Pro GH₵50 / Growth GH₵70) and a dashboard password. No product fields here.
 2. The shop lands in the admin **Vendors & plans** queue as *pending*. Nothing enters the listings queue at signup — no product is created yet.
-3. Paid plans: vendor pays MoMo to **053 126 2424**, WhatsApps the reference, admin clicks **MoMo → Starter 30d**, **MoMo → Pro 30d** or **MoMo → Growth 30d**. Until confirmed the shop runs on Free limits (3 listings).
+3. Paid plans: the vendor sends MoMo to **053 126 2424**, shares the payment reference by WhatsApp, and the admin confirms the selected 30-day tier in `/admin/vendors`. Until confirmed, the shop stays on Free limits (3 listings).
 4. The vendor signs in at **/vendor** (phone + password — the signup already sets the login cookie) and adds products on **/vendor/listings** with **at least 3 product photos** (up to 6) each. That "Add a listing" form is the only place listings are created. The plan cap applies: Free = 3 listings, Starter = 10, Pro = 25, Growth = 50 — one past the cap and the form shows the upgrade prompt instead.
 5. Each product lands in the admin **Vendor listings** queue as *pending* — nothing goes live unreviewed. Admin clicks **Approve → live**.
 6. Approved products appear in search, category pages and **/vendors/[slug]**, with a **photo gallery** (thumbnail strip + full-screen lightbox) and a **WhatsApp buy button** (no commission). Same-named products from different shops share one product page and pool all their photos. On Pro / Growth the dashboard also shows shop views and outbound clicks. Shops listed before login existed can create a password once (phone + matching business name).
@@ -194,9 +194,13 @@ Listings and shops are stored in the same three-tier store as form submissions (
 
 **Every photo is auto-compressed on upload** (server-side, before it reaches any tier): the longest side is resized to ≤ 1600 px and the image is re-encoded at quality ~80 (JPEG for JPG/PNG input, WebP stays WebP). A ~3 MB phone photo is typically stored well under ~500 KB while still looking sharp in the gallery. The browser also downscales large photos before sending, so vendors on mobile data upload less — the server pass is the source of truth either way.
 
+## Community Market (WhatsApp group listings)
+
+`/community-market` is a separate classifieds area for the group: any visitor with the link can browse; anyone can submit an item or service for free; new listings stay pending until an admin approves them; buyers contact sellers directly through WhatsApp. Listings expire after 30 days and are not mixed into FindIt's curated price-comparison results. Because access is open by link, it is not a private-members-only site. Approved listing pages show the seller's name and WhatsApp number. Run `010_community_market.sql` after the earlier migrations before accepting submissions. The group invite URL is shown as an optional link; the site does not read group messages or verify group membership.
+
 ## Tech stack
 
-Next.js 16 (App Router) · React 19 · TypeScript · Tailwind CSS 4 · lucide-react icons · Supabase (Postgres, free tier) · Vercel (free tier). **No paid services anywhere in the stack.**
+Next.js 16 (App Router) · React 19 · TypeScript · Tailwind CSS 4 · lucide-react icons · Supabase (Postgres) · Vercel. Paid seller plans are manually confirmed by MoMo at launch.
 
 ## License & notes
 

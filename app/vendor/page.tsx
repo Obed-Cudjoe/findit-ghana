@@ -113,7 +113,7 @@ export default async function VendorDashboardPage() {
           <h2 className="flex items-center gap-2 font-extrabold text-navy-900 dark:text-navy-100">
             <MousePointerClick className="h-5 w-5 text-gold-600 dark:text-gold-500" /> Shop stats
           </h2>
-          <p className="mt-1 text-sm text-slate-soft dark:text-navy-300">Your plan includes public shop views and outbound Buy / WhatsApp click counts.</p>
+          <p className="mt-1 text-sm text-slate-soft dark:text-navy-300">Pro plan — views on your public shop and outbound Buy / WhatsApp clicks.</p>
           <div className="mt-4 grid gap-3 sm:grid-cols-2">
             <div className="rounded-lg bg-navy-50 dark:bg-navy-900/60 p-4">
               <p className="text-3xl font-extrabold text-navy-900 dark:text-navy-100">{views}</p>
@@ -131,7 +131,7 @@ export default async function VendorDashboardPage() {
             <Star className="h-5 w-5 text-gold-600 dark:text-gold-500" /> Stats are on Pro and Growth
           </h2>
           <p className="mt-1 text-sm text-slate-soft dark:text-navy-300">
-            Pro is GH₵{VENDOR_PLANS.pro.priceGhs}/month for up to {VENDOR_PLANS.pro.listingLimit} listings, shop views and outbound clicks. Growth is GH₵{VENDOR_PLANS.unlimited.priceGhs}/month for up to {VENDOR_PLANS.unlimited.listingLimit} listings with the same shop tools. Featured placement is labelled; paid plans do not guarantee sales.
+            Pro is GH₵{VENDOR_PLANS.pro.priceGhs}/month for up to {VENDOR_PLANS.pro.listingLimit} listings, shop views and outbound clicks. Growth is GH₵{VENDOR_PLANS.unlimited.priceGhs}/month for up to {VENDOR_PLANS.unlimited.listingLimit} listings with the same shop tools. To change plans, choose a tier on For vendors, pay by MoMo, then WhatsApp the reference for admin confirmation.
           </p>
           <Link href="/for-vendors" className="mt-3 inline-block text-sm font-bold text-navy-900 dark:text-navy-100 underline">
             See plans on For vendors →
