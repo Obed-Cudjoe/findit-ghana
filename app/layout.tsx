@@ -8,6 +8,7 @@ import { MobileMenu } from "@/components/mobile-menu";
 import { SearchAutocomplete } from "@/components/search-autocomplete";
 import { ServiceWorkerRegister } from "@/components/service-worker-register";
 import { InstallAppBanner } from "@/components/install-app";
+import { SiteAssistant } from "@/components/site-assistant";
 import { ThemeToggle } from "@/components/theme-toggle";
 
 export const metadata: Metadata = {
@@ -198,6 +199,7 @@ gtag('config', '${process.env.NEXT_PUBLIC_GA_ID}');`}
         {/* PWA: service worker + install prompt (add-to-home-screen) */}
         <ServiceWorkerRegister />
         <InstallAppBanner />
+        <SiteAssistant />
       </body>
     </html>
   );
