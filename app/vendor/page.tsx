@@ -4,8 +4,7 @@ import { redirect } from "next/navigation";
 import { MousePointerClick, Store, Star } from "lucide-react";
 import { getLoggedInVendor } from "@/lib/vendor-auth";
 import { readClicks, readVendorListings, listingsForVendor, countActiveListingsForVendor } from "@/lib/store";
-import { effectivePlan, listingLimitFor, listingLimitLabel, planHasStats, VENDOR_PLANS } from "@/lib/plans";
-import { PaystackCheckoutButton } from "@/components/paystack-checkout-button";
+import { effectivePlan, listingLimitFor, listingLimitLabel, planHasStats, VENDOR_PLANS, MOMO_NUMBER, MOMO_NAME, MOMO_WHATSAPP } from "@/lib/plans";
 import { VendorDashNav } from "@/components/vendor-dash-nav";
 
 export const metadata: Metadata = { title: "Shop dashboard", robots: { index: false } };
@@ -41,6 +40,9 @@ export default async function VendorDashboardPage() {
     (c) => c.productSlug === `vendor-view:${vendor.slug}` || c.destinationUrl.includes(`/vendors/${vendor.slug}`),
   ).length;
 
+  const ref = `FINDIT-${vendor.slug.toUpperCase().slice(0, 18)}`;
+  const waText = encodeURIComponent(`Hi, I want to activate ${VENDOR_PLANS[vendor.plan].name} on FindIt Ghana. MoMo reference: ${ref}. Business: ${vendor.businessName}.`);
+
   return (
     <div className="mx-auto max-w-6xl px-4 py-8">
       <VendorDashNav businessName={vendor.businessName} active="overview" />
@@ -54,7 +56,7 @@ export default async function VendorDashboardPage() {
           <p className="mt-1 text-xs text-slate-soft dark:text-navy-300">
             {plan === "free"
               ? vendor.paymentStatus === "pending"
-                ? `Awaiting Paystack payment for ${VENDOR_PLANS[vendor.plan].name}`
+                ? `Awaiting MoMo for ${VENDOR_PLANS[vendor.plan].name}`
                 : "Free shop"
               : expiryLabel(vendor.planExpiresAt)}
           </p>
@@ -89,11 +91,20 @@ export default async function VendorDashboardPage() {
 
       {vendor.paymentStatus === "pending" && vendor.plan !== "free" && (
         <div className="mt-6 rounded-xl border border-gold-600/40 bg-gold-500/10 p-5">
-          <p className="font-extrabold text-navy-900 dark:text-navy-100">Complete payment to activate {VENDOR_PLANS[vendor.plan].name}</p>
+          <p className="font-extrabold text-navy-900 dark:text-navy-100">Finish MoMo to activate {VENDOR_PLANS[vendor.plan].name}</p>
           <p className="mt-1 text-sm text-slate-soft dark:text-navy-300">
-            Your account remains on Free limits ({VENDOR_PLANS.free.listingLimit} listings) until Paystack confirms payment of GH₵{VENDOR_PLANS[vendor.plan].priceGhs}.
+            Send <strong className="text-navy-900 dark:text-navy-100">GH₵{VENDOR_PLANS[vendor.plan].priceGhs}</strong> to{" "}
+            <strong className="text-navy-900 dark:text-navy-100">{MOMO_NUMBER}</strong> ({MOMO_NAME}) with reference{" "}
+            <span className="rounded bg-white dark:bg-navy-900 px-1.5 py-0.5 font-mono text-xs font-bold">{ref}</span>. Until we confirm, you still have Free limits ({VENDOR_PLANS.free.listingLimit} listings).
           </p>
-          <PaystackCheckoutButton vendorSlug={vendor.slug} label={`Pay GH₵${VENDOR_PLANS[vendor.plan].priceGhs} with Paystack`} />
+          <a
+            href={`https://wa.me/${MOMO_WHATSAPP}?text=${waText}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-4 inline-flex items-center justify-center rounded-xl bg-gold-500 px-5 py-3 text-sm font-bold text-navy-950 hover:bg-gold-400"
+          >
+            WhatsApp {MOMO_NUMBER} with my reference
+          </a>
         </div>
       )}
 
@@ -102,7 +113,7 @@ export default async function VendorDashboardPage() {
           <h2 className="flex items-center gap-2 font-extrabold text-navy-900 dark:text-navy-100">
             <MousePointerClick className="h-5 w-5 text-gold-600 dark:text-gold-500" /> Shop stats
           </h2>
-          <p className="mt-1 text-sm text-slate-soft dark:text-navy-300">Your plan includes public shop views and outbound Buy / WhatsApp click counts.</p>
+          <p className="mt-1 text-sm text-slate-soft dark:text-navy-300">Pro plan — views on your public shop and outbound Buy / WhatsApp clicks.</p>
           <div className="mt-4 grid gap-3 sm:grid-cols-2">
             <div className="rounded-lg bg-navy-50 dark:bg-navy-900/60 p-4">
               <p className="text-3xl font-extrabold text-navy-900 dark:text-navy-100">{views}</p>
@@ -120,7 +131,7 @@ export default async function VendorDashboardPage() {
             <Star className="h-5 w-5 text-gold-600 dark:text-gold-500" /> Stats are on Pro and Growth
           </h2>
           <p className="mt-1 text-sm text-slate-soft dark:text-navy-300">
-            Pro is GH₵{VENDOR_PLANS.pro.priceGhs}/month for up to {VENDOR_PLANS.pro.listingLimit} listings, shop views and outbound clicks. Growth is GH₵{VENDOR_PLANS.unlimited.priceGhs}/month for up to {VENDOR_PLANS.unlimited.listingLimit} listings with the same shop tools. Featured placement is labelled; paid plans do not guarantee sales.
+            Pro is GH₵{VENDOR_PLANS.pro.priceGhs}/month for up to {VENDOR_PLANS.pro.listingLimit} listings, shop views and outbound clicks. Growth is GH₵{VENDOR_PLANS.unlimited.priceGhs}/month for up to {VENDOR_PLANS.unlimited.listingLimit} listings with the same shop tools. To change plans, choose a tier on For vendors, pay by MoMo, then WhatsApp the reference for admin confirmation.
           </p>
           <Link href="/for-vendors" className="mt-3 inline-block text-sm font-bold text-navy-900 dark:text-navy-100 underline">
             See plans on For vendors →
@@ -135,9 +146,6 @@ export default async function VendorDashboardPage() {
         <Link href="/for-vendors" className="inline-flex items-center justify-center rounded-xl border border-navy-200 dark:border-navy-700 px-5 py-3 text-sm font-bold text-navy-900 dark:text-navy-100 hover:border-gold-400">
           Change plan
         </Link>
-        {vendor.plan !== "free" && vendor.paymentStatus === "confirmed" && (
-          <PaystackCheckoutButton vendorSlug={vendor.slug} label={`Renew ${VENDOR_PLANS[vendor.plan].name} — GH₵${VENDOR_PLANS[vendor.plan].priceGhs}`} />
-        )}
       </div>
     </div>
   );

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Store, Search, MessageCircle, ShieldCheck } from "lucide-react";
 import { VendorListingForm } from "@/components/vendor-listing-form";
-import { VENDOR_PLANS } from "@/lib/plans";
+import { MOMO_NUMBER, MOMO_NAME, VENDOR_PLANS } from "@/lib/plans";
 
 export const metadata: Metadata = {
   title: "For Vendors — Register Your Shop Free",
@@ -53,7 +53,7 @@ export default function ForVendorsPage() {
             <h2 className="font-bold text-navy-900 dark:text-navy-100">What happens next</h2>
             <ol className="mt-3 space-y-2 text-sm text-slate-soft dark:text-navy-300">
               <li><span className="font-bold text-navy-900 dark:text-navy-100">1.</span> Your shop enters our review queue.</li>
-              <li><span className="font-bold text-navy-900 dark:text-navy-100">2.</span> Paid plans: pay securely with Paystack during registration. The plan activates after payment verification.</li>
+              <li><span className="font-bold text-navy-900 dark:text-navy-100">2.</span> Paid plans: send MoMo to {MOMO_NUMBER} ({MOMO_NAME}), then WhatsApp the payment reference so we can confirm it.</li>
               <li><span className="font-bold text-navy-900 dark:text-navy-100">3.</span> Sign in at <Link className="font-semibold text-navy-800 dark:text-navy-200 underline" href="/vendor/login">/vendor</Link> and add your products — at least 3 photos each. Each one goes to review before it appears in search.</li>
               <li><span className="font-bold text-navy-900 dark:text-navy-100">4.</span> Once approved, your shop appears on <Link className="font-semibold text-navy-800 dark:text-navy-200 underline" href="/vendors">/vendors</Link>.</li>
             </ol>
