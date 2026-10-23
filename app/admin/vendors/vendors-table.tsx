@@ -195,21 +195,21 @@ export function VendorsTable({ vendors }: { vendors: AdminVendorRow[] }) {
                         onClick={() => patch(v.id, { action: "confirm-payment", plan: "starter" }, { plan: "starter", paymentStatus: "confirmed", status: "approved" })}
                         className="rounded-md border border-gold-600 bg-gold-500/10 px-2.5 py-1 text-xs font-bold text-gold-700 dark:text-gold-500 hover:bg-gold-500/20 transition-colors"
                       >
-                        MoMo → Starter 30d
+                        Manual grant → Starter 30d
                       </button>
                       <button
                         disabled={pending}
                         onClick={() => patch(v.id, { action: "confirm-payment", plan: "pro" }, { plan: "pro", paymentStatus: "confirmed", status: "approved" })}
                         className="rounded-md border border-navy-800 bg-navy-900 px-2.5 py-1 text-xs font-bold text-white hover:bg-navy-800 transition-colors"
                       >
-                        MoMo → Pro 30d
+                        Manual grant → Pro 30d
                       </button>
                       <button
                         disabled={pending}
                         onClick={() => patch(v.id, { action: "confirm-payment", plan: "unlimited" }, { plan: "unlimited", paymentStatus: "confirmed", status: "approved" })}
                         className="rounded-md border border-navy-950 bg-navy-950 px-2.5 py-1 text-xs font-extrabold text-gold-400 hover:bg-navy-900 transition-colors"
                       >
-                        MoMo → Growth 30d
+                        Manual grant → Growth 30d
                       </button>
                       {v.plan !== "free" && (
                         <button

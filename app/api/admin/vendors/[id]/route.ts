@@ -1,4 +1,4 @@
-// Admin-only: set a shop's plan and 30-day expiry after MoMo confirmation, plus verified badge,
+// Admin-only: manually grant a shop's plan, 30-day expiry, verified badge,
 // status — or DELETE the whole shop (suspected fraud / bad actor).
 // Like the other admin routes, auth is enforced by middleware for /api/admin/*.
 import { NextResponse, type NextRequest } from "next/server";
@@ -48,7 +48,8 @@ export async function PATCH(request: NextRequest, { params }: { params: Promise<
     return NextResponse.json({ ok: true });
   }
 
-  // One-click: confirm MoMo, grant the selected paid tier for 30 days and approve the shop.
+  // Manual admin override: grant a paid tier for 30 days and approve the shop.
+  // Normal vendor checkout is processed automatically through verified Paystack payments.
   if (body.action === "confirm-payment") {
     const plan = isPlanId(body.plan) ? body.plan : existing.plan === "free" ? "starter" : existing.plan;
     if (plan === "free") {

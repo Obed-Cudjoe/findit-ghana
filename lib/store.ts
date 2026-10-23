@@ -845,6 +845,61 @@ export async function updateVendorProfile(id: string, patch: Partial<VendorProfi
   return await writeRemoteState(state);
 }
 
+export interface PaystackVendorPayment {
+  reference: string;
+  vendorId: string;
+  planId: VendorPlanId;
+  amountPesewas: number;
+  status: "pending" | "success" | "failed";
+}
+
+/** Paystack records are production-only: no payment should be activated from the public demo/local JSON store. */
+export async function createPendingPaystackPayment(payment: Omit<PaystackVendorPayment, "status">): Promise<boolean> {
+  const supabase = getSupabase();
+  if (!supabase) return false;
+  const { error } = await supabase.from("paystack_vendor_payments").insert({
+    reference: payment.reference,
+    vendor_id: payment.vendorId,
+    plan_id: payment.planId,
+    amount_pesewas: payment.amountPesewas,
+    currency: "GHS",
+    status: "pending",
+  });
+  return !error;
+}
+
+export async function findPaystackPaymentByReference(reference: string): Promise<PaystackVendorPayment | undefined> {
+  const supabase = getSupabase();
+  if (!supabase) return undefined;
+  const { data, error } = await supabase.from("paystack_vendor_payments").select("*").eq("reference", reference).maybeSingle();
+  if (error || !data) return undefined;
+  return {
+    reference: data.reference,
+    vendorId: data.vendor_id,
+    planId: data.plan_id,
+    amountPesewas: Number(data.amount_pesewas),
+    status: data.status,
+  } as PaystackVendorPayment;
+}
+
+export async function markPaystackPaymentFailed(reference: string): Promise<void> {
+  const supabase = getSupabase();
+  if (!supabase) return;
+  await supabase.from("paystack_vendor_payments").update({ status: "failed" }).eq("reference", reference).eq("status", "pending");
+}
+
+export async function confirmPaystackPaymentAtomically(payment: Omit<PaystackVendorPayment, "status">): Promise<boolean> {
+  const supabase = getSupabase();
+  if (!supabase) return false;
+  const { data, error } = await supabase.rpc("confirm_paystack_vendor_payment", {
+    p_reference: payment.reference,
+    p_vendor_id: payment.vendorId,
+    p_plan_id: payment.planId,
+    p_amount_pesewas: payment.amountPesewas,
+  });
+  return !error && data === true;
+}
+
 export function countActiveListingsForVendor(listings: VendorListing[], profile: VendorProfile): number {
   return listingsForVendor(listings, profile).filter((l) => l.status !== "rejected").length;
 }
