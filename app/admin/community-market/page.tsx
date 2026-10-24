@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { readCommunityMarketListings } from "@/lib/community-market";
 import { AdminCommunityMarket } from "@/components/admin-community-market";
+import { AdminCommunityAssistant } from "@/components/admin-community-assistant";
 
 export const metadata: Metadata = { title: "Community Market Review", robots: { index: false, follow: false } };
 export const dynamic = "force-dynamic";
@@ -11,6 +12,7 @@ export default async function AdminCommunityMarketPage() {
   const approved = listings.filter((item) => item.status === "approved").length;
   return (
     <section>
+      <AdminCommunityAssistant />
       <div className="mb-4 flex flex-wrap gap-2 text-sm">
         <span className="rounded-full bg-navy-900 px-3 py-1 font-bold text-white">{listings.length} total</span>
         <span className="rounded-full bg-amber-100 px-3 py-1 font-semibold text-amber-900">{pending} pending</span>

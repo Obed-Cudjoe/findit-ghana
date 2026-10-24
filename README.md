@@ -200,7 +200,7 @@ Listings and shops are stored in the same three-tier store as form submissions (
 
 ## Site assistant
 
-The `Ask FindIt` chat widget is a deterministic helper, not a generative-AI chatbot. It searches the catalogue and approved community listings and answers basic vendor-plan / navigation questions from the site's own data. It needs no external AI provider or API key; it does not save chat history to Supabase. If a user asks outside the supported data, it directs them to the relevant page instead of inventing an answer.
+The `Ask FindIt` chat widget is a deterministic helper, not a generative-AI chatbot. It searches catalogue prices and approved community listings, answers seller-plan questions, and can open a guided Community Market submission that must be reviewed and explicitly submitted by the user. When a vendor is signed in, it can propose a price change to one of that vendor's own listings; the vendor must confirm, and the existing authenticated edit API checks ownership. A separate protected assistant on `/admin/community-market` can summarize pending listings and prepare an approve/reject action; an admin must confirm it. It needs no external AI provider/API key and does not save chat history.
 
 ## Tech stack
 

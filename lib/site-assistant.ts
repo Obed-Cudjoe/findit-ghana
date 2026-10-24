@@ -3,16 +3,12 @@ import { readCommunityMarketListings } from "@/lib/community-market";
 import { COMMUNITY_MARKET_CATEGORIES } from "@/lib/community-market-categories";
 import { VENDOR_PLANS, WEEKLY_FEATURED_PRICE_GHS } from "@/lib/plans";
 import { formatGHS } from "@/lib/utils";
+import { readVendorListings, listingsForVendor } from "@/lib/store";
+import type { VendorProfile } from "@/lib/types";
+import type { SiteAssistantAction, SiteAssistantLink, SiteAssistantReply } from "@/lib/site-assistant-shared";
 
-export interface AssistantLink {
-  label: string;
-  href: string;
-}
-
-export interface AssistantReply {
-  text: string;
-  links?: AssistantLink[];
-}
+export type AssistantLink = SiteAssistantLink;
+export type AssistantReply = SiteAssistantReply;
 
 const shortcuts: AssistantLink[] = [
   { label: "Search products", href: "/search" },
@@ -41,6 +37,46 @@ function vendorPlanReply(): AssistantReply {
   };
 }
 
+async function vendorTaskReply(input: string, vendor: VendorProfile | null): Promise<AssistantReply | null> {
+  const q = input.toLowerCase();
+  const wantsOwnListings = /\b(my listings|my products|my shop|how many listings|listing status)\b/.test(q);
+  const wantsPriceChange = /\b(change|update|set)\b/.test(q) && /\bprice\b/.test(q);
+  if (!wantsOwnListings && !wantsPriceChange) return null;
+  if (!vendor) {
+    return { text: "Sign in to your vendor account first. I can only look up or change listings belonging to the signed-in shop.", links: [{ label: "Vendor login", href: "/vendor/login" }] };
+  }
+
+  const mine = listingsForVendor(await readVendorListings(), vendor);
+  if (wantsOwnListings && !wantsPriceChange) {
+    const active = mine.filter((item) => item.status !== "rejected");
+    if (!active.length) return { text: "I couldn't find any active listings linked to your shop yet.", links: [{ label: "Manage listings", href: "/vendor/listings" }] };
+    const summary = active.slice(0, 6).map((item) => `• ${item.productName} — ${formatGHS(item.priceGhs)} (${item.status})`).join("\n");
+    return { text: `Your shop has ${active.length} active or pending listing${active.length === 1 ? "" : "s"}:\n${summary}`, links: [{ label: "Open your listings", href: "/vendor/listings" }] };
+  }
+
+  const priceMatch = q.match(/\b(?:to|at)\s*(?:gh₵|ghs?\s*)?([\d,]+(?:\.\d{1,2})?)\s*$/i);
+  const newPrice = priceMatch ? Number(priceMatch[1].replace(/,/g, "")) : NaN;
+  const itemQuery = q.slice(0, priceMatch?.index ?? q.length)
+    .replace(/\b(?:change|update|set|the|my|price|for|on|listing|item|product|of|to|at|gh₵|ghs)\b/gi, " ")
+    .replace(/\s+/g, " ").trim();
+  if (!Number.isFinite(newPrice) || newPrice <= 0 || !itemQuery) {
+    return { text: "To prepare a price change, say something like ‘change my Tecno Spark 50 price to GH₵1,900’. I’ll show the proposed change and ask you to confirm before saving.", links: [{ label: "Manage listings", href: "/vendor/listings" }] };
+  }
+  const tokens = itemQuery.split(" ").filter((token) => token.length > 1);
+  const matches = mine.filter((item) => {
+    const name = item.productName.toLowerCase();
+    return name.includes(itemQuery) || tokens.every((token) => name.includes(token));
+  });
+  if (matches.length !== 1) {
+    return { text: matches.length ? `I found ${matches.length} possible listings. Open your listings and use Edit so I don't change the wrong item.` : `I couldn't find one of your listings matching “${itemQuery}”.`, links: [{ label: "Open your listings", href: "/vendor/listings" }] };
+  }
+  const listing = matches[0];
+  return {
+    text: "Please review this proposed change. I will not save it until you confirm.",
+    action: { type: "vendor-price-change", listingId: listing.id, listingTitle: listing.productName, oldPriceGhs: listing.priceGhs, newPriceGhs: Math.round(newPrice) },
+    links: [{ label: "Open your listings", href: "/vendor/listings" }],
+  };
+}
 async function communityReply(input: string): Promise<AssistantReply> {
   const all = await readCommunityMarketListings();
   const q = input.toLowerCase().replace(/\b(community|market|marketplace|find|show|search|listings|listing|items|item|for sale|please|can you|could you)\b/g, " ").replace(/\s+/g, " ").trim();
@@ -62,7 +98,7 @@ async function communityReply(input: string): Promise<AssistantReply> {
   };
 }
 
-export async function answerFindItQuestion(input: string): Promise<AssistantReply> {
+export async function answerFindItQuestion(input: string, vendor: VendorProfile | null = null): Promise<AssistantReply> {
   const original = input.trim().slice(0, 300);
   const q = original.toLowerCase();
   if (!q) return { text: "Ask me to find a product price, browse Community Market listings, compare items, or explain seller plans.", links: shortcuts };
@@ -71,8 +107,10 @@ export async function answerFindItQuestion(input: string): Promise<AssistantRepl
     return { text: "FindIt Ghana compares prices from listed shops and also has a separate Community Market for user-submitted classifieds. I can search product prices, help browse approved community listings, explain seller plans, or direct you to the relevant page.", links: shortcuts };
   }
   if (/seller plan|vendor plan|pricing|subscription|plan price|how much.*(sell|vendor|shop)|become a vendor|register.*shop/.test(q)) return vendorPlanReply();
+  const vendorTask = await vendorTaskReply(original, vendor);
+  if (vendorTask) return vendorTask;
   if (/\b(?:post|submit|list|sell)\b.*\b(?:community|market)\b|\b(?:community|market)\b.*\b(?:post|submit|list|sell)\b/.test(q)) {
-    return { text: "You can submit an item or service to the Community Market for free. An admin reviews it before it appears publicly; approved listings show your seller name and WhatsApp number to anyone with the link.", links: [{ label: "Post a Community Market listing", href: "/community-market/new" }] };
+    return { text: "You can submit an item or service to the Community Market for free. I can open a guided listing form here; the item will still stay pending until admin review.", action: { type: "open-community-listing-form" }, links: [{ label: "Post a Community Market listing", href: "/community-market/new" }] };
   }
   if (/community market|community listing|used item|second.hand|member listing|items? for sale|market listing/.test(q)) return communityReply(original);
   if (/compare|versus|\bvs\b/.test(q)) {
