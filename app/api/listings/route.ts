@@ -1,7 +1,7 @@
 // POST /api/listings — vendor shop signup (For Vendors page).
 // Validates the business + plan + password fields, upserts the vendor profile
 // (pending in /admin/vendors), sets the dashboard login cookie and returns the
-// Paystack `paymentRequired` flow for paid plans.
+// MoMo `paymentRequired` flow for paid plans.
 // It does NOT create any listing — products are added from the dashboard
 // (POST /api/vendor/listings), which is the only place listings are created.
 import { NextResponse, type NextRequest } from "next/server";
@@ -85,9 +85,6 @@ export async function POST(request: NextRequest) {
   if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return NextResponse.json({ error: "Enter a valid email address." }, { status: 400 });
 
   const existing = await findVendorProfileByPhone(digits);
-  if (requestedPlan !== "free" && !email && !existing?.email) {
-    return NextResponse.json({ error: "An email address is required to pay for a plan through Paystack." }, { status: 400 });
-  }
   // Password is OPTIONAL: small vendors list products and manage by phone /
   // WhatsApp. If they set one, it must be strong and is hashed; a vendor who
   // skips it simply has no dashboard login until one is activated by the

@@ -72,7 +72,7 @@ export default async function VendorListingsPage() {
               <p className="font-bold text-navy-900 dark:text-navy-100">You&apos;ve used all {listingLimitLabel(cap)} listing{cap === 1 ? "" : "s"} on this plan.</p>
               <p className="mt-1 text-sm text-slate-soft dark:text-navy-300">
                 {nextPlan
-                  ? <>Upgrade to {nextPlan.name} (GH₵{nextPlan.priceGhs}/mo) on For vendors, complete Paystack checkout, and your extra slots activate after payment verification.</>
+                  ? <>Upgrade to {nextPlan.name} (GH₵{nextPlan.priceGhs}/mo) on For vendors, pay via MoMo, and we unlock the extra slots.</>
                   : <>You are on the top plan — contact us if you still cannot add listings.</>}
               </p>
               <Link href="/for-vendors" className="mt-3 inline-block text-sm font-bold text-navy-900 dark:text-navy-100 underline">

@@ -8,8 +8,7 @@
 // the dashboard cookie when a password was provided.
 import { useState } from "react";
 import Link from "next/link";
-import { PLAN_LIST, MOMO_WHATSAPP, VENDOR_PLANS, isPlanId, listingLimitLabel, type PlanId } from "@/lib/plans";
-import { PaystackCheckoutButton } from "@/components/paystack-checkout-button";
+import { PLAN_LIST, MOMO_NUMBER, MOMO_NAME, MOMO_WHATSAPP, UNLIMITED_BADGE, VENDOR_PLANS, isPlanId, listingLimitLabel, type PlanId } from "@/lib/plans";
 import { MIN_VENDOR_PASSWORD } from "@/lib/vendor-auth-client";
 import { MIN_PHOTOS } from "@/components/image-upload-field";
 
@@ -75,8 +74,7 @@ export function VendorListingForm() {
     if (form.businessName.trim().length < 2) e.businessName = "Enter your business name";
     const digits = form.phone.replace(/[^0-9]/g, "");
     if (digits.length < 9 || digits.length > 15) e.phone = "Enter a valid phone / WhatsApp number";
-    if (plan !== "free" && !form.email.trim()) e.email = "Email is required for Paystack checkout";
-    else if (form.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) e.email = "Enter a valid email address";
+    if (form.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) e.email = "Enter a valid email address";
     if (form.password) {
       if (form.password.length < MIN_VENDOR_PASSWORD) e.password = `At least ${MIN_VENDOR_PASSWORD} characters`;
       if (form.password !== form.passwordConfirm) e.passwordConfirm = "Passwords do not match";
@@ -159,22 +157,38 @@ export function VendorListingForm() {
     const dashboardLabel = done.loggedIn ? "Open your dashboard →" : "Sign in to your dashboard →";
     if (done.paymentRequired) {
       const picked = VENDOR_PLANS[done.plan];
+      const ref = `FINDIT-${(done.vendorSlug || "SHOP").toUpperCase().slice(0, 18)}`;
+      const waText = encodeURIComponent(`Hi, I just registered my shop on FindIt Ghana (${picked.name} plan). MoMo reference: ${ref}. Business: ${form.businessName}.`);
       return (
         <div className="rounded-xl border border-gold-600/40 bg-gold-500/10 p-6" role="status">
-          <p className="font-extrabold text-navy-900 dark:text-navy-100">Shop registered — activate {picked.name}</p>
+          <p className="font-extrabold text-navy-900 dark:text-navy-100">Shop registered — pay to activate {picked.name}</p>
           <p className="mt-2 text-sm leading-relaxed text-slate-soft dark:text-navy-300">
-            Your shop is in the review queue. The {picked.name} plan includes up to {picked.listingLimit} listings for 30 days at{" "}
-            <strong className="text-navy-900 dark:text-navy-100">GH₵{picked.priceGhs}</strong>. Pay securely through Paystack; the plan activates only after our server verifies the payment.
+            Your shop is in the review queue. To unlock{" "}
+            {Number.isFinite(picked.listingLimit) ? `${picked.listingLimit} listings` : "unlimited listings"}
+            {picked.featuredRotation ? ", ★ featured placement" : ""}
+            {picked.unlimited ? ` and the ${UNLIMITED_BADGE} badge` : ""}
+            {picked.homepageFeatured ? " and a homepage shop" : ""}, send{" "}
+            <strong className="text-navy-900 dark:text-navy-100">GH₵{picked.priceGhs}</strong> by Mobile Money:
           </p>
-          {done.vendorSlug ? (
-            <PaystackCheckoutButton vendorSlug={done.vendorSlug} label={`Pay GH₵${picked.priceGhs} with Paystack`} />
-          ) : (
-            <p className="mt-4 text-sm font-semibold text-red-700 dark:text-red-300">We could not identify your shop for checkout. Please contact support.</p>
-          )}
-          <p className="mt-4 text-xs text-slate-soft dark:text-navy-300">
-            Until payment is confirmed, your account stays on the Free plan ({VENDOR_PLANS.free.listingLimit} listings). Payments renew manually every 30 days; they are not automatic subscriptions.
+          <ol className="mt-4 space-y-2 text-sm text-navy-900 dark:text-navy-100">
+            <li><span className="font-bold">1.</span> Pay <strong>GH₵{picked.priceGhs}</strong> to <strong>{MOMO_NUMBER}</strong> ({MOMO_NAME}).</li>
+            <li><span className="font-bold">2.</span> Use reference <span className="rounded bg-white dark:bg-navy-900 px-1.5 py-0.5 font-mono text-xs font-bold">{ref}</span></li>
+            <li>
+              <span className="font-bold">3.</span> WhatsApp that reference to the same number — we confirm within a business day and your plan goes live.
+            </li>
+          </ol>
+          <a
+            href={`https://wa.me/${MOMO_WHATSAPP}?text=${waText}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-5 inline-flex w-full items-center justify-center rounded-xl bg-gold-500 px-5 py-3 text-sm font-bold text-navy-950 hover:bg-gold-400 transition-colors"
+          >
+            WhatsApp {MOMO_NUMBER} with my reference
+          </a>
+          <p className="mt-4 text-sm font-semibold text-navy-900 dark:text-navy-100">
+            You can start listing right away — until payment clears you have the Free plan ({VENDOR_PLANS.free.listingLimit} listings).
           </p>
-          <p className="mt-3 text-center text-sm">
+          <p className="mt-2 text-center text-sm">
             <Link href={dashboardHref} className="font-bold text-navy-900 dark:text-navy-100 underline">{dashboardLabel}</Link>
           </p>
         </div>
@@ -219,7 +233,7 @@ export function VendorListingForm() {
   const hasProduct = form.productName.trim() !== "" && form.priceGhs.trim() !== "" && form.category !== "";
   const submitLabel = plan === "free"
     ? hasProduct ? "Register & list my product — it's free" : "Register my shop — it's free"
-    : `Register — then pay GH₵${VENDOR_PLANS[plan].priceGhs} via Paystack`;
+    : `Register & pay GH₵${VENDOR_PLANS[plan].priceGhs} via MoMo`;
 
   return (
     <form onSubmit={onSubmit} noValidate className="space-y-4">
@@ -247,6 +261,11 @@ export function VendorListingForm() {
                 <p className="text-xs font-bold uppercase tracking-wide text-gold-700 dark:text-gold-500">{p.id === "free" ? "Free" : `GH₵${p.priceGhs}/mo`}</p>
                 <p className="mt-0.5 flex flex-wrap items-center gap-1.5 font-extrabold text-navy-900 dark:text-navy-100">
                   {p.name}
+                  {p.unlimited && (
+                    <span className="rounded-full bg-navy-950 px-1.5 py-0.5 text-[10px] font-extrabold text-gold-400 ring-1 ring-gold-500/60">
+                      {UNLIMITED_BADGE}
+                    </span>
+                  )}
                 </p>
                 <p className="mt-1 text-xs font-semibold text-navy-800 dark:text-navy-200">
                   {Number.isFinite(p.listingLimit) ? `${listingLimitLabel(p.listingLimit)} listing${p.listingLimit === 1 ? "" : "s"}` : "Unlimited listings"}
@@ -275,7 +294,7 @@ export function VendorListingForm() {
           <Field label="Phone / WhatsApp" required error={errors.phone}>
             <input className={inputCls} value={form.phone} onChange={(e) => set("phone", e.target.value)} placeholder="e.g. 024 000 0000" inputMode="tel" />
           </Field>
-          <Field label={plan === "free" ? "Email (optional)" : "Email (required for Paystack)"} required={plan !== "free"} error={errors.email}>
+          <Field label="Email (optional)" error={errors.email}>
             <input className={inputCls} type="email" value={form.email} onChange={(e) => set("email", e.target.value)} placeholder="you@example.com" autoComplete="email" />
           </Field>
           <Field label="TikTok or Facebook link (optional)">
@@ -378,7 +397,7 @@ export function VendorListingForm() {
         {hasProduct
           ? "Your first product goes to review with your shop — once approved, buyers see it with a WhatsApp button straight to you."
           : `You can also list products later from your dashboard — ${MIN_PHOTOS} photos minimum each. Your WhatsApp number appears on every listing so buyers reach you directly.`}
-        {plan !== "free" && " Paid plans require an email for Paystack checkout and activate only after payment verification."}
+        {plan !== "free" && ` Paid plans start after we confirm your MoMo payment to ${MOMO_NUMBER}.`}
       </p>
     </form>
   );
